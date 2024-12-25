@@ -5,7 +5,7 @@
 #pragma once
 
 #include "Interfaces/IArray/IEuclideanA.h"
-#include "Vec.h"
+#include "vec.h"
 
 namespace My {
 template <typename T, size_t N>

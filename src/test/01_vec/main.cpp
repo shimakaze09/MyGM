@@ -4,7 +4,7 @@
 
 #include <iostream>
 
-#include <MyMath/Vec.h>
+#include <MyMath/vec.h>
 
 using namespace std;
 using namespace My;
