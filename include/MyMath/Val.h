@@ -10,8 +10,8 @@
 
 namespace My {
 template <typename T, size_t N>
-struct Val : SIICRTP<TemplateList<IVal>, Val<T, N>, T, Size<N>> {
-  using SIICRTP<TemplateList<IVal>, Val<T, N>, T, Size<N>>::SIICRTP;
+struct Val : SIIT_CRTP<TemplateList<IVal>, Val<T, N>, T, Size<N>> {
+  using SIIT_CRTP<TemplateList<IVal>, Val<T, N>, T, Size<N>>::SIIT_CRTP;
 };
 
 template <size_t N>
