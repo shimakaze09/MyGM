@@ -128,11 +128,6 @@ struct inverse<4> {
   }
 };
 
-template <typename M>
-const M run_inverse(const M& m) noexcept {
-  return inverse<M::N>::run(m);
-}
-
 // ----------------------
 
 template <size_t N>
@@ -205,11 +200,6 @@ struct mul<4> {
                                 f20, f21, f22, f23, f30, f31, f32, f33};
   }
 };
-
-template <typename M>
-const M run_mul(const M& x, const M& y) noexcept {
-  return mul<M::N>::run(x, y);
-}
 }  // namespace IMatrix
 }  // namespace detail
 }  // namespace My

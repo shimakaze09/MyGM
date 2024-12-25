@@ -8,11 +8,10 @@
 #include "IQuat.h"
 
 namespace My {
-template <typename Base, typename Impl, typename ArgList>
-struct IQuatMul : SIVT_CRTP<TemplateList<IQuat, IMul>, Base, Impl, ArgList> {
-  using T = Front_t<ArgList>;
-  using SIVT_CRTP<TemplateList<IQuat, IMul>, Base, Impl, ArgList>::SIVT_CRTP;
-  using SIVT_CRTP<TemplateList<IQuat, IMul>, Base, Impl, ArgList>::operator*;
+template <typename Base, typename Impl, typename T>
+struct IQuatMul : SIVT_CRTP<TemplateList<IQuat, IMul>, Base, Impl, T> {
+  using SIVT_CRTP<TemplateList<IQuat, IMul>, Base, Impl, T>::SIVT_CRTP;
+  using SIVT_CRTP<TemplateList<IQuat, IMul>, Base, Impl, T>::operator*;
 
   const point<T, 3> operator*(const point<T, 3>& p) const noexcept {
     auto& q = static_cast<const Impl&>(*this);
@@ -29,7 +28,7 @@ struct IQuatMul : SIVT_CRTP<TemplateList<IQuat, IMul>, Base, Impl, ArgList> {
   }
 
  private:
-  template <typename Base, typename Impl, typename ArgList>
+  template <typename Base, typename Impl, typename T>
   friend struct IMul;
 
   const Impl impl_mul(const Impl& y) const noexcept {

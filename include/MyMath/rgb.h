@@ -4,6 +4,7 @@
 
 #pragma once
 
+#include "Interfaces/IArray/IArray1D_Util.h"
 #include "Interfaces/IArray/IArrayAdd.h"
 #include "Interfaces/IArray/IArrayHadamardProduct.h"
 #include "Interfaces/IArray/IArrayInOut.h"
@@ -12,12 +13,14 @@
 
 namespace My {
 template <typename T>
-struct rgb : SIIT_CRTP<TemplateList<IArrayInOut, IArrayHadamardProduct, ILinear,
-                                    IArrayScalarMul, IArrayAdd>,
-                       rgb<T>, TypeList<TypeList<T, Size<3>>, T>> {
-  using SIIT_CRTP<TemplateList<IArrayInOut, IArrayHadamardProduct, ILinear,
-                               IArrayScalarMul, IArrayAdd>,
-                  rgb<T>, TypeList<TypeList<T, Size<3>>, T>>::SIIT_CRTP;
+struct rgb
+    : SIIT_CRTP<TemplateList<IArray1D_Util, IArrayInOut, IArrayHadamardProduct,
+                             ILinear, IArrayScalarMul, IArrayAdd>,
+                rgb<T>, TypeList<TypeList<T, Size<3>>, T>> {
+  using SIIT_CRTP<
+      TemplateList<IArray1D_Util, IArrayInOut, IArrayHadamardProduct, ILinear,
+                   IArrayScalarMul, IArrayAdd>,
+      rgb<T>, TypeList<TypeList<T, Size<3>>, T>>::SIIT_CRTP;
 };
 
 using rgbf = rgb<float>;

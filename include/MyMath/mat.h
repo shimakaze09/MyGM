@@ -4,7 +4,6 @@
 
 #pragma once
 
-#include "Interfaces/IMatrix/IMatrix.h"
 #include "Interfaces/IMatrix/IMatrixInOut.h"
 #include "Interfaces/IMatrix/IMatrixMul.h"
 #include "Interfaces/IRing.h"
@@ -13,9 +12,11 @@
 namespace My {
 template <typename T, size_t N>
 struct mat
-    : SIIT_CRTP<TemplateList<IMatrixInOut, IRing, IEuclideanV, IMatrixMul>,
+    : SIIT_CRTP<TemplateList<IMatrixMul, IMatrixInOut, IRing, IEuclideanV>,
                 mat<T, N>, TypeList<TypeList<vec<T, N>, Size<N>>, T>> {
-  mat() = default;
+  using SIIT_CRTP<TemplateList<IMatrixMul, IMatrixInOut, IRing, IEuclideanV>,
+                  mat<T, N>,
+                  TypeList<TypeList<vec<T, N>, Size<N>>, T>>::SIIT_CRTP;
 };
 
 template <size_t N>

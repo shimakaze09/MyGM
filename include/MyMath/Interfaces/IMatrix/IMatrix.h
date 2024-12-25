@@ -26,7 +26,9 @@ struct IMatrix : SIVT_CRTP<TemplateList<IArray>, Base, Impl, ArgList> {
 
   using SIVT_CRTP<TemplateList<IArray>, Base, Impl, ArgList>::SIVT_CRTP;
 
-  IMatrix(const std::array<F, N * N>& data) noexcept {
+  IMatrix(const std::array<F, N * N>& data) noexcept { init(data); }
+
+  void init(const std::array<F, N * N>& data) noexcept {
     // unloop in /O2
     for (size_t i = 0; i < N * N; i++)
       (*this)(i) = data[i];

@@ -4,11 +4,16 @@
 
 #pragma once
 
-#include "Interfaces/IArray/IArrayInOut.h"
-#include "Interfaces/IArray/IEuclideanA.h"
 #include "vec.h"
 
+#include "Interfaces/IArray/IArray1D_Util.h"
+#include "Interfaces/IArray/IArrayInOut.h"
+#include "Interfaces/IArray/IEuclideanA.h"
+
 namespace My {
+template <typename T, size_t N>
+struct vec;
+
 template <typename T, size_t N>
 struct point : SIIT_CRTP<TemplateList<IArrayInOut, IEuclideanA>, point<T, N>,
                          TypeList<TypeList<T, Size<N>>, T, vec<T, N>>> {

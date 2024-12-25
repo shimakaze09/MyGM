@@ -5,6 +5,7 @@
 #pragma once
 
 #include <MyTemplate/SI.h>
+#include "../../basic.h"
 #include "../IInOut.h"
 #include "IMatrix.h"
 
@@ -22,8 +23,8 @@ struct IMatrixInOut
 
     for (size_t row = 0; row < N; row++) {
       for (size_t col = 0; col < N - 1; col++)
-        os << x[col][row] << " ";
-      os << x[N - 1][row] << std::endl;
+        os << rmv_epsilon(x[col][row]) << " ";
+      os << rmv_epsilon(x[N - 1][row]) << std::endl;
     }
   }
 };
