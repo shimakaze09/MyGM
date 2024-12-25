@@ -39,7 +39,7 @@ struct IInnerProduct : SIVT_CRTP<TemplateList<INorm>, Base, Impl, ArgList> {
   }
 
   // radian
-  static T angle(const Impl& x, const Impl& y) noexcept {
+  static T cos_theta(const Impl& x, const Impl& y) noexcept {
     T xN = x.norm();
     T yN = y.norm();
     T xyN = xN * yN;
@@ -47,13 +47,13 @@ struct IInnerProduct : SIVT_CRTP<TemplateList<INorm>, Base, Impl, ArgList> {
     return Impl::dot(x, y) / xyN;
   }
 
-  T angle(const Impl& y) const noexcept {
+  T cos_theta(const Impl& y) const noexcept {
     auto& x = static_cast<const Impl&>(*this);
-    return angle(x, y);
+    return cos_theta(x, y);
   }
 
  private:
-  template<typename Base, typename Impl, typename ArgList>
+  template <typename Base, typename Impl, typename ArgList>
   friend struct INorm;
 
   T impl_norm() const noexcept { return std::sqrt(norm2()); }

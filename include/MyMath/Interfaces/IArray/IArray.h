@@ -52,11 +52,11 @@ struct IArray : Base, std::array<At_t<ArgList, 0>, At_t<ArgList, 1>::value> {
   const T& max_component() const noexcept { return (*this)[max_dim()]; }
 
   constexpr size_t min_dim() const noexcept {
-    T minVal = (*this)[0];
+    T minval = (*this)[0];
     size_t minDim = 0;
     for (size_t i = 1; i < N::value; i++) {
-      if ((*this)[i] < minVal) {
-        minVal = (*this)[i];
+      if ((*this)[i] < minval) {
+        minval = (*this)[i];
         minDim = i;
       }
     }
@@ -64,11 +64,11 @@ struct IArray : Base, std::array<At_t<ArgList, 0>, At_t<ArgList, 1>::value> {
   }
 
   constexpr size_t max_dim() const noexcept {
-    T maxVal = (*this)[0];
+    T maxval = (*this)[0];
     size_t maxDim = 0;
     for (size_t i = 1; i < N::value; i++) {
-      if ((*this)[i] < maxVal) {
-        maxVal = (*this)[i];
+      if ((*this)[i] < maxval) {
+        maxval = (*this)[i];
         maxDim = i;
       }
     }

@@ -4,14 +4,15 @@
 
 #pragma once
 
-#include <MyTemplate/SI.h>
+#include "ILinear.h"
 
 namespace My {
 template <typename Base, typename ImplP, typename ArgList>
 struct IAffine : Base {
   using ImplV = At_t<ArgList, 2>;
 
-  // TODO: static_assert(ImplV have ILinear)
+  static_assert(ExistInstance_v<typename ImplV::AllVBs, ILinear>,
+                "ExistInstance_v<typename ImplV::AllVBs, ILinear>");
 
   using Base::Base;
 

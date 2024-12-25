@@ -5,7 +5,7 @@
 #pragma once
 
 #include "../IAffine.h"
-#include "IArray.h"
+#include "IEuclideanV.h"
 
 namespace My {
 // euclidean affine space
@@ -16,7 +16,8 @@ struct IEuclideanA
   using N = At_t<ArgList, 1>;
   using ImplV = At_t<ArgList, 2>;
 
-  // TODO: static_assert(ImplV contain IEuclideanV)
+  static_assert(ExistInstance_v<typename ImplV::AllVBs, IEuclideanV>,
+                "ExistInstance_v<typename ImplV::AllVBs, IEuclideanV>");
 
   using SIVT_CRTP<TemplateList<IAffine, IArray>, Base, ImplP,
                   ArgList>::SIVT_CRTP;
