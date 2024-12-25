@@ -40,7 +40,7 @@ INCLUDE(FETCHCONTENT)
 FETCHCONTENT_DECLARE(
         MyTemplate
         GIT_REPOSITORY https://github.com/shimakaze09/MyTemplate.git
-        GIT_TAG abe5aefc4735a27390b728215c9f2db7f71df5de
+        GIT_TAG 7dc69a00293db6064edaa649fa6899ee249d6cbc
 )
 FETCHCONTENT_MAKEAVAILABLE(MyTemplate)
 
