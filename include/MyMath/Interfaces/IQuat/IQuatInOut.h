@@ -14,15 +14,16 @@ struct IQuatInOut : SIVT_CRTP<TemplateList<IInOut>, Base, Impl, ArgList> {
 
   std::ostream& impl_out(std::ostream& os) const noexcept {
     auto& x = static_cast<const Impl&>(*this);
-    os << x.real << " " << x.imag[0] << " " << x.imag[1] << " " << x.imag[2];
+    os << x.real() << " " << x.imag()[0] << " " << x.imag()[1] << " "
+       << x.imag()[2];
     return os;
   }
 
   std::istream& impl_in(std::istream& is) noexcept {
     auto& x = static_cast<Impl&>(*this);
-    is >> x.real;
+    is >> x.real();
     for (size_t i = 0; i < 3; i++)
-      is >> x.imag[i];
+      is >> x.imag()[i];
     assert(x.is_unit());
     return is;
   }
