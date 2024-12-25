@@ -22,6 +22,8 @@ int main() {
   cout << v << endl;
   v -= u;
   cout << v << endl;
+  cout << v * 5 << endl;
+  cout << 5 * v << endl;
 
   // mul
   cout << v * 3.f << endl;
@@ -31,6 +33,19 @@ int main() {
   cout << v / 3.f << endl;
   v /= 5.f;
   cout << v << endl;
+
+  // inner product
+  cout << v.Dot(u) << endl;
+  cout << Vecf3::Dot(v, u) << endl;
+
+  // norm
+  cout << v.Norm2() << endl;
+  cout << v.Norm() << endl;
+  cout << v.Normalize() << endl;
+  v.NormalizeSelf();
+  cout << v << endl;
+  cout << Vecf3::Angle(v, u) << endl;
+  cout << v.Angle(u) << endl;
 
   Vecf3 vs[4];
 
