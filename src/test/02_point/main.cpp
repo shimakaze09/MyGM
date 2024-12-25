@@ -4,7 +4,7 @@
 
 #include <iostream>
 
-#include <MyMath/point.h>
+#include <MyGM/point.h>
 
 using namespace std;
 using namespace My;

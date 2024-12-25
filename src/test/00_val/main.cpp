@@ -2,7 +2,7 @@
 // Created by Admin on 23/12/2024.
 //
 
-#include <MyMath/val.h>
+#include <MyGM/val.h>
 #include <iostream>
 
 using namespace std;

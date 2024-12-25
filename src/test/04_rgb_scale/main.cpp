@@ -4,8 +4,8 @@
 
 #include <iostream>
 
-#include <MyMath/rgb.h>
-#include <MyMath/scale.h>
+#include <MyGM/rgb.h>
+#include <MyGM/scale.h>
 
 using namespace std;
 using namespace My;

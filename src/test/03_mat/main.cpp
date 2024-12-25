@@ -2,7 +2,7 @@
 // Created by Admin on 25/12/2024.
 //
 
-#include <MyMath/mat.h>
+#include <MyGM/mat.h>
 #include <iostream>
 
 using namespace std;

@@ -1,0 +1,3 @@
+# MyGM
+
+> My Graphics Math
