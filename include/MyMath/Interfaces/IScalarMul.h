@@ -4,9 +4,15 @@
 
 #pragma once
 
+#include <MyTemplate/SI.h>
+
+#include <cassert>
+
 namespace My {
-template <typename Base, typename Impl, typename T, typename N>
+template <typename Base, typename Impl, typename ArgList>
 struct IScalarMul : Base {
+  using T = At_t<ArgList, 0>;
+
   static_assert(std::is_floating_point_v<T>, "std::is_floating_point_v<T>");
 
   using Base::Base;

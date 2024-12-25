@@ -8,8 +8,10 @@
 #include "IScalarMul.h"
 
 namespace My {
-template <typename Base, typename Impl, typename T, typename N>
-struct ILinear : SIVT_CRTP<TemplateList<IAdd, IScalarMul>, Base, Impl, T, N> {
-  using SIVT_CRTP<TemplateList<IAdd, IScalarMul>, Base, Impl, T, N>::SIVT_CRTP;
+template <typename Base, typename Impl, typename ArgList>
+struct ILinear
+    : SIVT_CRTP<TemplateList<IAdd, IScalarMul>, Base, Impl, ArgList> {
+  using SIVT_CRTP<TemplateList<IAdd, IScalarMul>, Base, Impl,
+                  ArgList>::SIVT_CRTP;
 };
 }  // namespace My

@@ -4,6 +4,8 @@
 
 #pragma once
 
+#include <MyTemplate/SI.h>
+
 #include <array>
 #include <iostream>
 
@@ -11,15 +13,17 @@
 #include <cmath>
 
 namespace My {
-template <typename Base, typename Impl, typename T, typename N>
-struct IArray : Base, std::array<T, N::value> {
+template <typename Base, typename Impl, typename ArgList>
+struct IArray : Base, std::array<At_t<ArgList, 0>, At_t<ArgList, 1>::value> {
+  using T = At_t<ArgList, 0>;
+  using N = At_t<ArgList, 1>;
+
   static_assert(std::is_same_v<typename N::type, size_t>,
                 "N::type isn't size_t");
   static_assert(N::value > 0, "N::value > 0");
   static_assert(std::is_arithmetic_v<T>, "std::is_arithmetic_v<T>");
 
   using Base::Base;
-  using value_type = T;
 
   IArray() {}
 

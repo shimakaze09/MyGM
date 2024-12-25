@@ -5,7 +5,7 @@
 #pragma once
 
 namespace My {
-template <typename Base, typename Impl, typename T, typename N>
+template <typename Base, typename Impl, typename ArgList>
 struct IAdd : Base {
   using Base::Base;
 
