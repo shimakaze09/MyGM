@@ -4,15 +4,15 @@
 
 #pragma once
 
-#include "Interfaces/IArray/IArray.h"
-
 #include <MyTemplate/SI.h>
+#include "Interfaces/IArray/IArray.h"
+#include "Interfaces/IArray/IArrayInOut.h"
 
 namespace My {
 template <typename T, size_t N>
-struct val : SIIT_CRTP<TemplateList<IArray>, val<T, N>,
+struct val : SIIT_CRTP<TemplateList<IArrayInOut, IArray>, val<T, N>,
                        TypeList<TypeList<T, Size<N>>, T>> {
-  using SIIT_CRTP<TemplateList<IArray>, val<T, N>,
+  using SIIT_CRTP<TemplateList<IArrayInOut, IArray>, val<T, N>,
                   TypeList<TypeList<T, Size<N>>, T>>::SIIT_CRTP;
 };
 

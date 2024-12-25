@@ -4,20 +4,21 @@
 
 #pragma once
 
+#include "Interfaces/IArray/IArrayInOut.h"
 #include "Interfaces/IArray/IEuclideanV.h"
 
 namespace My {
 template <typename T, size_t N>
-struct vec : SIIT_CRTP<TemplateList<IEuclideanV>, vec<T, N>,
+struct vec : SIIT_CRTP<TemplateList<IArrayInOut, IEuclideanV>, vec<T, N>,
                        TypeList<TypeList<T, Size<N>>, T>> {
-  using SIIT_CRTP<TemplateList<IEuclideanV>, vec<T, N>,
+  using SIIT_CRTP<TemplateList<IArrayInOut, IEuclideanV>, vec<T, N>,
                   TypeList<TypeList<T, Size<N>>, T>>::SIIT_CRTP;
 };
 
 template <typename T>
-struct vec<T, 3> : SIIT_CRTP<TemplateList<IEuclideanV>, vec<T, 3>,
+struct vec<T, 3> : SIIT_CRTP<TemplateList<IArrayInOut, IEuclideanV>, vec<T, 3>,
                              TypeList<TypeList<T, Size<3>>, T>> {
-  using SIIT_CRTP<TemplateList<IEuclideanV>, vec<T, 3>,
+  using SIIT_CRTP<TemplateList<IArrayInOut, IEuclideanV>, vec<T, 3>,
                   TypeList<TypeList<T, Size<3>>, T>>::SIIT_CRTP;
 
   static const vec cross(const vec& x, const vec& y) noexcept {
