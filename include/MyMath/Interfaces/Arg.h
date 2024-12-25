@@ -19,4 +19,7 @@ using Arg_F = At_t<ArgList, 1>;
 
 template <typename ArgList>
 using Arg_ImplV = At_t<ArgList, 2>;
+
+template <typename ArgList>
+using Arg_ImplP = At_t<ArgList, 0>;  // quat
 }  // namespace My

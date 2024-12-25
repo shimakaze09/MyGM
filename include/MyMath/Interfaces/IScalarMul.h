@@ -4,15 +4,18 @@
 
 #pragma once
 
-#include <MyTemplate/SI.h>
 #include "Arg.h"
+
+#include <MyTemplate/SI.h>
+
+#include <assert.h>
 
 namespace My {
 template <typename Base, typename Impl, typename ArgList>
 struct IScalarMul : Base {
   using F = Arg_F<ArgList>;
 
-  static_assert(std::is_floating_point_v<F>, "std::is_floating_point_v<T>");
+  static_assert(std::is_floating_point_v<F>, "std::is_floating_point_v<F>");
 
   using Base::Base;
   using Base::operator*;
