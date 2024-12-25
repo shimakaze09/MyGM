@@ -87,7 +87,7 @@ struct IArray
   // }
 
   //  friend std::ostream& operator<<(std::ostream& os, const Impl& x) {
-  //    // for-loop will be optimized in -02 (release)
+  //    for-loop will be optimized in -02 (release)
   //    for (size_t i = 0; i < N - 1; i++)
   //      os << x[i] << ", ";
   //    os << x[N - 1];
