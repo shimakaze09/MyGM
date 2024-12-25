@@ -6,6 +6,7 @@
 
 #include "../IMul.h"
 #include "IMatrix.h"
+#include "IMatrixMul_detail.h"
 
 namespace My {
 template <typename Base, typename Impl, typename ArgList>
@@ -32,6 +33,11 @@ struct IMatrixMul
       }
     }
     return rst;
+  }
+
+  const Impl impl_inverse() const noexcept {
+    auto& m = static_cast<const Impl&>(*this);
+    return detail::run_inverse(m);
   }
 };
 }  // namespace My
