@@ -5,12 +5,12 @@
 #pragma once
 
 #include <MyTemplate/SI.h>
-#include "IVal.h"
+#include "IArray.h"
 
-namespace My{
-template<typename Base, typename Impl, typename T, typename N>
-    struct IAdd : SIVT_CRTP<TemplateList<IVal>, Base, Impl, T, N>  {
-  using SIVT_CRTP<TemplateList<IVal>, Base, Impl, T, N>::SI_CRTP;
+namespace My {
+template <typename Base, typename Impl, typename T, typename N>
+struct IAdd : SIVT_CRTP<TemplateList<IArray>, Base, Impl, T, N> {
+  using SIVT_CRTP<TemplateList<IArray>, Base, Impl, T, N>::SI_CRTP;
 
   const Impl operator+(const Impl& y) const noexcept {
     auto& x = static_cast<const Impl&>(*this);
@@ -50,4 +50,4 @@ template<typename Base, typename Impl, typename T, typename N>
     return x;
   }
 };
-}
+}  // namespace My

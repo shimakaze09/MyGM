@@ -12,7 +12,7 @@
 
 namespace My {
 template <typename Base, typename Impl, typename T, typename N>
-struct IVal : Base, std::array<T, N::value> {
+struct IArray : Base, std::array<T, N::value> {
   static_assert(std::is_same_v<typename N::type, size_t>,
                 "N::type isn't size_t");
   static_assert(N::value > 0, "N::value > 0");
@@ -21,10 +21,10 @@ struct IVal : Base, std::array<T, N::value> {
   using Base::Base;
   using value_type = T;
 
-  IVal() {}
+  IArray() {}
 
   template <typename... U>
-  IVal(U... data) : std::array<T, N::value>{static_cast<T>(data)...} {
+  IArray(U... data) : std::array<T, N::value>{static_cast<T>(data)...} {
     static_assert(sizeof...(U) == N::value, "sizeof...(U) == N::value");
   }
 
