@@ -4,20 +4,20 @@
 
 #pragma once
 
-#include "Interfaces/IArray/IEuclidean.h"
+#include "Interfaces/IArray/IEuclideanV.h"
 
 namespace My {
 template <typename T, size_t N>
 struct Vec
-    : SIIT_CRTP<TemplateList<IEuclidean>, Vec<T, N>, TypeList<T, Size<N>>> {
-  using SIIT_CRTP<TemplateList<IEuclidean>, Vec<T, N>,
+    : SIIT_CRTP<TemplateList<IEuclideanV>, Vec<T, N>, TypeList<T, Size<N>>> {
+  using SIIT_CRTP<TemplateList<IEuclideanV>, Vec<T, N>,
                   TypeList<T, Size<N>>>::SIIT_CRTP;
 };
 
 template <typename T>
 struct Vec<T, 3>
-    : SIIT_CRTP<TemplateList<IEuclidean>, Vec<T, 3>, TypeList<T, Size<3>>> {
-  using SIIT_CRTP<TemplateList<IEuclidean>, Vec<T, 3>,
+    : SIIT_CRTP<TemplateList<IEuclideanV>, Vec<T, 3>, TypeList<T, Size<3>>> {
+  using SIIT_CRTP<TemplateList<IEuclideanV>, Vec<T, 3>,
                   TypeList<T, Size<3>>>::SIIT_CRTP;
 
   const Vec cross(const Vec& y) const noexcept {
@@ -33,4 +33,5 @@ using Vecf = Vec<float, N>;
 using Vecf1 = Vecf<1>;
 using Vecf2 = Vecf<2>;
 using Vecf3 = Vecf<3>;
+using Vecf4 = Vecf<4>;
 }  // namespace My
