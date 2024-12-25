@@ -4,7 +4,7 @@
 
 #pragma once
 
-#include "Interfaces/IArray.h"
+#include "Interfaces/IArray/IArray.h"
 
 #include <MyTemplate/SI.h>
 

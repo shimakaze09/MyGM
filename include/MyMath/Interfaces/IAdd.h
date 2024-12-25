@@ -4,50 +4,25 @@
 
 #pragma once
 
-#include <MyTemplate/SI.h>
-#include "IArray.h"
-
 namespace My {
 template <typename Base, typename Impl, typename T, typename N>
-struct IAdd : SIVT_CRTP<TemplateList<IArray>, Base, Impl, T, N> {
-  using SIVT_CRTP<TemplateList<IArray>, Base, Impl, T, N>::SIVT_CRTP;
+struct IAdd : Base {
+  using Base::Base;
 
   const Impl operator+(const Impl& y) const noexcept {
-    auto& x = static_cast<const Impl&>(*this);
-    Impl rst{};
-    for (size_t i = 0; i < N::value; i++)
-      rst[i] = x[i] + y[i];
-    return rst;
+    return static_cast<const Impl*>(this)->ImplAdd(y);
   }
 
   Impl& operator+=(const Impl& y) noexcept {
-    auto& x = static_cast<Impl&>(*this);
-    for (size_t i = 0; i < N::value; i++)
-      x[i] += y[i];
-    return x;
+    return static_cast<Impl*>(this)->ImplAddToSelf(y);
   }
 
   const Impl operator-() const noexcept {
-    auto& x = static_cast<const Impl&>(*this);
-    Impl rst{};
-    for (size_t i = 0; i < N::value; i++)
-      rst[i] = -x[i];
-    return rst;
+    return static_cast<const Impl*>(this)->ImplAddInverse();
   }
 
-  const Impl operator-(const Impl& y) const noexcept {
-    auto& x = static_cast<const Impl&>(*this);
-    Impl rst{};
-    for (size_t i = 0; i < N::value; i++)
-      rst[i] = x[i] - y[i];
-    return rst;
-  }
+  const Impl operator-(const Impl& y) const noexcept { return operator+(-y); }
 
-  Impl& operator-=(const Impl& y) noexcept {
-    auto& x = static_cast<Impl&>(*this);
-    for (size_t i = 0; i < N::value; i++)
-      x[i] -= y[i];
-    return x;
-  }
+  Impl& operator-=(const Impl& y) noexcept { return operator+=(-y); }
 };
 }  // namespace My
