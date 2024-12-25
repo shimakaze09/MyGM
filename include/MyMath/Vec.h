@@ -8,17 +8,17 @@
 
 namespace My {
 template <typename T, size_t N>
-struct vec
-    : SIIT_CRTP<TemplateList<IEuclideanV>, vec<T, N>, TypeList<T, Size<N>>> {
+struct vec : SIIT_CRTP<TemplateList<IEuclideanV>, vec<T, N>,
+                       TypeList<TypeList<T, Size<N>>, T>> {
   using SIIT_CRTP<TemplateList<IEuclideanV>, vec<T, N>,
-                  TypeList<T, Size<N>>>::SIIT_CRTP;
+                  TypeList<TypeList<T, Size<N>>, T>>::SIIT_CRTP;
 };
 
 template <typename T>
-struct vec<T, 3>
-    : SIIT_CRTP<TemplateList<IEuclideanV>, vec<T, 3>, TypeList<T, Size<3>>> {
+struct vec<T, 3> : SIIT_CRTP<TemplateList<IEuclideanV>, vec<T, 3>,
+                             TypeList<TypeList<T, Size<3>>, T>> {
   using SIIT_CRTP<TemplateList<IEuclideanV>, vec<T, 3>,
-                  TypeList<T, Size<3>>>::SIIT_CRTP;
+                  TypeList<TypeList<T, Size<3>>, T>>::SIIT_CRTP;
 
   static const vec cross(const vec& x, const vec& y) noexcept {
     return vec{x[1] * y[2] - x[2] * y[1], x[2] * y[0] - x[0] * y[2],

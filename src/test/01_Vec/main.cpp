@@ -43,7 +43,7 @@ int main() {
   cout << v.norm() << endl;
   cout << v.normalize() << endl;
   v.normalize_self();
-  cout << v << endl;
+  cout << v[2] << endl;
 
   // angle
   cout << vecf3::cos_theta(v, u) << endl;

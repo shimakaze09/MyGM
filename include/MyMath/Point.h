@@ -10,9 +10,9 @@
 namespace My {
 template <typename T, size_t N>
 struct point : SIIT_CRTP<TemplateList<IEuclideanA>, point<T, N>,
-                         TypeList<T, Size<N>, vec<T, N>>> {
+                         TypeList<TypeList<T, Size<N>>, T, vec<T, N>>> {
   using SIIT_CRTP<TemplateList<IEuclideanA>, point<T, N>,
-                  TypeList<T, Size<N>, vec<T, N>>>::SIIT_CRTP;
+                  TypeList<TypeList<T, Size<N>>, T, vec<T, N>>>::SIIT_CRTP;
 };
 
 template <size_t N>
