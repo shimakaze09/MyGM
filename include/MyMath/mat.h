@@ -14,7 +14,9 @@ namespace My {
 template <typename T, size_t N>
 struct mat
     : SIIT_CRTP<TemplateList<IMatrixInOut, IRing, IEuclideanV, IMatrixMul>,
-                mat<T, N>, TypeList<TypeList<vec<T, N>, Size<N>>, T>> {};
+                mat<T, N>, TypeList<TypeList<vec<T, N>, Size<N>>, T>> {
+  mat() = default;
+};
 
 template <size_t N>
 using matf = mat<float, N>;

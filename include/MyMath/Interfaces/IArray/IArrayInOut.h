@@ -5,6 +5,7 @@
 #pragma once
 
 #include <MyTemplate/SI.h>
+#include "../Arg.h"
 #include "../IInOut.h"
 
 namespace My {
