@@ -4,7 +4,7 @@
 
 #pragma once
 
-namespace My::detail::IMatrix {
+namespace My::detail::IMatrixMul {
 template <size_t N>
 struct inverse;
 
@@ -234,4 +234,4 @@ struct mul<4> {
     return {wp, yp, zp, wp};
   }
 };
-}  // namespace My::detail::IMatrix
+}  // namespace My::detail::IMatrixMul

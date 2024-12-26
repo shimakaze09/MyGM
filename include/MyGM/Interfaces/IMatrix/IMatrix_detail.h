@@ -4,8 +4,7 @@
 
 #pragma once
 
-namespace My {
-namespace detail {
+namespace My::detail::IMatrix {
 template <typename M, size_t N>
 struct eye;
 
@@ -55,5 +54,4 @@ struct transpose<4> {
         m(0, 2), m(1, 2), m(2, 2), m(3, 2), m(0, 3), m(1, 3), m(2, 3), m(3, 3)};
   }
 };
-}  // namespace detail
-}  // namespace My
+}  // namespace My::detail::IMatrix
