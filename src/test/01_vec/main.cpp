@@ -43,6 +43,7 @@ int main() {
   cout << v.norm() << endl;
   cout << v.normalize() << endl;
   v.normalize_self();
+  cout << v.is_normalized() << endl;
   cout << v[2] << endl;
 
   // angle

@@ -679,3 +679,10 @@ FodyWeavers.xsd
 
 # Build
 **/build/*
+
+# Config files
+**/*_config*.h
+
+# Bin and Lib
+**/bin/*
+**/lib/*

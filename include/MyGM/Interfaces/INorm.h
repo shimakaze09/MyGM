@@ -4,6 +4,7 @@
 
 #pragma once
 
+#include "../basic.h"
 #include "ILinear.h"
 #include "IMetric.h"
 
@@ -24,6 +25,11 @@ struct INorm : SIVT_CRTP<TemplateList<IMetric, ILinear>, Base, Impl, ArgList> {
     F n = norm();
     assert(n > static_cast<F>(0));
     return x / n;  // ILinear
+  }
+
+  bool is_normalized() const noexcept {
+    auto& x = static_cast<const Impl&>(*this);
+    return (x.normalize() - x).norm() < EPSILON<F>;
   }
 
   Impl& normalize_self() noexcept {

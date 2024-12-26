@@ -53,6 +53,10 @@ struct IMatrix : SIVT_CRTP<TemplateList<IArray>, Base, Impl, ArgList> {
     return (*this)[c][r];
   }
 
+  F& at(size_t r, size_t c) noexcept { return this->operator()(r, c); }
+
+  F at(size_t r, size_t c) const noexcept { return this->operator()(r, c); }
+
   F& operator()(size_t n) noexcept {
     assert(n < N * N);
     return (*this)[n % N][n / N];
@@ -61,6 +65,13 @@ struct IMatrix : SIVT_CRTP<TemplateList<IArray>, Base, Impl, ArgList> {
   F operator()(size_t n) const noexcept {
     assert(n < N * N);
     return (*this)[n % N][n / N];
+  }
+
+  F trace() const noexcept {
+    F rst = (*this)[0][0];
+    for (size_t i = 1; i < N; i++)
+      rst += (*this)[i][i];
+    return rst;
   }
 };
 }  // namespace My

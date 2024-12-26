@@ -5,6 +5,7 @@
 #pragma once
 
 #include <MyTemplate/SI.h>
+#include "../../basic.h"
 #include "../IInOut.h"
 
 namespace My {
@@ -19,8 +20,8 @@ struct IArrayInOut
     auto& x = static_cast<const Impl&>(*this);
 
     for (size_t i = 0; i < N - 1; i++)
-      os << x[i] << " ";
-    os << x[N - 1];
+      os << rmv_epsilon(x[i]) << " ";
+    os << rmv_epsilon(x[N - 1]);
 
     return os;
   }
