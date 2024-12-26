@@ -20,10 +20,10 @@ template <typename T>
 struct transform
     : SIIT_CRTP<TemplateList<IMatrixInOut, IMatrixMul>, transform<T>,
                 TypeList<TypeList<vec<T, 4>, Size<4>>, T>> {
-  using SIIT_CRTP<TemplateList<IMatrixInOut, IMatrixMul>, transform<T>,
-                  TypeList<TypeList<vec<T, 4>, Size<4>>, T>>::SIIT_CRTP;
-  using SIIT_CRTP<TemplateList<IMatrixInOut, IMatrixMul>, transform<T>,
-                  TypeList<TypeList<vec<T, 4>, Size<4>>, T>>::init;
+  using Base = SIIT_CRTP<TemplateList<IMatrixInOut, IMatrixMul>, transform<T>,
+                         TypeList<TypeList<vec<T, 4>, Size<4>>, T>>;
+  using Base::Base;
+  using Base::init;
 
   explicit transform(const mat<T, 4>& m) noexcept
       : transform(m[0], m[1], m[2], m[3]) {}
@@ -48,8 +48,9 @@ struct transform
   static const transform perspcetive(T fovy, T aspect, T zNear,
                                      T zFar) noexcept;
 
+  // sample: rotate_with<Axis::X>(to_radian(theta))
   template <Axis axis>
-  static const transform rotate_with(T angle) noexcept;
+  static const transform rotate_with(T theta) noexcept;
 
   const point<T, 3> decompose_position() const noexcept {
     return {(*this)(0, 3), (*this)(1, 3), (*this)(2, 3)};
