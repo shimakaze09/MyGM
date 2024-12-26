@@ -221,7 +221,7 @@ const quat<T> transform<T>::decompose_quatenion() const noexcept {
   imag[2] = rM(1, 0) - rM(0, 1);
   imag /= 4 * real;
 
-  return {imag, real};
+  return quat<T>::imag_real(imag, real);
 }
 
 template <typename T>

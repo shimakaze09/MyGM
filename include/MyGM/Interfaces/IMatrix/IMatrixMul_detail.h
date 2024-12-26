@@ -14,16 +14,16 @@ template <>
 struct inverse<3> {
   template <typename M>
   static const M run(const M& m) noexcept {
-    static_assert(M::N == 3, "M::N == 3");
+    static_assert(M::N == 3);
     using F = typename M::F;
 
     F determinant = m[0][0] * (m[1][1] * m[2][2] - m[2][1] * m[1][2]) +
                     m[1][0] * (m[2][1] * m[0][2] - m[0][1] * m[2][2]) +
                     m[2][0] * (m[0][1] * m[1][2] - m[1][1] * m[0][2]);
 
-    assert(determinant != static_cast<F>(0));
+    assert(determinant != 0);
 
-    F inverseDeterminant = static_cast<F>(1) / determinant;
+    F inverseDeterminant = 1 / determinant;
 
     M rst{};
 
@@ -46,7 +46,7 @@ struct inverse<4> {
   // https://stackoverflow.com/questions/1148309/inverting-a-4x4-matrix
   template <typename M>
   static const M run(const M& m) noexcept {
-    static_assert(M::N == 4, "M::N == 4");
+    static_assert(M::N == 4);
     using F = typename M::F;
 
     M rst{};
@@ -118,9 +118,9 @@ struct inverse<4> {
     F det = m[0][0] * rst[0][0] + m[0][1] * rst[1][0] + m[0][2] * rst[2][0] +
             m[0][3] * rst[3][0];
 
-    assert(det != static_cast<F>(0));
+    assert(det != 0);
 
-    F invDet = static_cast<F>(1) / det;
+    F invDet = 1 / det;
 
     rst *= invDet;
 
@@ -137,7 +137,7 @@ template <>
 struct mul<3> {
   template <typename M>
   static const M run(const M& x, const M& y) noexcept {
-    static_assert(M::N == 3, "M::N == 3");
+    static_assert(M::N == 3);
     using F = typename M::F;
 
     // must unloop by hand, complier may not auto unloop
@@ -159,7 +159,7 @@ template <>
 struct mul<4> {
   template <typename M>
   static const M run(const M& x, const M& y) noexcept {
-    static_assert(M::N == 4, "M::N == 4");
+    static_assert(M::N == 4);
     using F = typename M::F;
 
     // must unloop by hand, complier may not auto unloop

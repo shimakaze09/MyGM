@@ -15,9 +15,8 @@ struct IEuclideanA
   static constexpr size_t N = Arg_N<ArgList>;
   using ImplV = Arg_ImplV<ArgList>;
 
-  static_assert(ExistInstance_v<typename ImplV::AllVBs, IEuclideanV>,
-                "ExistInstance_v<typename ImplV::AllVBs, IEuclideanV>");
-  static_assert(ImplV::N == N, "ImplV::N == N");
+  static_assert(ExistInstance_v<typename ImplV::AllVBs, IEuclideanV>);
+  static_assert(ImplV::N == N);
 
   using SIVT_CRTP<TemplateList<IAffine, IArray>, Base, ImplP,
                   ArgList>::SIVT_CRTP;

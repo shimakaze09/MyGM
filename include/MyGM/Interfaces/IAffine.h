@@ -11,8 +11,7 @@ template <typename Base, typename ImplP, typename ArgList>
 struct IAffine : Base {
   using ImplV = At_t<ArgList, 2>;
 
-  static_assert(ExistInstance_v<typename ImplV::AllVBs, ILinear>,
-                "ExistInstance_v<typename ImplV::AllVBs, ILinear>");
+  static_assert(ExistInstance_v<typename ImplV::AllVBs, ILinear>);
 
   using Base::Base;
 

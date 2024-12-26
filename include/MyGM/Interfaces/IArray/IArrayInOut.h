@@ -7,6 +7,7 @@
 #include <MyTemplate/SI.h>
 #include "../../basic.h"
 #include "../IInOut.h"
+#include "IArray.h"
 
 namespace My {
 template <typename Base, typename Impl, typename ArgList>
