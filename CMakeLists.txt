@@ -38,15 +38,21 @@ SET_PROPERTY(GLOBAL PROPERTY USE_FOLDERS ON)
 # Add CMake modules
 INCLUDE(FETCHCONTENT)
 FETCHCONTENT_DECLARE(
-        MyTemplate
-        GIT_REPOSITORY https://github.com/shimakaze09/MyTemplate.git
-        GIT_TAG 7dc69a00293db6064edaa649fa6899ee249d6cbc
+        MyGit
+        GIT_REPOSITORY https://github.com/shimakaze09/MyGit.git
+        GIT_TAG 41f06151c569012d5849ca4baa5dea0859a5e96f
 )
-FETCHCONTENT_MAKEAVAILABLE(MyTemplate)
+FETCHCONTENT_MAKEAVAILABLE(MyGit)
+
+INIT_GIT()
+UPDATE_SUBMODULE()
+
+LIST(APPEND CMAKE_MODULE_PATH "${PROJECT_SOURCE_DIR}/external/MyTemplate/external/MyCMake/cmake")
+INCLUDE(Tools)
 
 INCLUDE_DIRECTORIES(
         ${PROJECT_SOURCE_DIR}/include
-        ${MyTemplate_SOURCE_DIR}/include
+        ${PROJECT_SOURCE_DIR}/external/MyTemplate/include
         # $ENV{XXX_INCLUDE_PATH}
         # ...
 )
@@ -56,4 +62,4 @@ LINK_DIRECTORIES(
         # ...
 )
 
-ADD_SUBDIRECTORY(src)
+ADD_SUB_DIRS(src)
