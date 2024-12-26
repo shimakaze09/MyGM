@@ -29,10 +29,10 @@ struct euler : SIIT_CRTP<TemplateList<IArray1D_Util, IArrayInOut, IArray>,
 
   const quat<T> to_quat() const noexcept {
     // slow
-    //    auto qX = quat<T>::rotate_with<Axis::X>((*this)[0]);
-    //    auto qY = quat<T>::rotate_with<Axis::Y>((*this)[1]);
-    //    auto qZ = quat<T>::rotate_with<Axis::Z>((*this)[2]);
-    //    return qY * qX * qZ;
+    // auto qX = quat<T>::rotate_with<Axis::X>((*this)[0]);
+    // auto qY = quat<T>::rotate_with<Axis::Y>((*this)[1]);
+    // auto qZ = quat<T>::rotate_with<Axis::Z>((*this)[2]);
+    // return qY * qX * qZ;
 
     // fast
     T x = (*this)[0] / 2;

@@ -27,7 +27,7 @@ struct IEuclideanV : SIVT_CRTP<TemplateList<INorm, IInnerProduct, ILinear,
   template <typename Base, typename Impl, typename ArgList>
   friend struct IInnerProduct;
 
-  static F impl_dot(const Impl& x, const Impl& y) noexcept {
+  inline static F impl_dot(const Impl& x, const Impl& y) noexcept {
     F rst = x[0] * y[0];
     for (size_t i = 1; i < N; i++)
       rst += x[i] * y[i];

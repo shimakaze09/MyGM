@@ -19,7 +19,7 @@ struct IArrayAdd : SIVT_CRTP<TemplateList<IAdd, IArray>, Base, Impl, ArgList> {
   template <typename Base, typename Impl, typename ArgList>
   friend struct IAdd;
 
-  const Impl impl_add(const Impl& y) const noexcept {
+  inline const Impl impl_add(const Impl& y) const noexcept {
     auto& x = static_cast<const Impl&>(*this);
     Impl rst{};
     for (size_t i = 0; i < N; i++)
@@ -27,14 +27,14 @@ struct IArrayAdd : SIVT_CRTP<TemplateList<IAdd, IArray>, Base, Impl, ArgList> {
     return rst;
   }
 
-  Impl& impl_add_to_self(const Impl& y) noexcept {
+  inline Impl& impl_add_to_self(const Impl& y) noexcept {
     auto& x = static_cast<Impl&>(*this);
     for (size_t i = 0; i < N; i++)
       x[i] += y[i];
     return x;
   }
 
-  const Impl impl_add_inverse() const noexcept {
+  inline const Impl impl_add_inverse() const noexcept {
     auto& x = static_cast<const Impl&>(*this);
     Impl rst{};
     for (size_t i = 0; i < N; i++)
@@ -42,19 +42,19 @@ struct IArrayAdd : SIVT_CRTP<TemplateList<IAdd, IArray>, Base, Impl, ArgList> {
     return rst;
   }
 
-  //  const Impl Minus(const Impl& y) const noexcept {
-  //    auto& x = static_cast<const Impl&>(*this);
-  //    Impl rst{};
-  //    for (size_t i = 0; i < N; i++)
-  //      rst[i] = x[i] - y[i];
-  //    return rst;
-  //  }
-  //
-  //  Impl& MinusToSelf(const Impl& y) noexcept {
-  //    auto& x = static_cast<Impl&>(*this);
-  //    for (size_t i = 0; i < N; i++)
-  //      x[i] -= y[i];
-  //    return x;
-  //  }
+  // const Impl Minus(const Impl& y) const noexcept {
+  //   auto& x = static_cast<const Impl&>(*this);
+  //   Impl rst{};
+  //   for (size_t i = 0; i < N; i++)
+  //     rst[i] = x[i] - y[i];
+  //   return rst;
+  // }
+
+  // Impl& MinusToSelf(const Impl& y) noexcept {
+  //   auto& x = static_cast<Impl&>(*this);
+  //   for (size_t i = 0; i < N; i++)
+  //     x[i] -= y[i];
+  //   return x;
+  // }
 };
 }  // namespace My

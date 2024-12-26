@@ -39,30 +39,34 @@ struct quat : SIIT_CRTP<TemplateList<IMul, IArrayInOut>, quat<T>,
   }
 
   // axis * sin(theta/2)
-  vec<T, 3>& imag() noexcept { return *reinterpret_cast<vec<T, 3>*>(this); }
+  inline vec<T, 3>& imag() noexcept {
+    return *reinterpret_cast<vec<T, 3>*>(this);
+  }
 
-  const vec<T, 3>& imag() const noexcept {
+  inline const vec<T, 3>& imag() const noexcept {
     return *reinterpret_cast<const vec<T, 3>*>(this);
   }
 
-  // cos(thete/2)
-  T& real() noexcept { return (*this)[3]; }
+  // cos(theta/2)
+  inline T& real() noexcept { return (*this)[3]; }
 
-  T real() const noexcept { return (*this)[3]; }
+  inline T real() const noexcept { return (*this)[3]; }
 
   // radian
-  T theta() const noexcept { return 2 * std::acos(real()); }
+  inline T theta() const noexcept { return 2 * std::acos(real()); }
 
-  const vec<T, 3> axis() const noexcept {
+  inline const vec<T, 3> axis() const noexcept {
     assert(!is_identity());
     return imag() / std::sqrt(1 - real() * real());
   }
 
-  bool is_identity() const noexcept { return real() == static_cast<T>(1); }
+  inline bool is_identity() const noexcept {
+    return real() == static_cast<T>(1);
+  }
 
-  static const quat identity() noexcept { return {0, 0, 0, 1}; }
+  inline static const quat identity() noexcept { return {0, 0, 0, 1}; }
 
-  bool is_unit() const noexcept {
+  inline bool is_unit() const noexcept {
     return std::abs(real() * real() + imag().dot(imag()) - 1) < EPSILON;
   }
 
@@ -70,7 +74,7 @@ struct quat : SIIT_CRTP<TemplateList<IMul, IArrayInOut>, quat<T>,
   // theta : radian
   // example: quatf::rotate_with<Axis::X>(to_radian(45.f))
   template <Axis axis>
-  static const quat rotate_with(T theta) noexcept {
+  inline static const quat rotate_with(T theta) noexcept {
     T halfTheta = static_cast<T>(0.5) * theta;
 
     vec<T, 3> imag;
@@ -86,7 +90,7 @@ struct quat : SIIT_CRTP<TemplateList<IMul, IArrayInOut>, quat<T>,
     return imag_real(imag, real);
   }
 
-  euler<T> to_euler() const noexcept {
+  const euler<T> to_euler() const noexcept {
     T x = imag()[0];
     T y = imag()[1];
     T z = imag()[2];
@@ -130,7 +134,7 @@ struct quat : SIIT_CRTP<TemplateList<IMul, IArrayInOut>, quat<T>,
     return imag_real(imag, real);
   }
 
-  const quat impl_inverse() const noexcept {
+  inline const quat impl_inverse() const noexcept {
     return imag_real(-imag(), real());
   }
 

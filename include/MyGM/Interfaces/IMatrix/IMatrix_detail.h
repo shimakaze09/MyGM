@@ -13,7 +13,7 @@ template <typename M>
 struct eye<M, 3> {
   using F = typename M::F;
 
-  static const M run() noexcept {
+  inline static const M run() noexcept {
     return std::array<F, 3 * 3>{
         1, 0, 0, 0, 1, 0, 0, 0, 1,
     };
@@ -24,7 +24,7 @@ template <typename M>
 struct eye<M, 4> {
   using F = typename M::F;
 
-  static const M run() noexcept {
+  inline static const M run() noexcept {
     return std::array<F, 4 * 4>{1, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1};
   }
 };
@@ -35,7 +35,7 @@ struct transpose;
 template <>
 struct transpose<3> {
   template <typename M>
-  static const M run(M& m) noexcept {
+  inline static const M run(M& m) noexcept {
     static_assert(M::N == 3);
 
     return std::array<typename M::F, 3 * 3>{m(0, 0), m(1, 0), m(2, 0),
@@ -47,7 +47,7 @@ struct transpose<3> {
 template <>
 struct transpose<4> {
   template <typename M>
-  static const M run(M& m) noexcept {
+  inline static const M run(M& m) noexcept {
     static_assert(M::N == 4);
 
     return std::array<typename M::F, 4 * 4>{

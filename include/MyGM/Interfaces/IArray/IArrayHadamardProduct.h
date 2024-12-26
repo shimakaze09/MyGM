@@ -20,7 +20,7 @@ struct IArrayHadamardProduct
   template <typename Base, typename Impl, typename ArgList>
   friend struct IMul;
 
-  const Impl impl_mul(const Impl& y) const noexcept {
+  inline const Impl impl_mul(const Impl& y) const noexcept {
     auto& x = static_cast<const Impl&>(*this);
 
     Impl rst{};
@@ -31,7 +31,7 @@ struct IArrayHadamardProduct
     return rst;
   }
 
-  const Impl inverse() const noexcept {
+  inline const Impl inverse() const noexcept {
     auto& x = static_cast<const Impl&>(*this);
 
     Impl rst{};

@@ -228,33 +228,33 @@ template <typename T>
 const euler<T> transform<T>::decompose_euler() const noexcept {
   auto rM = decompose_rotation_matrix();
   /*
-		* rM is
-		*
-		*  cYcZ + sXsYsZ  -cYsZ + sXsYsZ  cXsY
-		*           cXsZ            cXcZ   -sX
-		* -sYcZ + sXcYsZ   sYsZ + sXcYcZ  cXcY
-		*/
+   * rM is
+   *
+   *  cYcZ + sXsYsZ  -cYsZ + sXsYsZ  cXsY
+   *           cXsZ            cXcZ   -sX
+   * -sYcZ + sXcYsZ   sYsZ + sXcYcZ  cXcY
+   */
 
   if (std::abs(rM(1, 2)) == 1) {  // |sin X| = 1
     /*
-			* if sinX ==  1, rM is
-			*
-			*  cos(Y-Z)  sin(Y-Z)        0
-			*         0         0       -1
-			* -sin(Y-Z)  cos(Y-Z)        0
-			*
-			* if sinX == -1, rM is
-			*
-			*  cos(Y+Z)  sin(Y+Z)        0
-			*         0         0       -1
-			* -sin(Y+Z)  cos(Y+Z)        0
-			*
-			* degenerated, so set Z = 0, then in both cases, rM is
-			*
-			*  cos Y  sin Y      0
-			*      0      0     -1
-			* -sin Y  cos Y      0
-			*/
+	 * if sinX ==  1, rM is
+	 *
+	 *  cos(Y-Z)  sin(Y-Z)        0
+	 *         0         0       -1
+	 * -sin(Y-Z)  cos(Y-Z)        0
+	 *
+	 * if sinX == -1, rM is
+	 *
+	 *  cos(Y+Z)  sin(Y+Z)        0
+	 *         0         0       -1
+	 * -sin(Y+Z)  cos(Y+Z)        0
+	 *
+	 * degenerated, so set Z = 0, then in both cases, rM is
+	 *
+	 *  cos Y  sin Y      0
+	 *      0      0     -1
+	 * -sin Y  cos Y      0
+	 */
     return {sgn(rM(1, 2)) * to_radian<T>(90), std::atan2(rM(0, 1), rM(2, 1)),
             0};
   } else {

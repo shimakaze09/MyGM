@@ -13,31 +13,31 @@ struct IInnerProduct : SIVT_CRTP<TemplateList<INorm>, Base, Impl, ArgList> {
 
   using SIVT_CRTP<TemplateList<INorm>, Base, Impl, ArgList>::SIVT_CRTP;
 
-  static F dot(const Impl& x, const Impl& y) noexcept {
+  inline static F dot(const Impl& x, const Impl& y) noexcept {
     return Impl::impl_dot(x, y);
   }
 
-  F dot(const Impl& y) const noexcept {
+  inline F dot(const Impl& y) const noexcept {
     auto& x = static_cast<const Impl&>(*this);
     return dot(x, y);
   }
 
-  F norm2() const noexcept {
+  inline F norm2() const noexcept {
     auto& x = static_cast<const Impl&>(*this);
     return dot(x, x);
   }
 
-  static F distance2(const Impl& x, const Impl& y) noexcept {
+  inline static F distance2(const Impl& x, const Impl& y) noexcept {
     return (x - y).norm2();
   }
 
-  F distance2(const Impl& y) const noexcept {
+  inline F distance2(const Impl& y) const noexcept {
     auto& x = static_cast<const Impl&>(*this);
     return distance2(x, y);
   }
 
   // radian
-  static F cos_theta(const Impl& x, const Impl& y) noexcept {
+  inline static F cos_theta(const Impl& x, const Impl& y) noexcept {
     F xN = x.norm();
     F yN = y.norm();
     F xyN = xN * yN;
@@ -45,7 +45,7 @@ struct IInnerProduct : SIVT_CRTP<TemplateList<INorm>, Base, Impl, ArgList> {
     return Impl::dot(x, y) / xyN;
   }
 
-  F cos_theta(const Impl& y) const noexcept {
+  inline F cos_theta(const Impl& y) const noexcept {
     auto& x = static_cast<const Impl&>(*this);
     return cos_theta(x, y);
   }
@@ -54,6 +54,6 @@ struct IInnerProduct : SIVT_CRTP<TemplateList<INorm>, Base, Impl, ArgList> {
   template <typename Base, typename Impl, typename ArgList>
   friend struct INorm;
 
-  F impl_norm() const noexcept { return std::sqrt(norm2()); }
+  inline F impl_norm() const noexcept { return std::sqrt(norm2()); }
 };
 }  // namespace My

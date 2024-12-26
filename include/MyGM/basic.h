@@ -25,24 +25,24 @@ struct rmv_epsilon {
 }  // namespace detail
 
 template <typename T>
-const T rmv_epsilon(T val) noexcept {
+inline const T rmv_epsilon(T val) noexcept {
   return detail::rmv_epsilon<T>::run(val);
 }
 
 template <typename T, typename = std::enable_if_t<std::is_floating_point_v<T>>>
-constexpr T to_radian(T degree) noexcept {
+inline constexpr T to_radian(T degree) noexcept {
   return degree * (PI<T> / static_cast<T>(180));
 }
 
 template <typename T, typename = std::enable_if_t<std::is_floating_point_v<T>>>
-constexpr T to_degree(T radian) noexcept {
+inline constexpr T to_degree(T radian) noexcept {
   return radian * (static_cast<T>(180) / PI<T>);
 }
 
 enum class Axis : size_t { X = 0, Y = 1, Z = 2 };
 
 template <typename T>
-T sgn(T v) noexcept {
+inline T sgn(T v) noexcept {
   if (v > static_cast<T>(0))
     return static_cast<T>(1);
   else if (v < static_cast<T>(0))

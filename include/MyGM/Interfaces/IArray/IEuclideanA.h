@@ -25,7 +25,7 @@ struct IEuclideanA
   template <typename Base, typename ImplP, typename ArgList>
   friend struct IAffine;
 
-  const ImplP impl_affine_add(const ImplV& v) const noexcept {
+  inline const ImplP impl_affine_add(const ImplV& v) const noexcept {
     auto& p = static_cast<const ImplP&>(*this);
     ImplP rst{};
     for (size_t i = 0; i < N; i++)
@@ -33,14 +33,14 @@ struct IEuclideanA
     return rst;
   }
 
-  ImplP& impl_affine_add_to_self(const ImplV& v) noexcept {
+  inline ImplP& impl_affine_add_to_self(const ImplV& v) noexcept {
     auto& p = static_cast<ImplP&>(*this);
     for (size_t i = 0; i < N; i++)
       p[i] += v[i];
     return p;
   }
 
-  const ImplV impl_affine_minus(const ImplP& y) const noexcept {
+  inline const ImplV impl_affine_minus(const ImplP& y) const noexcept {
     auto& x = static_cast<const ImplP&>(*this);
     ImplV rst{};
     for (size_t i = 0; i < N; i++)
