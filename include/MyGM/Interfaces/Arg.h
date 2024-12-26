@@ -4,8 +4,8 @@
 
 #pragma once
 
-#include <MyTemplate/List/TypeList.h>
-#include <MyTemplate/Num/Num.h>
+#include <MyTemplate/TypeList.h>
+#include <MyTemplate/Num.h>
 
 namespace My {
 template <typename ArgList>
