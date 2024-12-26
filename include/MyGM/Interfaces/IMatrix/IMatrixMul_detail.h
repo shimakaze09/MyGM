@@ -4,9 +4,7 @@
 
 #pragma once
 
-namespace My {
-namespace detail {
-namespace IMatrix {
+namespace My::detail::IMatrix {
 template <size_t N>
 struct inverse;
 
@@ -153,6 +151,23 @@ struct mul<3> {
 
     return std::array<F, 3 * 3>{f00, f01, f02, f10, f11, f12, f20, f21, f22};
   }
+
+  template <typename M>
+  static const typename M::ImplV run(const M& m,
+                                     const typename M::ImplV& v) noexcept {
+    static_assert(M::N == 3);
+    using F = typename M::F;
+
+    F x = v[0];
+    F y = v[1];
+    F z = v[2];
+
+    F xp = m(0, 0) * x + m(0, 1) * y + m(0, 2) * z;
+    F yp = m(1, 0) * x + m(1, 1) * y + m(1, 2) * z;
+    F zp = m(2, 0) * x + m(2, 1) * y + m(2, 2) * z;
+
+    return {xp, yp, zp};
+  }
 };
 
 template <>
@@ -199,7 +214,24 @@ struct mul<4> {
     return std::array<F, 4 * 4>{f00, f01, f02, f03, f10, f11, f12, f13,
                                 f20, f21, f22, f23, f30, f31, f32, f33};
   }
+
+  template <typename M>
+  static const typename M::ImplV run(const M& m,
+                                     const typename M::ImplV& v) noexcept {
+    static_assert(M::N == 4);
+    using F = typename M::F;
+
+    F x = v[0];
+    F y = v[1];
+    F z = v[2];
+    F w = v[3];
+
+    F xp = m(0, 0) * x + m(0, 1) * y + m(0, 2) * z + m(0, 3) * w;
+    F yp = m(1, 0) * x + m(1, 1) * y + m(1, 2) * z + m(1, 3) * w;
+    F zp = m(2, 0) * x + m(2, 1) * y + m(2, 2) * z + m(2, 3) * w;
+    F wp = m(3, 0) * x + m(3, 1) * y + m(3, 2) * z + m(3, 3) * w;
+
+    return {wp, yp, zp, wp};
+  }
 };
-}  // namespace IMatrix
-}  // namespace detail
-}  // namespace My
+}  // namespace My::detail::IMatrix
