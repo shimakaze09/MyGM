@@ -79,10 +79,10 @@ transform<T>::transform(const quat<T>& q) noexcept {
   T zz = z * z;
   T zw = z * w;
 
-  init(std::array<T, 4 * 4>{1 - 2 * (yy + zz), 2 * (xy - zw), 2 * (xz + yw), 0,
-                            2 * (xy + zw), 1 - 2 * (zz + xx), 2 * (yz - xw), 0,
-                            2 * (xz - yw), 2 * (yz + xw), 1 - 2 * (xx + yy), 0,
-                            0, 0, 0, 1});
+  this->init(std::array<T, 4 * 4>{
+      1 - 2 * (yy + zz), 2 * (xy - zw), 2 * (xz + yw), 0, 2 * (xy + zw),
+      1 - 2 * (zz + xx), 2 * (yz - xw), 0, 2 * (xz - yw), 2 * (yz + xw),
+      1 - 2 * (xx + yy), 0, 0, 0, 0, 1});
 }
 
 template <typename T>
@@ -94,10 +94,10 @@ transform<T>::transform(const euler<T>& e) noexcept {
   T cZ = std::cos(e[2]);
   T sZ = std::sin(e[2]);
 
-  init(std::array<T, 4 * 4>{cY * cZ + sX * sY * sZ, -cY * sZ + sX * sY * cZ,
-                            cX * sY, 0, cX * sZ, cX * cZ, -sX, 0,
-                            -sY * cZ + sX * cY * sZ, sY * sZ + sX * cY * cZ,
-                            cX * cY, 0, 0, 0, 0, 1});
+  this->init(std::array<T, 4 * 4>{
+      cY * cZ + sX * sY * sZ, -cY * sZ + sX * sY * cZ, cX * sY, 0, cX * sZ,
+      cX * cZ, -sX, 0, -sY * cZ + sX * cY * sZ, sY * sZ + sX * cY * cZ, cX * cY,
+      0, 0, 0, 0, 1});
 }
 
 template <typename T>
@@ -389,8 +389,8 @@ const bbox<T, 3> transform<T>::operator*(const bbox<T, 3>& b) const noexcept {
   return {(*this) * b.minP(), (*this) * b.maxP()};
 }
 
-template<typename T>
-  const ray<T, 3> transform<T>::operator*(const ray<T, 3>& r) const noexcept {
-  return{ (*this) * r.o,(*this) * r.d };
+template <typename T>
+const ray<T, 3> transform<T>::operator*(const ray<T, 3>& r) const noexcept {
+  return {(*this) * r.o, (*this) * r.d};
 }
 }  // namespace My

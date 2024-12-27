@@ -64,7 +64,8 @@ template <typename T>
 struct rmv_epsilon {
   static const T run(T val) noexcept {
     if (std::abs(std::round(val) - val) < EPSILON<T>)
-      return std::round(val + EPSILON<T>);  // + epsilon for -0 case
+      return static_cast<T>(
+          std::round(val + EPSILON<T>));  // + epsilon for -0 case
     else
       return val;
   }
