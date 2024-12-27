@@ -2,8 +2,9 @@
 // Created by Admin on 23/12/2024.
 //
 
-#include <MyGM/val.h>
 #include <iostream>
+
+#include <MyGM/val.h>
 
 using namespace std;
 using namespace My;
@@ -15,10 +16,13 @@ int main() {
   cout << (u == v ? "u==v" : "u!=v") << endl;
   cout << (u < v ? "u<v" : "u>=v") << endl;
   cout << v << endl;
-  cin >> v;
+  //cin >> v;
   cout << v << endl;
   cout << u << endl;
-  // cout << v.abs() << endl;
+  //cout << v.abs() << endl;
   cout << valf3(abs(v[0]), abs(v[1]), abs(v[2])) << endl;
-  // cout << v.max_dim() << endl;
+  //cout << v.max_dim() << endl;
+  cout << valf3::mix({valf3{1.f, 2.f, 3.f}, valf3{2.f}, valf3{1.f, 2.f, 3.f}},
+                     {0.f, 1.f, 2.f})
+       << endl;
 }

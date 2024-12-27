@@ -11,6 +11,7 @@
 
 #include <array>
 #include <iostream>
+#include <vector>
 
 #include <assert.h>
 #include <cmath>
@@ -89,6 +90,19 @@ struct IArray
 
   static const Impl mid(const Impl& x, const Impl& y) noexcept {
     return lerp(x, y, static_cast<F>(0.5));
+  }
+
+  static const Impl mix(const std::vector<Impl>& vals,
+                        const std::vector<float>& weights) noexcept {
+    assert(vals.size() > 0 && vals.size() == weights.size());
+    Impl rst{};
+    for (size_t j = 0; j < N; j++)
+      rst[j] = vals[0][j] * weights[0];
+    for (size_t i = 1; i < vals.size(); i++) {
+      for (size_t j = 0; j < N; j++)
+        rst[j] += vals[i][j] * weights[i];
+    }
+    return rst;
   }
 };
 }  // namespace My

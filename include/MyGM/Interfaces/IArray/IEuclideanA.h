@@ -8,6 +8,8 @@
 #include "../IMetric.h"
 #include "IEuclideanV.h"
 
+#include <vector>
+
 namespace My {
 // euclidean affine space
 template <typename Base, typename ImplP, typename ArgList>
