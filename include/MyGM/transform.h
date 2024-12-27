@@ -10,6 +10,7 @@
 #include "normal.h"
 #include "point.h"
 #include "quat.h"
+#include "ray.h"
 #include "scale.h"
 #include "vec.h"
 
@@ -68,6 +69,7 @@ struct transform
   const vec<T, 3> operator*(const vec<T, 3>& v) const noexcept;
   const normal<T> operator*(const normal<T>& n) const noexcept;
   const bbox<T, 3> operator*(const bbox<T, 3>& b) const noexcept;
+  const ray<T, 3> operator*(const ray<T, 3>& r) const noexcept;
 };
 
 using transformf = transform<float>;
