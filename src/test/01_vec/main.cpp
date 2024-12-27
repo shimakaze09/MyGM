@@ -4,6 +4,7 @@
 
 #include <iostream>
 
+#include <MyGM/normal.h>
 #include <MyGM/val.h>
 #include <MyGM/vec.h>
 
@@ -67,6 +68,12 @@ int main() {
   veci3 iv{1, 2, 3};
   cout << iv * 5 << endl;
   cout << iv * 7 << endl;
+
+  // normal
+  normalf n{1, 1, 1};
+  normalf::reflect(n, n);
+  normalf::refract(n, n, 0.f);
+  n.coord_space();
 
   vecf3 vs[4];
 

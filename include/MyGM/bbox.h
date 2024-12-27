@@ -63,7 +63,8 @@ using bboxf2 = bboxf<2>;
 using bboxf3 = bboxf<3>;
 
 template <size_t N>
-using bboxi = bbox<unsigned, N>;
+using bboxi = bbox<int, N>;
+
 using bboxi1 = bboxi<1>;
 using bboxi2 = bboxi<2>;
 using bboxi3 = bboxi<3>;
