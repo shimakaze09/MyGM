@@ -40,6 +40,11 @@ struct IArray
 
   IArray() {}
 
+  IArray(T t) {
+    for (size_t i = 0; i < N; i++)
+      (*this)[i] = T{t};
+  }
+
   template <typename... U,
             typename = std::enable_if_t<(std::is_convertible_v<U, T> && ...)>>
   inline IArray(U... data) : std::array<T, N>{static_cast<T>(data)...} {
