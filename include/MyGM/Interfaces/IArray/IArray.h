@@ -4,6 +4,7 @@
 
 #pragma once
 
+#include "../../basic.h"
 #include "../Arg.h"
 
 #include <MyTemplate/SI.h>
@@ -43,6 +44,29 @@ struct IArray
             typename = std::enable_if_t<(std::is_convertible_v<U, T> && ...)>>
   inline IArray(U... data) : std::array<T, N>{static_cast<T>(data)...} {
     static_assert(sizeof...(U) == N);
+  }
+
+  inline const Impl rmv_epsilon() const noexcept {
+    Impl rst{};
+    for (size_t i = 0; i < N; i++)
+      rst[i] = My::rmv_epsilon((*this)[i]);
+    return rst;
+  }
+
+  inline bool is_all_zero() const noexcept {
+    for (size_t i = 0; i < N; i++) {
+      if (is_zero((*this)[i]))
+        return false;
+    }
+    return true;
+  }
+
+  inline bool has_nan() const noexcept {
+    for (size_t i = 0; i < N; i++) {
+      if (is_nan((*this)[i]))
+        return true;
+    }
+    return false;
   }
 };
 }  // namespace My

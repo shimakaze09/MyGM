@@ -26,14 +26,8 @@ struct transform
   using Base::init;
   using Base::operator*;
 
-  inline explicit transform(const mat<T, 4>& m) noexcept
-      : transform(m[0], m[1], m[2], m[3]) {}
-
-  inline explicit transform(const mat<T, 3>& m) noexcept
-      : transform(vec<T, 4>{m[0][0], m[0][1], m[0][2], 0},
-                  vec<T, 4>{m[1][0], m[1][1], m[1][2], 0},
-                  vec<T, 4>{m[2][0], m[2][1], m[2][2], 0},
-                  vec<T, 4>{0, 0, 0, 1}) {}
+  inline explicit transform(const mat<T, 4>& m) noexcept;
+  inline explicit transform(const mat<T, 3>& m) noexcept;
 
   inline explicit transform(const vec<T, 3>& translation) noexcept;
   inline explicit transform(const scale<T, 3>& scale) noexcept;
@@ -77,4 +71,4 @@ struct transform
 using transformf = transform<float>;
 }  // namespace My
 
-#include "transform.inl"
+#include "detail/transform.inl"

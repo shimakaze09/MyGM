@@ -23,14 +23,6 @@ struct IArray1D_Util : SIVT_CRTP<TemplateList<IArray1D>, Base, Impl, ArgList> {
     return rst;
   }
 
-  inline bool has_nan() const noexcept {
-    for (size_t i = 0; i < N; i++) {
-      if (std::isnan<float>(static_cast<float>((*this)[i])))
-        return true;
-    }
-    return false;
-  }
-
   inline T& min_component() noexcept { return (*this)[min_dim()]; }
 
   inline T min_component() const noexcept { return (*this)[min_dim()]; }
@@ -61,21 +53,6 @@ struct IArray1D_Util : SIVT_CRTP<TemplateList<IArray1D>, Base, Impl, ArgList> {
       }
     }
     return maxDim;
-  }
-
-  inline const Impl rmv_epsilon() const noexcept {
-    Impl rst{};
-    for (size_t i = 0; i < N; i++)
-      rst[i] = My::rmv_epsilon((*this)[i]);
-    return rst;
-  }
-
-  inline bool is_zero() const noexcept {
-    for (size_t i = 0; i < N; i++) {
-      if ((*this)[i] != static_cast<F>(0))
-        return false;
-    }
-    return true;
   }
 };
 }  // namespace My

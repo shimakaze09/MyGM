@@ -113,6 +113,7 @@
         <pair source="ccm" header="" fileNamingConvention="NONE" />
         <pair source="cxxm" header="" fileNamingConvention="NONE" />
         <pair source="c++m" header="" fileNamingConvention="NONE" />
+        <pair source="cpp" header="inl" fileNamingConvention="NONE" />
       </extensions>
     </files>
   </code_scheme>
