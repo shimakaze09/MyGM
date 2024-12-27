@@ -4,6 +4,7 @@
 
 #include <iostream>
 
+#include <MyGM/val.h>
 #include <MyGM/vec.h>
 
 using namespace std;
@@ -53,6 +54,9 @@ int main() {
   // cross
   cout << vecf3::cross(v, u) << endl;
   cout << v.cross(u) << endl;
+
+  // cast
+  cout << v.cast_to<valf3>() << endl;
 
   vecf3 vs[4];
 

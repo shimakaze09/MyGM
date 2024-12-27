@@ -5,36 +5,28 @@
 #pragma once
 
 #include "Interfaces/IArray/IArray1D_Util.h"
-#include "Interfaces/IArray/IArrayInOut.h"
+#include "Interfaces/IArray/IArrayUtil.h"
 #include "Interfaces/IArray/IEuclideanV.h"
 
 namespace My {
 template <typename T, size_t N>
 struct point;
+template <typename T, size_t N>
+struct val;
 
 template <typename T, size_t N>
-struct vec : SIIT_CRTP<TemplateList<IArray1D_Util, IArrayInOut, IEuclideanV>,
+struct vec : SIIT_CRTP<TemplateList<IArray1D_Util, IArrayUtil, IEuclideanV>,
                        vec<T, N>, TypeList<TypeList<T, Size<N>>, T>> {
-  using SIIT_CRTP<TemplateList<IArray1D_Util, IArrayInOut, IEuclideanV>,
+  using SIIT_CRTP<TemplateList<IArray1D_Util, IArrayUtil, IEuclideanV>,
                   vec<T, N>, TypeList<TypeList<T, Size<N>>, T>>::SIIT_CRTP;
-
-  explicit vec(const point<T, N>& p) {
-    for (size_t i = 0; i < N; i++)
-      (*this)[i] = p[i];
-  }
 };
 
 template <typename T>
 struct vec<T, 3>
-    : SIIT_CRTP<TemplateList<IArray1D_Util, IArrayInOut, IEuclideanV>,
-                vec<T, 3>, TypeList<TypeList<T, Size<3>>, T>> {
-  using SIIT_CRTP<TemplateList<IArray1D_Util, IArrayInOut, IEuclideanV>,
+    : SIIT_CRTP<TemplateList<IArray1D_Util, IArrayUtil, IEuclideanV>, vec<T, 3>,
+                TypeList<TypeList<T, Size<3>>, T>> {
+  using SIIT_CRTP<TemplateList<IArray1D_Util, IArrayUtil, IEuclideanV>,
                   vec<T, 3>, TypeList<TypeList<T, Size<3>>, T>>::SIIT_CRTP;
-
-  explicit vec(const point<T, 3>& p) {
-    for (size_t i = 0; i < 3; i++)
-      (*this)[i] = p[i];
-  }
 
   static const vec cross(const vec& x, const vec& y) noexcept {
     return vec{x[1] * y[2] - x[2] * y[1], x[2] * y[0] - x[0] * y[2],

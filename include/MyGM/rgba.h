@@ -7,13 +7,13 @@
 #include "rgb.h"
 
 #include "Interfaces/IArray/IArray1D_Util.h"
-#include "Interfaces/IArray/IArrayInOut.h"
+#include "Interfaces/IArray/IArrayUtil.h"
 
 namespace My {
 template <typename T>
-struct rgba : SIIT_CRTP<TemplateList<IArray1D_Util, IArrayInOut>, rgba<T>,
+struct rgba : SIIT_CRTP<TemplateList<IArray1D_Util, IArrayUtil>, rgba<T>,
                         TypeList<TypeList<T, Size<4>>, T>> {
-  using Base = SIIT_CRTP<TemplateList<IArray1D_Util, IArrayInOut>, rgba<T>,
+  using Base = SIIT_CRTP<TemplateList<IArray1D_Util, IArrayUtil>, rgba<T>,
                          TypeList<TypeList<T, Size<4>>, T>>;
   using Base::Base;
 
