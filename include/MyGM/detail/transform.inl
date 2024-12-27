@@ -101,9 +101,8 @@ transform<T>::transform(const euler<T>& e) noexcept {
 }
 
 template <typename T>
-const transform<T> transform<T>::look_at(const point<T, 3>& pos,
-                                         const point<T, 3>& target,
-                                         const vec<T, 3>& up) noexcept {
+const transform<T> transform<T>::perspective(T fovY, T aspect, T zNear,
+                                             T zFar) noexcept {
   // R
   // [ right  ]
   // [ camUp  ]

@@ -48,7 +48,7 @@ struct transform
   // perspective, camera space -> clip space
   // fovy: vertical field of view in radian
   // aspect : width / height
-  static const transform perspcetive(T fovy, T aspect, T zNear,
+  static const transform perspective(T fovy, T aspect, T zNear,
                                      T zFar) noexcept;
 
   // sample: rotate_with<Axis::X>(to_radian(theta))
