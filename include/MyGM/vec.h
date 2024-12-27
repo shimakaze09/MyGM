@@ -60,5 +60,3 @@ using vecf2 = vecf<2>;
 using vecf3 = vecf<3>;
 using vecf4 = vecf<4>;
 }  // namespace My
-
-#include "detail/vec.inl"

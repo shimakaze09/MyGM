@@ -32,11 +32,11 @@ struct IArray1D_Util : SIVT_CRTP<TemplateList<IArray1D>, Base, Impl, ArgList> {
   inline T max_component() const noexcept { return (*this)[max_dim()]; }
 
   inline constexpr size_t min_dim() const noexcept {
-    T minval = (*this)[0];
+    T minVal = (*this)[0];
     size_t minDim = 0;
     for (size_t i = 1; i < N; i++) {
-      if ((*this)[i] < minval) {
-        minval = (*this)[i];
+      if ((*this)[i] < minVal) {
+        minVal = (*this)[i];
         minDim = i;
       }
     }
@@ -44,15 +44,29 @@ struct IArray1D_Util : SIVT_CRTP<TemplateList<IArray1D>, Base, Impl, ArgList> {
   }
 
   inline constexpr size_t max_dim() const noexcept {
-    T maxval = (*this)[0];
+    T maxVal = (*this)[0];
     size_t maxDim = 0;
     for (size_t i = 1; i < N; i++) {
-      if ((*this)[i] < maxval) {
-        maxval = (*this)[i];
+      if ((*this)[i] > maxVal) {
+        maxVal = (*this)[i];
         maxDim = i;
       }
     }
     return maxDim;
+  }
+
+  static const Impl min(const Impl& x, const Impl& y) noexcept {
+    Impl rst{};
+    for (size_t i = 0; i < N; i++)
+      rst[i] = std::min(x[i], y[i]);
+    return rst;
+  }
+
+  static const Impl max(const Impl& x, const Impl& y) noexcept {
+    Impl rst{};
+    for (size_t i = 0; i < N; i++)
+      rst[i] = std::max(x[i], y[i]);
+    return rst;
   }
 };
 }  // namespace My

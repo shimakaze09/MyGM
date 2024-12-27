@@ -17,6 +17,10 @@ inline transform<T>::transform(const mat<T, 3>& m) noexcept
                 vec<T, 4>{0, 0, 0, 1}) {}
 
 template <typename T>
+transform<T>::transform(const point<T, 3>& t) noexcept
+    : transform(t.cast_to<vec<T, 3>>()) {}
+
+template <typename T>
 transform<T>::transform(const vec<T, 3>& t) noexcept
     : transform{std::array<T, 4 * 4>{1, 0, 0, t[0], 0, 1, 0, t[1], 0, 0, 1,
                                      t[2], 0, 0, 0, 1}} {}
@@ -378,5 +382,10 @@ const normal<T> transform<T>::operator*(const normal<T>& n) const noexcept {
   T zp = m3(0, 2) * x + m3(1, 2) * y + m3(2, 2) * z;
 
   return {xp, yp, zp};
+}
+
+template <typename T>
+const bbox<T, 3> transform<T>::operator*(const bbox<T, 3>& b) const noexcept {
+  return {(*this) * b.minP(), (*this) * b.maxP()};
 }
 }  // namespace My

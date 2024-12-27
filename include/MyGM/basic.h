@@ -32,6 +32,9 @@ bool is_zero(T v) noexcept;
 
 template <typename T>
 bool is_nan(T v) noexcept;
+
+template <typename T, typename F>
+T lerp(T x, T y, F t) noexcept;
 }  // namespace My
 
 #include "detail/basic.inl"
