@@ -43,4 +43,6 @@ int main() {
   cout << t * pointf3{} << endl;
   cout << t * vecf3{} << endl;
   cout << t * normalf{} << endl;
+
+  cout << t.inverse() << endl;
 }

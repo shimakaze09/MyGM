@@ -120,7 +120,12 @@ struct inverse<4> {
 
     F invDet = 1 / det;
 
-    rst *= invDet;
+    // rst *= invDet is not correct
+    // because transform can't be multiplied by F
+    rst[0] *= invDet;
+    rst[1] *= invDet;
+    rst[2] *= invDet;
+    rst[3] *= invDet;
 
     return rst;
   }
