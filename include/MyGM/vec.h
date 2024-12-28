@@ -43,7 +43,7 @@ struct vec<T, 3>
     T yN = y.norm();
     T xyN = xN * yN;
     assert(xyN > 0);
-    return cross(x, y) / xyN;
+    return cross(x, y).norm() / xyN;
   }
 
   T sin_theta(const vec& y) const noexcept {

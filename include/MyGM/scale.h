@@ -5,20 +5,17 @@
 #pragma once
 
 #include "Interfaces/IArray/IArray1D_Util.h"
-#include "Interfaces/IArray/IArrayAdd.h"
 #include "Interfaces/IArray/IArrayHadamardProduct.h"
 #include "Interfaces/IArray/IArrayScalarMul.h"
 #include "Interfaces/IArray/IArrayUtil.h"
-#include "Interfaces/ILinear.h"
 
 namespace My {
 template <typename T, size_t N>
-struct scale
-    : SIIT_CRTP<TemplateList<IArray1D_Util, IArrayUtil, IArrayHadamardProduct,
-                             ILinear, IArrayScalarMul, IArrayAdd>,
-                scale<T, N>, TypeList<TypeList<T, Size<N>>, T>> {
+struct scale : SIIT_CRTP<TemplateList<IArray1D_Util, IArrayUtil,
+                                      IArrayHadamardProduct, IArrayScalarMul>,
+                         scale<T, N>, TypeList<TypeList<T, Size<N>>, T>> {
   using SIIT_CRTP<TemplateList<IArray1D_Util, IArrayUtil, IArrayHadamardProduct,
-                               ILinear, IArrayScalarMul, IArrayAdd>,
+                               IArrayScalarMul>,
                   scale<T, N>, TypeList<TypeList<T, Size<N>>, T>>::SIIT_CRTP;
 };
 
