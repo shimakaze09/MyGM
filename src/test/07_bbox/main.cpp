@@ -5,6 +5,7 @@
 #include <iostream>
 
 #include <MyGM/bbox.h>
+#include <MyGM/transform.h>
 #include <MyGM/val.h>
 
 using namespace std;

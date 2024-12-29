@@ -6,6 +6,7 @@
 
 #include <MyTemplate/SI.h>
 #include "../../basic.h"
+#include "../IArray/IArrayInOut.h"
 #include "../IInOut.h"
 #include "IMatrix.h"
 
