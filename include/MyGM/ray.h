@@ -15,12 +15,10 @@
 
 namespace My {
 template <typename T, size_t N>
-struct ray
-    : SIIT_CRTP<TemplateList<IInOut, ILine>, ray<T, N>,
-                TypeList<TypeList<T, Size<N>>, T, vec<T, N>, point<T, N>>> {
-  using Base =
-      SIIT_CRTP<TemplateList<IInOut, ILine>, ray<T, N>,
-                TypeList<TypeList<T, Size<N>>, T, vec<T, N>, point<T, N>>>;
+struct ray : SIIT_CRTP<TemplateList<IInOut, ILine>, ray<T, N>,
+                       TypeList<Arg_Empty, T, vec<T, N>, point<T, N>>> {
+  using Base = SIIT_CRTP<TemplateList<IInOut, ILine>, ray<T, N>,
+                         TypeList<Arg_Empty, T, vec<T, N>, point<T, N>>>;
 
   T tmin;
   T tmax;

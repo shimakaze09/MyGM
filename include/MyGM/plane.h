@@ -11,9 +11,8 @@
 
 namespace My {
 template <typename T>
-struct plane
-    : SIIT_CRTP<TemplateList<IInOut, IPlane>, plane<T>,
-                TypeList<TypeList<T, Size<3>>, T, vec<T, 3>, point<T, 3>>> {
+struct plane : SIIT_CRTP<TemplateList<IInOut, IPlane>, plane<T>,
+                         TypeList<Arg_Empty, T, vec<T, 3>, point<T, 3>>> {
 
   plane(const point<T, 3>& p, const vec<T, 3>& n) noexcept {
     this->init_IPlane(p, n);

@@ -8,6 +8,8 @@
 #include <MyTemplate/TypeList.h>
 
 namespace My {
+struct Arg_Empty {};
+
 template <typename ArgList>
 using Arg_T = At_t<At_t<ArgList, 0>, 0>;
 
