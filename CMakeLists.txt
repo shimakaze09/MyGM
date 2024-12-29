@@ -43,20 +43,13 @@ ELSE ()
             GIT_TAG "v0.1"
     )
     FETCHCONTENT_MAKEAVAILABLE(MyCMake)
-    MESSAGE(STATUS "${DEP}-${VERSION} fetched")
+    MESSAGE(STATUS "MyCMake-0.1 fetched")
 ENDIF ()
 
 # Set default build path prefix
 INIT_INSTALL_PREFIX()
 
 ADD_DEP(MyTemplate 0.1)
-
-INCLUDE_DIRECTORIES(
-        ${PROJECT_SOURCE_DIR}/include
-)
-LINK_DIRECTORIES(
-        ${PROJECT_SOURCE_DIR}/lib
-)
 
 ADD_SUB_DIRS(src)
 
