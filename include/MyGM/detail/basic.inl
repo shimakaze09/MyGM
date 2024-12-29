@@ -45,12 +45,12 @@ inline T sgn(T v) noexcept {
 
 template <typename T>
 bool is_zero(T v) noexcept {
-  return detail::Basic::is_zero<T>::run(v);
+  return detail::Basic::is_zero<std::decay_t<T>>::run(v);
 }
 
 template <typename T>
 bool is_nan(T v) noexcept {
-  return detail::Basic::is_nan<T>::run(v);
+  return detail::Basic::is_nan<std::decay_t<T>>::run(v);
 }
 
 template <typename T, typename F>
@@ -90,14 +90,12 @@ struct is_zero {
 
 template <typename T, size_t N, template <typename T, size_t N> class V>
 struct is_zero<V<T, N>> {
-  static const V<T, N> run(const V<T, N>& val) noexcept {
-    return val.is_zero();
-  }
+  static bool run(const V<T, N>& val) noexcept { return val.is_all_zero(); }
 };
 
 template <typename T, template <typename T> class V>
 struct is_zero<V<T>> {
-  static const V<T> run(const V<T>& val) noexcept { return val.is_zero(); }
+  static bool run(const V<T>& val) noexcept { return val.is_all_zero(); }
 };
 
 template <typename T>
