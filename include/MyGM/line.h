@@ -9,20 +9,19 @@
 
 #include <array>
 
-#include "Interfaces/IArray/IEuclideanAS.h"
 #include "Interfaces/ILine.h"
 
 namespace My {
 template <typename T, size_t N>
 struct line
-    : SIIT_CRTP<TemplateList<IInOut, ILine, IEuclideanAS>, line<T, N>,
+    : SIIT_CRTP<TemplateList<IInOut, ILine>, line<T, N>,
                 TypeList<TypeList<T, Size<N>>, T, vec<T, N>, point<T, N>>> {
   using Base =
-      SIIT_CRTP<TemplateList<IInOut, ILine, IEuclideanAS>, line<T, N>,
+      SIIT_CRTP<TemplateList<IInOut, ILine>, line<T, N>,
                 TypeList<TypeList<T, Size<N>>, T, vec<T, N>, point<T, N>>>;
   using Base::Base;
 
-  line(const point<T, N>& o, const vec<T, N>& d) : Base{o, d} {}
+  line(const point<T, N>& p, const vec<T, N>& dir) { this->init_ILine(p, dir); }
 
   void print(std::ostream& os = std::cout) const;
 
@@ -39,9 +38,7 @@ struct line
   std::istream& impl_in(std::istream& is);
 
   template <typename Base, typename Impl, typename ArgList>
-  friend struct IEuclideanAS;
-
-  point<T, N>& impl_get_point() noexcept { return this->point(); }
+  friend struct IAffineRealSubspace;
 
   static const line impl_move(const line& line, const point<T, N>& p) noexcept {
     return {p, line.dir()};
