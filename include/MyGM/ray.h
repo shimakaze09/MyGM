@@ -7,17 +7,20 @@
 #include "point.h"
 #include "vec.h"
 
+#include "line.h"
+
 #include <array>
 
-#include "Interfaces/IArray/IEuclideanLine.h"
+#include "Interfaces/IArray/IEuclideanAS.h"
+#include "Interfaces/ILine.h"
 
 namespace My {
 template <typename T, size_t N>
 struct ray
-    : SIIT_CRTP<TemplateList<IInOut, IEuclideanLine>, ray<T, N>,
+    : SIIT_CRTP<TemplateList<IInOut, ILine, IEuclideanAS>, ray<T, N>,
                 TypeList<TypeList<T, Size<N>>, T, vec<T, N>, point<T, N>>> {
   using Base =
-      SIIT_CRTP<TemplateList<IInOut, IEuclideanLine>, ray<T, N>,
+      SIIT_CRTP<TemplateList<IInOut, ILine, IEuclideanAS>, ray<T, N>,
                 TypeList<TypeList<T, Size<N>>, T, vec<T, N>, point<T, N>>>;
 
   T tmin;
@@ -26,6 +29,8 @@ struct ray
   ray(const point<T, N>& o, const vec<T, N>& d, T tmin = EPSILON<T>,
       T tmax = std::numeric_limits<T>::max())
       : Base{o, d}, tmin{tmin}, tmax{tmax} {}
+
+  const line<T, N> to_line() const noexcept;
 
   void print(std::ostream& os = std::cout) const;
 
