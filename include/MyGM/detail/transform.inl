@@ -11,24 +11,165 @@ inline transform<T>::transform(const mat<T, 4>& m) noexcept
 
 template <typename T>
 inline transform<T>::transform(const mat<T, 3>& m) noexcept
-    : transform(vec<T, 4>{m[0][0], m[0][1], m[0][2], 0},
-                vec<T, 4>{m[1][0], m[1][1], m[1][2], 0},
-                vec<T, 4>{m[2][0], m[2][1], m[2][2], 0},
-                vec<T, 4>{0, 0, 0, 1}) {}
+    : transform{std::array<T, 4 * 4>{m[0][0], m[1][0], m[2][0], 0, m[0][1],
+                                     m[1][1], m[2][1], 0, m[0][2], m[1][2],
+                                     m[2][2], 0, 0, 0, 0, 1}} {}
 
 template <typename T>
-transform<T>::transform(const vec<T, 3>& t) noexcept
-    : transform{std::array<T, 4 * 4>{1, 0, 0, t[0], 0, 1, 0, t[1], 0, 0, 1,
-                                     t[2], 0, 0, 0, 1}} {}
-
-template <typename T>
-transform<T>::transform(const point<T, 3>& t) noexcept
-    : transform(t.cast_to<vec<T, 3>>()) {}
+transform<T>::transform(const point<T, 3>& p) noexcept
+    : transform{std::array<T, 4 * 4>{1, 0, 0, p[0], 0, 1, 0, p[1], 0, 0, 1,
+                                     p[2], 0, 0, 0, 1}} {}
 
 template <typename T>
 transform<T>::transform(const scale<T, 3>& s) noexcept
     : transform{std::array<T, 4 * 4>{s[0], 0, 0, 0, 0, s[1], 0, 0, 0, 0, s[2],
                                      0, 0, 0, 0, 1}} {}
+
+template <typename T>
+transform<T>::transform(const quat<T>& q) noexcept {
+  T x = q.imag()[0];
+  T y = q.imag()[1];
+  T z = q.imag()[2];
+  T w = q.real();
+
+  T xx = x * x;
+  T xy = x * y;
+  T xz = x * z;
+  T xw = x * w;
+  T yy = y * y;
+  T yz = y * z;
+  T yw = y * w;
+  T zz = z * z;
+  T zw = z * w;
+
+  this->init(std::array<T, 4 * 4>{
+      1 - 2 * (yy + zz),
+      2 * (xy - zw),
+      2 * (xz + yw),
+      0,
+      2 * (xy + zw),
+      1 - 2 * (zz + xx),
+      2 * (yz - xw),
+      0,
+      2 * (xz - yw),
+      2 * (yz + xw),
+      1 - 2 * (xx + yy),
+      0,
+      0,
+      0,
+      0,
+      1,
+  });
+}
+
+template <typename T>
+transform<T>::transform(const euler<T>& e) noexcept {
+  T cX = std::cos(e[0]);
+  T sX = std::sin(e[0]);
+  T cY = std::cos(e[1]);
+  T sY = std::sin(e[1]);
+  T cZ = std::cos(e[2]);
+  T sZ = std::sin(e[2]);
+
+  this->init(std::array<T, 4 * 4>{
+      cY * cZ + sX * sY * sZ,
+      -cY * sZ + sX * sY * cZ,
+      cX * sY,
+      0,
+      cX * sZ,
+      cX * cZ,
+      -sX,
+      0,
+      -sY * cZ + sX * cY * sZ,
+      sY * sZ + sX * cY * cZ,
+      cX * cY,
+      0,
+      0,
+      0,
+      0,
+      1,
+  });
+}
+
+template <typename T>
+transform<T>::transform(const point<T, 3>& t, const scale<T, 3>& s) noexcept
+    : transform{std::array<T, 4 * 4>{s[0], 0, 0, t[0], 0, s[1], 0, t[1], 0, 0,
+                                     s[2], t[2], 0, 0, 0, 1}} {}
+
+template <typename T>
+transform<T>::transform(const point<T, 3>& p, const quat<T>& q) noexcept {
+  T x = q.imag()[0];
+  T y = q.imag()[1];
+  T z = q.imag()[2];
+  T w = q.real();
+
+  T xx = x * x;
+  T xy = x * y;
+  T xz = x * z;
+  T xw = x * w;
+  T yy = y * y;
+  T yz = y * z;
+  T yw = y * w;
+  T zz = z * z;
+  T zw = z * w;
+
+  this->init(std::array<T, 4 * 4>{
+      1 - 2 * (yy + zz),
+      2 * (xy - zw),
+      2 * (xz + yw),
+      p[0],
+      2 * (xy + zw),
+      1 - 2 * (zz + xx),
+      2 * (yz - xw),
+      p[1],
+      2 * (xz - yw),
+      2 * (yz + xw),
+      1 - 2 * (xx + yy),
+      p[2],
+      0,
+      0,
+      0,
+      1,
+  });
+}
+
+template <typename T>
+transform<T>::transform(const point<T, 3>& p, const scale<T, 3>& s,
+                        const quat<T>& q) noexcept {
+  T x = q.imag()[0];
+  T y = q.imag()[1];
+  T z = q.imag()[2];
+  T w = q.real();
+
+  T xx = x * x;
+  T xy = x * y;
+  T xz = x * z;
+  T xw = x * w;
+  T yy = y * y;
+  T yz = y * z;
+  T yw = y * w;
+  T zz = z * z;
+  T zw = z * w;
+
+  this->init(std::array<T, 4 * 4>{
+      s[0] * (1 - 2 * (yy + zz)),
+      2 * (xy - zw),
+      2 * (xz + yw),
+      p[0],
+      2 * (xy + zw),
+      s[1] * (1 - 2 * (zz + xx)),
+      2 * (yz - xw),
+      p[1],
+      2 * (xz - yw),
+      2 * (yz + xw),
+      s[2] * (1 - 2 * (xx + yy)),
+      p[2],
+      0,
+      0,
+      0,
+      1,
+  });
+}
 
 template <typename T>
 transform<T>::transform(const vec<T, 3>& axis, T theta) noexcept {
@@ -60,44 +201,6 @@ transform<T>::transform(const vec<T, 3>& axis, T theta) noexcept {
   m(3, 1) = 0;
   m(3, 2) = 0;
   m(3, 3) = 1;
-}
-
-template <typename T>
-transform<T>::transform(const quat<T>& q) noexcept {
-  T x = q.imag()[0];
-  T y = q.imag()[1];
-  T z = q.imag()[2];
-  T w = q.real();
-
-  T xx = x * x;
-  T xy = x * y;
-  T xz = x * z;
-  T xw = x * w;
-  T yy = y * y;
-  T yz = y * z;
-  T yw = y * w;
-  T zz = z * z;
-  T zw = z * w;
-
-  this->init(std::array<T, 4 * 4>{
-      1 - 2 * (yy + zz), 2 * (xy - zw), 2 * (xz + yw), 0, 2 * (xy + zw),
-      1 - 2 * (zz + xx), 2 * (yz - xw), 0, 2 * (xz - yw), 2 * (yz + xw),
-      1 - 2 * (xx + yy), 0, 0, 0, 0, 1});
-}
-
-template <typename T>
-transform<T>::transform(const euler<T>& e) noexcept {
-  T cX = std::cos(e[0]);
-  T sX = std::sin(e[0]);
-  T cY = std::cos(e[1]);
-  T sY = std::sin(e[1]);
-  T cZ = std::cos(e[2]);
-  T sZ = std::sin(e[2]);
-
-  this->init(std::array<T, 4 * 4>{
-      cY * cZ + sX * sY * sZ, -cY * sZ + sX * sY * cZ, cX * sY, 0, cX * sZ,
-      cX * cZ, -sX, 0, -sY * cZ + sX * cY * sZ, sY * sZ + sX * cY * cZ, cX * cY,
-      0, 0, 0, 0, 1});
 }
 
 template <typename T>
@@ -161,45 +264,32 @@ template <typename T>
 const transform<T> transform<T>::orthographic(T width, T height, T zNear,
                                               T zFar) noexcept {
   assert(width > 0 && height > 0 && zNear >= 0 && zFar > zNear);
-  return std::array<T, 4 * 4>{2 / width,
-                              0,
-                              0,
-                              0,
-                              0,
-                              2 / height,
-                              0,
-                              0,
-                              0,
-                              0,
-                              -2 / (zFar - zNear),
-                              -(zFar + zNear) / (zFar - zNear),
-                              0,
-                              0,
-                              0,
-                              1};
+
+  T m00 = 2 / width;
+  T m11 = 2 / height;
+  T m22 = -2 / (zFar - zNear);
+  T m23 = -(zFar + zNear) / (zFar - zNear);
+
+  return std::array<T, 4 * 4>{
+      m00, 0, 0, 0, 0, m11, 0, 0, 0, 0, m22, m23, 0, 0, 0, 1,
+  };
 }
 
 template <typename T>
 const transform<T> transform<T>::perspective(T fovY, T aspect, T zNear,
                                              T zFar) noexcept {
   assert(fovY > 0 && aspect > 0 && zNear >= 0 && zFar > zNear);
+
   T tanHalfFovY = std::tan(fovY / static_cast<T>(2));
-  return std::array<T, 4 * 4>{1 / (aspect * tanHalfFovY),
-                              0,
-                              0,
-                              0,
-                              0,
-                              1 / (tanHalfFovY),
-                              0,
-                              0,
-                              0,
-                              0,
-                              -(zFar + zNear) / (zFar - zNear),
-                              -(2 * zFar * zNear) / (zFar - zNear),
-                              0,
-                              0,
-                              -1,
-                              0};
+
+  T m00 = 1 / (aspect * tanHalfFovY);
+  T m11 = 1 / (tanHalfFovY);
+  T m22 = -(zFar + zNear) / (zFar - zNear);
+  T m23 = -(2 * zFar * zNear) / (zFar - zNear);
+
+  return std::array<T, 4 * 4>{
+      m00, 0, 0, 0, 0, m11, 0, 0, 0, 0, m22, m23, 0, 0, -1, 0,
+  };
 }
 
 template <typename T>
@@ -415,7 +505,12 @@ const bbox<T, 3> transform<T>::operator*(const bbox<T, 3>& b) const noexcept {
 }
 
 template <typename T>
+const line<T, 3> transform<T>::operator*(const line<T, 3>& l) const noexcept {
+  return {(*this) * l.origin(), (*this) * l.dir()};
+}
+
+template <typename T>
 const ray<T, 3> transform<T>::operator*(const ray<T, 3>& r) const noexcept {
-  return {(*this) * r.o, (*this) * r.d};
+  return {(*this) * r.origin(), (*this) * r.dir()};
 }
 }  // namespace My

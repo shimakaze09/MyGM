@@ -4,8 +4,8 @@
 
 #pragma once
 
-#include <MyTemplate/TypeList.h>
 #include <MyTemplate/Num.h>
+#include <MyTemplate/TypeList.h>
 
 namespace My {
 template <typename ArgList>
@@ -21,5 +21,5 @@ template <typename ArgList>
 using Arg_ImplV = At_t<ArgList, 2>;
 
 template <typename ArgList>
-using Arg_ImplP = At_t<ArgList, 0>;  // quat
+using Arg_ImplP = At_t<ArgList, 3>;
 }  // namespace My

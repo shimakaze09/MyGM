@@ -8,6 +8,8 @@
 #include <MyGM/val.h>
 #include <MyGM/vec.h>
 
+#include <array>
+
 using namespace std;
 using namespace My;
 
@@ -75,7 +77,13 @@ int main() {
   normalf::refract(n, n, 0.f);
   n.coord_space();
 
+  // project, orthogonalize
+  cout << v.project(u.normalize()) << endl;
+  cout << v.orthogonalize(u.normalize()) << endl;
+
   vecf3 vs[4];
+
+  std::array<float, 3> float3;
 
   for (size_t i = 0; i < 4; i++)
     std::cin >> vs[i];

@@ -27,7 +27,7 @@ struct rgb
            static_cast<T>(0.0722) * (*this)[2];
   }
 
-  T gray() const {
+  T gline() const {
     return (*this)[0] * static_cast<T>(0.299) +
            (*this)[1] * static_cast<T>(0.587) +
            (*this)[2] * static_cast<T>(0.114);
