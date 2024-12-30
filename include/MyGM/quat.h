@@ -6,7 +6,6 @@
 
 #include "euler.h"
 #include "point.h"
-#include "vec.h"
 
 #include "Interfaces/IArray/IArrayUtil.h"
 #include "Interfaces/IMul.h"

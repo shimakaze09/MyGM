@@ -47,6 +47,12 @@ const svec<T> svec<T>::mid(const svec<T>& x, const svec<T>& y) noexcept {
 }
 
 template <typename T>
+const svec<T> svec<T>::mid(const svec<T>& y) const noexcept {
+  const auto& x = *static_cast<svec<T>*>(this);
+  return mid(x, y);
+}
+
+template <typename T>
 const svec<T> svec<T>::reflect() const noexcept {
   return {-(*this)[0], -(*this)[1], (*this)[2]};
 }
@@ -73,8 +79,8 @@ const std::tuple<bool, svec<T>> svec<T>::refract(T etai,
   return {true, svec{x, y, z}};
 }
 
-template<typename T>
-    const vec<T, 3> operator*(const mat<T, 3>& m, const svec<T>& sv) noexcept {
+template <typename T>
+const vec<T, 3> operator*(const mat<T, 3>& m, const svec<T>& sv) noexcept {
   static_assert(sv.is_normalized());
   return m * sv.cast_to<vec<T, 3>>();
 }

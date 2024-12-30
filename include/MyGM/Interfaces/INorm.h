@@ -4,9 +4,10 @@
 
 #pragma once
 
-#include "../basic.h"
 #include "ILinear.h"
 #include "IMetric.h"
+
+#include "../basic.h"
 
 namespace My {
 template <typename Base, typename Impl, typename ArgList>

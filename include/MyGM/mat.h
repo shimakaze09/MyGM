@@ -4,10 +4,11 @@
 
 #pragma once
 
+#include "vec.h"
+
 #include "Interfaces/IMatrix/IMatrixInOut.h"
 #include "Interfaces/IMatrix/IMatrixMul.h"
 #include "Interfaces/IRing.h"
-#include "vec.h"
 
 namespace My {
 template <typename T, size_t N>

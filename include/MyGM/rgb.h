@@ -5,19 +5,19 @@
 #pragma once
 
 #include "Interfaces/IArray/IArray1D_Util.h"
-#include "Interfaces/IArray/IArrayAdd.h"
 #include "Interfaces/IArray/IArrayHadamardProduct.h"
-#include "Interfaces/IArray/IArrayScalarMul.h"
+#include "Interfaces/IArray/IArrayLinear.h"
 #include "Interfaces/ILinear.h"
 
 namespace My {
 template <typename T>
-struct rgb : SIIT_CRTP<TemplateList<IArray1D_Util, IArrayHadamardProduct,
-                                    ILinear, IArrayScalarMul, IArrayAdd>,
-                       rgb<T>, TypeList<TypeList<T, Size<3>>, T>> {
-  using SIIT_CRTP<TemplateList<IArray1D_Util, IArrayHadamardProduct, ILinear,
-                               IArrayScalarMul, IArrayAdd>,
-                  rgb<T>, TypeList<TypeList<T, Size<3>>, T>>::SIIT_CRTP;
+struct rgb
+    : SIIT_CRTP<
+          TemplateList<IArray1D_Util, IArrayHadamardProduct, IArrayLinear>,
+          rgb<T>, TypeList<TypeList<T, Size<3>>, T>> {
+  using SIIT_CRTP<
+      TemplateList<IArray1D_Util, IArrayHadamardProduct, IArrayLinear>, rgb<T>,
+      TypeList<TypeList<T, Size<3>>, T>>::SIIT_CRTP;
 
   T illumination() const noexcept {
     return static_cast<T>(0.2126) * (*this)[0] +
