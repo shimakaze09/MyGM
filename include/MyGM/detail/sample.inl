@@ -46,7 +46,7 @@ const val<T, 3> uniform_in_sphere() noexcept {
 // z > 0
 template <typename T, Axis up>
 const val<T, 3> cos_weighted_on_hemisphere() noexcept {
-  val<T, 2> ab = uniform_in_disk();
+  val<T, 2> ab = uniform_in_disk<T>();
   T c = std::sqrt(ab[0], ab[1]);
   if constexpr (up == Axis::X)
     return {c, ab[0], ab[1]};
@@ -57,12 +57,12 @@ const val<T, 3> cos_weighted_on_hemisphere() noexcept {
 }
 
 const svecf sample_GGX_D(float alpha) noexcept {
-  float Xi1 = rand01<float>();
-  float Xi2 = rand01<float>();
-  float cos2_sthetam = (1 - Xi1) / ((pow2(alpha) - 1) * Xi1 + 1);
+  auto Xi = uniform_in_square<float>();
+  float cos2_sthetam = (1 - Xi[0]) / ((pow2(alpha) - 1) * Xi[0] + 1);
   float cos_sthetam = std::sqrt(cos_sthetam);
   float sin_sthetam = std::sqrt(1 - cos2_sthetam);
-  float phi = 2 * PI<float> * Xi2;
-  return { sin_sthetam * std::cos(phi), sin_sthetam * std::sin(phi), cos_sthetam };
+  float phi = 2 * PI<float> * Xi[1];
+  return {sin_sthetam * std::cos(phi), sin_sthetam * std::sin(phi),
+          cos_sthetam};
 }
 }  // namespace My
