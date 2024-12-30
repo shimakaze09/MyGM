@@ -5,15 +5,16 @@
 #pragma once
 
 #include "point.h"
+#include "val.h"
 #include "vec.h"
 
 #include <limits>
 
 namespace My {
 template <typename T, size_t N>
-struct bbox : SIIT_CRTP<TemplateList<IArrayUtil>, bbox<T, N>,
+struct bbox : SIIT_CRTP<TemplateList<IArrayInOut>, bbox<T, N>,
                         TypeList<TypeList<point<T, N>, Size<2>>, T>> {
-  using Base = SIIT_CRTP<TemplateList<IArrayUtil>, bbox<T, N>,
+  using Base = SIIT_CRTP<TemplateList<IArrayInOut>, bbox<T, N>,
                          TypeList<TypeList<point<T, N>, Size<2>>, T>>;
   using Base::Base;
 
@@ -46,13 +47,13 @@ struct bbox : SIIT_CRTP<TemplateList<IArrayUtil>, bbox<T, N>,
   const vec<T, N> offset(const point<T, N>& p) const;
 
   const bbox combine(const bbox& rhs) const;
-  bbox& combine_with(const bbox& rhs);
+  bbox& combine_to_self(const bbox& rhs);
 
   const bbox combine(const point<T, N>& p) const;
-  bbox& combine_with(const point<T, N>& p);
+  bbox& combine_to_self(const point<T, N>& p);
 
   static const bbox intersect(const bbox& lhs, const bbox& rhs);
-  bbox& intersect_with(const bbox& rhs);
+  bbox& intersect_to_self(const bbox& rhs);
 };
 
 template <size_t N>
