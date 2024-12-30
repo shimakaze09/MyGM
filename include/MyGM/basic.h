@@ -43,7 +43,7 @@ constexpr T one_epsilon() noexcept;
 
 // range: [0, 1), T: float / double
 template <typename T>
-float rand01() noexcept;
+T rand01() noexcept;
 
 // range: [0, 2^64-1]
 size_t randi() noexcept;
