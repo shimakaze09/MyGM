@@ -4,6 +4,7 @@
 
 #pragma once
 
+#include "svec.h"
 #include "val.h"
 
 namespace My {
@@ -30,6 +31,13 @@ const val<T, 3> uniform_in_sphere() noexcept;
 // center: (0, 0, 0), radius: 1
 template <typename T, Axis up = Axis::Z>
 const val<T, 3> cos_weighted_on_hemisphere() noexcept;
+
+// [summary]
+// sample microfacet normal from GGX normal distribuion function
+// ref: Walter B, et al. Microfacet Models for Refraction through Rough Surfaces.
+// [return]
+// wm: microfacet normal
+inline const svecf sample_GGX_D(float alpha) noexcept;
 }  // namespace My
 
 #include "detail/sample.inl"
