@@ -72,4 +72,10 @@ const std::tuple<bool, svec<T>> svec<T>::refract(T etai,
 
   return {true, svec{x, y, z}};
 }
+
+template<typename T>
+    const vec<T, 3> operator*(const mat<T, 3>& m, const svec<T>& sv) noexcept {
+  static_assert(sv.is_normalized());
+  return m * sv.cast_to<vec<T, 3>>();
+}
 }  // namespace My

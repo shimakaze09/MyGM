@@ -28,13 +28,13 @@ struct transform
   using Base::Base;
   using Base::operator*;
 
-  inline explicit transform(const mat<T, 4>& m) noexcept;
-  inline explicit transform(const mat<T, 3>& m) noexcept;
+  explicit transform(const mat<T, 4>& m) noexcept;
+  explicit transform(const mat<T, 3>& m) noexcept;
 
-  inline explicit transform(const point<T, 3>& pos) noexcept;
-  inline explicit transform(const scale<T, 3>& scale) noexcept;
-  inline explicit transform(const quat<T>& rot) noexcept;
-  inline explicit transform(const euler<T>& euler) noexcept;
+  explicit transform(const point<T, 3>& pos) noexcept;
+  explicit transform(const scale<T, 3>& scale) noexcept;
+  explicit transform(const quat<T>& rot) noexcept;
+  explicit transform(const euler<T>& euler) noexcept;
 
   transform(const point<T, 3>& pos, const scale<T, 3>& scale) noexcept;
   transform(const point<T, 3>& pos, const quat<T>& rot) noexcept;
@@ -58,17 +58,17 @@ struct transform
 
   // sample: rotate_with<Axis::X>(to_radian(theta))
   template <Axis axis>
-  inline static const transform rotate_with(T theta) noexcept;
+  static const transform rotate_with(T theta) noexcept;
 
-  inline const point<T, 3> decompose_position() const noexcept {
+  const point<T, 3> decompose_position() const noexcept {
     return {(*this)(0, 3), (*this)(1, 3), (*this)(2, 3)};
   }
 
-  inline const scale<T, 3> decompose_scale() const noexcept;
-  inline const mat<T, 3> decompose_rotation_matrix() const noexcept;
+  const scale<T, 3> decompose_scale() const noexcept;
+  const mat<T, 3> decompose_rotation_matrix() const noexcept;
   const quat<T> decompose_quatenion() const noexcept;
   const euler<T> decompose_euler() const noexcept;
-  inline const mat<T, 3> decompose_mat3() const noexcept;
+  const mat<T, 3> decompose_mat3() const noexcept;
 
   const point<T, 3> operator*(const point<T, 3>& p) const noexcept;
   const vec<T, 3> operator*(const vec<T, 3>& v) const noexcept;
