@@ -4,14 +4,7 @@
 
 #pragma once
 
-#include "point.h"
-#include "vec.h"
-
 #include "line.h"
-
-#include <array>
-
-#include "Interfaces/ILine.h"
 
 namespace My {
 template <typename T, size_t N>
@@ -34,9 +27,10 @@ struct ray : SIIT_CRTP<TemplateList<IInOut, ILine>, ray<T, N>,
   void print(std::ostream& os = std::cout) const;
 
   // (isIntersect, (w, u, v), t)
-  const std::tuple<bool, std::array<T, 3>, T> intersect_triangle(
-      const point<T, 3>& v0, const point<T, 3>& v1,
-      const point<T, 3>& v2) const;
+  const std::tuple<bool, std::array<T, 3>, T> intersect(
+      const triangle<T, 3>& tri) const noexcept;
+  // (isIntersect, t0, t1)
+  const std::tuple<bool, T, T> intersect(const bbox<T, N>& box) const noexcept;
 
  private:
   template <typename Base, typename Impl, typename ArgList>
