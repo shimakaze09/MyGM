@@ -38,12 +38,12 @@ inline constexpr T to_degree(T radian) noexcept {
 
 template <typename T>
 inline T sgn(T v) noexcept {
-  if (v > static_cast<T>(0))
-    return static_cast<T>(1);
-  else if (v < static_cast<T>(0))
+  if (v > ZERO<T>)
+    return ONE<T>;
+  else if (v < ZERO<T>)
     return static_cast<T>(-1);
   else
-    return static_cast<T>(0);
+    return ZERO<T>;
 }
 
 template <typename T>
@@ -70,7 +70,7 @@ constexpr T one_epsilon() noexcept {
 template <typename T>
 T rand01() noexcept {
   static_assert(std::is_floating_point_v<T>);
-  static std::uniform_real_distribution<T> distribution(static_cast<T>(0),
+  static std::uniform_real_distribution<T> distribution(ZERO<T>,
                                                         one_epsilon<T>());
   static std::default_random_engine engine;
   return distribution(engine);
@@ -120,7 +120,7 @@ struct rmv_epsilon<V<T>> {
 
 template <typename T>
 struct is_zero {
-  static bool run(T v) noexcept { return v == static_cast<T>(0); }
+  static bool run(T v) noexcept { return v == ZERO<T>; }
 };
 
 template <typename T, size_t N, template <typename T, size_t N> class V>

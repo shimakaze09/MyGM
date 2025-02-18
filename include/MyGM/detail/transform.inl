@@ -153,15 +153,15 @@ transform<T>::transform(const point<T, 3>& p, const scale<T, 3>& s,
 
   this->init(std::array<T, 4 * 4>{
       s[0] * (1 - 2 * (yy + zz)),
-      2 * (xy - zw),
-      2 * (xz + yw),
+      s[1] * (2 * (xy - zw)),
+      s[2] * (2 * (xz + yw)),
       p[0],
-      2 * (xy + zw),
+      s[0] * (2 * (xy + zw)),
       s[1] * (1 - 2 * (zz + xx)),
-      2 * (yz - xw),
+      s[2] * (2 * (yz - xw)),
       p[1],
-      2 * (xz - yw),
-      2 * (yz + xw),
+      s[0] * (2 * (xz - yw)),
+      s[1] * (2 * (yz + xw)),
       s[2] * (1 - 2 * (xx + yy)),
       p[2],
       0,
@@ -177,7 +177,7 @@ transform<T>::transform(const vec<T, 3>& axis, T theta) noexcept {
 
   T sinTheta = std::sin(theta);
   T cosTheta = std::cos(theta);
-  T OneMinusCosTheta = static_cast<T>(1) - cosTheta;
+  T OneMinusCosTheta = ONE<T> - cosTheta;
 
   auto& m = static_cast<transform&>(*this);
   // Compute rotation of first basis vector
@@ -463,7 +463,7 @@ const point<T, 3> transform<T>::operator*(const point<T, 3>& p) const noexcept {
   T wp = m(3, 0) * x + m(3, 1) * y + m(3, 2) * z + m(3, 3);
 
   if (wp != 1) {
-    T invWP = static_cast<T>(1) / wp;
+    T invWP = ONE<T> / wp;
     return {xp * invWP, yp * invWP, zp * invWP};
   } else
     return {xp, yp, zp};
@@ -500,17 +500,47 @@ const normal<T> transform<T>::operator*(const normal<T>& n) const noexcept {
 }
 
 template <typename T>
-const bbox<T, 3> transform<T>::operator*(const bbox<T, 3>& b) const noexcept {
-  return {(*this) * b.minP(), (*this) * b.maxP()};
+const bbox<T, 3> transform<T>::operator*(const bbox<T, 3>& A) const noexcept {
+  const auto& m = static_cast<const transform&>(*this);
+
+  // See Christer Ericson's Real-time Collision Detection, p. 87, or
+  // James Arvo's "Transforming Axis-aligned Bounding Boxes" in Graphics Gems 1, pp. 548-550.
+  // http://www.graphicsgems.org/
+
+  point<T, 3> Amin = A.minP();
+  point<T, 3> Amax = A.maxP();
+  point<T, 3> Bmin = {m(0, 3), m(1, 3), m(2, 3)};
+  point<T, 3> Bmax = Bmin;
+
+  /* Now find the extreme points by considering the product of the */
+  /* min and max with each component of M.  */
+
+  for (size_t i = 0; i < 3; i++) {
+    for (size_t j = 0; j < 3; j++) {
+      T a = m(i, j) * Amin[j];
+      T b = m(i, j) * Amax[j];
+      if (a < b) {
+        Bmin[i] += a;
+        Bmax[i] += b;
+      } else {
+        Bmin[i] += b;
+        Bmax[i] += a;
+      }
+    }
+  }
+
+  /* Copy the result into the new box. */
+
+  return {Bmin, Bmax};
 }
 
 template <typename T>
 const line<T, 3> transform<T>::operator*(const line<T, 3>& l) const noexcept {
-  return{ (*this) * l.point(), (*this) * l.dir() };
+  return {(*this) * l.point(), (*this) * l.dir()};
 }
 
 template <typename T>
 const ray<T, 3> transform<T>::operator*(const ray<T, 3>& r) const noexcept {
-  return{ (*this) * r.point(), (*this) * r.dir() };
+  return {(*this) * r.point(), (*this) * r.dir()};
 }
 }  // namespace My
