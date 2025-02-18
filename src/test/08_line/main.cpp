@@ -12,16 +12,15 @@ using namespace My;
 
 int main() {
   linef3 l(pointf3{0.f}, vecf3{0.f, 1.f, 0.f});
-
   l.print();
   cout << "l: " << l << endl;
-  cout << "pnt: " << l.point() << endl;
-  cout << "d: " << l.dir() << endl;
+  cout << "pnt: " << l.point << endl;
+  cout << "d: " << l.dir << endl;
   cout << "at(0.5f): " << l.at(0.5f) << endl;
   pointf3 p0{-1.f, 2.f, 1.f};
   pointf3 p1{0.f, 2.f, -1.f};
   pointf3 p2{1.f, 2.f, 1.f};
-  auto [isIntersect, wuv, t] = l.intersect(p0, p1, p2);
+  auto [isIntersect, wuv, t] = l.intersect(trianglef3{p0, p1, p2});
   cout << "intersect_triangle" << endl
        << "  - p0: " << p0 << endl
        << "  - p1: " << p1 << endl

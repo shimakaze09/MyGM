@@ -21,6 +21,6 @@ struct ILine : SIVT_CRTP<TemplateList<IAffineRealSubspace, IOLine>, Base, Impl,
     this->init_IOLine(dir);
   }
 
-  const Point at(F t) const noexcept { return this->point() + t * this->dir(); }
+  const Point at(F t) const noexcept { return this->point + t * this->dir; }
 };
 }  // namespace My

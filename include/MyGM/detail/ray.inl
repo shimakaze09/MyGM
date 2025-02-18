@@ -7,32 +7,32 @@
 namespace My {
 template <typename T, size_t N>
 const line<T, N> ray<T, N>::to_line() const noexcept {
-  return {this->point(), this->dir()};
+  return {this->point, this->dir};
 }
 
 template <typename T, size_t N>
 const ray<T, N> ray<T, N>::impl_move(const ray& r,
                                      const point<T, N>& p) noexcept {
-  return {p, r.dir(), r.tmin, r.tmax};
+  return {p, r.dir, r.tmin, r.tmax};
 }
 
 template <typename T, size_t N>
 void ray<T, N>::print(std::ostream& os) const {
-  os << "[ point : " << this->point() << " ]" << std::endl
-     << "[ dir   : " << this->dir() << " ]" << std::endl
+  os << "[ point : " << this->point << " ]" << std::endl
+     << "[ dir   : " << this->dir << " ]" << std::endl
      << "[ tmin  : " << this->tmin << " ]" << std::endl
      << "[ tmax  : " << this->tmin << " ]" << std::endl;
 }
 
 template <typename T, size_t N>
 std::ostream& ray<T, N>::impl_out(std::ostream& os) const {
-  os << this->point() << " " << this->dir() << " " << tmin << " " << tmax;
+  os << this->point << " " << this->dir << " " << tmin << " " << tmax;
   return os;
 }
 
 template <typename T, size_t N>
 std::istream& ray<T, N>::impl_in(std::istream& is) {
-  is >> this->point() >> this->dir() >> tmin >> tmax;
+  is >> this->point >> this->dir >> tmin >> tmax;
   return is;
 }
 
@@ -58,9 +58,9 @@ const std::tuple<bool, T, T> ray<T, N>::intersect(
 
 template <typename T, size_t N>
 const std::tuple<bool, T> ray<T, N>::intersect_std_sphere() const noexcept {
-  vec<T, N> oc = this->point().cast_to<vec<T, N>>();
-  T a = this->dir().norm2();
-  T b = oc.dot(this->dir());
+  vec<T, N> oc = this->point.cast_to<vec<T, N>>();
+  T a = this->dir.norm2();
+  T b = oc.dot(this->dir);
   T c = oc.dot(oc) - 1;
   T discriminant = b * b - a * c;
 
@@ -86,11 +86,11 @@ const std::tuple<bool, T, point<T, 2>> ray<T, N>::intersect_std_square()
     const noexcept {
   static_assert(N == 3);
 
-  const auto& d = this->dir();
+  const auto& d = this->dir;
   if (d[1] == 0)
     return {false, ZERO<T>, point<T, 2>{0, 0}};
 
-  const auto& p = this->point();
+  const auto& p = this->point;
   T t = -p[1] / d[1];
   if (t < tmin || t > tmax)
     return {false, ZERO<T>, point<T, 2>{0, 0}};
@@ -111,11 +111,11 @@ const std::tuple<bool, T, point<T, 2>> ray<T, N>::intersect_std_disk()
     const noexcept {
   static_assert(N == 3);
 
-  const auto& d = this->dir();
+  const auto& d = this->dir;
   if (d[1] == 0)
     return {false, ZERO<T>, point<T, 2>{0, 0}};
 
-  const auto& p = this->point();
+  const auto& p = this->point;
   T t = -p[1] / d[1];
   if (t < tmin || t > tmax)
     return {false, ZERO<T>};
