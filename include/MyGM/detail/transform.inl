@@ -486,6 +486,8 @@ const vec<T, 3> transform<T>::operator*(const vec<T, 3>& v) const noexcept {
 
 template <typename T>
 const normal<T> transform<T>::operator*(const normal<T>& n) const noexcept {
+  // N = (M^{-1})^T * n
+
   mat<T, 3> m3 = decompose_mat3().inverse();
 
   T x = n[0];
@@ -541,6 +543,6 @@ const line<T, 3> transform<T>::operator*(const line<T, 3>& l) const noexcept {
 
 template <typename T>
 const ray<T, 3> transform<T>::operator*(const ray<T, 3>& r) const noexcept {
-  return {(*this) * r.point, (*this) * r.dir};
+  return {(*this) * r.point, (*this) * r.dir, r.tmin, r.tmax};
 }
 }  // namespace My

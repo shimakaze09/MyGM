@@ -71,9 +71,6 @@ const std::tuple<bool, std::array<T, 3>, T> line<T, N>::intersect(
   const auto r3 = e2_x_s.dot(e1);
   const auto t = r3 * inv_denominator;
 
-  if (t < 0)
-    return {false, std::array<T, 3>{ZERO<T>}, ZERO<T>};
-
   return {true, std::array<T, 3>{ONE<T> - u_plus_v, u, v}, t};
 }
 
