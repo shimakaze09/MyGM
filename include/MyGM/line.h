@@ -50,6 +50,9 @@ using linef = line<float, N>;
 using linef1 = linef<1>;
 using linef2 = linef<2>;
 using linef3 = linef<3>;
+
+// maybe error in editor, but no compile error
+static_assert(sizeof(linef3) == 6 * sizeof(float));
 }  // namespace My
 
 #include "detail/line.inl"

@@ -56,6 +56,9 @@ using valu1 = valu<1>;
 using valu2 = valu<2>;
 using valu3 = valu<3>;
 using valu4 = valu<4>;
+
+// maybe error in editor, but no compile error
+static_assert(sizeof(valf4) == 4 * sizeof(float));
 }  // namespace My
 
 #include "detail/val.inl"

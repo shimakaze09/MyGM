@@ -42,4 +42,7 @@ struct rgba : SIIT_CRTP<TemplateList<IArray1D_Util>, rgba<T>,
 };
 
 using rgbaf = rgba<float>;
+
+// maybe error in editor, but no compile error
+static_assert(sizeof(rgbaf) == 4 * sizeof(float));
 }  // namespace My

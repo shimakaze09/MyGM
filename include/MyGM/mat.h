@@ -25,4 +25,7 @@ using matf = mat<float, N>;
 
 using matf3 = matf<3>;
 using matf4 = matf<4>;
+
+// maybe error in editor, but no compile error
+static_assert(sizeof(matf4) == 16 * sizeof(float));
 }  // namespace My

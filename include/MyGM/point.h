@@ -48,6 +48,9 @@ using pointu1 = pointu<1>;
 using pointu2 = pointu<2>;
 using pointu3 = pointu<3>;
 using pointu4 = pointu<4>;
+
+// maybe error in editor, but no compile error
+static_assert(sizeof(pointf3) == sizeof(float) * 3);
 }  // namespace My
 
 #include "detail/point.inl"

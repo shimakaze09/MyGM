@@ -26,6 +26,9 @@ struct normal : SIIT_CRTP<TemplateList<IArray1D_Util, ICross>, normal<T>,
 };
 
 using normalf = normal<float>;
+
+// maybe error in editor, but no compile error
+static_assert(sizeof(normalf) == 3 * sizeof(float));
 }  // namespace My
 
 #include "detail/normal.inl"

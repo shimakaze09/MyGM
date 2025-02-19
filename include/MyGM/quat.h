@@ -65,6 +65,9 @@ struct quat : SIIT_CRTP<TemplateList<IMul, IArrayUtil>, quat<T>,
 };
 
 using quatf = quat<float>;
+
+// maybe error in editor, but no compile error
+static_assert(sizeof(quatf) == 4 * sizeof(float));
 }  // namespace My
 
 #include "detail/quat.inl"

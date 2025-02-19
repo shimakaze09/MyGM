@@ -25,6 +25,9 @@ using trianglef = triangle<float, N>;
 
 using trianglef2 = trianglef<2>;
 using trianglef3 = trianglef<3>;
+
+// maybe error in editor, but no compile error
+static_assert(sizeof(trianglef3) == 9 * sizeof(float));
 }  // namespace My
 
 #include "detail/triangle.inl"

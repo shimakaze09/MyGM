@@ -79,6 +79,9 @@ const vec<T, 3> operator*(const mat<T, 3>& m,
                           const svec<T>& sv) noexcept;  // assert(normalized())
 
 using svecf = svec<float>;
+
+// maybe error in editor, but no compile error
+static_assert(sizeof(svecf) == 3 * sizeof(float));
 }  // namespace My
 
 #include "detail/svec.inl"

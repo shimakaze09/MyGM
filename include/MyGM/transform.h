@@ -79,6 +79,9 @@ struct transform
 };
 
 using transformf = transform<float>;
+
+// maybe error in editor, but no compile error
+static_assert(sizeof(transformf) == 16 * sizeof(float));
 }  // namespace My
 
 #include "detail/transform.inl"

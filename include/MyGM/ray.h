@@ -62,6 +62,9 @@ using rayf = ray<float, N>;
 using rayf1 = rayf<1>;
 using rayf2 = rayf<2>;
 using rayf3 = rayf<3>;
+
+// maybe error in editor, but no compile error
+static_assert(sizeof(rayf3) == 8 * sizeof(float));
 }  // namespace My
 
 #include "detail/ray.inl"
