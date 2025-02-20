@@ -221,17 +221,12 @@ const transform<T> transform<T>::look_at(const point<T, 3>& pos,
   // [ R -RT ]
   // [ 0   1 ]
   //
-  // cameraToWorld
-  // [ R^T  T ]
-  // [ 0    1 ]
+
+  assert(up.is_normalized());
 
   const vec<T, 3> front = (target - pos).normalize();
-  vec<T, 3> right = front.cross(up);
-  if (right.rmv_epsilon().is_all_zero()) {
-    vec<T, 3> newUp = up.normalize();
-    newUp.min_component() = 1;
-    right = front.cross(newUp).normalize();
-  }
+  assert(front != up);
+  vec<T, 3> right = front.cross(up).normalize();
   const vec<T, 3> camUp = right.cross(front);
   auto posV = pos.cast_to<vec<T, 3>>();
 
@@ -267,8 +262,8 @@ const transform<T> transform<T>::orthographic(T width, T height, T zNear,
 
   T m00 = 2 / width;
   T m11 = 2 / height;
-  T m22 = -2 / (zFar - zNear);
-  T m23 = -(zFar + zNear) / (zFar - zNear);
+  T m22 = 2 / (zNear - zFar);
+  T m23 = (zFar + zNear) / (zNear - zFar);
 
   return std::array<T, 4 * 4>{
       m00, 0, 0, 0, 0, m11, 0, 0, 0, 0, m22, m23, 0, 0, 0, 1,
@@ -281,11 +276,12 @@ const transform<T> transform<T>::perspective(T fovY, T aspect, T zNear,
   assert(fovY > 0 && aspect > 0 && zNear >= 0 && zFar > zNear);
 
   T tanHalfFovY = std::tan(fovY / static_cast<T>(2));
+  T cotHalfFovY = 1 / tanHalfFovY;
 
-  T m00 = 1 / (aspect * tanHalfFovY);
-  T m11 = 1 / (tanHalfFovY);
-  T m22 = -(zFar + zNear) / (zFar - zNear);
-  T m23 = -(2 * zFar * zNear) / (zFar - zNear);
+  T m00 = cotHalfFovY / aspect;
+  T m11 = cotHalfFovY;
+  T m22 = (zFar + zNear) / (zNear - zFar);
+  T m23 = (2 * zFar * zNear) / (zNear - zFar);
 
   return std::array<T, 4 * 4>{
       m00, 0, 0, 0, 0, m11, 0, 0, 0, 0, m22, m23, 0, 0, -1, 0,
