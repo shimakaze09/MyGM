@@ -33,22 +33,22 @@ SET_PROPERTY(GLOBAL PROPERTY USE_FOLDERS ON)
 # Add CMake modules
 INCLUDE(FETCHCONTENT)
 
-MESSAGE(STATUS "Looking for: MyCMake v0.3.1")
-FIND_PACKAGE(MyCMake 0.3.1 QUIET)
+MESSAGE(STATUS "Looking for: MyCMake v0.3.3")
+FIND_PACKAGE(MyCMake 0.3.3 QUIET)
 IF (${MyCMake_FOUND})
     MESSAGE(STATUS "MyCMake v${MyCMake_VERSION} found")
 ELSE ()
     SET(ADDRESS "https://github.com/shimakaze09/MyCMake.git")
-    MESSAGE(STATUS "MyCMake v0.3.1 not found\n"
-            "fetch from ${ADDRESS} with tag v0.3.1")
+    MESSAGE(STATUS "MyCMake v0.3.3 not found\n"
+            "fetch from ${ADDRESS} with tag v0.3.3")
     FETCHCONTENT_DECLARE(
             MyCMake
             GIT_REPOSITORY ${ADDRESS}
-            GIT_TAG "v0.3.1"
+            GIT_TAG "v0.3.3"
     )
-    message(STATUS "Building MyCMake v0.3.1")
+    message(STATUS "Building MyCMake v0.3.3")
     FETCHCONTENT_MAKEAVAILABLE(MyCMake)
-    MESSAGE(STATUS "MyCMake v0.3.1 built")
+    MESSAGE(STATUS "MyCMake v0.3.3 built")
 ENDIF ()
 
 # Set default build path prefix
