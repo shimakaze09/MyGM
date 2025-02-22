@@ -3,7 +3,7 @@
 <AutoVisualizer xmlns="http://schemas.microsoft.com/vstudio/debugger/natvis/2010">
   <Type Name="My::vec&lt;*,1&gt;>">
     <DisplayString>{{{_Elems[0]}}}</DisplayString>
-	<Expand>
+    <Expand>
       <ArrayItems>
         <Size>1</Size>
         <ValuePointer>_Elems</ValuePointer>
@@ -12,7 +12,7 @@
   </Type>
   <Type Name="My::vec&lt;*,2&gt;>">
     <DisplayString>{{{_Elems[0]}, {_Elems[1]}}}</DisplayString>
-	<Expand>
+    <Expand>
       <ArrayItems>
         <Size>2</Size>
         <ValuePointer>_Elems</ValuePointer>
@@ -21,7 +21,7 @@
   </Type>
   <Type Name="My::vec&lt;*,3&gt;>">
     <DisplayString>{{{_Elems[0]}, {_Elems[1]}, {_Elems[2]}}}</DisplayString>
-	<Expand>
+    <Expand>
       <ArrayItems>
         <Size>3</Size>
         <ValuePointer>_Elems</ValuePointer>
@@ -30,7 +30,7 @@
   </Type>
   <Type Name="My::vec&lt;*,4&gt;>">
     <DisplayString>{{{_Elems[0]}, {_Elems[1]}, {_Elems[2]}, {_Elems[3]}}}</DisplayString>
-	<Expand>
+    <Expand>
       <ArrayItems>
         <Size>4</Size>
         <ValuePointer>_Elems</ValuePointer>
@@ -40,7 +40,7 @@
 
   <Type Name="My::point&lt;*,1&gt;>">
     <DisplayString>{{{_Elems[0]}}}</DisplayString>
-	<Expand>
+    <Expand>
       <ArrayItems>
         <Size>1</Size>
         <ValuePointer>_Elems</ValuePointer>
@@ -49,7 +49,7 @@
   </Type>
   <Type Name="My::point&lt;*,2&gt;>">
     <DisplayString>{{{_Elems[0]}, {_Elems[1]}}}</DisplayString>
-	<Expand>
+    <Expand>
       <ArrayItems>
         <Size>2</Size>
         <ValuePointer>_Elems</ValuePointer>
@@ -58,7 +58,7 @@
   </Type>
   <Type Name="My::point&lt;*,3&gt;>">
     <DisplayString>{{{_Elems[0]}, {_Elems[1]}, {_Elems[2]}}}</DisplayString>
-	<Expand>
+    <Expand>
       <ArrayItems>
         <Size>3</Size>
         <ValuePointer>_Elems</ValuePointer>
@@ -67,7 +67,7 @@
   </Type>
   <Type Name="My::point&lt;*,4&gt;>">
     <DisplayString>{{{_Elems[0]}, {_Elems[1]}, {_Elems[2]}, {_Elems[3]}}}</DisplayString>
-	<Expand>
+    <Expand>
       <ArrayItems>
         <Size>4</Size>
         <ValuePointer>_Elems</ValuePointer>
@@ -77,7 +77,7 @@
 
   <Type Name="My::val&lt;*,1&gt;>">
     <DisplayString>{{{_Elems[0]}}}</DisplayString>
-	<Expand>
+    <Expand>
       <ArrayItems>
         <Size>1</Size>
         <ValuePointer>_Elems</ValuePointer>
@@ -86,7 +86,7 @@
   </Type>
   <Type Name="My::val&lt;*,2&gt;>">
     <DisplayString>{{{_Elems[0]}, {_Elems[1]}}}</DisplayString>
-	<Expand>
+    <Expand>
       <ArrayItems>
         <Size>2</Size>
         <ValuePointer>_Elems</ValuePointer>
@@ -95,7 +95,7 @@
   </Type>
   <Type Name="My::val&lt;*,3&gt;>">
     <DisplayString>{{{_Elems[0]}, {_Elems[1]}, {_Elems[2]}}}</DisplayString>
-	<Expand>
+    <Expand>
       <ArrayItems>
         <Size>3</Size>
         <ValuePointer>_Elems</ValuePointer>
@@ -104,7 +104,7 @@
   </Type>
   <Type Name="My::val&lt;*,4&gt;>">
     <DisplayString>{{{_Elems[0]}, {_Elems[1]}, {_Elems[2]}, {_Elems[3]}}}</DisplayString>
-	<Expand>
+    <Expand>
       <ArrayItems>
         <Size>4</Size>
         <ValuePointer>_Elems</ValuePointer>
@@ -114,7 +114,7 @@
 
   <Type Name="My::scale&lt;*&gt;>">
     <DisplayString>{{{_Elems[0]}, {_Elems[1]}, {_Elems[2]}}}</DisplayString>
-	<Expand>
+    <Expand>
       <ArrayItems>
         <Size>3</Size>
         <ValuePointer>_Elems</ValuePointer>
@@ -124,7 +124,7 @@
 
   <Type Name="My::normal&lt;*&gt;>">
     <DisplayString>{{{_Elems[0]}, {_Elems[1]}, {_Elems[2]}}}</DisplayString>
-	<Expand>
+    <Expand>
       <ArrayItems>
         <Size>3</Size>
         <ValuePointer>_Elems</ValuePointer>
@@ -134,7 +134,7 @@
 
   <Type Name="My::svec&lt;*&gt;>">
     <DisplayString>{{{_Elems[0]}, {_Elems[1]}, {_Elems[2]}}}</DisplayString>
-	<Expand>
+    <Expand>
       <ArrayItems>
         <Size>3</Size>
         <ValuePointer>_Elems</ValuePointer>
@@ -144,7 +144,7 @@
 
   <Type Name="My::euler&lt;*&gt;>">
     <DisplayString>{{{_Elems[0]}, {_Elems[1]}, {_Elems[2]}}}</DisplayString>
-	<Expand>
+    <Expand>
       <ArrayItems>
         <Size>3</Size>
         <ValuePointer>_Elems</ValuePointer>
@@ -153,8 +153,8 @@
   </Type>
 
   <Type Name="My::quat&lt;*&gt;>">
-    <DisplayString>{{[{_Elems[0]}, {_Elems[1]}, {_Elems[2]}], {_Elems[4]}}}</DisplayString>
-	<Expand>
+    <DisplayString>{{[{_Elems[0]}, {_Elems[1]}, {_Elems[2]}], {_Elems[3]}}}</DisplayString>
+    <Expand>
       <ArrayItems>
         <Size>4</Size>
         <ValuePointer>_Elems</ValuePointer>
@@ -164,7 +164,7 @@
 
   <Type Name="My::rgb&lt;*&gt;>">
     <DisplayString>{{{_Elems[0]}, {_Elems[1]}, {_Elems[2]}}}</DisplayString>
-	<Expand>
+    <Expand>
       <ArrayItems>
         <Size>3</Size>
         <ValuePointer>_Elems</ValuePointer>
@@ -174,7 +174,7 @@
 
   <Type Name="My::rgba&lt;*&gt;>">
     <DisplayString>{{{_Elems[0]}, {_Elems[1]}, {_Elems[2]}, {_Elems[3]}}}</DisplayString>
-	<Expand>
+    <Expand>
       <ArrayItems>
         <Size>4</Size>
         <ValuePointer>_Elems</ValuePointer>
