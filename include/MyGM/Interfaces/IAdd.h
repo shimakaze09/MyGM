@@ -22,9 +22,11 @@ struct IAdd : Base {
   }
 
   inline const Impl operator-(const Impl& y) const noexcept {
-    return operator+(-y);
+    return static_cast<const Impl*>(this)->impl_minus(y);
   }
 
-  inline Impl& operator-=(const Impl& y) noexcept { return operator+=(-y); }
+  inline Impl& operator-=(const Impl& y) noexcept {
+    return static_cast<Impl*>(this)->impl_minus_to_self(y);
+  }
 };
 }  // namespace My

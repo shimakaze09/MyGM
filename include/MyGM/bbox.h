@@ -8,9 +8,9 @@
 
 namespace My {
 template <typename T, size_t N>
-struct bbox : SIIT_CRTP<TemplateList<IArrayInOut>, bbox<T, N>,
+struct bbox : SIIT_CRTP<TemplateList<IArrayUtil>, bbox<T, N>,
                         TypeList<TypeList<point<T, N>, Size<2>>, T>> {
-  using Base = SIIT_CRTP<TemplateList<IArrayInOut>, bbox<T, N>,
+  using Base = SIIT_CRTP<TemplateList<IArrayUtil>, bbox<T, N>,
                          TypeList<TypeList<point<T, N>, Size<2>>, T>>;
   using Base::Base;
 
