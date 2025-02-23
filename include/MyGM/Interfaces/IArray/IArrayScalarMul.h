@@ -28,18 +28,17 @@ struct IArrayScalarMul
   inline const Impl impl_scalar_mul(U k) const noexcept {
     auto& x = static_cast<const Impl&>(*this);
     auto kF = static_cast<F>(k);
-    Impl rst{};
-
 #ifdef USE_XSIMD
-    if constexpr (std::is_same_v<T, float> && N == 4) {
-      auto sx = xsimd::load_aligned(x.data());
-      auto srst = sx * kF;
-      srst.store_aligned(rst.data());
-    } else
+    if constexpr (std::is_same_v<T, float> && N == 4)
+      return x * kF;
+    else
 #endif  // USE_XSIMD
+    {
+      Impl rst{};
       for (size_t i = 0; i < N; i++)
         rst[i] = x[i] * kF;
-    return rst;
+      return rst;
+    }
   }
 
   template <typename U, typename = std::enable_if_t<std::is_arithmetic_v<U>>>
@@ -47,15 +46,15 @@ struct IArrayScalarMul
     auto& x = static_cast<Impl&>(*this);
     auto kF = static_cast<F>(k);
 #ifdef USE_XSIMD
-    if constexpr (std::is_same_v<T, float> && N == 4) {
-      auto sx = xsimd::load_aligned(x.data());
-      sx *= kF;
-      sx.store_aligned(x.data());
-    } else
+    if constexpr (std::is_same_v<T, float> && N == 4)
+      return x *= kF;
+    else
 #endif  // USE_XSIMD
+    {
       for (size_t i = 0; i < N; i++)
         x[i] *= kF;
-    return x;
+      return x;
+    }
   }
 };
 }  // namespace My

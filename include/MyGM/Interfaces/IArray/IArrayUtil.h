@@ -42,11 +42,18 @@ struct IArrayUtil
   }
 
   static const Impl lerp(const Impl& x, const Impl& y, F t) noexcept {
-    Impl rst{};
     F one_minus_t = static_cast<F>(1) - t;
-    for (size_t i = 0; i < N; i++)
-      rst[i] = My::lerp(x[i], y[i], t);
-    return rst;
+#ifdef USE_XSIMD
+    if constexpr (std::is_same_v<T, float> && N == 4)
+      return one_minus_t * x + t * y;
+    else
+#endif  // USE_XSIMD
+    {
+      Impl rst{};
+      for (size_t i = 0; i < N; i++)
+        rst[i] = My::lerp(x[i], y[i], t);
+      return rst;
+    }
   }
 
   inline const Impl lerp(const Impl& y, F t) const noexcept {
@@ -61,14 +68,24 @@ struct IArrayUtil
   static const Impl mix(const std::vector<Impl>& vals,
                         const std::vector<float>& weights) noexcept {
     assert(vals.size() > 0 && vals.size() == weights.size());
-    Impl rst{};
-    for (size_t j = 0; j < N; j++)
-      rst[j] = vals[0][j] * weights[0];
-    for (size_t i = 1; i < vals.size(); i++) {
+#ifdef USE_XSIMD
+    if constexpr (std::is_same_v<T, float> && N == 4) {
+      auto rst = vals[0].get() * weights[0];
+      for (size_t i = 1; i < vals.size(); i++)
+        rst += vals[i].get() * weights[i];
+      return rst;
+    } else
+#endif  // USE_XSIMD
+    {
+      Impl rst;
       for (size_t j = 0; j < N; j++)
-        rst[j] += vals[i][j] * weights[i];
+        rst[j] = vals[0][j] * weights[0];
+      for (size_t i = 1; i < vals.size(); i++) {
+        for (size_t j = 0; j < N; j++)
+          rst[j] += vals[i][j] * weights[i];
+      }
+      return rst;
     }
-    return rst;
   }
 };
 }  // namespace My
