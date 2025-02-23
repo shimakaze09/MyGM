@@ -2,6 +2,7 @@
 // Created by Admin on 23/02/2025.
 //
 
+#include <MyGM/mat.h>
 #include <MyGM/point.h>
 #include <MyGM/vec.h>
 #include <iostream>
@@ -23,6 +24,10 @@ int main(int argc, char* argv[]) {
   cin >> p0 >> p1;
   p0 -= a;
   cout << p0 - p1 << endl;
+  matf4 m1, m2;
+  cin >> m1 >> m2;
+  auto m1m2 = m1 * m2;
+  cout << m1m2 << endl;
   // scalef4 sa;
   // scalef4 sb;
   // cin >> sa >> sb;
