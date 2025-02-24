@@ -27,25 +27,25 @@ struct svec : SIIT_CRTP<TemplateList<IArray1D_Util, ICross>, svec<T>,
   static const svec mid(const svec<T>& x, const svec<T>& y) noexcept;
   const svec mid(const svec<T>& y) const noexcept;
 
-  T cos_stheta() const noexcept;  // assert(normalized())
+  inline T cos_stheta() const noexcept;  // assert(normalized())
 
-  T sin_stheta() const noexcept;  // assert(normalized())
+  inline T sin_stheta() const noexcept;  // assert(normalized())
 
   // if this is normal, return 1
-  T cos_sphi() const noexcept;  // assert(normalized())
+  inline T cos_sphi() const noexcept;  // assert(normalized())
 
   // if this is normal, return 0
-  T sin_sphi() const noexcept;  // assert(normalized())
+  inline T sin_sphi() const noexcept;  // assert(normalized())
 
   // z > 0
-  bool is_above() const noexcept;
+  inline bool is_above() const noexcept;
 
   // [summary]
   // this is inward direction (**outward** from surface), maybe under the surface
   // reflected direction is outward direction (**outward** from surface) on the same side
   // [return]
   // - outward (this->norm() == result.norm())
-  const svec reflect() const noexcept;
+  inline const svec reflect() const noexcept;
 
   // [summary]
   // - `this` is inward direction (**outward** from surface), maybe under surface
@@ -57,7 +57,7 @@ struct svec : SIIT_CRTP<TemplateList<IArray1D_Util, ICross>, svec<T>,
   // [return]
   // - bool: whether refract is success
   // - svec: normalized outward
-  const std::tuple<bool, svec> refract(
+  inline const std::tuple<bool, svec> refract(
       T etai, T etao) const noexcept;  // assert(normalized())
 
   // [summary]
@@ -68,7 +68,7 @@ struct svec : SIIT_CRTP<TemplateList<IArray1D_Util, ICross>, svec<T>,
   // [return]
   // - bool: whether refract is success
   // - svec: normalized outward
-  const std::tuple<bool, svec> refract(
+  inline const std::tuple<bool, svec> refract(
       T eta) const noexcept;  // assert(normalized())
 };
 

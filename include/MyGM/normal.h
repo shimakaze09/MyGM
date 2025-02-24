@@ -20,9 +20,9 @@ struct normal : SIIT_CRTP<TemplateList<IArray1D_Util, ICross>, normal<T>,
   using SIIT_CRTP<TemplateList<IArray1D_Util, ICross>, normal<T>,
                   TypeList<TypeList<T, Size<3>>, T>>::SIIT_CRTP;
 
-  const point<T, 2> to_sphere_texcoord() const noexcept;
+  inline const point<T, 2> to_sphere_texcoord() const noexcept;
 
-  const vec<T, 3> to_sphere_tangent() const noexcept;
+  inline const vec<T, 3> to_sphere_tangent() const noexcept;
 };
 
 using normalf = normal<float>;

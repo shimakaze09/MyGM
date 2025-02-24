@@ -19,10 +19,11 @@ struct point
       TypeList<TypeList<T, Size<N>>, T, vec<T, N>, point<T, N>>>::SIIT_CRTP;
 
   template <typename Container>
-  static const point combine(const Container& points, T weight) noexcept;
+  inline static const point combine(const Container& points, T weight) noexcept;
 
   template <typename PContainer, typename WContainer>
-  static const point combine(PContainer points, WContainer weights) noexcept;
+  inline static const point combine(PContainer points,
+                                    WContainer weights) noexcept;
 };
 
 template <size_t N>
