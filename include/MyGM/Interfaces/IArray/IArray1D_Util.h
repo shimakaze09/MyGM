@@ -20,10 +20,10 @@ struct IArray1D_Util
   static constexpr size_t N = Arg_N<ArgList>;
 
   inline const Impl abs() const noexcept {
-#ifdef USE_XSIMD
+#ifdef MY_USE_XSIMD
     if constexpr (std::is_same_v<T, float> && N == 4)
       return xsimd::abs(this->get_batch());
-#endif  // USE_XSIMD
+#endif  // MY_USE_XSIMD
     {
       Impl rst;
       for (size_t i = 0; i < N; i++)
@@ -35,7 +35,7 @@ struct IArray1D_Util
   inline T& min_component() noexcept { return (*this)[min_dim()]; }
 
   inline T min_component() const noexcept {
-#ifdef USE_XSIMD
+#ifdef MY_USE_XSIMD
     if constexpr (std::is_same_v<T, float> && N == 4) {
       // 5 instructions
       const auto& s0 = this->get_batch();
@@ -47,14 +47,14 @@ struct IArray1D_Util
       // slow
       //return std::min(std::min((*this)[0], (*this)[1]), std::min((*this)[2], (*this)[3]));
     } else
-#endif  // USE_XSIMD
+#endif  // MY_USE_XSIMD
       return (*this)[min_dim()];
   }
 
   inline T& max_component() noexcept { return (*this)[max_dim()]; }
 
   inline T max_component() const noexcept {
-#ifdef USE_XSIMD
+#ifdef MY_USE_XSIMD
     if constexpr (std::is_same_v<T, float> && N == 4) {
       // 5 instructions
       const auto& s0 = this->get_batch();
@@ -66,7 +66,7 @@ struct IArray1D_Util
       // slow
       //return std::max(std::max((*this)[0], (*this)[1]), std::max((*this)[2], (*this)[3]));
     } else
-#endif  // USE_XSIMD
+#endif  // MY_USE_XSIMD
       return (*this)[max_dim()];
   }
 
@@ -95,10 +95,10 @@ struct IArray1D_Util
   }
 
   static const Impl min(const Impl& x, const Impl& y) noexcept {
-#ifdef USE_XSIMD
+#ifdef MY_USE_XSIMD
     if constexpr (std::is_same_v<T, float> && N == 4)
       return xsimd::min(x, y);
-#endif  // USE_XSIMD
+#endif  // MY_USE_XSIMD
     {
       Impl rst;
       for (size_t i = 0; i < N; i++)
@@ -108,10 +108,10 @@ struct IArray1D_Util
   }
 
   static const Impl max(const Impl& x, const Impl& y) noexcept {
-#ifdef USE_XSIMD
+#ifdef MY_USE_XSIMD
     if constexpr (std::is_same_v<T, float> && N == 4)
       return xsimd::min(x, y);
-#endif  // USE_XSIMD
+#endif  // MY_USE_XSIMD
     {
       Impl rst;
       for (size_t i = 0; i < N; i++)

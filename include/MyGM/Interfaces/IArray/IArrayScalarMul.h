@@ -28,11 +28,11 @@ struct IArrayScalarMul
   inline const Impl impl_scalar_mul(U k) const noexcept {
     auto& x = static_cast<const Impl&>(*this);
     auto kF = static_cast<F>(k);
-#ifdef USE_XSIMD
+#ifdef MY_USE_XSIMD
     if constexpr (std::is_same_v<T, float> && N == 4)
       return x.get() * kF;
     else
-#endif  // USE_XSIMD
+#endif  // MY_USE_XSIMD
     {
       Impl rst{};
       for (size_t i = 0; i < N; i++)
@@ -45,11 +45,11 @@ struct IArrayScalarMul
   inline Impl& impl_scalar_mul_to_self(U k) noexcept {
     auto& x = static_cast<Impl&>(*this);
     auto kF = static_cast<F>(k);
-#ifdef USE_XSIMD
+#ifdef MY_USE_XSIMD
     if constexpr (std::is_same_v<T, float> && N == 4)
       return x.get() *= kF;
     else
-#endif  // USE_XSIMD
+#endif  // MY_USE_XSIMD
     {
       for (size_t i = 0; i < N; i++)
         x[i] *= kF;

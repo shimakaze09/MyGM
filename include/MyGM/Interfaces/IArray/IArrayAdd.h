@@ -21,11 +21,11 @@ struct IArrayAdd : SIVT_CRTP<TemplateList<IAdd, IArray>, Base, Impl, ArgList> {
 
   inline const Impl impl_add(const Impl& y) const noexcept {
     auto& x = static_cast<const Impl&>(*this);
-#ifdef USE_XSIMD
+#ifdef MY_USE_XSIMD
     if constexpr (std::is_same_v<T, float> && N == 4)
       return x.get() + y.get();
     else
-#endif  // USE_XSIMD
+#endif  // MY_USE_XSIMD
     {
       Impl rst{};
       for (size_t i = 0; i < N; i++)
@@ -36,11 +36,11 @@ struct IArrayAdd : SIVT_CRTP<TemplateList<IAdd, IArray>, Base, Impl, ArgList> {
 
   inline Impl& impl_add_to_self(const Impl& y) noexcept {
     auto& x = static_cast<Impl&>(*this);
-#ifdef USE_XSIMD
+#ifdef MY_USE_XSIMD
     if constexpr (std::is_same_v<T, float> && N == 4)
       return x += y;
     else
-#endif  // USE_XSIMD
+#endif  // MY_USE_XSIMD
     {
       for (size_t i = 0; i < N; i++)
         x[i] += y[i];
@@ -50,11 +50,11 @@ struct IArrayAdd : SIVT_CRTP<TemplateList<IAdd, IArray>, Base, Impl, ArgList> {
 
   inline const Impl impl_add_inverse() const noexcept {
     auto& x = static_cast<const Impl&>(*this);
-#ifdef USE_XSIMD
+#ifdef MY_USE_XSIMD
     if constexpr (std::is_same_v<T, float> && N == 4)
       return -x;
     else
-#endif  // USE_XSIMD
+#endif  // MY_USE_XSIMD
     {
       Impl rst{};
       for (size_t i = 0; i < N; i++)
@@ -65,11 +65,11 @@ struct IArrayAdd : SIVT_CRTP<TemplateList<IAdd, IArray>, Base, Impl, ArgList> {
 
   inline const Impl impl_minus(const Impl& y) const noexcept {
     auto& x = static_cast<const Impl&>(*this);
-#ifdef USE_XSIMD
+#ifdef MY_USE_XSIMD
     if constexpr (std::is_same_v<T, float> && N == 4) {
       return x - y;
     } else
-#endif  // USE_XSIMD
+#endif  // MY_USE_XSIMD
     {
       Impl rst{};
       for (size_t i = 0; i < N; i++)
@@ -80,11 +80,11 @@ struct IArrayAdd : SIVT_CRTP<TemplateList<IAdd, IArray>, Base, Impl, ArgList> {
 
   inline Impl& impl_minus_to_self(const Impl& y) noexcept {
     auto& x = static_cast<Impl&>(*this);
-#ifdef USE_XSIMD
+#ifdef MY_USE_XSIMD
     if constexpr (std::is_same_v<T, float> && N == 4) {
       return x -= y;
     } else
-#endif  // USE_XSIMD
+#endif  // MY_USE_XSIMD
     {
       for (size_t i = 0; i < N; i++)
         x[i] -= y[i];

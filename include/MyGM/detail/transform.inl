@@ -290,7 +290,7 @@ const transform<T> transform<T>::perspective(T fovY, T aspect, T zNear,
 template <typename T>
 const transform<T> transform<T>::inverse_sim() const noexcept {
   // ref: https://lxjk.github.io/2017/09/03/Fast-4x4-Matrix-Inverse-with-SSE-SIMD-Explained.html
-#ifdef USE_XSIMD
+#ifdef MY_USE_XSIMD
   if constexpr (std::is_same_v<T, float>) {
     transform<T> r;
     const auto& inM = *this;
@@ -310,10 +310,16 @@ const transform<T> transform<T>::inverse_sim() const noexcept {
 
     // optional test to avoid divide by 0
     __m128 one = _mm_set1_ps(1.f);
-    // for each component, if(sizeSqr < SMALL_NUMBER) sizeSqr = 1;
-    __m128 rSizeSqr =
-        _mm_blendv_ps(_mm_div_ps(one, sizeSqr), one,
-                      _mm_cmplt_ps(sizeSqr, _mm_set1_ps(EPSILON<float>)));
+#if 0
+			// for each component, if(sizeSqr < SMALL_NUMBER) sizeSqr = 1;
+			__m128 rSizeSqr = _mm_blendv_ps(
+				_mm_div_ps(one, sizeSqr),
+				one,
+				_mm_cmplt_ps(sizeSqr, _mm_set1_ps(EPSILON<float>))
+			);
+#else
+    __m128 rSizeSqr = _mm_div_ps(one, sizeSqr);
+#endif
 
     r[0] = _mm_mul_ps(r[0], rSizeSqr);
     r[1] = _mm_mul_ps(r[1], rSizeSqr);
@@ -337,11 +343,11 @@ const transform<T> transform<T>::inverse_sim() const noexcept {
 template <typename T>
 const scale<T, 3> transform<T>::decompose_scale() const noexcept {
   const auto& m = static_cast<const transform&>(*this);
-#ifdef USE_XSIMD
+#ifdef MY_USE_XSIMD
   if constexpr (std::is_same_v<T, float>)
     return {m[0].norm(), m[1].norm(), m[2].norm()};
   else
-#endif  // USE_XSIMD
+#endif  // MY_USE_XSIMD
   {
     vec<T, 3> col0(m(0, 0), m(1, 0), m(2, 0));
     vec<T, 3> col1(m(0, 1), m(1, 1), m(2, 1));
@@ -353,7 +359,7 @@ const scale<T, 3> transform<T>::decompose_scale() const noexcept {
 template <typename T>
 const mat<T, 3> transform<T>::decompose_rotation_matrix() const noexcept {
   const auto& m = static_cast<const transform&>(*this);
-#ifdef USE_XSIMD
+#ifdef MY_USE_XSIMD
   if constexpr (std::is_same_v<T, float>) {
     return {
         m[0].normalize().cast_to<vecf3>(),
@@ -523,12 +529,12 @@ const point<T, 3> transform<T>::operator*(const point<T, 3>& p) const noexcept {
   T y = p[1];
   T z = p[2];
 
-#ifdef USE_XSIMD
+#ifdef MY_USE_XSIMD
   if constexpr (std::is_same_v<T, float>) {
     auto mp = m[0] * x + m[1] * y + m[2] * z + m[4];
     return (mp / mp[3]).cast_to<pointf3>();
   } else
-#endif  // USE_XSIMD
+#endif  // MY_USE_XSIMD
   {
     T xp = m(0, 0) * x + m(0, 1) * y + m(0, 2) * z + m(0, 3);
     T yp = m(1, 0) * x + m(1, 1) * y + m(1, 2) * z + m(1, 3);
@@ -551,11 +557,11 @@ const vec<T, 3> transform<T>::operator*(const vec<T, 3>& v) const noexcept {
   T y = v[1];
   T z = v[2];
 
-#ifdef USE_XSIMD
+#ifdef MY_USE_XSIMD
   if constexpr (std::is_same_v<T, float>)
     return (m[0] * x + m[1] * y + m[2] * z).cast_to<vecf3>();
   else
-#endif  // USE_XSIMD
+#endif  // MY_USE_XSIMD
   {
     T xp = m(0, 0) * x + m(0, 1) * y + m(0, 2) * z;
     T yp = m(1, 0) * x + m(1, 1) * y + m(1, 2) * z;
@@ -591,7 +597,7 @@ const bbox<T, 3> transform<T>::operator*(const bbox<T, 3>& A) const noexcept {
   // See Christer Ericson's Real-time Collision Detection, p. 87, or
   // James Arvo's "Transforming Axis-aligned Bounding Boxes" in Graphics Gems 1, pp. 548-550.
   // http://www.graphicsgems.org/
-#ifdef USE_XSIMD
+#ifdef MY_USE_XSIMD
   if constexpr (std::is_same_v<T, float>) {
     using V = xsimd::batch<float, 4>;
     // V Amin{ A.minP()[0], A.minP()[1], A.minP()[2], 0 };
@@ -613,9 +619,10 @@ const bbox<T, 3> transform<T>::operator*(const bbox<T, 3>& A) const noexcept {
     Bmax += xsimd::max(m1Amin, m1Amax);
     Bmax += xsimd::max(m2Amin, m2Amax);
 
-    return {Bmin.cast_to<pointf3>(), Bmax.cast_to<pointf3>()};
+    return {pointf3{Bmin[0], Bmin[1], Bmin[2]},
+            pointf3{Bmax[0], Bmax[1], Bmax[2]}};
   } else
-#endif  // USE_XSIMD
+#endif  // MY_USE_XSIMD
   {
     point<T, 3> Amin = A.minP();
     point<T, 3> Amax = A.maxP();
