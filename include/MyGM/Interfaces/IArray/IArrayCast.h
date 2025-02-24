@@ -23,7 +23,7 @@ struct IArrayCast : SIVT_CRTP<TemplateList<IArray>, Base, Impl, ArgList> {
   template <typename To>
   To& as() & noexcept {
     static_assert(sizeof(To) == sizeof(Impl) &&
-                  typename To::T == Arg_T<ArgList>);
+                  std::is_same_v<typename To::T, Arg_T<ArgList>>);
     return reinterpret_cast<To&>(*this);
   }
 
