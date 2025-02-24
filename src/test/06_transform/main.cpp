@@ -52,5 +52,5 @@ int main() {
 
   auto trs = transformf{pointf3{1.f}, scalef3{2.f, 3.f, 4.f},
                         quatf{vecf3{1, 1, 1}, to_radian(45.f)}};
-  cout << trs * trs.inverse() << endl;
+  cout << trs * trs.inverse_sim() << endl;
 }
