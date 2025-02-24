@@ -4,6 +4,14 @@
 
 #pragma once
 
+#ifndef MY_FORCEINLINE
+#if (_MSC_VER >= 1200)
+#define MY_FORCEINLINE __forceinline
+#else
+#define MY_FORCEINLINE __inline
+#endif
+#endif  // !MY_FORCEINLINE
+
 #include <cmath>
 #include <random>
 

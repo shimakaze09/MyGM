@@ -4,6 +4,7 @@
 
 #pragma once
 
+#include "basic.h"
 #include "bbox.h"
 #include "triangle.h"
 
@@ -24,7 +25,7 @@ struct line : SIIT_CRTP<TemplateList<IInOut, ILine>, line<T, N>,
   inline void print(std::ostream& os = std::cout) const;
 
   // (isIntersect, (w, u, v), t)
-  inline const std::tuple<bool, std::array<T, 3>, T> intersect(
+  MY_FORCEINLINE const std::tuple<bool, std::array<T, 3>, T> intersect(
       const triangle<T, 3>& tri) const noexcept;
   // (isIntersect, t0, t1)
   inline const std::tuple<bool, T, T> intersect(
