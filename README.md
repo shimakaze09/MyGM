@@ -96,7 +96,10 @@ git clone https://github.com/shimakaze09/MyGM
     - Click Configure button:
         - (`BUILD_TEST`: Build test cases [default unchecked])
         - (`MY_USE_XSIMD`: Use SIMD acceleration [default checked])
-        - Modify the installation path `CMAKE_INSTALL_PREFIX`, record it as `<install-path>` (the default is `C:/...`, you need to open VS 2019 as an **administrator**), note that `<install-path>` should end with `My`, such as `<install-path>=D:/Program_Files/My`, because [MyCMake](https://github.com/shimakaze09/MyCMake) and [MyTemplate](https://github.com/shimakaze09/MyTemplate) will be installed at the same time.
+        - Modify the installation path `CMAKE_INSTALL_PREFIX`, record it as `<install-path>` (the default is `C:/...`,
+          you need to open VS 2019 as an **administrator**), note that `<install-path>` should end with `My`, such as
+          `<install-path>=D:/Program_Files/My`, because [MyCMake](https://github.com/shimakaze09/MyCMake)
+          and [MyTemplate](https://github.com/shimakaze09/MyTemplate) will be installed at the same time.
     - Click Generate button
     - Click Open Project button to open VS 2019
 
@@ -163,7 +166,8 @@ Below is a brief introduction to the algebraic concepts involved in the library:
 
 ### 4.2 Underlying Storage Types
 
-- Array [`IArray`](include/MyGM/Interfaces/IArray/IArray.h): Ordered sequence of elements; serves as base class for various
+- Array [`IArray`](include/MyGM/Interfaces/IArray/IArray.h): Ordered sequence of elements; serves as base class for
+  various
   classes; typically `std::array<T, N>`, where T can be floated, int, or point, vec
 - Matrix [`IMetrix`](include/MyGM/Interfaces/IMatrix/IMatrix.h): Array of 1D arrays
 
@@ -191,7 +195,10 @@ T operator+(T a, T b) const {
 
 ### 4.2.2 Matrices
 
-Since this library is used for graphics, it primarily supports 3x3 and 4x4 matrices.
+Since this library is used for offline rendering, real-time rendering, games, etc., basically only float4 is used, so
+only 3x3 and 4x4 matrices are needed. Therefore, this library is also limited to supporting only 3x3 and 4x4 matrices (
+and specializing the implementation of matrix multiplication and inverse, such as loop unrolling and simd acceleration
+to improve performance).
 
 The library implements matrices through 1D arrays of arrays, right-multiplication, column-major, consistent with OpenGL
 and DX (right-multiplication + column-major is highly suitable for SIMD, similarly left-multiplication + row-major is
@@ -230,9 +237,9 @@ The library also contains classes:
 - Surface vector [`svec`](include/MyGM/svec.h): Unit vectors in tangent space, up direction is z-axis
 - Homogeneous vector [`hvec`](include/MyGM/svec.h)
 - Bounding box [`bbox`](include/MyGM/bbox.h): axis-aligned bounding box (AABB)
-- Triangle [`triangle`](include/MyGM/triangle.h)
-- Line [`line`](include/MyGM/line.h)
-- Ray [`ray`](include/MyGM/ray.h)
+- Triangle [`triangle`](include/MyGM/triangle.h): three `point`
+- Line [`line`](include/MyGM/line.h): `point` + `direction`
+- Ray [`ray`](include/MyGM/ray.h): added `t min` and `t max` for the line
 
 ## 5. Interfaces
 
@@ -242,8 +249,7 @@ are located in [include/MyGM/Interfaces/](include/MyGM/Interfaces/).
 All interfaces are member functions, convenient to use, and most situations allow utilizing IDE code completion
 functionality (such as VS2019's intellisense) to query interfaces.
 
-Additionally, common graphics algorithms/functions are provided, such as intersection (located in line, ray), sampling,
-materials, etc.
+In addition, common functions/algorithms in the rendering field are also provided, such as intersection (located in `line`, `ray`), [sampling](include/MyGM/sample.h), [materials](include/MyGM/material.h), etc.
 
 ## 6. SIMD
 
@@ -260,20 +266,29 @@ Accelerated parts include:
 - `transform inverse`
 - Intersection between `ray` and `sphere/triangle/bbox`
 - `dot/cross` of `float3` (requires extension to `float4` and uses `float4::dot3` and `float4::cross3`)
+- ...
 
 ### 7. Natvis
-During debugging, generic programming introduces extensive single inheritance relationships. This library employs single inheritance technology with deep inheritance hierarchies, making it difficult to view class member variables in IDEs.
+
+During debugging, generic programming introduces extensive single inheritance relationships. This library employs single
+inheritance technology with deep inheritance hierarchies, making it difficult to view class member variables in IDEs.
 
 > **Example**
 >
 > ![TextBox default visualization](https://docs.microsoft.com/en-us/visualstudio/debugger/media/dbg_natvis_textbox_default.png?view=vs-2019)
 >
-> > If the image fails to load, please use this link [TextBox default visualization](https://docs.microsoft.com/en-us/visualstudio/debugger/media/dbg_natvis_textbox_default.png?view=vs-2019)
+> > If the image fails to load, please use this
+> >
+link [TextBox default visualization](https://docs.microsoft.com/en-us/visualstudio/debugger/media/dbg_natvis_textbox_default.png?view=vs-2019)
 
 We can use the natvis feature of VS2019 to implement customized views
 
 ![natvis_demo.jpg](https://cdn.jsdelivr.net/gh/shimakaze09/MyData@main/MyGM/natvis_demo.jpg)
 
-> If the image fails to load, please use this link [natvis_demo.jpg](https://cdn.jsdelivr.net/gh/shimakaze09/MyData@main/MyGM/natvis_demo.jpg)
+> If the image fails to load, please use this
+> link [natvis_demo.jpg](https://cdn.jsdelivr.net/gh/shimakaze09/MyData@main/MyGM/natvis_demo.jpg)
 
-When using `FIND_PACKAGE(MyGM REQUIRED)`, a project will be automatically added to the solution, containing `MyGM_<VERSION>.natvis`, so that other projects can support natvis ([VS2019 supports multiple ways to introduce natvis](https://docs.microsoft.com/en-us/visualstudio/debugger/create-custom-views-of-native-objects?view=vs-2019#BKMK_natvis_location), but this is the most suitable way I can think of at the moment).
+When using `FIND_PACKAGE(MyGM REQUIRED)`, a project will be automatically added to the solution, containing
+`MyGM_<VERSION>.natvis`, so that other projects can support
+natvis ([VS2019 supports multiple ways to introduce natvis](https://docs.microsoft.com/en-us/visualstudio/debugger/create-custom-views-of-native-objects?view=vs-2019#BKMK_natvis_location),
+but this is the most suitable way I can think of at the moment).
