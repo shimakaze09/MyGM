@@ -4,7 +4,7 @@
 
 ## Features
 
-- Emphasizes correct algebraic concepts (groups, rings, fields, linear algebra, Euclidean spaces, etc.)
+- Emphasizes correct algebraic concepts (rings, linear, Euclidean space, affine space, etc.)
 - Object-oriented (all methods are member functions)
 - High performance: SIMD acceleration, optimal algorithms
 - Optimize code structure using single inheritance (avoiding ugly macros)
