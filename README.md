@@ -212,10 +212,10 @@ algebraic classes. They satisfy different operations, greatly helping users avoi
 
 Currently, the main combinations (major parts) are as follows:
 
-> ![MyGM_graph.jpg](https://cdn.jsdelivr.net/gh/shimakaze09/MyData@main/MyGM/MyGM_graph.jpg)
+> ![graph.jpg](https://cdn.jsdelivr.net/gh/shimakaze09/MyData@main/MyGM/graph.jpg)
 
 > If the image fails to load, please use this
-> link [MyGM_graph.jpg](https://cdn.jsdelivr.net/gh/shimakaze09/MyData@main/MyGM/MyGM_graph.jpg)
+> link [graph.jpg](https://cdn.jsdelivr.net/gh/shimakaze09/MyData@main/MyGM/graph.jpg)
 
 The graph contains the following classes:
 
@@ -299,6 +299,7 @@ but this is the most suitable way I can think of at the moment).
 
 - Lighter single inheritance technology (reduces coding overhead) to further speed up compilation
 - Provide `config.h` to facilitate custom functions
-- `xfloat3`: The underlying `__m128` `float3` class is used to better support SIMD, and its size is `4*sizeof(float)`, including `xpoint`, `xvec`, `xrgb`, ...
+- `xfloat3`: The underlying `__m128` `float3` class is used to better support SIMD, and its size is `4*sizeof(float)`,
+  including `xpoint`, `xvec`, `xrgb`, ...
 - Support Cuda
 - ...
