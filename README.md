@@ -294,3 +294,11 @@ When using `FIND_PACKAGE(MyGM REQUIRED)`, a project will be automatically added 
 `MyGM_<VERSION>.natvis`, so that other projects can support
 natvis ([VS2019 supports multiple ways to introduce natvis](https://docs.microsoft.com/en-us/visualstudio/debugger/create-custom-views-of-native-objects?view=vs-2019#BKMK_natvis_location),
 but this is the most suitable way I can think of at the moment).
+
+## Future Features
+
+- Lighter single inheritance technology (reduces coding overhead) to further speed up compilation
+- Provide `config.h` to facilitate custom functions
+- `xfloat3`: The underlying `__m128` `float3` class is used to better support SIMD, and its size is `4*sizeof(float)`, including `xpoint`, `xvec`, `xrgb`, ...
+- Support Cuda
+- ...
