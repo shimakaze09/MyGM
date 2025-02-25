@@ -1,6 +1,6 @@
 # MyGM
 
-> **My** **G**raphics **M**ath Graphics Mathematics Library
+> **My** **G**raphics **M**athematics
 
 **Features**
 
@@ -18,7 +18,8 @@ optimization for debug information
 MyGM is a mathematics library focused on algebraic concepts, distinguishing between points, vectors, normals, colors,
 etc., thereby avoiding incorrect calculations as much as possible.
 
-Common math libraries (such as Eigen, glm) only provide a vec class and enable various operations (such as +-* / etc.),
+Commonly used graphics math libraries (such as Eigen, glm) only provide a vec class and enable various operations (such
+as +-* / etc.),
 but from an algebraic perspective, this is not reasonable.
 
 > **Examples**
@@ -249,7 +250,8 @@ are located in [include/MyGM/Interfaces/](include/MyGM/Interfaces/).
 All interfaces are member functions, convenient to use, and most situations allow utilizing IDE code completion
 functionality (such as VS2019's intellisense) to query interfaces.
 
-In addition, common functions/algorithms in the rendering field are also provided, such as intersection (located in `line`, `ray`), [sampling](include/MyGM/sample.h), [materials](include/MyGM/material.h), etc.
+In addition, common functions/algorithms in the rendering field are also provided, such as intersection (located in
+`line`, `ray`), [sampling](include/MyGM/sample.h), [materials](include/MyGM/material.h), etc.
 
 ## 6. SIMD
 
