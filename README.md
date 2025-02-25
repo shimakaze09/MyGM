@@ -11,6 +11,7 @@
 - Optimize code structure using single inheritance (avoiding ugly macros)
 - Provide [natvis](https://docs.microsoft.com/en-us/visualstudio/debugger/create-custom-views-of-native-objects?view=vs-2019)
 optimization for debug information
+- ...
 
 ## 1. Introduction
 
@@ -38,6 +39,7 @@ characteristics:
 - Function implementation reuse (different from C++20's concept or interfaces, which only constrain the "operations"
   supported by classes)
 - Empty base class optimization
+- ...
 
 ## 2. Demonstrate
 
@@ -265,9 +267,13 @@ During debugging, generic programming introduces extensive single inheritance re
 > **Example**
 >
 > ![TextBox default visualization](https://docs.microsoft.com/en-us/visualstudio/debugger/media/dbg_natvis_textbox_default.png?view=vs-2019)
+>
+> > If the image fails to load, please use this link [TextBox default visualization](https://docs.microsoft.com/en-us/visualstudio/debugger/media/dbg_natvis_textbox_default.png?view=vs-2019)
 
 We can use the natvis feature of VS2019 to implement customized views
 
 ![natvis_demo.jpg](https://cdn.jsdelivr.net/gh/shimakaze09/MyData@main/MyGM/natvis_demo.jpg)
+
+> If the image fails to load, please use this link [natvis_demo.jpg](https://cdn.jsdelivr.net/gh/shimakaze09/MyData@main/MyGM/natvis_demo.jpg)
 
 When using `FIND_PACKAGE(MyGM REQUIRED)`, a project will be automatically added to the solution, containing `MyGM_<VERSION>.natvis`, so that other projects can support natvis ([VS2019 supports multiple ways to introduce natvis](https://docs.microsoft.com/en-us/visualstudio/debugger/create-custom-views-of-native-objects?view=vs-2019#BKMK_natvis_location), but this is the most suitable way I can think of at the moment).
