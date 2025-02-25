@@ -163,9 +163,9 @@ Below is a brief introduction to the algebraic concepts involved in the library:
 
 ### 4.2 Underlying Storage Types
 
-- Array [`IArray`](include/MyGM/Interfaces/IArray.h): Ordered sequence of elements; serves as base class for various
-  classes; typically `std::array<T, N>`, where T can be float, int, or point, vec
-- Matrix [`IMetric`](include/MyGM/Interfaces/IMetric.h): Array of 1D arrays
+- Array [`IArray`](include/MyGM/Interfaces/IArray/IArray.h): Ordered sequence of elements; serves as base class for various
+  classes; typically `std::array<T, N>`, where T can be floated, int, or point, vec
+- Matrix [`IMetrix`](include/MyGM/Interfaces/IMatrix/IMatrix.h): Array of 1D arrays
 
 Due to different underlying storage types, the concrete implementations of algebraic concepts differ (abstract =>
 concrete), leading to new algebraic concepts.
