@@ -82,9 +82,6 @@ int main() {
 
 ### 3.2 Steps
 
-> These are all basic operations of CMake, maybe someone is encountering it for the first time, I'll introduce them in
-> detail here
-
 - Git
 
 ```bash
@@ -94,12 +91,10 @@ git clone https://github.com/shimakaze09/MyGM
 - CMake-GUI- Set source code path "Where is the source code" to the git clone path "<your-path-to-source-MyGM>"
 
     - Set build path "Where to build the binaries" to "<your-path-to-source-MyGM>/build"
-    - Click Configure button (you can perform the following configurations if needed):
+    - Click Configure button:
         - (`BUILD_TEST`: Build test cases [default unchecked])
         - (`MY_USE_XSIMD`: Use SIMD acceleration [default checked])
-        - Modify installation path `CMAKE_INSTALL_PREFIX`, noted as `<install-path>` (default is `C:/...`, requiring
-          administrator privileges for VS 2019)
-
+        - Modify the installation path `CMAKE_INSTALL_PREFIX`, record it as `<install-path>` (the default is `C:/...`, you need to open VS 2019 as an **administrator**), note that `<install-path>` should end with `My`, such as `<install-path>=D:/Program_Files/My`, because [MyCMake](https://github.com/shimakaze09/MyCMake) and [MyTemplate](https://github.com/shimakaze09/MyTemplate) will be installed at the same time.
     - Click Generate button
     - Click Open Project button to open VS 2019
 
