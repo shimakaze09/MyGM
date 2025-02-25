@@ -1,14 +1,15 @@
 # MyGM
 
-> **My** **G**raphics **M**ath
+> **My** **G**raphics **M**ath Graphics Mathematics Library
 
 ## Features
 
 - Emphasizes correct algebraic concepts (groups, rings, fields, linear algebra, Euclidean spaces, etc.)
 - Object-oriented (all methods are member functions)
-- SIMD acceleration
-- Optimizes code structure using single inheritance
-- Provides natvis optimization for debug information
+- High performance: SIMD acceleration, optimal algorithms
+- Optimize code structure using single inheritance (avoiding ugly macros)
+- Provide [natvis](https://docs.microsoft.com/en-us/visualstudio/debugger/create-custom-views-of-native-objects?view=vs-2019)
+optimization for debug information
 
 ## 1. Introduction
 
@@ -41,13 +42,18 @@ characteristics:
 
 ### 2.1 Environment
 
+- Win10
 - [Git](https://git-scm.com/)
 - VS 2019
 - [CMake-GUI](https://cmake.org/) 3.16.3 or later
+- Supports SIMD instruction set extensions SSE 4.1
 
 > Other environments can be self-tested; please notify us if successful
 
 ### 2.2 Steps
+
+> These are all basic operations of CMake, maybe someone is encountering it for the first time, I'll introduce them in
+> detail here
 
 - Git
 
@@ -55,9 +61,9 @@ characteristics:
 git clone https://github.com/shimakaze09/MyGM
 ```
 
-- CMake-GUI- Set source code path "Where is the source code" to the git clone path "<your-path-to-MyGM>"
+- CMake-GUI- Set source code path "Where is the source code" to the git clone path "<your-path-to-source-MyGM>"
 
-    - Set build path "Where to build the binaries" to "<your-path-to-MyGM>/build"
+    - Set build path "Where to build the binaries" to "<your-path-to-source-MyGM>/build"
     - Click Configure button (you can perform the following configurations if needed):
         - (`BUILD_TEST`: Build test cases [default unchecked])
         - (`MY_USE_XSIMD`: Use SIMD acceleration [default checked])
@@ -68,6 +74,13 @@ git clone https://github.com/shimakaze09/MyGM
     - Click Open Project button to open VS 2019
 
 - In VS 2019's "Solution Explorer" window, find the "INSTALL" project, right-click, select "Generate"
+
+- Add `<your-path-to-installed-MyGM>` to the system environment variable Path (or create a new environment variable
+  named MyGM_DIR and set its value to `<your-path-to-installed-MyGM>`), so that CMake's find_package can correctly
+  locate MyGM
+
+- Delete `<your-path-to-source-MyGM>/build`, otherwise CMake's find_package will prioritize locating it here, which
+  might cause errors
 
 ### 2.3 Usage
 
@@ -89,7 +102,7 @@ int main(){
 ```cmake
 # CMakeLists.txt
 PROJECT(demo_project VERSION 1.0.0)
-FIND_PACKAGE(MyGM REQUIRE)
+FIND_PACKAGE(MyGM REQUIRED)
 ADD_EXECUTABLE(demo main.cpp)
 TARGET_LINK_LIBRARIES(demo PUBLIC My::MyGM_core)
 ```
@@ -101,7 +114,9 @@ To better utilize this math library, it's essential to understand its design phi
 ### 3.1 Algebraic Concepts
 
 The library emphasizes correct algebraic concepts. Users likely won't be familiar with these aspects, but knowing basic
-linear algebra is sufficient. Below is a brief introduction to the algebraic concepts involved in the library:
+linear algebra is sufficient.
+
+Below is a brief introduction to the algebraic concepts involved in the library:
 
 - Addition [`IAdd`](include/MyGM/Interfaces/IAdd.h): Operations between identical elements with commutativity (
   `a+b==b+a`) and invertibility (`a+(-a)=0`)
@@ -202,3 +217,32 @@ functionality (such as VS2019's intellisense) to query interfaces.
 
 Additionally, common graphics algorithms/functions are provided, such as intersection (located in line, ray), sampling,
 materials, etc.
+
+## 5. SIMD
+
+The library supports SIMD, requiring only SSE instruction support, using xsimd as the wrapper class for SSE
+instructions, though most cases directly use SSE instructions.
+
+The main accelerated classes are `float4`, including `vecf4`, `pointf4`, etc.
+
+Accelerated parts include:
+
+- `+-*/ ...`
+- `min/max/min_component/max_component/abs/sin/cos/...`
+- `transform * float4/bbox/transform`
+- `transform inverse`
+- Intersection between `ray` and `sphere/triangle/bbox`
+- `dot/cross` of `float3` (requires extension to `float4` and uses `float4::dot3` and `float4::cross3`)
+
+### 6. Natvis
+During debugging, generic programming introduces extensive single inheritance relationships. This library employs single inheritance technology with deep inheritance hierarchies, making it difficult to view class member variables in IDEs.
+
+> **Example**
+>
+> ![TextBox default visualization](https://docs.microsoft.com/en-us/visualstudio/debugger/media/dbg_natvis_textbox_default.png?view=vs-2019)
+
+We can use the natvis feature of VS2019 to implement customized views
+
+![natvis_demo.jpg](https://cdn.jsdelivr.net/gh/shimakaze09/MyData@main/MyGM/natvis_demo.jpg)
+
+When using `FIND_PACKAGE(MyGM REQUIRED)`, a project will be automatically added to the solution, containing `MyGM_<VERSION>.natvis`, so that other projects can support natvis ([VS2019 supports multiple ways to introduce natvis](https://docs.microsoft.com/en-us/visualstudio/debugger/create-custom-views-of-native-objects?view=vs-2019#BKMK_natvis_location), but this is the most suitable way I can think of at the moment).
