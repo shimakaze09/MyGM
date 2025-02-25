@@ -2,10 +2,11 @@
 
 > **My** **G**raphics **M**ath Graphics Mathematics Library
 
-## Features
+**Features**
 
 - Emphasizes correct algebraic concepts (rings, linear, Euclidean space, affine space, etc.)
 - Object-oriented (all methods are member functions)
+- Header files only
 - High performance: SIMD acceleration, optimal algorithms
 - Optimize code structure using single inheritance (avoiding ugly macros)
 - Provide [natvis](https://docs.microsoft.com/en-us/visualstudio/debugger/create-custom-views-of-native-objects?view=vs-2019)
@@ -38,9 +39,38 @@ characteristics:
   supported by classes)
 - Empty base class optimization
 
-## 2. Installation
+## 2. Demonstrate
 
-### 2.1 Environment
+```c++
+#include <MyGM/MyGM.h>
+
+using namespace My;
+using namespace std;
+
+int main() {
+    transformf tsfm{ pointf3{1,1,1},
+                    scalef3{2.f},
+                    quatf{vecf3{1,0,0}, to_radian(90.f)} }; // T * R * S
+
+    pointf3 p{ 1,2,3 };
+    vecf3 v{ 1,1,1 };
+    normalf n{ 0,1,0 };
+    bboxf3 b{ p, p + v }; // min: 1 2 3, max: 2 3 4
+    rayf3 r{ p, v }; // point: 1 2 3, dir: 1 1 1, tmin: EPSILON, tmax: FLT_MAX
+
+    cout << tsfm * p << endl; // 3 -5 5
+    cout << tsfm * v << endl; // 2 -2 2
+    cout << tsfm * n << endl; // 0 0 0.5
+    cout << tsfm * b << endl; // 3 -7 5, 5 -5 7
+    cout << tsfm * r << endl; // 3 -5 5, 2 -2 2, EPSILON, FLT_MAX
+
+    return 0;
+}
+```
+
+## 3. Installation
+
+### 3.1 Environment
 
 - Win10
 - [Git](https://git-scm.com/)
@@ -50,7 +80,7 @@ characteristics:
 
 > Other environments can be self-tested; please notify us if successful
 
-### 2.2 Steps
+### 3.2 Steps
 
 > These are all basic operations of CMake, maybe someone is encountering it for the first time, I'll introduce them in
 > detail here
@@ -82,9 +112,9 @@ git clone https://github.com/shimakaze09/MyGM
 - Delete `<your-path-to-source-MyGM>/build`, otherwise CMake's find_package will prioritize locating it here, which
   might cause errors
 
-### 2.3 Usage
+### 3.3 Usage
 
-```cpp
+```c++
 // main.cpp
 
 #include <MyGM/MyGM.h>
@@ -107,11 +137,11 @@ ADD_EXECUTABLE(demo main.cpp)
 TARGET_LINK_LIBRARIES(demo PUBLIC My::MyGM_core)
 ```
 
-## 3. Design Philosophy
+## 4. Design Philosophy
 
 To better utilize this math library, it's essential to understand its design philosophy.
 
-### 3.1 Algebraic Concepts
+### 4.1 Algebraic Concepts
 
 The library emphasizes correct algebraic concepts. Users likely won't be familiar with these aspects, but knowing basic
 linear algebra is sufficient.
@@ -134,7 +164,7 @@ Below is a brief introduction to the algebraic concepts involved in the library:
 - Affine space [`IAffine`](include/MyGM/Interfaces/IAffine.h): Space with position concept; elements are called points;
   corresponds to linear space with associated elements, such as `point-point => vector`, `point+vector => point`
 
-### 3.2 Underlying Storage Types
+### 4.2 Underlying Storage Types
 
 - Array [`IArray`](include/MyGM/Interfaces/IArray.h): Ordered sequence of elements; serves as base class for various
   classes; typically `std::array<T, N>`, where T can be float, int, or point, vec
@@ -143,7 +173,7 @@ Below is a brief introduction to the algebraic concepts involved in the library:
 Due to different underlying storage types, the concrete implementations of algebraic concepts differ (abstract =>
 concrete), leading to new algebraic concepts.
 
-### 3.2.1 Arrays
+### 4.2.1 Arrays
 
 When the underlying storage type is an array, the following algebraic concepts emerge:
 
@@ -156,13 +186,13 @@ When the underlying storage type is an array, the following algebraic concepts e
 
 These concepts have corresponding implementations when applied to arrays, such as:
 
-```cpp
+```c++
 T operator+(T a, T b) const {
     return {a[0]+b[0], a[1]+b[1], a[2]+b[2]};
 }
 ```
 
-### 3.2.2 Matrices
+### 4.2.2 Matrices
 
 Since this library is used for graphics, it primarily supports 3x3 and 4x4 matrices.
 
@@ -170,7 +200,7 @@ The library implements matrices through 1D arrays of arrays, right-multiplicatio
 and DX (right-multiplication + column-major is highly suitable for SIMD, similarly left-multiplication + row-major is
 also suitable).
 
-### 3.3 Classes
+### 4.3 Classes
 
 By combining multiple algebraic concepts and adding specific type support operations, we can easily obtain various
 algebraic classes. They satisfy different operations, greatly helping users avoid errors.
@@ -207,7 +237,7 @@ The library also contains classes:
 - Line [`line`](include/MyGM/line.h)
 - Ray [`ray`](include/MyGM/ray.h)
 
-## 4. Interfaces
+## 5. Interfaces
 
 Classes are composed of multiple algebraic concepts, so the key lies in grasping the interfaces. All algebraic concepts
 are located in [include/MyGM/Interfaces/](include/MyGM/Interfaces/).
@@ -218,7 +248,7 @@ functionality (such as VS2019's intellisense) to query interfaces.
 Additionally, common graphics algorithms/functions are provided, such as intersection (located in line, ray), sampling,
 materials, etc.
 
-## 5. SIMD
+## 6. SIMD
 
 The library supports SIMD, requiring only SSE instruction support, using xsimd as the wrapper class for SSE
 instructions, though most cases directly use SSE instructions.
@@ -234,7 +264,7 @@ Accelerated parts include:
 - Intersection between `ray` and `sphere/triangle/bbox`
 - `dot/cross` of `float3` (requires extension to `float4` and uses `float4::dot3` and `float4::cross3`)
 
-### 6. Natvis
+### 7. Natvis
 During debugging, generic programming introduces extensive single inheritance relationships. This library employs single inheritance technology with deep inheritance hierarchies, making it difficult to view class member variables in IDEs.
 
 > **Example**
