@@ -126,6 +126,8 @@ struct IArray<Base, Impl, TypeList<TypeList<float, Size<4>>, float, Args...>>
   constexpr T* data() noexcept { return &m_array; }
 
   constexpr const T* data() const noexcept { return &m_array; }
+
+  constexpr size_t size() const noexcept { return 4; }
 };
 #endif
 }  // namespace My
