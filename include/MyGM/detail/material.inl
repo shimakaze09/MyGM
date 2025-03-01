@@ -67,10 +67,13 @@ inline float GGX_G(float alpha, const svecf& wi, const svecf& wo,
   float cos_sthetai = wi.cos_stheta();
   float cos_sthetao = wo.cos_stheta();
 
+  if (cos_sthetai * wi.dot(wm) <= 0 || cos_sthetao * wo.dot(wm) <= 0)
+    return 0.f;
+
   float tan2_sthetai = 1 / pow2(cos_sthetai) - 1;
   float tan2_sthetao = 1 / pow2(cos_sthetao) - 1;
 
-  return 1 / (std::sqrt(1 + alpha2 * tan2_sthetai) +
+  return 2 / (std::sqrt(1 + alpha2 * tan2_sthetai) +
               std::sqrt(1 + alpha2 * tan2_sthetao));
 }
 
