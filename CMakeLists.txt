@@ -46,7 +46,7 @@ ELSE ()
             GIT_REPOSITORY ${ADDRESS}
             GIT_TAG "v0.4.1"
     )
-    message(STATUS "Building MyCMake v0.4.1")
+    MESSAGE(STATUS "Building MyCMake v0.4.1")
     FETCHCONTENT_MAKEAVAILABLE(MyCMake)
     MESSAGE(STATUS "MyCMake v0.4.1 built")
 ENDIF ()
@@ -58,7 +58,7 @@ INIT_INSTALL_PREFIX()
 INIT_TEST_SWITCH()
 # SET(BUILD_TEST ON)
 
-set(MY_USE_XSIMD ON CACHE BOOL ON)
+SET(MY_USE_XSIMD ON CACHE BOOL ON)
 
 ADD_DEP(MyTemplate 0.3.1)
 
