@@ -6,8 +6,7 @@
 
 namespace My {
 template <typename T>
-static const mat<T, 3> svec<T>::TBN(const vec<T, 3>& n,
-                                    const vec<T, 3>& t) noexcept {
+const mat<T, 3> svec<T>::TBN(const vec<T, 3>& n, const vec<T, 3>& t) noexcept {
   auto nN = n.normalize();
   auto nT = t.normalize();
 
@@ -93,7 +92,7 @@ const std::tuple<bool, svec<T>> svec<T>::refract(T eta) const noexcept {
 
 template <typename T>
 const vec<T, 3> operator*(const mat<T, 3>& m, const svec<T>& sv) noexcept {
-  static_assert(sv.is_normalized());
+  assert(sv.is_normalized());
   return m * sv.cast_to<vec<T, 3>>();
 }
 }  // namespace My

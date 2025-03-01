@@ -17,7 +17,7 @@ namespace My {
 // - eta: refractive index of material (refractive index of air is 1 as default)
 // [return]
 // specular reflection coefficient
-inline float fresnel_schlick(float cos_theta, float eta) noexcept;
+inline rgbf fresnel_schlick(float cos_theta, float eta) noexcept;
 
 // [summary]
 // compile-time R0, faster than `fresnel_schlick(float, float)`
@@ -94,7 +94,7 @@ inline float specular_refraction(float Fr, float eta, const svecf& wi) noexcept;
 // - alpha: function arguments, related with roughness
 // - w: wi/wo
 // - wm: microfacet normal
-inline float GGX_Lambda(float alpha, const svecf& w, const svecf& wm);
+inline float GGX_Lambda(float alpha, const svecf& w, const svecf& wm) noexcept;
 
 // [summary]
 // ggx geometry function

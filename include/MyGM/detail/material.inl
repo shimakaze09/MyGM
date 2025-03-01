@@ -23,9 +23,9 @@ float fresnel_schlick_R0(float cos_theta) noexcept {
   return R0 + one_R0 * pow5(one_cos_theta);
 }
 
-float fresnel_schlick(float cos_theta, float metalness, const rgbf& metal_color,
-                      float reflectance) noexcept {
-  auto R0 = rgbf::lerp(rgbf{reflectance}, metal_color, metalness);
+rgbf fresnel_schlick(float cos_theta, float metalness, const rgbf& metal_color,
+                     float reflectance) noexcept {
+  rgbf R0 = rgbf::lerp(rgbf{reflectance}, metal_color, metalness);
   float one_cos_theta = 1 - cos_theta;
   return R0 + (rgbf{1.f} - R0) * pow5(one_cos_theta);
 }
@@ -60,7 +60,7 @@ inline float GGX_Lambda(float alpha, const svecf& w, const svecf& wm) noexcept {
 }
 
 inline float GGX_G(float alpha, const svecf& wi, const svecf& wo,
-                   const svecf& wm) {
+                   const svecf& wm) noexcept {
   // return 1 / (1 + GGX_Lambda(alpha, wi, wm) + GGX_Lambda(alpha, wo, wm));
   float alpha2 = pow2(alpha);
 
@@ -83,19 +83,19 @@ float GGX_D(float alpha, const svecf& wm) noexcept {
   return alpha2 / denominator;
 }
 
-//float microfacet_specualr_reflection_dwh_dwi(const svecf& wh,
-//                                             const svecf& wi) noexcept {
-//  return 1 / (4 * std::abs(wh.dot(wi)));
-//}
-//
-//float microfacet_specular_refraction_dwh_dwi(const svecf& wh, const svecf& wi,
-//                                             const svecf& wo, float etai,
-//                                             float etao) noexcept {
-//  float wo_dot_wh = wo.dot(wh);
-//  float wi_dot_wh = wi.dot(wh);
-//  float numerator = etai * etai * std::abs(wo_dot_wh);
-//  float sqrt_denominator = etao * wo_dot_wh + etai * wi_dot_wh;
-//  float denominator = sqrt_denominator * sqrt_denominator;
-//  return numerator / denominator;
-//}
+// float microfacet_specualr_reflection_dwh_dwi(const svecf& wh,
+//                                              const svecf& wi) noexcept {
+//   return 1 / (4 * std::abs(wh.dot(wi)));
+// }
+
+// float microfacet_specular_refraction_dwh_dwi(const svecf& wh, const svecf& wi,
+//                                              const svecf& wo, float etai,
+//                                              float etao) noexcept {
+//   float wo_dot_wh = wo.dot(wh);
+//   float wi_dot_wh = wi.dot(wh);
+//   float numerator = etai * etai * std::abs(wo_dot_wh);
+//   float sqrt_denominator = etao * wo_dot_wh + etai * wi_dot_wh;
+//   float denominator = sqrt_denominator * sqrt_denominator;
+//   return numerator / denominator;
+// }
 }  // namespace My

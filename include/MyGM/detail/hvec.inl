@@ -4,7 +4,7 @@
 
 #pragma once
 
-namespace Ubpa {
+namespace My {
 template <typename T, size_t N>
 template <typename Container, size_t... Ns>
 hvec<T, N>::hvec(const Container& c, T h, std::index_sequence<Ns...>) noexcept
@@ -61,4 +61,4 @@ vec<T, N - 1> hvec<T, N>::to_vec() const noexcept {
   assert(std::abs((*this)[N - 1]) < EPSILON<T>);
   return this->cast_to<vec<T, N - 1>>();
 }
-}  // namespace Ubpa
+}  // namespace My
