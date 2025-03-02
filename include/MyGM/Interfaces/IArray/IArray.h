@@ -123,9 +123,9 @@ struct IArray<Base, Impl, TypeList<TypeList<float, Size<4>>, float, Args...>>
 
   const auto& get_batch() const noexcept { return this->get(); }
 
-  constexpr T* data() noexcept { return &m_array; }
+  constexpr T* data() noexcept { return m_array; }
 
-  constexpr const T* data() const noexcept { return &m_array; }
+  constexpr const T* data() const noexcept { return m_array; }
 
   constexpr size_t size() const noexcept { return 4; }
 };
