@@ -1,6 +1,12 @@
-ADD_TARGET(MODE "HEAD" INTERFACE_INC ON LIBS "My::MyTemplate_core" INC_DIRS "_deps")
-
-IF ("${MY_USE_XSIMD}" STREQUAL "ON")
-    GET_TARGET_NAME(TARGET_NAME ${CMAKE_CURRENT_SOURCE_DIR})
-    TARGET_COMPILE_DEFINITIONS(${TARGET_NAME} INTERFACE MY_USE_XSIMD)
+IF (MY_USE_XSIMD)
+    SET(xsimd_define MY_USE_XSIMD)
+ELSE ()
+    SET(xsimd_define "")
 ENDIF ()
+
+ADD_TARGET(
+        MODE HEAD
+        LIB My::MyTemplate_core
+        DEFINE ${xsimd_define}
+        INC include
+)
