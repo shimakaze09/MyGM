@@ -73,7 +73,7 @@ int main() {
 - [CMake-GUI](https://cmake.org/) 3.16.3 or later
 - CPU with SSE 4.1 instruction set support
 
-> Other environments may work but haven't been extensively tested. Please let us know if you successfully use the library on other platforms.
+> Other environments may work but haven't been extensively tested.
 
 ### 3.2 Steps
 
