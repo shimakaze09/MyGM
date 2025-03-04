@@ -1,31 +1,31 @@
 CMAKE_MINIMUM_REQUIRED(VERSION 3.20 FATAL_ERROR)
 
-PROJECT(MyGM VERSION 0.5.6 LANGUAGES CXX)
+PROJECT(MyGM VERSION 0.5.7 LANGUAGES CXX)
 MESSAGE(STATUS "Project: ${PROJECT_NAME} ${PROJECT_VERSION}")
 
 # Add CMake modules
 INCLUDE(FETCHCONTENT)
 
-MESSAGE(STATUS "Looking for: MyCMake 0.5.1")
-FIND_PACKAGE(MyCMake 0.5.1 QUIET)
+MESSAGE(STATUS "Looking for: MyCMake 0.5.2")
+FIND_PACKAGE(MyCMake 0.5.2 QUIET)
 IF (NOT MyCMake_FOUND)
     SET(ADDRESS "https://github.com/shimakaze09/MyCMake.git")
-    MESSAGE(STATUS "MyCMake 0.5.1 not found\n")
-    MESSAGE(STATUS "Fetching from ${ADDRESS} with tag 0.5.1")
+    MESSAGE(STATUS "MyCMake 0.5.2 not found\n")
+    MESSAGE(STATUS "Fetching from ${ADDRESS} with tag 0.5.2")
     FETCHCONTENT_DECLARE(
             MyCMake
             GIT_REPOSITORY ${ADDRESS}
-            GIT_TAG "0.5.1"
+            GIT_TAG "0.5.2"
     )
     FETCHCONTENT_MAKEAVAILABLE(MyCMake)
-    MESSAGE(STATUS "MyCMake 0.5.1 built")
+    MESSAGE(STATUS "MyCMake 0.5.2 built")
 ENDIF ()
 
 INIT_PROJECT()
 
 SET(MY_USE_XSIMD TRUE CACHE BOOL "use xsimd")
 
-ADD_DEP(MyTemplate 0.4.1)
+ADD_DEP(MyTemplate 0.4.2)
 
 ADD_SUB_DIRS_REC(include)
 ADD_SUB_DIRS_REC(src)
