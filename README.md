@@ -5,41 +5,33 @@
 **Features**
 
 - Emphasizes correct algebraic concepts (rings, linear, Euclidean space, affine space, etc.)
-- Object-oriented (all methods are member functions)
-- Header files only
-- High performance: SIMD acceleration, optimal algorithms
-- Optimize code structure using single inheritance (avoiding ugly macros)
-- Provide [natvis](https://docs.microsoft.com/en-us/visualstudio/debugger/create-custom-views-of-native-objects?view=vs-2019)
-optimization for debug information
+- Object-oriented design with all methods implemented as member functions
+- Header-only library for easy integration
+- High performance through SIMD acceleration and optimal algorithms
+- Clean code structure using single inheritance (eliminating ugly macros)
+- Enhanced debugging with [natvis](https://docs.microsoft.com/en-us/visualstudio/debugger/create-custom-views-of-native-objects?view=vs-2019) support
 - ...
 
 ## 1. Introduction
 
-MyGM is a mathematics library focused on algebraic concepts, distinguishing between points, vectors, normals, colors,
-etc., thereby avoiding incorrect calculations as much as possible.
+MyGM is a mathematics library that focuses on proper algebraic concepts by clearly distinguishing between points, vectors, normals, colors, and other mathematical entities. This approach helps prevent incorrect calculations at the type level.
 
-Commonly used graphics math libraries (such as Eigen, glm) only provide a vec class and enable various operations (such
-as +-* / etc.),
-but from an algebraic perspective, this is not reasonable.
+Most popular graphics math libraries (like Eigen and GLM) provide only generic vector classes with various operations (such as +, -, *, /), which is mathematically imprecise from an algebraic perspective.
 
 > **Examples**
 >
-> - Points cannot be added or subtracted from each other
-> - Colors have no relation to points
-> - Transformation matrices (4x4) multiplied with normals differ from regular vectors
-> - When considering homogeneous coordinates, transformation matrices (4x4) multiplied with vectors and points differ
+> - Points should not be added to or subtracted from each other
+> - Colors are semantically distinct from spatial points
+> - Normals transform differently than vectors when multiplied by a 4x4 matrix
+> - In homogeneous coordinates, 4x4 matrices transform points and vectors differently
 > - ...
 
-We provide point, vec, normal, rgb, etc. to distinguish different algebraic concepts and only allow reasonable
-operations. This allows us to discover various algebraic errors at compile-time while reducing mental burden (performing
-different operations based on types).
+By providing separate types for point, vector, normal, rgb, and other concepts, MyGM enforces algebraically correct operations. This design catches many errors at compile time rather than runtime, while also clarifying intent in your code (with operations naturally determined by types).
 
-Additionally, we implement excellent code writing through single inheritance techniques with the following
-characteristics:
+Our implementation leverages single inheritance techniques to achieve:
 
-- Function implementation reuse (different from C++20's concept or interfaces, which only constrain the "operations"
-  supported by classes)
-- Empty base class optimization
+- Efficient function implementation reuse (beyond what C++20 concepts or interfaces offer, which only define supported operations)
+- Empty base class optimization for minimal memory overhead
 - ...
 
 ## 2. Demonstrate
@@ -75,36 +67,36 @@ int main() {
 
 ### 3.1 Environment
 
-- Win10
+- Windows 10
 - [Git](https://git-scm.com/)
-- VS 2019
+- Visual Studio 2019
 - [CMake-GUI](https://cmake.org/) 3.16.3 or later
-- Supports SIMD instruction set extensions SSE 4.1
+- CPU with SSE 4.1 instruction set support
 
-> Other environments can be self-tested; please notify us if successful
+> Other environments may work but haven't been extensively tested. Please let us know if you successfully use the library on other platforms.
 
 ### 3.2 Steps
 
-- Git
+- Clone the repository:
 
 ```bash
 git clone https://github.com/shimakaze09/MyGM
 ```
 
-- CMake-GUI- Set source code path "Where is the source code" to the git clone path "<your-path-to-source-MyGM>"
+- CMake-GUI: Set the source code path "Where is the source code" to the git clone path "<your-path-to-source-MyGM>"
 
-    - Set build path "Where to build the binaries" to "<your-path-to-source-MyGM>/build"
-    - Click Configure button:
+    - Set the build path "Where to build the binaries" to "<your-path-to-source-MyGM>/build"
+    - Click the Configure button:
         - (`BUILD_TEST`: Build test cases [default unchecked])
         - (`MY_USE_XSIMD`: Use SIMD acceleration [default checked])
         - Modify the installation path `CMAKE_INSTALL_PREFIX`, record it as `<install-path>` (the default is `C:/...`,
           you need to open VS 2019 as an **administrator**), note that `<install-path>` should end with `My`, such as
           `<install-path>=D:/Program_Files/My`, because [MyCMake](https://github.com/shimakaze09/MyCMake)
           and [MyTemplate](https://github.com/shimakaze09/MyTemplate) will be installed at the same time.
-    - Click Generate button
-    - Click Open Project button to open VS 2019
+    - Click the Generate button
+    - Click the Open Project button to open VS 2019
 
-- In VS 2019's "Solution Explorer" window, find the "INSTALL" project, right-click, select "Generate"
+- In VS 2019's "Solution Explorer" window, find the "INSTALL" project, right-click, and select "Generate"
 
 - Add `<your-path-to-installed-MyGM>` to the system environment variable Path (or create a new environment variable
   named MyGM_DIR and set its value to `<your-path-to-installed-MyGM>`), so that CMake's find_package can correctly
@@ -297,9 +289,8 @@ but this is the most suitable way I can think of at the moment).
 
 ## Future Features
 
-- Lighter single inheritance technology (reduces coding overhead) to further speed up compilation
-- Provide `config.h` to facilitate custom functions
-- `xfloat3`: The underlying `__m128` `float3` class is used to better support SIMD, and its size is `4*sizeof(float)`,
-  including `xpoint`, `xvec`, `xrgb`, ...
-- Support Cuda
-- ...
+- [x] Lighter-weight single inheritance technology (reducing coding overhead), further accelerating compilation speed
+- [ ] Provide `config.h` for easy feature customization
+- [ ] `xfloat3`: A `float3` class using `__m128` as underlying implementation for better SIMD support, with size of `4*sizeof(float)`, including `xpoint`, `xvec`, `xrgb`, etc.
+- [ ] Support for CUDA
+- [ ] ...

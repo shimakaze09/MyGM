@@ -10,10 +10,10 @@
 
 namespace My {
 template <typename T>
-struct rgba : SIIT_CRTP<TemplateList<IArray1D_Util>, rgba<T>,
-                        TypeList<TypeList<T, Size<4>>, T>> {
-  using Base = SIIT_CRTP<TemplateList<IArray1D_Util>, rgba<T>,
-                         TypeList<TypeList<T, Size<4>>, T>>;
+struct rgba
+    : SI<TemplateList<IArray1D_Util>, rgba<T>, TypeList<T, Size<4>>, T> {
+  using Base =
+      SI<TemplateList<IArray1D_Util>, rgba<T>, TypeList<T, Size<4>>, T>;
   using Base::Base;
 
   rgba(const rgb<T>& rgb, T a) noexcept : Base{rgb[0], rgb[1], rgb[2], a} {}

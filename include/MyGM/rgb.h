@@ -12,12 +12,10 @@
 namespace My {
 template <typename T>
 struct rgb
-    : SIIT_CRTP<
-          TemplateList<IArray1D_Util, IArrayHadamardProduct, IArrayLinear>,
-          rgb<T>, TypeList<TypeList<T, Size<3>>, T>> {
-  using SIIT_CRTP<
-      TemplateList<IArray1D_Util, IArrayHadamardProduct, IArrayLinear>, rgb<T>,
-      TypeList<TypeList<T, Size<3>>, T>>::SIIT_CRTP;
+    : SI<TemplateList<IArray1D_Util, IArrayHadamardProduct, IArrayLinear>,
+         rgb<T>, TypeList<T, Size<3>>, T> {
+  using SI<TemplateList<IArray1D_Util, IArrayHadamardProduct, IArrayLinear>,
+           rgb<T>, TypeList<T, Size<3>>, T>::SI;
 
   T illumination() const noexcept {
     return static_cast<T>(0.2126) * (*this)[0] +

@@ -9,10 +9,10 @@
 
 namespace My {
 template <typename T, size_t N>
-struct triangle : SIIT_CRTP<TemplateList<IArrayInOut>, triangle<T, N>,
-                            TypeList<TypeList<point<T, N>, Size<3>>, T>> {
-  using SIIT_CRTP<TemplateList<IArrayInOut>, triangle<T, N>,
-                  TypeList<TypeList<point<T, N>, Size<3>>, T>>::SIIT_CRTP;
+struct triangle : SI<TemplateList<IArrayInOut>, triangle<T, N>,
+                     TypeList<point<T, N>, Size<3>>, T> {
+  using SI<TemplateList<IArrayInOut>, triangle<T, N>,
+           TypeList<point<T, N>, Size<3>>, T>::SI;
 
   inline T area() const noexcept;
 

@@ -13,12 +13,10 @@
 
 namespace My {
 template <typename T, size_t N>
-struct mat
-    : SIIT_CRTP<TemplateList<IMatrixInOut, IMatrixMul, IArrayLinear, IRing>,
-                mat<T, N>, TypeList<TypeList<vec<T, N>, Size<N>>, T>> {
-  using SIIT_CRTP<TemplateList<IMatrixInOut, IMatrixMul, IArrayLinear, IRing>,
-                  mat<T, N>,
-                  TypeList<TypeList<vec<T, N>, Size<N>>, T>>::SIIT_CRTP;
+struct mat : SI<TemplateList<IMatrixInOut, IMatrixMul, IArrayLinear, IRing>,
+                mat<T, N>, TypeList<vec<T, N>, Size<N>>, T> {
+  using SI<TemplateList<IMatrixInOut, IMatrixMul, IArrayLinear, IRing>,
+           mat<T, N>, TypeList<vec<T, N>, Size<N>>, T>::SI;
 };
 
 template <size_t N>

@@ -9,9 +9,8 @@
 
 namespace My {
 template <typename Base, typename Impl, typename ArgList>
-struct ILinear
-    : SIVT_CRTP<TemplateList<IAdd, IScalarMul>, Base, Impl, ArgList> {
-  using SIVT_CRTP<TemplateList<IAdd, IScalarMul>, Base, Impl,
-                  ArgList>::SIVT_CRTP;
+struct ILinear : Base {
+  using IList = TemplateList<IAdd, IScalarMul>;
+  using Base::Base;
 };
 }  // namespace My

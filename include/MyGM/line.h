@@ -12,10 +12,10 @@
 
 namespace My {
 template <typename T, size_t N>
-struct line : SIIT_CRTP<TemplateList<IInOut, ILine>, line<T, N>,
-                        TypeList<Arg_Empty, T, vec<T, N>, point<T, N>>> {
-  using Base = SIIT_CRTP<TemplateList<IInOut, ILine>, line<T, N>,
-                         TypeList<Arg_Empty, T, vec<T, N>, point<T, N>>>;
+struct line : SI<TemplateList<IInOut, ILine>, line<T, N>, Arg_Empty, T,
+                 vec<T, N>, point<T, N>> {
+  using Base = SI<TemplateList<IInOut, ILine>, line<T, N>, Arg_Empty, T,
+                  vec<T, N>, point<T, N>>;
   using Base::Base;
 
   inline line(const point<T, N>& p, const vec<T, N>& dir) noexcept {

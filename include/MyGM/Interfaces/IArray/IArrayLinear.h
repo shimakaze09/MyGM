@@ -10,10 +10,8 @@
 
 namespace My {
 template <typename Base, typename Impl, typename ArgList>
-struct IArrayLinear
-    : SIVT_CRTP<TemplateList<IArrayAdd, IArrayScalarMul, ILinear>, Base, Impl,
-                ArgList> {
-  using SIVT_CRTP<TemplateList<IArrayAdd, IArrayScalarMul, ILinear>, Base, Impl,
-                  ArgList>::SIVT_CRTP;
+struct IArrayLinear : Base {
+  using IList = TemplateList<IArrayAdd, IArrayScalarMul, ILinear>;
+  using Base::Base;
 };
 }  // namespace My

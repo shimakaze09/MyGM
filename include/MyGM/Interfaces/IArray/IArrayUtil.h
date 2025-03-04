@@ -9,10 +9,9 @@
 
 namespace My {
 template <typename Base, typename Impl, typename ArgList>
-struct IArrayUtil
-    : SIVT_CRTP<TemplateList<IArrayCast, IArrayInOut>, Base, Impl, ArgList> {
-  using SIVT_CRTP<TemplateList<IArrayCast, IArrayInOut>, Base, Impl,
-                  ArgList>::SIVT_CRTP;
+struct IArrayUtil : Base {
+  using IList = TemplateList<IArrayCast, IArrayInOut>;
+  using Base::Base;
 
   using T = Arg_T<ArgList>;
   static constexpr size_t N = Arg_N<ArgList>;

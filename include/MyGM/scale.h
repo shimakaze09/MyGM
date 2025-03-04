@@ -11,12 +11,10 @@
 namespace My {
 template <typename T, size_t N>
 struct scale
-    : SIIT_CRTP<
-          TemplateList<IArray1D_Util, IArrayHadamardProduct, IArrayScalarMul>,
-          scale<T, N>, TypeList<TypeList<T, Size<N>>, T>> {
-  using SIIT_CRTP<
-      TemplateList<IArray1D_Util, IArrayHadamardProduct, IArrayScalarMul>,
-      scale<T, N>, TypeList<TypeList<T, Size<N>>, T>>::SIIT_CRTP;
+    : SI<TemplateList<IArray1D_Util, IArrayHadamardProduct, IArrayScalarMul>,
+         scale<T, N>, TypeList<T, Size<N>>, T> {
+  using SI<TemplateList<IArray1D_Util, IArrayHadamardProduct, IArrayScalarMul>,
+           scale<T, N>, TypeList<T, Size<N>>, T>::SI;
 };
 
 template <size_t N>
