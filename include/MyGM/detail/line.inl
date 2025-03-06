@@ -33,13 +33,13 @@ template <typename T, size_t N>
 const std::tuple<bool, std::array<T, 3>, T> line<T, N>::intersect(
     const triangle<T, 3>& tri) const noexcept {
   static_assert(N == 3);
-#ifdef MY_USE_XSIMD
+#ifdef MY_USE_SIMD
   // about 58 instructions
   if constexpr (std::is_same_v<T, float>) {
-    vecf4 d = xsimd::load_unaligned(this->dir.data());
-    pointf4 v0 = xsimd::load_unaligned(tri[0].data());
-    pointf4 v1 = xsimd::load_unaligned(tri[1].data());
-    pointf4 v2 = xsimd::load_unaligned(tri[2].data());
+    vecf4 d = _mm_loadu_ps(this->dir.data());
+    pointf4 v0 = _mm_loadu_ps(tri[0].data());
+    pointf4 v1 = _mm_loadu_ps(tri[1].data());
+    pointf4 v2 = _mm_loadu_ps(tri[2].data());
 
     const vecf4 e1 = v1 - v0;
     const vecf4 e2 = v2 - v0;
@@ -52,7 +52,7 @@ const std::tuple<bool, std::array<T, 3>, T> line<T, N>::intersect(
 
     const float inv_denominator = ONE<T> / denominator;
 
-    pointf4 p = xsimd::load_unaligned(this->point.data());
+    pointf4 p = _mm_loadu_ps(this->point.data());
     const vecf4 s = p - v0;
 
     const vecf4 e2_x_s = e2.cross3(s);
@@ -75,7 +75,7 @@ const std::tuple<bool, std::array<T, 3>, T> line<T, N>::intersect(
 
     return {true, std::array<T, 3>{ONE<T> - u_plus_v, u, v}, t};
   } else
-#endif  // MY_USE_XSIMD
+#endif  // MY_USE_SIMD
   {     // about 103 instructions
     const auto& p = this->point;
     const auto& d = this->dir;
@@ -130,7 +130,7 @@ const std::tuple<bool, T, T> line<T, N>::intersect(const bbox<T, N>& box,
                                                    const vec<T, N>& invdir,
                                                    T tmin,
                                                    T tmax) const noexcept {
-#ifdef MY_USE_XSIMD
+#ifdef MY_USE_SIMD
   if constexpr (std::is_same_v<T, float> && N == 3) {
     // 26 instructions, no loop
     auto sorigin = _mm_loadu_ps(this->point.data());

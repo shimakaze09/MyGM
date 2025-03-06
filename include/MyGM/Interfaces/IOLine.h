@@ -23,7 +23,7 @@ struct IOLine : Base {
   ImplTraits_V<Impl> dir;
 
   ImplTraits_V<Impl> inv_dir() const noexcept {
-#ifdef MY_USE_XSIMD
+#ifdef MY_USE_SIMD
     if constexpr (std::is_same_v<F, float> && ImplTraits_V<Impl>::N == 4)
       return 1.f / (*this).get_batch();
     else

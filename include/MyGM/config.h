@@ -12,10 +12,20 @@
 #endif
 #endif  // !MY_FORCEINLINE
 
-#ifdef MY_USE_XSIMD
-#include "_deps/xsimd/xsimd.hpp"
-// link:
-// https://lxjk.github.io/2017/09/03/Fast-4x4-Matrix-Inverse-with-SSE-SIMD-Explained.html
+#ifdef MY_USE_SIMD
+#include <emmintrin.h>
+
+// ref: https://www.cnblogs.com/elvisxu/archive/2011/06/26/2090832.html
+__m128 _mm_abs_ps(__m128 a) {
+  alignas(16) static const union {
+    int i[4];
+    __m128 m;
+  } __mm_abs_mask_cheat_ps = {0x7fffffff, 0x7fffffff, 0x7fffffff, 0x7fffffff};
+
+  return _mm_and_ps(a, __mm_abs_mask_cheat_ps.m);
+}
+
+// link: https://lxjk.github.io/2017/09/03/Fast-4x4-Matrix-Inverse-with-SSE-SIMD-Explained.html
 
 #define MakeShuffleMask(x, y, z, w) (x | (y << 2) | (z << 4) | (w << 6))
 
@@ -52,4 +62,4 @@
 #include <smmintrin.h>
 #endif  // MY_USE_SSE_4_1
 
-#endif  // MY_USE_XSIMD
+#endif  // MY_USE_SIMD

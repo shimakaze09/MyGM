@@ -2,14 +2,10 @@
 // Created by Admin on 23/02/2025.
 //
 
+#include <MyGM/mat.h>
+#include <MyGM/point.h>
+#include <MyGM/vec.h>
 #include <iostream>
-// #include <MyGM/vec.h>
-// #include <MyGM/point.h>
-// #include <MyGM/mat.h>
-#include <MyGM/line.h>
-#include <MyGM/ray.h>
-
-// #include <MyGM/scale.h>
 
 using namespace My;
 using namespace std;
@@ -122,6 +118,14 @@ int main(int argc, char* argv[]) {
   //   auto [isIntersect, t] = r.intersect_std_sphere();
   //   cout << isIntersect << endl << t << endl;
   // }
+
+  {
+    matf4 m;
+    cin >> m;
+    auto tm = m.transpose();
+    cout << tm << endl;
+    cout << m[0].back() << endl;
+  }
 
   return 0;
 }

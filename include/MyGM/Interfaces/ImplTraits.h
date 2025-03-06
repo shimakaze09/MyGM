@@ -27,7 +27,7 @@ using ImplTraits_V = typename ImplTraits<Impl>::V;
 template <typename Impl>
 using ImplTraits_P = typename ImplTraits<Impl>::P;
 
-#ifdef MY_USE_XSIMD
+#ifdef MY_USE_SIMD
 template <typename Impl>
 struct SupportSIMD : IValue<bool, std::is_same_v<ImplTraits_T<Impl>, float> &&
                                       ImplTraits_N<Impl> == 4> {};

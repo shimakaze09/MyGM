@@ -38,11 +38,11 @@ struct IEuclideanA : Base {
 
   inline const Point impl_affine_subspace_add(const Vector& v) const noexcept {
     auto& p = static_cast<const Point&>(*this);
-#ifdef MY_USE_XSIMD
-    if constexpr (std::is_same_v<T, float> && N == 4)
-      return p.get() + v.get();
+#ifdef MY_USE_SIMD
+    if constexpr (SupportSIMD_v<Point>)
+      return _mm_add_ps(p, v);
     else
-#endif  // MY_USE_XSIMD
+#endif  // MY_USE_SIMD
     {
       Point rst;
       for (size_t i = 0; i < N; i++)
@@ -53,11 +53,11 @@ struct IEuclideanA : Base {
 
   inline Point& impl_affine_subspace_add_to_self(const Vector& v) noexcept {
     auto& p = static_cast<Point&>(*this);
-#ifdef MY_USE_XSIMD
-    if constexpr (std::is_same_v<T, float> && N == 4)
-      p.get() += v.get();
+#ifdef MY_USE_SIMD
+    if constexpr (SupportSIMD_v<Point>)
+      return p = p + v;
     else
-#endif  // MY_USE_XSIMD
+#endif  // MY_USE_SIMD
       for (size_t i = 0; i < N; i++)
         p[i] += v[i];
     return p;
@@ -66,11 +66,11 @@ struct IEuclideanA : Base {
   inline const Point impl_affine_subspace_minus(
       const Vector& v) const noexcept {
     auto& p = static_cast<const Point&>(*this);
-#ifdef MY_USE_XSIMD
-    if constexpr (std::is_same_v<T, float> && N == 4)
-      return p.get() - v.get();
+#ifdef MY_USE_SIMD
+    if constexpr (SupportSIMD_v<Point>)
+      return _mm_sub_ps(p, v);
     else
-#endif  // MY_USE_XSIMD
+#endif  // MY_USE_SIMD
     {
       Point rst;
       for (size_t i = 0; i < N; i++)
@@ -81,11 +81,11 @@ struct IEuclideanA : Base {
 
   inline Point& impl_affine_subspace_minus_to_self(const Vector& v) noexcept {
     auto& p = static_cast<Point&>(*this);
-#ifdef MY_USE_XSIMD
-    if constexpr (std::is_same_v<T, float> && N == 4)
-      p.get() -= v.get();
+#ifdef MY_USE_SIMD
+    if constexpr (SupportSIMD_v<Point>)
+      return p = p - v;
     else
-#endif  // MY_USE_XSIMD
+#endif  // MY_USE_SIMD
       for (size_t i = 0; i < N; i++)
         p[i] -= v[i];
     return p;
@@ -96,19 +96,19 @@ struct IEuclideanA : Base {
 
   inline const Vector impl_affine_minus(const Point& y) const noexcept {
     auto& x = static_cast<const Point&>(*this);
-#ifdef MY_USE_XSIMD
-    if constexpr (std::is_same_v<T, float> && N == 4)
-      return x.get() - y.get();
-    /* // no benefits
-			else if constexpr (std::is_same_v<T, float> && N == 3) {
-				Vector rst;
-				auto sx = xsimd::load_unaligned(x.data());
-				auto sy = xsimd::load_unaligned(y.data());
-				auto srst = sx - sy;
-				return { srst[0], srst[1],srst[2] };
-			}*/
+#ifdef MY_USE_SIMD
+    if constexpr (SupportSIMD_v<Point>)
+      return _mm_sub_ps(x, y);
+    // no benefits
+    // else if constexpr (std::is_same_v<T, float> && N == 3) {
+    // 	Vector rst;
+    // 	auto sx = _mm_loadu_ps(x.data());
+    // 	auto sy = _mm_loadu_ps(y.data());
+    // 	auto srst = sx - sy;
+    // 	return { srst[0], srst[1],srst[2] };
+    // }
     else
-#endif  // MY_USE_XSIMD
+#endif  // MY_USE_SIMD
     {
       Vector rst;
       for (size_t i = 0; i < N; i++)

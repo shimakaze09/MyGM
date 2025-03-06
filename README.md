@@ -105,7 +105,7 @@ int main() {
     - Set the build path `Where to build the binaries` to `<your-path-to-source-MyGM>/build`
     - Click the Configure button
         - (Default unchecked) `BUILDMyGMTEST`: builds test cases if selected
-        - (Default checked) `MY_USE_XSIMD`: enables SIMD acceleration
+        - (Default checked) `MY_USE_SIMD`: enables SIMD acceleration
         - Change the installation path `CMAKE_INSTALL_PREFIX` to `<install-path>` (default is `C:/...` which requires *
           *Administrator** privileges for VS 2019). Note that `<install-path>` should end with `My`, such as
           `<install-path>=D:/Program_Files/My`, as it will also
@@ -276,8 +276,7 @@ and `ray`), [sampling](include/MyGM/sample.h), [materials](include/MyGM/material
 
 ## 6. SIMD
 
-The library supports SIMD, requiring only SSE instruction support. It uses xsimd as a wrapper for SSE instructions, but
-in most cases, it directly uses SSE instructions.
+The library supports SIMD, requiring only SSE2 instruction support.
 
 The main accelerated class is `float4`, including `vecf4`, `pointf4`, etc.
 
@@ -321,5 +320,5 @@ but this is currently the most suitable method I can think of).
 - [ ] `xfloat3`: `float3` class using `__m128` for better SIMD support, with size of `4*sizeof(float)`, including
   `xpoint`, `xvec`, `xrgb`, ...
 - [ ] CUDA support
-- [ ] Remove dependency on XSIMD
+- [x] Remove dependency on XSIMD
 - [ ] ...

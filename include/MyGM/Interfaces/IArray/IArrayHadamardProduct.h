@@ -23,11 +23,11 @@ struct IArrayHadamardProduct : Base {
 
   Impl& operator*=(const Impl& y) noexcept {
     auto& x = static_cast<Impl&>(*this);
-#ifdef MY_USE_XSIMD
-    if constexpr (std::is_same_v<T, float> && N == 4)
-      x.get() *= y.get();
+#ifdef MY_USE_SIMD
+    if constexpr (SupportSIMD_v<Impl>)
+      x = x * y;
     else
-#endif  // MY_USE_XSIMD
+#endif  // MY_USE_SIMD
       for (size_t i = 0; i < N; i++)
         x[i] *= y[i];
     return x;
@@ -35,11 +35,11 @@ struct IArrayHadamardProduct : Base {
 
   const Impl operator/(const Impl& y) const noexcept {
     auto& x = static_cast<const Impl&>(*this);
-#ifdef MY_USE_XSIMD
-    if constexpr (std::is_same_v<T, float> && N == 4)
-      return x.get() / y.get();
+#ifdef MY_USE_SIMD
+    if constexpr (SupportSIMD_v<Impl>)
+      return _mm_div_ps(x, y);
     else
-#endif  // MY_USE_XSIMD
+#endif  // MY_USE_SIMD
     {
       Impl rst;
       for (size_t i = 0; i < N; i++)
@@ -50,11 +50,11 @@ struct IArrayHadamardProduct : Base {
 
   Impl& operator/=(const Impl& y) noexcept {
     auto& x = static_cast<Impl&>(*this);
-#ifdef MY_USE_XSIMD
-    if constexpr (std::is_same_v<T, float> && N == 4)
-      x.get() /= y.get();
+#ifdef MY_USE_SIMD
+    if constexpr (SupportSIMD_v<Impl>)
+      return x = x / y;
     else
-#endif  // MY_USE_XSIMD
+#endif  // MY_USE_SIMD
       for (size_t i = 0; i < N; i++)
         x[i] /= y[i];
     return x;
@@ -63,11 +63,11 @@ struct IArrayHadamardProduct : Base {
   inline const Impl inverse() const noexcept {
     auto& x = static_cast<const Impl&>(*this);
 
-#ifdef MY_USE_XSIMD
-    if constexpr (std::is_same_v<T, float> && N == 4)
-      return 1.f / x;
+#ifdef MY_USE_SIMD
+    if constexpr (SupportSIMD_v<Impl>)
+      return _mm_div_ps(Impl{1.f}, x);
     else
-#endif  // MY_USE_XSIMD
+#endif  // MY_USE_SIMD
     {
       Impl rst;
       for (size_t i = 0; i < N; i++)
@@ -83,11 +83,11 @@ struct IArrayHadamardProduct : Base {
   inline const Impl impl_mul(const Impl& y) const noexcept {
     auto& x = static_cast<const Impl&>(*this);
 
-#ifdef MY_USE_XSIMD
-    if constexpr (std::is_same_v<T, float> && N == 4)
-      return x.get() * y.get();
+#ifdef MY_USE_SIMD
+    if constexpr (SupportSIMD_v<Impl>)
+      return _mm_mul_ps(x, y);
     else
-#endif  // MY_USE_XSIMD
+#endif  // MY_USE_SIMD
     {
       Impl rst;
       for (size_t i = 0; i < N; i++)

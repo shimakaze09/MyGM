@@ -21,11 +21,11 @@ struct IArrayAdd : Base {
 
   inline const Impl impl_add(const Impl& y) const noexcept {
     auto& x = static_cast<const Impl&>(*this);
-#ifdef MY_USE_XSIMD
-    if constexpr (std::is_same_v<T, float> && N == 4)
-      return x.get() + y.get();
+#ifdef MY_USE_SIMD
+    if constexpr (SupportSIMD_v<Impl>)
+      return _mm_add_ps(x, y);
     else
-#endif  // MY_USE_XSIMD
+#endif  // MY_USE_SIMD
     {
       Impl rst;
       for (size_t i = 0; i < N; i++)
@@ -36,11 +36,11 @@ struct IArrayAdd : Base {
 
   inline Impl& impl_add_to_self(const Impl& y) noexcept {
     auto& x = static_cast<Impl&>(*this);
-#ifdef MY_USE_XSIMD
-    if constexpr (std::is_same_v<T, float> && N == 4)
-      return x += y;
+#ifdef MY_USE_SIMD
+    if constexpr (SupportSIMD_v<Impl>)
+      return x = x + y;
     else
-#endif  // MY_USE_XSIMD
+#endif  // MY_USE_SIMD
     {
       for (size_t i = 0; i < N; i++)
         x[i] += y[i];
@@ -50,11 +50,12 @@ struct IArrayAdd : Base {
 
   inline const Impl impl_add_inverse() const noexcept {
     auto& x = static_cast<const Impl&>(*this);
-#ifdef MY_USE_XSIMD
-    if constexpr (std::is_same_v<T, float> && N == 4)
-      return -x;
+#ifdef MY_USE_SIMD
+    if constexpr (SupportSIMD_v<Impl>)
+      // ref: https://stackoverflow.com/questions/20083997/how-to-negate-change-sign-of-the-floating-point-elements-in-a-m128-type-vari
+      return _mm_sub_ps(Impl{0.f}, x);
     else
-#endif  // MY_USE_XSIMD
+#endif  // MY_USE_SIMD
     {
       Impl rst;
       for (size_t i = 0; i < N; i++) {
@@ -69,11 +70,11 @@ struct IArrayAdd : Base {
 
   inline const Impl impl_minus(const Impl& y) const noexcept {
     auto& x = static_cast<const Impl&>(*this);
-#ifdef MY_USE_XSIMD
-    if constexpr (std::is_same_v<T, float> && N == 4) {
-      return x - y;
+#ifdef MY_USE_SIMD
+    if constexpr (SupportSIMD_v<Impl>) {
+      return _mm_sub_ps(x, y);
     } else
-#endif  // MY_USE_XSIMD
+#endif  // MY_USE_SIMD
     {
       Impl rst;
       for (size_t i = 0; i < N; i++)
@@ -84,11 +85,11 @@ struct IArrayAdd : Base {
 
   inline Impl& impl_minus_to_self(const Impl& y) noexcept {
     auto& x = static_cast<Impl&>(*this);
-#ifdef MY_USE_XSIMD
-    if constexpr (std::is_same_v<T, float> && N == 4) {
-      return x -= y;
+#ifdef MY_USE_SIMD
+    if constexpr (SupportSIMD_v<Impl>) {
+      return x = x - y;
     } else
-#endif  // MY_USE_XSIMD
+#endif  // MY_USE_SIMD
     {
       for (size_t i = 0; i < N; i++)
         x[i] -= y[i];
@@ -99,11 +100,11 @@ struct IArrayAdd : Base {
   template <typename U, std::enable_if_t<std::is_integral_v<U>>* = nullptr>
   inline Impl impl_add_mul(U v) const noexcept {
     auto& x = static_cast<const Impl&>(*this);
-#ifdef MY_USE_XSIMD
-    if constexpr (std::is_same_v<T, float> && N == 4)
-      return x.get() * v;
+#ifdef MY_USE_SIMD
+    if constexpr (SupportSIMD_v<Impl>)
+      return _mm_mul_ps(x, Impl{v});
     else
-#endif  // MY_USE_XSIMD
+#endif  // MY_USE_SIMD
     {
       Impl rst;
       for (size_t i = 0; i < N; i++)
@@ -115,11 +116,11 @@ struct IArrayAdd : Base {
   template <typename U, std::enable_if_t<std::is_integral_v<U>>* = nullptr>
   inline Impl& impl_add_mul_to_self(U v) noexcept {
     auto& x = static_cast<Impl&>(*this);
-#ifdef MY_USE_XSIMD
-    if constexpr (std::is_same_v<T, float> && N == 4)
-      return x *= v;
+#ifdef MY_USE_SIMD
+    if constexpr (SupportSIMD_v<Impl>)
+      return x = x * v;
     else
-#endif  // MY_USE_XSIMD
+#endif  // MY_USE_SIMD
     {
       for (size_t i = 0; i < N; i++)
         x[i] *= v;

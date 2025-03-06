@@ -18,14 +18,15 @@ struct IArray1D_Util : Base {
   static constexpr size_t N = ImplTraits_N<Impl>;
 
   inline const Impl abs() const noexcept {
-#ifdef MY_USE_XSIMD
-    if constexpr (std::is_same_v<T, float> && N == 4)
-      return xsimd::abs(this->get_batch());
-#endif  // MY_USE_XSIMD
+    const auto& x = static_cast<const Impl&>(*this);
+#ifdef MY_USE_SIMD
+    if constexpr (SupportSIMD_v<Impl>)
+      return _mm_abs_ps(x);
+#endif  // MY_USE_SIMD
     {
       Impl rst;
       for (size_t i = 0; i < N; i++)
-        rst[i] = std::abs((*this)[i]);
+        rst[i] = std::abs(x[i]);
       return rst;
     }
   }
@@ -33,10 +34,10 @@ struct IArray1D_Util : Base {
   inline T& min_component() noexcept { return (*this)[min_dim()]; }
 
   inline T min_component() const noexcept {
-#ifdef MY_USE_XSIMD
-    if constexpr (std::is_same_v<T, float> && N == 4) {
+#ifdef MY_USE_SIMD
+    if constexpr (SupportSIMD_v<Impl>) {
       // 5 instructions
-      const auto& s0 = this->get_batch();
+      const auto& s0 = this->m128();
       auto s1 = VecSwizzle(s0, 1, 0, 3, 2);
       auto s2 = _mm_min_ps(s0, s1);
       auto s3 = VecSwizzle(s2, 2, 3, 0, 1);
@@ -45,17 +46,17 @@ struct IArray1D_Util : Base {
       // slow
       //return std::min(std::min((*this)[0], (*this)[1]), std::min((*this)[2], (*this)[3]));
     } else
-#endif  // MY_USE_XSIMD
+#endif  // MY_USE_SIMD
       return (*this)[min_dim()];
   }
 
   inline T& max_component() noexcept { return (*this)[max_dim()]; }
 
   inline T max_component() const noexcept {
-#ifdef MY_USE_XSIMD
-    if constexpr (std::is_same_v<T, float> && N == 4) {
+#ifdef MY_USE_SIMD
+    if constexpr (SupportSIMD_v<Impl>) {
       // 5 instructions
-      const auto& s0 = this->get_batch();
+      const auto& s0 = this->m128();
       auto s1 = VecSwizzle(s0, 1, 0, 3, 2);
       auto s2 = _mm_max_ps(s0, s1);
       auto s3 = VecSwizzle(s2, 2, 3, 0, 1);
@@ -64,7 +65,7 @@ struct IArray1D_Util : Base {
       // slow
       //return std::max(std::max((*this)[0], (*this)[1]), std::max((*this)[2], (*this)[3]));
     } else
-#endif  // MY_USE_XSIMD
+#endif  // MY_USE_SIMD
       return (*this)[max_dim()];
   }
 
@@ -93,10 +94,10 @@ struct IArray1D_Util : Base {
   }
 
   static const Impl min(const Impl& x, const Impl& y) noexcept {
-#ifdef MY_USE_XSIMD
-    if constexpr (std::is_same_v<T, float> && N == 4)
-      return xsimd::min(x, y);
-#endif  // MY_USE_XSIMD
+#ifdef MY_USE_SIMD
+    if constexpr (SupportSIMD_v<Impl>)
+      return _mm_min_ps(x, y);
+#endif  // MY_USE_SIMD
     {
       Impl rst;
       for (size_t i = 0; i < N; i++)
@@ -106,10 +107,10 @@ struct IArray1D_Util : Base {
   }
 
   static const Impl max(const Impl& x, const Impl& y) noexcept {
-#ifdef MY_USE_XSIMD
-    if constexpr (std::is_same_v<T, float> && N == 4)
-      return xsimd::min(x, y);
-#endif  // MY_USE_XSIMD
+#ifdef MY_USE_SIMD
+    if constexpr (SupportSIMD_v<Impl>)
+      return _mm_max_ps(x, y);
+#endif  // MY_USE_SIMD
     {
       Impl rst;
       for (size_t i = 0; i < N; i++)

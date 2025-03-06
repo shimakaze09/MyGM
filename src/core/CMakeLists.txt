@@ -1,16 +1,22 @@
-SET(xsimd_define "")
+SET(core_define "")
+SET(core_c_option "")
+
+IF (MSVC)
+    LIST(APPEND core_c_option "/fp:fast")
+ENDIF ()
 
 IF (MY_USE_XSIMD)
-LIST(APPEND xsimd_define MY_USE_XSIMD)
-ENDIF()
+    LIST(APPEND core_define MY_USE_SIMD)
+ENDIF ()
 
-IF(MY_USE_SSE_4_1)
-  LIST(APPEND xsimd_define MY_USE_SSE_4_1)
+IF (MY_USE_SSE_4_1)
+    LIST(APPEND core_define MY_USE_SSE_4_1)
 ENDIF ()
 
 ADD_TARGET(
         MODE HEAD
         LIB My::MyTemplate_core
-        DEFINE ${xsimd_define}
+        DEFINE ${core_define}
+        C_OPTION ${core_c_option}
         INC include
 )
