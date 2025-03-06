@@ -317,7 +317,7 @@ but this is currently the most suitable method I can think of).
 ## Future Features
 
 - [x] Lighter single inheritance transformation technique (reduced coding overhead), further improving compilation speed
-- [ ] Provide `config.h` for customizing features
+- [x] Provide `config.h` for customizing features
 - [ ] `xfloat3`: `float3` class using `__m128` for better SIMD support, with size of `4*sizeof(float)`, including
   `xpoint`, `xvec`, `xrgb`, ...
 - [ ] CUDA support

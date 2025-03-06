@@ -8,23 +8,6 @@
 #include "../INorm.h"
 #include "IArrayLinear.h"
 
-#ifdef MY_USE_XSIMD
-/*
-<mmintrin.h>  MMX
-<xmmintrin.h> SSE
-<emmintrin.h> SSE2
-<pmmintrin.h> SSE3
-<tmmintrin.h> SSSE3
-<smmintrin.h> SSE4.1
-<nmmintrin.h> SSE4.2
-<ammintrin.h> SSE4A
-<wmmintrin.h> AES
-<immintrin.h> AVX, AVX2, FMA
-*/
-#include <smmintrin.h>
-#define USE_SSE_4_1
-#endif  // MY_USE_XSIMD
-
 namespace My {
 // euclidean vector space
 template <typename Base, typename Impl>
@@ -74,7 +57,7 @@ struct IEuclideanV : Base {
     if constexpr (std::is_same_v<T, float> && N == 4) {
       // ref
       // https://stackoverflow.com/questions/4120681/how-to-calculate-single-vector-dot-product-using-sse-intrinsic-functions-in-c
-#ifdef USE_SSE_4_1
+#ifdef MY_USE_SSE_4_1
       auto srst = _mm_dp_ps(x, y, 0xf1);  // 0xf1 : 11110001
       return _mm_cvtss_f32(srst);
 #else
