@@ -13,8 +13,10 @@
 - Uses [single inheritance transformation technique](https://zhuanlan.zhihu.com/p/106672814) to optimize code
   structure (without relying on messy macros)
 -
+
 Provides [natvis](https://docs.microsoft.com/en-us/visualstudio/debugger/create-custom-views-of-native-objects?view=vs-2019)
 support for improved debugging experience
+
 - ...
 
 ## 1. Introduction
@@ -88,11 +90,6 @@ int main() {
 
 ### 3.2 Steps
 
-> For users unfamiliar with CMake, you can directly download the CMake-installed version and header-only library
-> from [![tag](https://img.shields.io/github/v/tag/shimakaze09/MyGM)](https://github.com/shimakaze09/MyGM/tags)
->
-> Please feel free to open issues for any configuration or usage questions
-
 - Git
 
   ```bash
@@ -124,6 +121,8 @@ int main() {
 
 ### 3.3 Usage
 
+Code examples can be found in the [demo](demo) directory
+
 ```c++
 // main.cpp
 #include <MyGM/MyGM.h>
@@ -144,11 +143,7 @@ PROJECT(demo_project VERSION 1.0.0)
 SET(CMAKE_CXX_STANDARD 17)
 SET(CMAKE_CXX_STANDARD_REQUIRED True)
 
-IF (MSVC)
-    SET(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} /permissive-")
-ENDIF ()
-
-#find_package(MyGM 0.6.0 REQUIRED)
+# FIND_PACKAGE(MyGM 0.6.1 REQUIRED)
 FIND_PACKAGE(MyGM REQUIRED)
 
 ADD_EXECUTABLE(demo main.cpp)
