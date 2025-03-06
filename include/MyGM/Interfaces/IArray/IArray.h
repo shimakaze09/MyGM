@@ -14,62 +14,79 @@
 #include "../ImplTraits.h"
 
 namespace My {
-template <bool SIMD, typename Base, typename Impl>
-struct IArrayImpl;
+template <bool SIMD, typename IArray_Base, typename Impl>
+struct IArray_Impl;
 
 template <typename Base, typename Impl>
-struct IArray : IArrayImpl<SupportSIMD_v<Impl>, Base, Impl> {
-  using IArrayImpl<SupportSIMD_v<Impl>, Base, Impl>::IArrayImpl;
+struct IArray : IArray_Impl<SupportSIMD_v<Impl>, Base, Impl> {
+  using IArray_Impl<SupportSIMD_v<Impl>, Base, Impl>::IArray_Impl;
 };
 
-template <typename Base, typename Impl>
-struct IArrayImpl<false, Base, Impl>
-    : Base, std::array<ImplTraits_T<Impl>, ImplTraits_N<Impl>> {
+template <typename IArray_Base, typename Impl>
+struct IArray_Impl<false, IArray_Base, Impl>
+    : IArray_Base, std::array<ImplTraits_T<Impl>, ImplTraits_N<Impl>> {
   using T = ImplTraits_T<Impl>;
   using F = ImplTraits_F<Impl>;
   static constexpr size_t N = ImplTraits_N<Impl>;
 
  private:
-  using Base::operator[];
+  using IArray_Base::operator[];
 
  public:
   using std::array<T, N>::operator[];
 
   static_assert(N > 0);
 
-  using Base::Base;
+  using IArray_Base::IArray_Base;
   using std::array<T, N>::array;
 
-  IArrayImpl() noexcept {};
+  IArray_Impl() noexcept {};
 
   template <size_t... Ns>
-  IArrayImpl(const IArrayImpl& arr, std::index_sequence<Ns...>) noexcept {
+  IArray_Impl(const T* arr, std::index_sequence<Ns...>) noexcept {
+    (((*this)[Ns] = arr[Ns]), ...);
+  }
+
+  IArray_Impl(const T* arr) noexcept
+      : IArray_Impl{arr, std::make_index_sequence<N>{}} {}
+
+  template <size_t... Ns>
+  IArray_Impl(const IArray_Impl& arr, std::index_sequence<Ns...>) noexcept {
     (((*this)[Ns] = arr[Ns]), ...);
   };
 
-  IArrayImpl(const IArrayImpl& arr) noexcept
-      : IArrayImpl{arr, std::make_index_sequence<N>{}} {}
+  IArray_Impl(const IArray_Impl& arr) noexcept
+      : IArray_Impl{arr, std::make_index_sequence<N>{}} {}
 
   template <size_t... Ns>
-  IArrayImpl(T t, std::index_sequence<Ns...>) noexcept {
+  IArray_Impl(T t, std::index_sequence<Ns...>) noexcept {
     (((*this)[Ns] = t), ...);
   };
 
-  constexpr IArrayImpl(T t) noexcept
-      : IArrayImpl{t, std::make_index_sequence<N>{}} {}
+  constexpr IArray_Impl(T t) noexcept
+      : IArray_Impl{t, std::make_index_sequence<N>{}} {}
 
-  template <typename... U,
-            typename = std::enable_if_t<(std::is_convertible_v<U, T> && ...)>>
-  constexpr IArrayImpl(U... data) noexcept
-      : std::array<T, N>{static_cast<T>(data)...} {
-    static_assert(sizeof...(U) == N, "number of parameters is not correct");
+  template <typename... Us, std::enable_if_t<sizeof...(Us) == N>* = nullptr>
+  constexpr IArray_Impl(Us... vals) noexcept
+      : std::array<T, N>{static_cast<T>(vals)...} {}
+
+  template <size_t i>
+  T get() const noexcept {
+    static_assert(i < N);
+    return (*this)[i];
+  }
+
+  template <size_t i>
+  void set(T v) const noexcept {
+    static_assert(i < N);
+    (*this)[i] = v;
   }
 };
 
 #ifdef MY_USE_SIMD
 // alignas(16)
-template <typename Base, typename Impl>
-struct alignas(16) IArrayImpl<true, Base, Impl> : Base {
+template <typename IArray_Base, typename Impl>
+struct alignas(16) IArray_Impl<true, IArray_Base, Impl> : IArray_Base {
  public:
   __m128 m;
 
@@ -84,7 +101,7 @@ struct alignas(16) IArrayImpl<true, Base, Impl> : Base {
   }
 
   const std::array<float, 4>& to_array() const noexcept {
-    return const_cast<IArrayImpl*>(this)->to_array();
+    return const_cast<IArray_Impl*>(this)->to_array();
   }
 
   using value_type = float;
@@ -153,45 +170,11 @@ struct alignas(16) IArrayImpl<true, Base, Impl> : Base {
 
   const_reference back() const noexcept { return to_array().back(); }
 
-  float x() const noexcept { return _mm_cvtss_f32(m); }
-
-  float y() const noexcept {
-    return _mm_cvtss_f32(_mm_shuffle_ps(m, m, _MM_SHUFFLE(1, 1, 1, 1)));
-  }
-
-  float z() const noexcept {
-    return _mm_cvtss_f32(_mm_shuffle_ps(m, m, _MM_SHUFFLE(2, 2, 2, 2)));
-  }
-
-  float w() const noexcept {
-    return _mm_cvtss_f32(_mm_shuffle_ps(m, m, _MM_SHUFFLE(3, 3, 3, 3)));
-  }
-
-  void set_x(float v) noexcept { m = _mm_move_ss(m, _mm_set_ss(v)); }
-
-  void set_y(float v) noexcept {
-    __m128 t = _mm_move_ss(m, _mm_set_ss(v));
-    t = _mm_shuffle_ps(t, t, _MM_SHUFFLE(3, 2, 0, 0));
-    m = _mm_move_ss(t, m);
-  }
-
-  void set_z(float v) noexcept {
-    __m128 t = _mm_move_ss(m, _mm_set_ss(v));
-    t = _mm_shuffle_ps(t, t, _MM_SHUFFLE(3, 0, 1, 0));
-    m = _mm_move_ss(t, m);
-  }
-
-  void set_w(float v) noexcept {
-    __m128 t = _mm_move_ss(m, _mm_set_ss(v));
-    t = _mm_shuffle_ps(t, t, _MM_SHUFFLE(0, 2, 1, 0));
-    m = _mm_move_ss(t, m);
-  }
-
   template <size_t i>
-  float at() const noexcept {
+  float get() const noexcept {
     static_assert(i < 4);
     if constexpr (i == 0)
-      return x();
+      return _mm_cvtss_f32(m);
     else
       return _mm_cvtss_f32(_mm_shuffle_ps(m, m, _MM_SHUFFLE(i, i, i, i)));
   }
@@ -199,31 +182,41 @@ struct alignas(16) IArrayImpl<true, Base, Impl> : Base {
   template <size_t i>
   void set(float v) const noexcept {
     static_assert(i < 4);
-    if constexpr (i == 0)
-      return set_x(v);
-    else if constexpr (i == 1)
-      return set_y(v);
-    else if constexpr (i == 2)
-      return set_z(v);
-    else if constexpr (i == 3)
-      return set_w(v);
+    if constexpr (i == 0) {
+      m = _mm_move_ss(m, _mm_set_ss(v));
+    } else {
+      __m128 t = _mm_move_ss(m, _mm_set_ss(v));
+
+      if constexpr (i == 1)
+        t = _mm_shuffle_ps(t, t, _MM_SHUFFLE(3, 2, 0, 0));
+      else if constexpr (i == 2)
+        t = _mm_shuffle_ps(t, t, _MM_SHUFFLE(3, 0, 1, 0));
+      else  // if constexpr (i == 3)
+        t = _mm_shuffle_ps(t, t, _MM_SHUFFLE(0, 2, 1, 0));
+
+      m = _mm_move_ss(t, m);
+    }
   }
 
   float* data() noexcept { return reinterpret_cast<float*>(this); }
 
   const float* data() const noexcept {
-    return const_cast<IArrayImpl*>(this)->data();
+    return const_cast<IArray_Impl*>(this)->data();
   }
 
-  IArrayImpl() noexcept {}
+  // ==================
 
-  IArrayImpl(__m128 f4) noexcept : m{f4} {}
+  IArray_Impl() noexcept {}
 
-  explicit IArrayImpl(float v) noexcept : m{_mm_set1_ps(v)} {}
+  IArray_Impl(const float* f4) noexcept : m{_mm_loadu_ps(f4)} {}
 
-  IArrayImpl(const IArrayImpl& f4) noexcept : m{f4.m} {}
+  IArray_Impl(__m128 f4) noexcept : m{f4} {}  // align
 
-  IArrayImpl& operator=(const IArrayImpl& f4) noexcept {
+  explicit IArray_Impl(float v) noexcept : m{_mm_set1_ps(v)} {}
+
+  IArray_Impl(const IArray_Impl& f4) noexcept : m{f4.m} {}
+
+  IArray_Impl& operator=(const IArray_Impl& f4) noexcept {
     m = f4.m;
     return *this;
   }
@@ -231,16 +224,16 @@ struct alignas(16) IArrayImpl<true, Base, Impl> : Base {
   operator __m128&() noexcept { return m; }
 
   operator const __m128&() const noexcept {
-    return const_cast<IArrayImpl*>(this)->operator __m128&();
+    return const_cast<IArray_Impl*>(this)->operator __m128&();
   }
 
-  IArrayImpl(float x, float y, float z, float w) noexcept
+  IArray_Impl(float x, float y, float z, float w) noexcept
       : m{_mm_set_ps(w, z, y, x)} {}  // little-endianness
 
   template <typename Ux, typename Uy, typename Uz, typename Uw>
-  IArrayImpl(Ux x, Uy y, Uz z, Uw w) noexcept
-      : IArrayImpl{static_cast<float>(x), static_cast<float>(y),
-                   static_cast<float>(z), static_cast<float>(w)} {}
+  IArray_Impl(Ux x, Uy y, Uz z, Uw w) noexcept
+      : IArray_Impl{static_cast<float>(x), static_cast<float>(y),
+                    static_cast<float>(z), static_cast<float>(w)} {}
 };
 #endif
 }  // namespace My

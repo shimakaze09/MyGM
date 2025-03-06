@@ -377,7 +377,7 @@ struct mul<3> {
     F f21 = x(2, 0) * y(0, 1) + x(2, 1) * y(1, 1) + x(2, 2) * y(2, 1);
     F f22 = x(2, 0) * y(0, 2) + x(2, 1) * y(1, 2) + x(2, 2) * y(2, 2);
 
-    return std::array<F, 3 * 3>{f00, f01, f02, f10, f11, f12, f20, f21, f22};
+    return {f00, f01, f02, f10, f11, f12, f20, f21, f22};
   }
 
   template <typename M>
@@ -443,8 +443,8 @@ struct mul<4> {
       F f33 = x(3, 0) * y(0, 3) + x(3, 1) * y(1, 3) + x(3, 2) * y(2, 3) +
               x(3, 3) * y(3, 3);
 
-      return std::array<F, 4 * 4>{f00, f01, f02, f03, f10, f11, f12, f13,
-                                  f20, f21, f22, f23, f30, f31, f32, f33};
+      return {f00, f01, f02, f03, f10, f11, f12, f13,
+              f20, f21, f22, f23, f30, f31, f32, f33};
     }
   }
 

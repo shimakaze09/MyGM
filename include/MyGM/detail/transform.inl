@@ -11,19 +11,16 @@ inline transform<F>::transform(const mat<F, 4>& m) noexcept
 
 template <typename F>
 inline transform<F>::transform(const mat<F, 3>& m) noexcept
-    : transform{std::array<F, 4 * 4>{m[0][0], m[1][0], m[2][0], 0, m[0][1],
-                                     m[1][1], m[2][1], 0, m[0][2], m[1][2],
-                                     m[2][2], 0, 0, 0, 0, 1}} {}
+    : transform{m[0][0], m[1][0], m[2][0], 0, m[0][1], m[1][1], m[2][1], 0,
+                m[0][2], m[1][2], m[2][2], 0, 0,       0,       0,       1} {}
 
 template <typename F>
 transform<F>::transform(const point<F, 3>& p) noexcept
-    : transform{std::array<F, 4 * 4>{1, 0, 0, p[0], 0, 1, 0, p[1], 0, 0, 1,
-                                     p[2], 0, 0, 0, 1}} {}
+    : transform{1, 0, 0, p[0], 0, 1, 0, p[1], 0, 0, 1, p[2], 0, 0, 0, 1} {}
 
 template <typename F>
 transform<F>::transform(const scale<F, 3>& s) noexcept
-    : transform{std::array<F, 4 * 4>{s[0], 0, 0, 0, 0, s[1], 0, 0, 0, 0, s[2],
-                                     0, 0, 0, 0, 1}} {}
+    : transform{s[0], 0, 0, 0, 0, s[1], 0, 0, 0, 0, s[2], 0, 0, 0, 0, 1} {}
 
 template <typename F>
 transform<F>::transform(const quat<F>& q) noexcept {
@@ -42,24 +39,9 @@ transform<F>::transform(const quat<F>& q) noexcept {
   F zz = z * z;
   F zw = z * w;
 
-  this->init(std::array<F, 4 * 4>{
-      1 - 2 * (yy + zz),
-      2 * (xy - zw),
-      2 * (xz + yw),
-      0,
-      2 * (xy + zw),
-      1 - 2 * (zz + xx),
-      2 * (yz - xw),
-      0,
-      2 * (xz - yw),
-      2 * (yz + xw),
-      1 - 2 * (xx + yy),
-      0,
-      0,
-      0,
-      0,
-      1,
-  });
+  this->init(1 - 2 * (yy + zz), 2 * (xy - zw), 2 * (xz + yw), 0, 2 * (xy + zw),
+             1 - 2 * (zz + xx), 2 * (yz - xw), 0, 2 * (xz - yw), 2 * (yz + xw),
+             1 - 2 * (xx + yy), 0, 0, 0, 0, 1);
 }
 
 template <typename F>
@@ -71,24 +53,9 @@ transform<F>::transform(const euler<F>& e) noexcept {
   F cZ = std::cos(e[2]);
   F sZ = std::sin(e[2]);
 
-  this->init(std::array<F, 4 * 4>{
-      cY * cZ + sX * sY * sZ,
-      -cY * sZ + sX * sY * cZ,
-      cX * sY,
-      0,
-      cX * sZ,
-      cX * cZ,
-      -sX,
-      0,
-      -sY * cZ + sX * cY * sZ,
-      sY * sZ + sX * cY * cZ,
-      cX * cY,
-      0,
-      0,
-      0,
-      0,
-      1,
-  });
+  this->init(cY * cZ + sX * sY * sZ, -cY * sZ + sX * sY * cZ, cX * sY, 0,
+             cX * sZ, cX * cZ, -sX, 0, -sY * cZ + sX * cY * sZ,
+             sY * sZ + sX * cY * cZ, cX * cY, 0, 0, 0, 0, 1);
 }
 
 template <typename F>
@@ -113,24 +80,9 @@ transform<F>::transform(const point<F, 3>& p, const quat<F>& q) noexcept {
   F zz = z * z;
   F zw = z * w;
 
-  this->init(std::array<F, 4 * 4>{
-      1 - 2 * (yy + zz),
-      2 * (xy - zw),
-      2 * (xz + yw),
-      p[0],
-      2 * (xy + zw),
-      1 - 2 * (zz + xx),
-      2 * (yz - xw),
-      p[1],
-      2 * (xz - yw),
-      2 * (yz + xw),
-      1 - 2 * (xx + yy),
-      p[2],
-      0,
-      0,
-      0,
-      1,
-  });
+  this->init(1 - 2 * (yy + zz), 2 * (xy - zw), 2 * (xz + yw), p[0],
+             2 * (xy + zw), 1 - 2 * (zz + xx), 2 * (yz - xw), p[1],
+             2 * (xz - yw), 2 * (yz + xw), 1 - 2 * (xx + yy), p[2], 0, 0, 0, 1);
 }
 
 template <typename F>
@@ -151,24 +103,11 @@ transform<F>::transform(const point<F, 3>& p, const scale<F, 3>& s,
   F zz = z * z;
   F zw = z * w;
 
-  this->init(std::array<F, 4 * 4>{
-      s[0] * (1 - 2 * (yy + zz)),
-      s[1] * (2 * (xy - zw)),
-      s[2] * (2 * (xz + yw)),
-      p[0],
-      s[0] * (2 * (xy + zw)),
-      s[1] * (1 - 2 * (zz + xx)),
-      s[2] * (2 * (yz - xw)),
-      p[1],
-      s[0] * (2 * (xz - yw)),
-      s[1] * (2 * (yz + xw)),
-      s[2] * (1 - 2 * (xx + yy)),
-      p[2],
-      0,
-      0,
-      0,
-      1,
-  });
+  this->init(s[0] * (1 - 2 * (yy + zz)), s[1] * (2 * (xy - zw)),
+             s[2] * (2 * (xz + yw)), p[0], s[0] * (2 * (xy + zw)),
+             s[1] * (1 - 2 * (zz + xx)), s[2] * (2 * (yz - xw)), p[1],
+             s[0] * (2 * (xz - yw)), s[1] * (2 * (yz + xw)),
+             s[2] * (1 - 2 * (xx + yy)), p[2], 0, 0, 0, 1);
 }
 
 template <typename F>
@@ -264,7 +203,7 @@ const transform<F> transform<F>::orthographic(F width, F height, F zNear,
   F m22 = 2 / (zNear - zFar);
   F m23 = (zFar + zNear) / (zNear - zFar);
 
-  return std::array<F, 4 * 4>{
+  return {
       m00, 0, 0, 0, 0, m11, 0, 0, 0, 0, m22, m23, 0, 0, 0, 1,
   };
 }
@@ -282,9 +221,7 @@ const transform<F> transform<F>::perspective(F fovY, F aspect, F zNear,
   F m22 = (zFar + zNear) / (zNear - zFar);
   F m23 = (2 * zFar * zNear) / (zNear - zFar);
 
-  return std::array<F, 4 * 4>{
-      m00, 0, 0, 0, 0, m11, 0, 0, 0, 0, m22, m23, 0, 0, -1, 0,
-  };
+  return {m00, 0, 0, 0, 0, m11, 0, 0, 0, 0, m22, m23, 0, 0, -1, 0};
 }
 
 template <typename F>
@@ -369,9 +306,8 @@ const mat<F, 3> transform<F>::decompose_rotation_matrix() const noexcept {
   }
 #endif
   {
-    mat<F, 3> m3{std::array<F, 3 * 3>{m(0, 0), m(0, 1), m(0, 2), m(1, 0),
-                                      m(1, 1), m(1, 2), m(2, 0), m(2, 1),
-                                      m(2, 2)}};
+    mat<F, 3> m3{m(0, 0), m(0, 1), m(0, 2), m(1, 0), m(1, 1),
+                 m(1, 2), m(2, 0), m(2, 1), m(2, 2)};
 
     m3[0].normalize_self();
     m3[1].normalize_self();
@@ -426,7 +362,7 @@ const euler<F> transform<F>::decompose_euler() const noexcept {
   auto rM = decompose_rotation_matrix();
   /*
 		* rM is
-		* 
+		*
 		*  cYcZ + sXsYsZ  -cYsZ + sXsYsZ  cXsY
 		*           cXsZ            cXcZ   -sX
 		* -sYcZ + sXcYsZ   sYsZ + sXcYcZ  cXcY
@@ -465,8 +401,8 @@ const euler<F> transform<F>::decompose_euler() const noexcept {
 template <typename F>
 const mat<F, 3> transform<F>::decompose_mat3() const noexcept {
   const auto& m = static_cast<const transform&>(*this);
-  return std::array<F, 3 * 3>{m(0, 0), m(0, 1), m(0, 2), m(1, 0), m(1, 1),
-                              m(1, 2), m(2, 0), m(2, 1), m(2, 2)};
+  return {m(0, 0), m(0, 1), m(0, 2), m(1, 0), m(1, 1),
+          m(1, 2), m(2, 0), m(2, 1), m(2, 2)};
 }
 
 namespace detail {
@@ -480,8 +416,7 @@ struct rotate_with<Axis::X> {
     F c = std::cos(angle);
     F s = std::sin(angle);
 
-    return std::array<F, 4 * 4>{1, 0, 0, 0, 0, c, -s, 0,
-                                0, s, c, 0, 0, 0, 0,  1};
+    return {1, 0, 0, 0, 0, c, -s, 0, 0, s, c, 0, 0, 0, 0, 1};
   }
 };
 
@@ -492,8 +427,7 @@ struct rotate_with<Axis::Y> {
     F c = std::cos(angle);
     F s = std::sin(angle);
 
-    return std::array<F, 4 * 4>{c,  0, s, 0, 0, 1, 0, 0,
-                                -s, 0, c, 0, 0, 0, 0, 1};
+    return {c, 0, s, 0, 0, 1, 0, 0, -s, 0, c, 0, 0, 0, 0, 1};
   }
 };
 
@@ -504,8 +438,7 @@ struct rotate_with<Axis::Z> {
     F c = std::cos(angle);
     F s = std::sin(angle);
 
-    return std::array<F, 4 * 4>{c, -s, 0, 0, s, c, 0, 0,
-                                0, 0,  1, 0, 0, 0, 0, 1};
+    return {c, -s, 0, 0, s, c, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1};
   }
 };
 }  // namespace detail

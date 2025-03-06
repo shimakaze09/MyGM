@@ -5,7 +5,7 @@ IF (MSVC)
     LIST(APPEND core_c_option "/fp:fast")
 ENDIF ()
 
-IF (MY_USE_XSIMD)
+IF (MY_USE_SIMD)
     LIST(APPEND core_define MY_USE_SIMD)
 ENDIF ()
 

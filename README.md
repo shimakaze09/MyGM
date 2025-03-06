@@ -89,7 +89,7 @@ int main() {
 ### 3.2 Steps
 
 > For users unfamiliar with CMake, you can directly download the CMake-installed version and header-only library
-> from [release-0.5.8](https://github.com/shimakaze09/MyGM/releases/tag/0.5.8)
+> from [release-0.6.0](https://github.com/shimakaze09/MyGM/releases/tag/0.6.0)
 >
 > Please feel free to open issues for any configuration or usage questions
 
@@ -148,7 +148,7 @@ IF (MSVC)
     SET(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} /permissive-")
 ENDIF ()
 
-#find_package(MyGM 0.5.8 REQUIRED)
+#find_package(MyGM 0.6.0 REQUIRED)
 FIND_PACKAGE(MyGM REQUIRED)
 
 ADD_EXECUTABLE(demo main.cpp)
