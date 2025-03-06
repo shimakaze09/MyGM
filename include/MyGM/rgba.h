@@ -10,10 +10,7 @@
 
 namespace My {
 template <typename T>
-struct ImplTraits<rgba<T>> : ArrayTraits<T, 4> {
-  using IList = TemplateList<IArray1D_Util>;
-  using F = T;
-};
+struct ImplTraits<rgba<T>> : Array1DTraits<T, 4>, IListTraits<IArray1D_Util> {};
 
 template <typename T>
 struct rgba : SI<rgba<T>> {

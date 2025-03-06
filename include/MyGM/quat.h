@@ -12,10 +12,8 @@
 
 namespace My {
 template <typename T>
-struct ImplTraits<quat<T>> : ArrayTraits<T, 4> {
-  using IList = TemplateList<IMul, IArrayUtil>;
-  using F = T;
-};
+struct ImplTraits<quat<T>> : Array1DTraits<T, 4>,
+                             IListTraits<IMul, IArrayUtil> {};
 
 template <typename T>
 struct quat : SI<quat<T>> {

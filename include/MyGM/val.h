@@ -16,11 +16,9 @@
 
 namespace My {
 template <typename T, size_t N>
-struct ImplTraits<val<T, N>> : ArrayTraits<T, N> {
-  using IList =
-      TemplateList<IArrayLinear, IArrayHadamardProduct, IArray1D_Util>;
-  using F = T;
-};
+struct ImplTraits<val<T, N>>
+    : Array1DTraits<T, N>,
+      IListTraits<IArrayLinear, IArrayHadamardProduct, IArray1D_Util> {};
 
 template <typename T, size_t N>
 struct val : SI<val<T, N>> {

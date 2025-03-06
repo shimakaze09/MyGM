@@ -13,10 +13,9 @@
 
 namespace My {
 template <typename T, size_t N>
-struct ImplTraits<mat<T, N>> : ArrayTraits<vec<T, N>, N> {
-  using IList = TemplateList<IMatrixInOut, IMatrixMul, IArrayLinear, IRing>;
-  using F = T;
-};
+struct ImplTraits<mat<T, N>>
+    : ArrayTraits<vec<T, N>, N, T>,
+      IListTraits<IMatrixInOut, IMatrixMul, IArrayLinear, IRing> {};
 
 template <typename T, size_t N>
 struct mat : SI<mat<T, N>> {

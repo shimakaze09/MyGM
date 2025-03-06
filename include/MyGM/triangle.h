@@ -9,13 +9,8 @@
 
 namespace My {
 template <typename T, size_t N>
-struct triangle;
-
-template <typename T, size_t N>
-struct ImplTraits<triangle<T, N>> : ArrayTraits<point<T, N>, 3> {
-  using IList = TemplateList<IArrayInOut>;
-  using F = T;
-};
+struct ImplTraits<triangle<T, N>> : ArrayTraits<point<T, N>, 3, T>,
+                                    IListTraits<IArrayInOut> {};
 
 template <typename T, size_t N>
 struct triangle : SI<triangle<T, N>> {
