@@ -89,7 +89,7 @@ int main() {
 ### 3.2 Steps
 
 > For users unfamiliar with CMake, you can directly download the CMake-installed version and header-only library
-> from [release-0.6.0](https://github.com/shimakaze09/MyGM/releases/tag/0.6.0)
+> from [![tag](https://img.shields.io/github/v/tag/shimakaze09/MyGM)](https://github.com/shimakaze09/MyGM/tags)
 >
 > Please feel free to open issues for any configuration or usage questions
 
