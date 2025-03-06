@@ -30,7 +30,7 @@ struct IMatrixMul : Base {
   friend struct IMul;
 
   inline const Impl impl_mul(const Impl& y) const noexcept {
-    auto& x = static_cast<const Impl&>(*this);
+    const auto& x = static_cast<const Impl&>(*this);
     return detail::IMatrixMul::mul<N>::run(x, y);
   }
 

@@ -21,14 +21,14 @@ struct INorm : Base {
   }
 
   inline const Impl normalize() const noexcept {
-    auto& x = static_cast<const Impl&>(*this);
+    const auto& x = static_cast<const Impl&>(*this);
     F n = norm();
     assert(n > static_cast<F>(0));
     return x / n;  // ILinear
   }
 
   inline bool is_normalized() const noexcept {
-    auto& x = static_cast<const Impl&>(*this);
+    const auto& x = static_cast<const Impl&>(*this);
     return std::abs(x.norm() - 1) < EPSILON<F>;
   }
 

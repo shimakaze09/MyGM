@@ -62,9 +62,9 @@ const std::tuple<bool, T> ray<T, N>::intersect_std_sphere() const noexcept {
   if constexpr (std::is_same_v<T, float> && N == 3) {
     vecf4 oc = xsimd::load_unaligned(this->point.data());
     vecf4 dir = xsimd::load_unaligned(this->dir.data());
-    T a = dir.dot3(dir);
-    T b = oc.dot3(dir);
-    T c = oc.dot3(oc) - 1;
+    T a = dir.v3_dot(dir);
+    T b = oc.v3_dot(dir);
+    T c = oc.v3_dot(oc) - 1;
     T discriminant = b * b - a * c;
 
     if (discriminant < 0)

@@ -34,7 +34,7 @@ struct IArrayHadamardProduct : Base {
   }
 
   const Impl operator/(const Impl& y) const noexcept {
-    auto& x = static_cast<const Impl&>(*this);
+    const auto& x = static_cast<const Impl&>(*this);
 #ifdef MY_USE_SIMD
     if constexpr (SupportSIMD_v<Impl>)
       return _mm_div_ps(x, y);
@@ -61,7 +61,7 @@ struct IArrayHadamardProduct : Base {
   }
 
   inline const Impl inverse() const noexcept {
-    auto& x = static_cast<const Impl&>(*this);
+    const auto& x = static_cast<const Impl&>(*this);
 
 #ifdef MY_USE_SIMD
     if constexpr (SupportSIMD_v<Impl>)
@@ -81,7 +81,7 @@ struct IArrayHadamardProduct : Base {
   friend struct IMul;
 
   inline const Impl impl_mul(const Impl& y) const noexcept {
-    auto& x = static_cast<const Impl&>(*this);
+    const auto& x = static_cast<const Impl&>(*this);
 
 #ifdef MY_USE_SIMD
     if constexpr (SupportSIMD_v<Impl>)

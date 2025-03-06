@@ -18,7 +18,7 @@ struct IMatrixInOut : Base {
   static constexpr size_t N = ImplTraits_N<Impl>;
 
   void print(std::ostream& os = std::cout) const noexcept {
-    auto& x = static_cast<const Impl&>(*this);
+    const auto& x = static_cast<const Impl&>(*this);
 
     for (size_t row = 0; row < N; row++) {
       for (size_t col = 0; col < N - 1; col++)

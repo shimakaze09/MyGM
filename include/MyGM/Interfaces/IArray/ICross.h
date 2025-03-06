@@ -20,7 +20,7 @@ struct ICross : Base {
   }
 
   const Impl cross(const Impl& y) const noexcept {
-    auto& x = static_cast<const Impl&>(*this);
+    const auto& x = static_cast<const Impl&>(*this);
     return cross(x, y);
   }
 
@@ -33,7 +33,7 @@ struct ICross : Base {
   }
 
   F sin_theta(const Impl& y) const noexcept {
-    auto& x = static_cast<const Impl&>(*this);
+    const auto& x = static_cast<const Impl&>(*this);
     return sin_theta(x, y);
   }
 };

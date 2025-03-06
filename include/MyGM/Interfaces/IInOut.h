@@ -8,7 +8,7 @@
 
 namespace My {
 // virtual : in, out
-template<typename Base, typename Impl>
+template <typename Base, typename Impl>
 struct IInOut : Base {
   using Base::Base;
 
@@ -22,7 +22,7 @@ struct IInOut : Base {
 
  private:
   std::ostream& out(std::ostream& os) const {
-    auto& x = static_cast<const Impl&>(*this);
+    const auto& x = static_cast<const Impl&>(*this);
     return x.impl_out(os);
   }
 

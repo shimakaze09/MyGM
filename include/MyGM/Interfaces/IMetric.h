@@ -18,7 +18,7 @@ struct IMetric : Base {
   }
 
   inline F distance(const Impl& y) const noexcept {
-    const Impl& x = static_cast<const Impl&>(*this);
+    const auto& x = static_cast<const Impl&>(*this);
     return distance(x, y);
   }
 };

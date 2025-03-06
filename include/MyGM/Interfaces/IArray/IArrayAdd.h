@@ -20,7 +20,7 @@ struct IArrayAdd : Base {
   friend struct IAdd;
 
   inline const Impl impl_add(const Impl& y) const noexcept {
-    auto& x = static_cast<const Impl&>(*this);
+    const auto& x = static_cast<const Impl&>(*this);
 #ifdef MY_USE_SIMD
     if constexpr (SupportSIMD_v<Impl>)
       return _mm_add_ps(x, y);
@@ -49,7 +49,7 @@ struct IArrayAdd : Base {
   }
 
   inline const Impl impl_add_inverse() const noexcept {
-    auto& x = static_cast<const Impl&>(*this);
+    const auto& x = static_cast<const Impl&>(*this);
 #ifdef MY_USE_SIMD
     if constexpr (SupportSIMD_v<Impl>)
       // ref: https://stackoverflow.com/questions/20083997/how-to-negate-change-sign-of-the-floating-point-elements-in-a-m128-type-vari
@@ -69,7 +69,7 @@ struct IArrayAdd : Base {
   }
 
   inline const Impl impl_minus(const Impl& y) const noexcept {
-    auto& x = static_cast<const Impl&>(*this);
+    const auto& x = static_cast<const Impl&>(*this);
 #ifdef MY_USE_SIMD
     if constexpr (SupportSIMD_v<Impl>) {
       return _mm_sub_ps(x, y);
@@ -99,7 +99,7 @@ struct IArrayAdd : Base {
 
   template <typename U, std::enable_if_t<std::is_integral_v<U>>* = nullptr>
   inline Impl impl_add_mul(U v) const noexcept {
-    auto& x = static_cast<const Impl&>(*this);
+    const auto& x = static_cast<const Impl&>(*this);
 #ifdef MY_USE_SIMD
     if constexpr (SupportSIMD_v<Impl>)
       return _mm_mul_ps(x, Impl{v});
