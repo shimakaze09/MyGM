@@ -143,7 +143,7 @@ transform<F>::transform(const point<F, 3>& p, const quat<F>& q,
   F zw = z * w;
 
 #ifdef MY_USE_SIMD
-  if constexpr (SupportSIMD_v<ImplTraits_T<transform<F>>>) {
+  if constexpr (ImplTraits_SupportSIMD<ImplTraits_T<transform<F>>>) {
     this->init(1 - 2 * (yy + zz), 2 * (xy - zw), 2 * (xz + yw), p[0],
                2 * (xy + zw), 1 - 2 * (zz + xx), 2 * (yz - xw), p[1],
                2 * (xz - yw), 2 * (yz + xw), 1 - 2 * (xx + yy), p[2], 0, 0, 0,
@@ -224,8 +224,8 @@ const transform<F> transform<F>::orthographic(F width, F height, F zNear,
 }
 
 template <typename F>
-const transform<F> transform<F>::perspective(F fovY, F aspect, F zNear,
-                                             F zFar) noexcept {
+const transform<F> transform<F>::perspective(F fovY, F aspect, F zNear, F zFar,
+                                             F near_clip_value) noexcept {
   assert(fovY > 0 && aspect > 0 && zNear >= 0 && zFar > zNear);
 
   F tanHalfFovY = std::tan(fovY / static_cast<F>(2));
@@ -233,8 +233,8 @@ const transform<F> transform<F>::perspective(F fovY, F aspect, F zNear,
 
   F m00 = cotHalfFovY / aspect;
   F m11 = cotHalfFovY;
-  F m22 = (zFar + zNear) / (zNear - zFar);
-  F m23 = (2 * zFar * zNear) / (zNear - zFar);
+  F m22 = (zFar - near_clip_value * zNear) / (zNear - zFar);
+  F m23 = ((1 - near_clip_value) * zFar * zNear) / (zNear - zFar);
 
   return {m00, 0, 0, 0, 0, m11, 0, 0, 0, 0, m22, m23, 0, 0, -1, 0};
 }

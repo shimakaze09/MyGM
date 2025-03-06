@@ -22,4 +22,9 @@ template <template <typename, typename> class... Interfaces>
 struct IListTraits {
   using IList = TemplateList<Interfaces...>;
 };
+
+template <bool support>
+struct SIMDTraits {
+  static constexpr bool support_SIMD = support;
+};
 }  // namespace My

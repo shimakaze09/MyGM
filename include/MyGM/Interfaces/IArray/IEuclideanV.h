@@ -21,7 +21,7 @@ struct IEuclideanV : Base {
 #ifdef MY_USE_SIMD
   // w == 0
   inline static const Impl v3_cross(const Impl& x, const Impl& y) noexcept {
-    static_assert(SupportSIMD_v<Impl>);
+    static_assert(ImplTraits_SupportSIMD<Impl>);
     /*
 			|a.x|   |b.x|   | a.y * b.z - a.z * b.y |
 			|a.y| X |b.y| = | a.z * b.x - a.x * b.z |
@@ -40,7 +40,7 @@ struct IEuclideanV : Base {
 
   // x = y = z = w
   inline static Impl v3_dot(const Impl& x, const Impl& y) noexcept {
-    static_assert(SupportSIMD_v<Impl>);
+    static_assert(ImplTraits_SupportSIMD<Impl>);
     // 0x7f : 011111111
     return _mm_dp_ps(x, y, 0x7f);
   }
@@ -265,7 +265,7 @@ struct IEuclideanV : Base {
 
   inline static F impl_dot(const Impl& x, const Impl& y) noexcept {
 #ifdef MY_USE_SIMD
-    if constexpr (SupportSIMD_v<Impl>) {
+    if constexpr (ImplTraits_SupportSIMD<Impl>) {
       // ref
       // https://stackoverflow.com/questions/4120681/how-to-calculate-single-vector-dot-product-using-sse-intrinsic-functions-in-c
 #ifdef MY_USE_SSE_4_1

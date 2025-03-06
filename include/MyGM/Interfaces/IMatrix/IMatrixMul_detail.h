@@ -162,7 +162,7 @@ struct inverse<4> {
     using F = typename M::F;
 
 #ifdef MY_USE_SIMD
-    if constexpr (SupportSIMD_v<ImplTraits_T<M>>) {
+    if constexpr (ImplTraits_SupportSIMD<ImplTraits_T<M>>) {
 #if 1  // Eric: https://lxjk.github.io/2017/09/03/Fast-4x4-Matrix-Inverse-with-SSE-SIMD-Explained.html
       return Eric::GetInverse(m);
 #else  // intel: https://software.intel.com/en-us/articles/optimized-matrix-library-for-use-with-the-intel-pentiumr-4-processors-sse2-instructions/
@@ -455,7 +455,7 @@ struct mul<4> {
     using F = typename M::F;
 
 #ifdef MY_USE_SIMD
-    if constexpr (SupportSIMD_v<ImplTraits_T<M>>)
+    if constexpr (ImplTraits_SupportSIMD<ImplTraits_T<M>>)
       return m[0] * v[0] + m[1] * v[1] + m[2] * v[2] + m[3] * v[3];
     else
 #endif  // MY_USE_SIMD

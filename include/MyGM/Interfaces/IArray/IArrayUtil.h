@@ -42,7 +42,7 @@ struct IArrayUtil : Base {
   static const Impl lerp(const Impl& x, const Impl& y, F t) noexcept {
     F one_minus_t = static_cast<F>(1) - t;
 #ifdef MY_USE_SIMD
-    if constexpr (SupportSIMD_v<Impl>)
+    if constexpr (ImplTraits_SupportSIMD<Impl>)
       return _mm_add_ps(_mm_mul_ps(x, _mm_set1_ps(one_minus_t)),
                         _mm_mul_ps(y, _mm_set1_ps(t)));
     else
@@ -72,7 +72,7 @@ struct IArrayUtil : Base {
     auto weight_iter = weights.begin();
 
 #ifdef MY_USE_SIMD
-    if constexpr (SupportSIMD_v<Impl>) {
+    if constexpr (ImplTraits_SupportSIMD<Impl>) {
       __m128 rst = _mm_mul_ps(*val_iter, *weight_iter);
       ++val_iter;
       ++weight_iter;

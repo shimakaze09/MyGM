@@ -26,4 +26,6 @@ int main() {
                                      valf3{1.f, 2.f, 3.f}},
                      array<float, 3>{0.f, 1.f, 2.f})
        << endl;
+  valf4 a{1, 2, 3, 4};
+  cout << a << endl;
 }
