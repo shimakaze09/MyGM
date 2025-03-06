@@ -2,7 +2,7 @@
 
 > **My** **G**raphics **M**athematics, My Graphics Mathematics Library
 
-[![repo-size](https://img.shields.io/github/languages/code-size/Ubpa/UGM?style=flat)](https://github.com/shimakaze09/MyGM/archive/main.zip) [![tag](https://img.shields.io/github/v/tag/shimakaze09/MyGM)](https://github.com/shimakaze09/MyGM/tags) [![license](https://img.shields.io/github/license/shimakaze09/MyGM)](LICENSE)
+[![repo-size](https://img.shields.io/github/languages/code-size/shimakaze09/MyGM?style=flat)](https://github.com/shimakaze09/MyGM/archive/main.zip) [![tag](https://img.shields.io/github/v/tag/shimakaze09/MyGM)](https://github.com/shimakaze09/MyGM/tags) [![license](https://img.shields.io/github/license/shimakaze09/MyGM)](LICENSE)
 
 **Features**
 
