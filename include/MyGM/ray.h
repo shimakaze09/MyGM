@@ -8,9 +8,6 @@
 
 namespace My {
 template <typename T, size_t N>
-struct ray;
-
-template <typename T, size_t N>
 struct ImplTraits<ray<T, N>> : ImplTraits<line<T, N>> {};
 
 template <typename T, size_t N>

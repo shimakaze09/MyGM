@@ -11,13 +11,8 @@
 
 namespace My {
 template <typename T, size_t N>
-struct point;
-
-template <typename T_, size_t N_>
-struct ImplTraits<point<T_, N_>> {
+struct ImplTraits<point<T, N>> : ArrayTraits<T, N> {
   using IList = TemplateList<IArray1D_Util, IEuclideanA>;
-  using T = T_;
-  static constexpr size_t N = N_;
   using F = T;
   using V = vec<T, N>;
 };

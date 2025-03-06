@@ -14,12 +14,11 @@ namespace My {
 template <typename T, size_t N>
 struct line;
 
-template <typename T, size_t N_>
-struct ImplTraits<line<T, N_>> {
+template <typename T, size_t N>
+struct ImplTraits<line<T, N>> {
   using IList = TemplateList<IInOut, ILine>;
-  using V = vec<T, N_>;
-  using P = point<T, N_>;
-  static constexpr size_t N = N_;
+  using V = vec<T, N>;
+  using P = point<T, N>;
   using F = T;
 };
 

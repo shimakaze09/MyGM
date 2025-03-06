@@ -4,6 +4,8 @@
 
 #pragma once
 
+#include "detail/traits.h"
+
 #include "Interfaces/IArray/IArray1D_Util.h"
 #include "Interfaces/IArray/IArrayHadamardProduct.h"
 #include "Interfaces/IArray/IArrayLinear.h"
@@ -11,14 +13,9 @@
 
 namespace My {
 template <typename T>
-struct rgb;
-
-template <typename T_>
-struct ImplTraits<rgb<T_>> {
+struct ImplTraits<rgb<T>> : ArrayTraits<T, 3> {
   using IList =
       TemplateList<IArray1D_Util, IArrayHadamardProduct, IArrayLinear>;
-  using T = T_;
-  static constexpr size_t N = 3;
   using F = T;
 };
 

@@ -12,13 +12,8 @@
 
 namespace My {
 template <typename T>
-struct quat;
-
-template <typename T_>
-struct ImplTraits<quat<T_>> {
+struct ImplTraits<quat<T>> : ArrayTraits<T, 4> {
   using IList = TemplateList<IMul, IArrayUtil>;
-  using T = T_;
-  static constexpr size_t N = 4;
   using F = T;
 };
 
