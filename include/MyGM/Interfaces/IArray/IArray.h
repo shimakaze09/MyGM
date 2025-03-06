@@ -44,7 +44,7 @@ struct IArrayImpl<false, Base, Impl>
 
   template <size_t... Ns>
   IArrayImpl(const IArrayImpl& arr, std::index_sequence<Ns...>) noexcept {
-    ((this->at(Ns) = arr[Ns]), ...);
+    (((*this)[Ns] = arr[Ns]), ...);
   };
 
   IArrayImpl(const IArrayImpl& arr) noexcept
@@ -52,7 +52,7 @@ struct IArrayImpl<false, Base, Impl>
 
   template <size_t... Ns>
   IArrayImpl(T t, std::index_sequence<Ns...>) noexcept {
-    ((this->at(Ns) = t), ...);
+    (((*this)[Ns] = t), ...);
   };
 
   constexpr IArrayImpl(T t) noexcept

@@ -32,7 +32,7 @@ point<T, N - 1> hvec<T, N>::to_point() const noexcept {
   assert((*this)[N - 1] != ZERO<T>);
 #ifdef MY_USE_SIMD
   if constexpr (SupportSIMD_v<hvec>)
-    return ((*this) / (*this)[3]).cast_to<pointf3>();
+    return ((*this) / this->w()).cast_to<pointf3>();
   else
 #endif  // MY_USE_SIMD
   {
