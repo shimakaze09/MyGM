@@ -8,16 +8,14 @@
 #include "../IInOut.h"
 #include "IMatrix.h"
 
-
 #include <MyTemplate/SI.h>
 
 namespace My {
-template <typename Base, typename Impl, typename ArgList>
+template <typename Base, typename Impl>
 struct IMatrixInOut : Base {
-  using IList = TemplateList<IArrayInOut, IMatrix>;
   using Base::Base;
 
-  static constexpr size_t N = Arg_N<ArgList>;
+  static constexpr size_t N = ImplTraits_N<Impl>;
 
   void print(std::ostream& os = std::cout) const noexcept {
     auto& x = static_cast<const Impl&>(*this);
@@ -29,4 +27,6 @@ struct IMatrixInOut : Base {
     }
   }
 };
+
+InterfaceTraits_Regist(IMatrixInOut, IArrayInOut, IMatrix);
 }  // namespace My

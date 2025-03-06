@@ -7,13 +7,12 @@
 #include "IEuclideanV.h"
 
 namespace My {
-template <typename Base, typename Impl, typename ArgList>
+template <typename Base, typename Impl>
 struct ICross : Base {
-  using IList = TemplateList<IEuclideanV>;
   using Base::Base;
 
-  static_assert(Arg_N<ArgList> == 3);
-  using F = Arg_F<ArgList>;
+  static_assert(ImplTraits_N<Impl> == 3);
+  using F = ImplTraits_F<Impl>;
 
   static const Impl cross(const Impl& x, const Impl& y) noexcept {
     return Impl{x[1] * y[2] - x[2] * y[1], x[2] * y[0] - x[0] * y[2],
@@ -38,4 +37,6 @@ struct ICross : Base {
     return sin_theta(x, y);
   }
 };
+
+InterfaceTraits_Regist(ICross, IEuclideanV);
 }  // namespace My

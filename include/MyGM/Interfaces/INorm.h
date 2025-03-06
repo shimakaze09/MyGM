@@ -10,11 +10,9 @@
 #include "../basic.h"
 
 namespace My {
-template <typename Base, typename Impl, typename ArgList>
+template <typename Base, typename Impl>
 struct INorm : Base {
-  using IList = TemplateList<IMetric, ILinear>;
-
-  using F = Arg_F<ArgList>;
+  using F = ImplTraits_F<Impl>;
 
   using Base::Base;
 
@@ -42,11 +40,13 @@ struct INorm : Base {
   }
 
  private:
-  template <typename Base, typename Impl, typename ArgList>
+  template <typename Base, typename Impl>
   friend struct IMetric;
 
   inline static F impl_distance(const Impl& x, const Impl& y) noexcept {
     return (x - y).norm();
   }
 };
+
+InterfaceTraits_Regist(INorm, IMetric, ILinear);
 }  // namespace My

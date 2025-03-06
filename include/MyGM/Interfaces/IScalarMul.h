@@ -4,16 +4,14 @@
 
 #pragma once
 
-#include "Arg.h"
-
-#include <MyTemplate/SI.h>
+#include "ImplTraits.h"
 
 #include <cassert>
 
 namespace My {
-template <typename Base, typename Impl, typename ArgList>
+template <typename Base, typename Impl>
 struct IScalarMul : Base {
-  using F = Arg_F<ArgList>;
+  using F = ImplTraits_F<Impl>;
 
   // static_assert(std::is_floating_point_v<F>);
 

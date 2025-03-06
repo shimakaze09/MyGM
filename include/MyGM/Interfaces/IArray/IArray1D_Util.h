@@ -9,14 +9,13 @@
 #include "IArrayUtil.h"
 
 namespace My {
-template <typename Base, typename Impl, typename ArgList>
+template <typename Base, typename Impl>
 struct IArray1D_Util : Base {
-  using IList = TemplateList<IArray1D, IArrayUtil>;
   using Base::Base;
 
-  using T = Arg_T<ArgList>;
-  using F = Arg_F<ArgList>;
-  static constexpr size_t N = Arg_N<ArgList>;
+  using T = ImplTraits_T<Impl>;
+  using F = ImplTraits_F<Impl>;
+  static constexpr size_t N = ImplTraits_N<Impl>;
 
   inline const Impl abs() const noexcept {
 #ifdef MY_USE_XSIMD
@@ -119,4 +118,6 @@ struct IArray1D_Util : Base {
     }
   }
 };
+
+InterfaceTraits_Regist(IArray1D_Util, IArray1D, IArrayUtil);
 }  // namespace My

@@ -8,6 +8,7 @@
 #include "../INorm.h"
 #include "IArrayLinear.h"
 
+#ifdef MY_USE_XSIMD
 /*
 <mmintrin.h>  MMX
 <xmmintrin.h> SSE
@@ -22,17 +23,17 @@
 */
 #include <smmintrin.h>
 #define USE_SSE_4_1
+#endif  // MY_USE_XSIMD
 
 namespace My {
 // euclidean vector space
-template <typename Base, typename Impl, typename ArgList>
+template <typename Base, typename Impl>
 struct IEuclideanV : Base {
-  using IList = TemplateList<IInnerProduct, IArrayLinear>;
   using Base::Base;
 
-  static constexpr size_t N = Arg_N<ArgList>;
-  using T = Arg_T<ArgList>;
-  using F = Arg_F<ArgList>;
+  using T = ImplTraits_T<Impl>;
+  static constexpr size_t N = ImplTraits_N<Impl>;
+  using F = ImplTraits_F<Impl>;
 
 #ifdef MY_USE_XSIMD
   inline static F dot3(const Impl& x, const Impl& y) noexcept {
@@ -65,7 +66,7 @@ struct IEuclideanV : Base {
 #endif
 
  private:
-  template <typename Base, typename Impl, typename ArgList>
+  template <typename Base, typename Impl>
   friend struct IInnerProduct;
 
   inline static F impl_dot(const Impl& x, const Impl& y) noexcept {
@@ -95,4 +96,6 @@ struct IEuclideanV : Base {
     }
   }
 };
+
+InterfaceTraits_Regist(IEuclideanV, IInnerProduct, IArrayLinear);
 }  // namespace My

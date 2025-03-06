@@ -4,12 +4,12 @@
 
 #pragma once
 
-#include "Arg.h"
+#include "ImplTraits.h"
 
 namespace My {
-template <typename Base, typename Impl, typename ArgList>
+template<typename Base, typename Impl>
 struct IMetric : Base {
-  using F = Arg_F<ArgList>;
+  using F = ImplTraits_F<Impl>;
 
   using Base::Base;
 

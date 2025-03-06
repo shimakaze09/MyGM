@@ -11,12 +11,11 @@
 #include <MyTemplate/SI.h>
 
 namespace My {
-template <typename Base, typename Impl, typename ArgList>
+template <typename Base, typename Impl>
 struct IArrayInOut : Base {
-  using IList = TemplateList<IArray, IInOut>;
   using Base::Base;
 
-  static constexpr size_t N = Arg_N<ArgList>;
+  static constexpr size_t N = ImplTraits_N<Impl>;
 
   std::ostream& impl_out(std::ostream& os) const noexcept {
     auto& x = static_cast<const Impl&>(*this);
@@ -37,4 +36,6 @@ struct IArrayInOut : Base {
     return is;
   }
 };
+
+InterfaceTraits_Regist(IArrayInOut, IArray, IInOut);
 }  // namespace My

@@ -7,19 +7,20 @@
 #include "IAffineSubspace.h"
 
 namespace My {
-template <typename Base, typename Point, typename ArgList>
+template <typename Base, typename Point>
 struct IAffine : Base {
-  using IList = TemplateList<IAffineSubspace>;
+  using Base::Base;
 
-  using Vector = Arg_Vector<ArgList>;
+  using Vector = ImplTraits_V<Point>;
 
   static_assert(Vector::template IsContain<ILinear>());
 
-  using Base::Base;
   using Base::operator-;
 
   inline const Vector operator-(const Point& y) const noexcept {
     return static_cast<const Point*>(this)->impl_affine_minus(y);
   }
 };
+
+InterfaceTraits_Regist(IAffine, IAffineSubspace);
 }  // namespace My

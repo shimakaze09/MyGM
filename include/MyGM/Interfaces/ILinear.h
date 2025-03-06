@@ -7,10 +7,8 @@
 #include "IAdd.h"
 #include "IScalarMul.h"
 
+#include <MyTemplate/SI.h>
+
 namespace My {
-template <typename Base, typename Impl, typename ArgList>
-struct ILinear : Base {
-  using IList = TemplateList<IAdd, IScalarMul>;
-  using Base::Base;
-};
+CombineInterface(ILinear, IAdd, IScalarMul);
 }  // namespace My

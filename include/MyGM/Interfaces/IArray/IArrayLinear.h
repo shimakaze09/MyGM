@@ -9,9 +9,5 @@
 #include "IArrayScalarMul.h"
 
 namespace My {
-template <typename Base, typename Impl, typename ArgList>
-struct IArrayLinear : Base {
-  using IList = TemplateList<IArrayAdd, IArrayScalarMul, ILinear>;
-  using Base::Base;
-};
+CombineInterface(IArrayLinear, IArrayAdd, IArrayScalarMul, ILinear);
 }  // namespace My

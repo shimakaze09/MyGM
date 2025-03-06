@@ -12,10 +12,19 @@
 
 namespace My {
 template <typename T>
-struct quat
-    : SI<TemplateList<IMul, IArrayUtil>, quat<T>, TypeList<T, Size<4>>, T> {
-  using Base =
-      SI<TemplateList<IMul, IArrayUtil>, quat<T>, TypeList<T, Size<4>>, T>;
+struct quat;
+
+template <typename T_>
+struct ImplTraits<quat<T_>> {
+  using IList = TemplateList<IMul, IArrayUtil>;
+  using T = T_;
+  static constexpr size_t N = 4;
+  using F = T;
+};
+
+template <typename T>
+struct quat : SI<quat<T>> {
+  using Base = SI<quat<T>>;
   using Base::Base;
   using Base::operator*;
 
@@ -51,13 +60,13 @@ struct quat
   inline const point<T, 3> operator*(const point<T, 3>& p) const noexcept;
 
  private:
-  template <typename Base, typename quat, typename T>
+  template <typename Base, typename quat>
   friend struct IMul;
 
   inline const quat impl_mul(const quat& y) const noexcept;
   inline const quat impl_inverse() const noexcept;
 
-  template <typename Base, typename quat, typename ArgList>
+  template <typename Base, typename quat>
   friend struct IInOut;
 
   inline std::ostream& impl_out(std::ostream& os) const noexcept;

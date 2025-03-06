@@ -8,19 +8,18 @@
 #include "IArray.h"
 
 namespace My {
-template <typename Base, typename Impl, typename ArgList>
+template <typename Base, typename Impl>
 struct IArrayScalarMul : Base {
-  using IList = TemplateList<IScalarMul, IArray>;
   using Base::Base;
 
-  static constexpr size_t N = Arg_N<ArgList>;
-  using F = Arg_F<ArgList>;
-  using T = Arg_T<ArgList>;
+  using T = ImplTraits_T<Impl>;
+  static constexpr size_t N = ImplTraits_N<Impl>;
+  using F = ImplTraits_F<Impl>;
 
   using Base::operator*;
 
  private:
-  template <typename Base, typename Impl, typename ArgList>
+  template <typename Base, typename Impl>
   friend struct IScalarMul;
 
   template <typename U, typename = std::enable_if_t<std::is_arithmetic_v<U>>>
@@ -33,7 +32,7 @@ struct IArrayScalarMul : Base {
     else
 #endif  // MY_USE_XSIMD
     {
-      Impl rst{};
+      Impl rst;
       for (size_t i = 0; i < N; i++)
         rst[i] = x[i] * kF;
       return rst;
@@ -56,4 +55,6 @@ struct IArrayScalarMul : Base {
     }
   }
 };
+
+InterfaceTraits_Regist(IArrayScalarMul, IScalarMul, IArray);
 }  // namespace My

@@ -8,22 +8,19 @@
 
 #include "IMatrix_detail.h"
 
-#include <array>
-
 namespace My {
 // simple [square] 2D array
 // column first
-template <typename Base, typename Impl, typename ArgList>
+template <typename Base, typename Impl>
 struct IMatrix : Base {
-  using IList = TemplateList<IArrayUtil>;
   using Base::Base;
 
-  using Vector = Arg_T<ArgList>;
+  using Vector = ImplTraits_T<Impl>;
 
   static_assert(Vector::template IsContain<IArray>());
 
-  using F = Arg_F<ArgList>;
-  static constexpr size_t N = Arg_N<ArgList>;
+  using F = ImplTraits_F<Impl>;
+  static constexpr size_t N = ImplTraits_N<Impl>;
 
   static_assert(N == 3 || N == 4);
   static_assert(Vector::N == N);
@@ -41,7 +38,7 @@ struct IMatrix : Base {
   }
 
   inline static const Impl zero() noexcept {
-    Impl rst{};
+    Impl rst;
     for (size_t i = 0; i < N * N; i++)
       (*this)(i) = static_cast<F>(0);
     return rst;
@@ -99,4 +96,6 @@ struct IMatrix : Base {
 
   const F* data() const noexcept { return &(*this)[0][0]; }
 };
+
+InterfaceTraits_Regist(IMatrix, IArrayUtil);
 }  // namespace My

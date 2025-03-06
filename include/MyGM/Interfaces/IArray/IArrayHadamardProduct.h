@@ -9,14 +9,13 @@
 #include <MyTemplate/SI.h>
 
 namespace My {
-template <typename Base, typename Impl, typename ArgList>
+template <typename Base, typename Impl>
 struct IArrayHadamardProduct : Base {
-  using IList = TemplateList<IMul, IArray>;
   using Base::Base;
 
-  using F = Arg_F<ArgList>;
-  using T = Arg_T<ArgList>;
-  static constexpr size_t N = Arg_N<ArgList>;
+  using F = ImplTraits_F<Impl>;
+  using T = ImplTraits_T<Impl>;
+  static constexpr size_t N = ImplTraits_N<Impl>;
 
   using Base::operator*=;
   using Base::operator/;
@@ -42,7 +41,7 @@ struct IArrayHadamardProduct : Base {
     else
 #endif  // MY_USE_XSIMD
     {
-      Impl rst{};
+      Impl rst;
       for (size_t i = 0; i < N; i++)
         rst[i] = x[i] / y[i];
       return rst;
@@ -70,7 +69,7 @@ struct IArrayHadamardProduct : Base {
     else
 #endif  // MY_USE_XSIMD
     {
-      Impl rst{};
+      Impl rst;
       for (size_t i = 0; i < N; i++)
         rst[i] = static_cast<F>(1) / x[i];
       return rst;
@@ -78,7 +77,7 @@ struct IArrayHadamardProduct : Base {
   }
 
  private:
-  template <typename Base, typename Impl, typename ArgList>
+  template <typename Base, typename Impl>
   friend struct IMul;
 
   inline const Impl impl_mul(const Impl& y) const noexcept {
@@ -90,11 +89,13 @@ struct IArrayHadamardProduct : Base {
     else
 #endif  // MY_USE_XSIMD
     {
-      Impl rst{};
+      Impl rst;
       for (size_t i = 0; i < N; i++)
         rst[i] = x[i] * y[i];
       return rst;
     }
   }
 };
+
+InterfaceTraits_Regist(IArrayHadamardProduct, IMul, IArray);
 }  // namespace My

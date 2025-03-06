@@ -8,17 +8,16 @@
 #include "IArrayInOut.h"
 
 namespace My {
-template <typename Base, typename Impl, typename ArgList>
+template <typename Base, typename Impl>
 struct IArrayUtil : Base {
-  using IList = TemplateList<IArrayCast, IArrayInOut>;
   using Base::Base;
 
-  using T = Arg_T<ArgList>;
-  static constexpr size_t N = Arg_N<ArgList>;
-  using F = Arg_F<ArgList>;
+  using T = ImplTraits_T<Impl>;
+  static constexpr size_t N = ImplTraits_N<Impl>;
+  using F = ImplTraits_F<Impl>;
 
   inline const Impl rmv_epsilon() const noexcept {
-    Impl rst{};
+    Impl rst;
     for (size_t i = 0; i < N; i++)
       rst[i] = My::rmv_epsilon((*this)[i]);
     return rst;
@@ -48,7 +47,7 @@ struct IArrayUtil : Base {
     else
 #endif  // MY_USE_XSIMD
     {
-      Impl rst{};
+      Impl rst;
       for (size_t i = 0; i < N; i++)
         rst[i] = My::lerp(x[i], y[i], t);
       return rst;
@@ -87,4 +86,6 @@ struct IArrayUtil : Base {
     }
   }
 };
+
+InterfaceTraits_Regist(IArrayUtil, IArrayCast, IArrayInOut);
 }  // namespace My

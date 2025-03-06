@@ -20,7 +20,7 @@ Common graphics math libraries (like Eigen, glm) only provide a `vec` class and 
 
 > **Examples**
 >
-> - Points cannot be added to or subtracted from other points
+> - Points cannot be added to other points
 > - Colors and points have no mathematical relation
 > - Transformation matrices (4x4) multiply with normals differently than with regular vectors
 > - When using homogeneous coordinates, transformation matrices (4x4) multiply with vectors and points differently

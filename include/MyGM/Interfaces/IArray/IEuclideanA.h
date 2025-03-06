@@ -11,15 +11,14 @@
 
 namespace My {
 // euclidean affine space
-template <typename Base, typename Point, typename ArgList>
+template <typename Base, typename Point>
 struct IEuclideanA : Base {
-  using IList = TemplateList<IMetric, IAffine, IArray>;
   using Base::Base;
 
-  static constexpr size_t N = Arg_N<ArgList>;
-  using T = Arg_T<ArgList>;
-  using F = Arg_F<ArgList>;
-  using Vector = Arg_Vector<ArgList>;
+  using T = ImplTraits_T<Point>;
+  static constexpr size_t N = ImplTraits_N<Point>;
+  using F = ImplTraits_F<Point>;
+  using Vector = ImplTraits_V<Point>;
 
   static_assert(Vector::template IsContain<IEuclideanV>());
   static_assert(Vector::N == N);
@@ -34,7 +33,7 @@ struct IEuclideanA : Base {
   }
 
  private:
-  template <typename Base, typename Impl, typename ArgList>
+  template <typename Base, typename Impl>
   friend struct IAffineSubspace;
 
   inline const Point impl_affine_subspace_add(const Vector& v) const noexcept {
@@ -92,7 +91,7 @@ struct IEuclideanA : Base {
     return p;
   }
 
-  template <typename Base, typename Impl, typename ArgList>
+  template <typename Base, typename Impl>
   friend struct IAffine;
 
   inline const Vector impl_affine_minus(const Point& y) const noexcept {
@@ -100,14 +99,14 @@ struct IEuclideanA : Base {
 #ifdef MY_USE_XSIMD
     if constexpr (std::is_same_v<T, float> && N == 4)
       return x.get() - y.get();
-    // no benefits
-    // else if constexpr (std::is_same_v<T, float> && N == 3) {
-    //   Vector rst;
-    //   auto sx = xsimd::load_unaligned(x.data());
-    //   auto sy = xsimd::load_unaligned(y.data());
-    //   auto srst = sx - sy;
-    //   return {srst[0], srst[1], srst[2]};
-    // }
+    /* // no benefits
+			else if constexpr (std::is_same_v<T, float> && N == 3) {
+				Vector rst;
+				auto sx = xsimd::load_unaligned(x.data());
+				auto sy = xsimd::load_unaligned(y.data());
+				auto srst = sx - sy;
+				return { srst[0], srst[1],srst[2] };
+			}*/
     else
 #endif  // MY_USE_XSIMD
     {
@@ -118,11 +117,13 @@ struct IEuclideanA : Base {
     }
   }
 
-  template <typename Base, typename Impl, typename ArgList>
+  template <typename Base, typename Impl>
   friend struct IMetric;
 
   inline static F impl_distance(const Point& x, const Point& y) noexcept {
     return std::sqrt(distance2(x, y));
   }
 };
+
+InterfaceTraits_Regist(IEuclideanA, IMetric, IAffine, IArray);
 }  // namespace My

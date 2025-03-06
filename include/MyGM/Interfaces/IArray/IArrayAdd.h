@@ -8,16 +8,15 @@
 #include "IArray.h"
 
 namespace My {
-template <typename Base, typename Impl, typename ArgList>
+template <typename Base, typename Impl>
 struct IArrayAdd : Base {
-  using IList = TemplateList<IAdd, IArray>;
   using Base::Base;
 
-  static constexpr size_t N = Arg_N<ArgList>;
-  using T = Arg_T<ArgList>;
+  using T = ImplTraits_T<Impl>;
+  static constexpr size_t N = ImplTraits_N<Impl>;
 
  private:
-  template <typename Base, typename Impl, typename ArgList>
+  template <typename Base, typename Impl>
   friend struct IAdd;
 
   inline const Impl impl_add(const Impl& y) const noexcept {
@@ -28,7 +27,7 @@ struct IArrayAdd : Base {
     else
 #endif  // MY_USE_XSIMD
     {
-      Impl rst{};
+      Impl rst;
       for (size_t i = 0; i < N; i++)
         rst[i] = x[i] + y[i];
       return rst;
@@ -57,7 +56,7 @@ struct IArrayAdd : Base {
     else
 #endif  // MY_USE_XSIMD
     {
-      Impl rst{};
+      Impl rst;
       for (size_t i = 0; i < N; i++)
         rst[i] = -x[i];
       return rst;
@@ -72,7 +71,7 @@ struct IArrayAdd : Base {
     } else
 #endif  // MY_USE_XSIMD
     {
-      Impl rst{};
+      Impl rst;
       for (size_t i = 0; i < N; i++)
         rst[i] = x[i] - y[i];
       return rst;
@@ -93,4 +92,6 @@ struct IArrayAdd : Base {
     }
   }
 };
+
+InterfaceTraits_Regist(IArrayAdd, IAdd, IArray);
 }  // namespace My
