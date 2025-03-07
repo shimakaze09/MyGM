@@ -59,14 +59,14 @@ struct transform : SI<transform<F>> {
       const point<F, 3>& pos, const point<F, 3>& target,
       const vec<F, 3>& up = vec<F, 3>(0, 1, 0)) noexcept;
   // orthographic, camera space -> clip space
-  inline static const transform perspective(
-      F fovy, F aspect, F zNear, F zFar,
-      F near_clip_value = MY_DEFAULT_NEAR_CLIP_VALUE) noexcept;
+  inline static const transform orthographic(F width, F height, F zNear,
+                                             F zFar) noexcept;
   // perspective, camera space -> clip space
   // fovy: verticle field of view in radian
   // aspect : width / height
-  inline static const transform perspective(F fovy, F aspect, F zNear,
-                                            F zFar) noexcept;
+  inline static const transform perspective(
+      F fovy, F aspect, F zNear, F zFar,
+      F near_clip_vlaue = MY_DEFAULT_NEAR_CLIP_VALUE) noexcept;
 
   // sample: rotate_with<Axis::X>(to_radian(theta))
   template <Axis axis>
