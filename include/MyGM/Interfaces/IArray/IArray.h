@@ -23,7 +23,8 @@ struct IArray : IArray_Impl<ImplTraits_SupportSIMD<Impl>, Base, Impl> {
 };
 
 template <typename IArray_Base, typename Impl>
-struct IArray_Impl<false, IArray_Base, Impl>
+struct alignas(alignof(ImplTraits_T<Impl>))
+    IArray_Impl<false, IArray_Base, Impl>
     : IArray_Base, std::array<ImplTraits_T<Impl>, ImplTraits_N<Impl>> {
   using T = ImplTraits_T<Impl>;
   using F = ImplTraits_F<Impl>;
