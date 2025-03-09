@@ -2,7 +2,7 @@ SET(core_define "")
 SET(core_c_option "")
 
 IF (MSVC)
-    LIST(APPEND core_c_option "/fp:fast")
+    LIST(APPEND core_c_option "/fp:fast;/permissive-")
 ENDIF ()
 
 IF (MY_USE_SIMD)
