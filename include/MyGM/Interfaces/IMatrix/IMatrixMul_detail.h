@@ -123,6 +123,23 @@ template <size_t N>
 struct inverse;
 
 template <>
+struct inverse<2> {
+  template <typename M>
+  static const M run(const M& m) noexcept {
+    static_assert(M::N == 2);
+    using F = typename M::F;
+
+    F determinant = m[0][0] * m[1][1] - m[1][0] * m[0][1];
+
+    assert(determinant != 0);
+
+    F inv = 1 / determinant;
+
+    return {m[1][1] * inv, -m[1][0] * inv, -m[0][1] * inv, m[0][0] * inv};
+  }
+};
+
+template <>
 struct inverse<3> {
   template <typename M>
   static const M run(const M& m) noexcept {
@@ -358,6 +375,42 @@ struct inverse<4> {
 
 template <size_t N>
 struct mul;
+
+template <>
+struct mul<2> {
+  template <typename M>
+  static const M run(const M& x, const M& y) noexcept {
+    static_assert(M::N == 2);
+    using F = typename M::F;
+
+    F f00 = x(0, 0) * y(0, 0) + x(0, 1) * y(1, 0);
+    F f01 = x(0, 0) * y(0, 1) + x(0, 1) * y(1, 1);
+    F f10 = x(1, 0) * y(0, 0) + x(1, 1) * y(1, 0);
+    F f11 = x(1, 0) * y(0, 1) + x(1, 1) * y(1, 1);
+
+    return {
+        f00,
+        f01,
+        f10,
+        f11,
+    };
+  }
+
+  template <typename M>
+  static const typename M::Vector run(const M& m,
+                                      const typename M::Vector& v) noexcept {
+    static_assert(M::N == 2);
+    using F = typename M::F;
+
+    F x = v[0];
+    F y = v[1];
+
+    F xp = m(0, 0) * x + m(0, 1) * y;
+    F yp = m(1, 0) * x + m(1, 1) * y;
+
+    return {xp, yp};
+  }
+};
 
 template <>
 struct mul<3> {

@@ -22,7 +22,7 @@ struct IMatrix : Base {
   using F = ImplTraits_F<Impl>;
   static constexpr size_t N = ImplTraits_N<Impl>;
 
-  static_assert(N == 3 || N == 4);
+  static_assert(N >= 2 && N <= 4);
   static_assert(Vector::N == N);
 
   // column first
@@ -49,7 +49,14 @@ struct IMatrix : Base {
   template <typename... Us, std::enable_if_t<sizeof...(Us) == N * N>* = nullptr>
   inline void init(Us... vals) noexcept {
     auto t = std::make_tuple(static_cast<F>(vals)...);
-    if constexpr (N == 3) {
+    if constexpr (N == 2) {
+      init(std::array<F, 2 * 2>{
+          std::get<0>(t),
+          std::get<2>(t),
+          std::get<1>(t),
+          std::get<3>(t),
+      });
+    } else if constexpr (N == 3) {
       init(std::array<F, 3 * 3>{
           std::get<0>(t),
           std::get<3>(t),
@@ -136,6 +143,16 @@ struct IMatrix : Base {
   inline const Impl transpose() const noexcept {
     const auto& m = static_cast<const Impl&>(*this);
     return detail::IMatrix_::transpose<N>::run(m);
+  }
+
+  // not accurate in 3x3 but fast (1~2 ms)
+  inline const std::tuple<Impl, Impl, Impl> SVD() const noexcept {
+    const auto& m = static_cast<const Impl&>(*this);
+    static_assert(
+        N == 2 ||
+        (N == 3 &&
+         std::is_same_v<F, float>));  // only support 2x2 and 3x3 matrix by now
+    return detail::IMatrix_::SVD<N>::run(m);
   }
 
   F* data() noexcept { return reinterpret_cast<F*>(this); }

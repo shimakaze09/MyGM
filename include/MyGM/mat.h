@@ -25,6 +25,7 @@ struct mat : SI<mat<F, N>> {
 template <size_t N>
 using matf = mat<float, N>;
 
+using matf2 = matf<2>;
 using matf3 = matf<3>;
 using matf4 = matf<4>;
 
