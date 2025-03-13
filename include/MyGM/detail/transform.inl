@@ -15,8 +15,8 @@ inline transform<F>::transform(const mat<F, 3>& m) noexcept
                 m[0][2], m[1][2], m[2][2], 0, 0,       0,       0,       1} {}
 
 template <typename F>
-transform<F>::transform(const point<F, 3>& p) noexcept
-    : transform{1, 0, 0, p[0], 0, 1, 0, p[1], 0, 0, 1, p[2], 0, 0, 0, 1} {}
+transform<F>::transform(const vec<F, 3>& t) noexcept
+    : transform{1, 0, 0, t[0], 0, 1, 0, t[1], 0, 0, 1, t[2], 0, 0, 0, 1} {}
 
 template <typename F>
 transform<F>::transform(const scale<F, 3>& s) noexcept
@@ -94,12 +94,12 @@ transform<F>::transform(const vec<F, 3>& axis, F theta) noexcept {
 }
 
 template <typename F>
-transform<F>::transform(const point<F, 3>& t, const scale<F, 3>& s) noexcept
+transform<F>::transform(const vec<F, 3>& t, const scale<F, 3>& s) noexcept
     : transform{std::array<F, 4 * 4>{s[0], 0, 0, t[0], 0, s[1], 0, t[1], 0, 0,
                                      s[2], t[2], 0, 0, 0, 1}} {}
 
 template <typename F>
-transform<F>::transform(const point<F, 3>& p, const quat<F>& q) noexcept {
+transform<F>::transform(const vec<F, 3>& t, const quat<F>& q) noexcept {
   F x = q.imag()[0];
   F y = q.imag()[1];
   F z = q.imag()[2];
@@ -115,17 +115,17 @@ transform<F>::transform(const point<F, 3>& p, const quat<F>& q) noexcept {
   F zz = z * z;
   F zw = z * w;
 
-  this->init(1 - 2 * (yy + zz), 2 * (xy - zw), 2 * (xz + yw), p[0],
-             2 * (xy + zw), 1 - 2 * (zz + xx), 2 * (yz - xw), p[1],
-             2 * (xz - yw), 2 * (yz + xw), 1 - 2 * (xx + yy), p[2], 0, 0, 0, 1);
+  this->init(1 - 2 * (yy + zz), 2 * (xy - zw), 2 * (xz + yw), t[0],
+             2 * (xy + zw), 1 - 2 * (zz + xx), 2 * (yz - xw), t[1],
+             2 * (xz - yw), 2 * (yz + xw), 1 - 2 * (xx + yy), t[2], 0, 0, 0, 1);
 }
 
 template <typename F>
 transform<F>::transform(const quat<F>& rot, const scale<F, 3>& scale) noexcept
-    : transform{point<F, 3>{0, 0, 0}, rot, scale} {}
+    : transform{vec<F, 3>{0, 0, 0}, rot, scale} {}
 
 template <typename F>
-transform<F>::transform(const point<F, 3>& p, const quat<F>& q,
+transform<F>::transform(const vec<F, 3>& t, const quat<F>& q,
                         const scale<F, 3>& s) noexcept {
   F x = q.imag()[0];
   F y = q.imag()[1];
@@ -144,9 +144,9 @@ transform<F>::transform(const point<F, 3>& p, const quat<F>& q,
 
 #ifdef MY_USE_SIMD
   if constexpr (ImplTraits_SupportSIMD<ImplTraits_T<transform<F>>>) {
-    this->init(1 - 2 * (yy + zz), 2 * (xy - zw), 2 * (xz + yw), p[0],
-               2 * (xy + zw), 1 - 2 * (zz + xx), 2 * (yz - xw), p[1],
-               2 * (xz - yw), 2 * (yz + xw), 1 - 2 * (xx + yy), p[2], 0, 0, 0,
+    this->init(1 - 2 * (yy + zz), 2 * (xy - zw), 2 * (xz + yw), t[0],
+               2 * (xy + zw), 1 - 2 * (zz + xx), 2 * (yz - xw), t[1],
+               2 * (xz - yw), 2 * (yz + xw), 1 - 2 * (xx + yy), t[2], 0, 0, 0,
                1);
     (*this)[0] *= s[0];
     (*this)[1] *= s[1];
@@ -154,10 +154,10 @@ transform<F>::transform(const point<F, 3>& p, const quat<F>& q,
   } else
 #endif  // MY_USE_SIMD
     this->init(s[0] * (1 - 2 * (yy + zz)), s[1] * (2 * (xy - zw)),
-               s[2] * (2 * (xz + yw)), p[0], s[0] * (2 * (xy + zw)),
-               s[1] * (1 - 2 * (zz + xx)), s[2] * (2 * (yz - xw)), p[1],
+               s[2] * (2 * (xz + yw)), t[0], s[0] * (2 * (xy + zw)),
+               s[1] * (1 - 2 * (zz + xx)), s[2] * (2 * (yz - xw)), t[1],
                s[0] * (2 * (xz - yw)), s[1] * (2 * (yz + xw)),
-               s[2] * (1 - 2 * (xx + yy)), p[2], 0, 0, 0, 1);
+               s[2] * (1 - 2 * (xx + yy)), t[2], 0, 0, 0, 1);
 }
 
 template <typename F>
@@ -225,7 +225,7 @@ const transform<F> transform<F>::orthographic(F width, F height, F zNear,
 
 template <typename F>
 const transform<F> transform<F>::perspective(F fovY, F aspect, F zNear, F zFar,
-                                             F near_clip_value) noexcept {
+                                             F near_clip_vlaue) noexcept {
   assert(fovY > 0 && aspect > 0 && zNear >= 0 && zFar > zNear);
 
   F tanHalfFovY = std::tan(fovY / static_cast<F>(2));
@@ -233,8 +233,8 @@ const transform<F> transform<F>::perspective(F fovY, F aspect, F zNear, F zFar,
 
   F m00 = cotHalfFovY / aspect;
   F m11 = cotHalfFovY;
-  F m22 = (zFar - near_clip_value * zNear) / (zNear - zFar);
-  F m23 = ((1 - near_clip_value) * zFar * zNear) / (zNear - zFar);
+  F m22 = (zFar - near_clip_vlaue * zNear) / (zNear - zFar);
+  F m23 = ((1 - near_clip_vlaue) * zFar * zNear) / (zNear - zFar);
 
   return {m00, 0, 0, 0, 0, m11, 0, 0, 0, 0, m22, m23, 0, 0, -1, 0};
 }
@@ -290,6 +290,11 @@ const transform<F> transform<F>::inverse_sim() const noexcept {
     // TODO
     return Base::inverse();
   }
+}
+
+template <typename F>
+const vec<F, 3> transform<F>::decompose_translation() const noexcept {
+  return {(*this)(0, 3), (*this)(1, 3), (*this)(2, 3)};
 }
 
 template <typename F>
@@ -361,7 +366,7 @@ const euler<F> transform<F>::decompose_euler() const noexcept {
   auto rM = decompose_rotation_matrix();
   /*
 		* rM is
-		*
+		* 
 		*  cYcZ + sXsYsZ  -cYsZ + sXsYsZ  cXsY
 		*           cXsZ            cXcZ   -sX
 		* -sYcZ + sXcYsZ   sYsZ + sXcYcZ  cXcY
