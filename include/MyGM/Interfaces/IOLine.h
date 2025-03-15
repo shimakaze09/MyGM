@@ -23,17 +23,11 @@ struct IOLine : Base {
   ImplTraits_V<Impl> dir;
 
   ImplTraits_V<Impl> inv_dir() const noexcept {
-#ifdef MY_USE_SIMD
-    if constexpr (std::is_same_v<F, float> && ImplTraits_V<Impl>::N == 4)
-      return 1.f / (*this).get_batch();
-    else
-#endif
-    {
-      ImplTraits_V<Impl> rst;
-      for (size_t i = 0; i < ImplTraits_V<Impl>::N; i++)
-        rst[i] = ONE<F> / dir[i];
-      return rst;
-    }
+    // TODO: SIMD speedup
+    ImplTraits_V<Impl> rst;
+    for (size_t i = 0; i < ImplTraits_V<Impl>::N; i++)
+      rst[i] = ONE<F> / dir[i];
+    return rst;
   }
 
   void init_IOLine(const Vector& v) noexcept { dir = v; }

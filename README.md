@@ -81,7 +81,7 @@ int main() {
 ## 3. Documentation
 
 - [Installation and Usage Instructions](setup.md)
-- API (TODO)
+- [API](API.md)
 
 ## 4. Design Philosophy
 

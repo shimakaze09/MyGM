@@ -92,6 +92,8 @@ struct alignas(alignof(ImplTraits_T<Impl>))
     rst.fill(get<i>());
     return rst;
   }
+
+  // TODO: add compare
 };
 
 #ifdef MY_USE_SIMD
@@ -257,22 +259,22 @@ struct alignas(16) IArray_Impl<true, IArray_Base, Impl> : IArray_Base {
 
   bool lex_lt(const Impl& y) const noexcept {
     const auto& x = static_cast<const Impl&>(*this);
-    return lex_lt(x, y);
+    return x < y;
   }
 
   bool lex_le(const Impl& y) const noexcept {
     const auto& x = static_cast<const Impl&>(*this);
-    return lex_le(x, y);
+    return x <= y;
   }
 
   bool lex_gt(const Impl& y) const noexcept {
     const auto& x = static_cast<const Impl&>(*this);
-    return lex_gt(x, y);
+    return x > y;
   }
 
   bool lex_ge(const Impl& y) const noexcept {
     const auto& x = static_cast<const Impl&>(*this);
-    return lex_ge(x, y);
+    return x >= y;
   }
 
   static bool all_lt(const Impl& x, const Impl& y) noexcept {
