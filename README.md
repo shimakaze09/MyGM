@@ -78,80 +78,10 @@ int main() {
 }
 ```
 
-## 3. Installation
+## 3. Documentation
 
-### 3.1 Requirements
-
-- Windows 10
-- [Git](https://git-scm.com/)
-- Visual Studio 2019
-- [CMake-GUI](https://cmake.org/) 3.16.3 or higher
-- CPU supporting SIMD extension instruction set SSE 4.1
-
-> Other environments may work but are untested
-
-### 3.2 Steps
-
-- Git
-
-  ```bash
-  git clone https://github.com/shimakaze09/MyGM
-  ```
-
-- CMake-GUI
-
-    - Set the source code path `Where is the source code` to the git clone path `<your-path-to-source-MyGM>`
-    - Set the build path `Where to build the binaries` to `<your-path-to-source-MyGM>/build`
-    - Click the Configure button
-        - (Default unchecked) `BUILDMyGMTEST`: builds test cases if selected
-        - (Default checked) `MY_USE_SIMD`: enables SIMD acceleration
-        - Change the installation path `CMAKE_INSTALL_PREFIX` to `<install-path>` (default is `C:/...` which requires *
-          *Administrator** privileges for VS 2019). Note that `<install-path>` should end with `My`, such as
-          `<install-path>=D:/Program_Files/My`, as it will also
-          install [MyCMake](https://github.com/shimakaze09/MyCMake)
-          and [MyTemplate](https://github.com/shimakaze09/MyTemplate).
-    - Click the Generate button
-    - Click the Open Project button to open VS 2019
-
-- In VS 2019's "Solution Explorer" window, find the `INSTALL` project, right-click, and select "Build"
-
-- Add `<your-path-to-installed-MyGM>` to your system's `Path` environment variable (or create a new environment variable
-  `MyGM_DIR` with value `<your-path-to-installed-MyGM>`), allowing CMake's `find_package` to correctly locate `MyGM`
-
-- Delete `<your-path-to-source-MyGM>/build`, otherwise CMake's `FIND_PACKAGE` might locate this directory first,
-  potentially causing errors
-
-### 3.3 Usage
-
-Code examples can be found in the [demo](demo) directory
-
-```c++
-// main.cpp
-#include <MyGM/MyGM.h>
-#include <iostream>
-using namespace My;
-int main(){
-    pointf3 p{0, 1, 2};
-    pointf3 q{2, 1, 0};
-    std::cout << p - q << std::endl;
-}
-```
-
-```CMake
-# CMakeLists.txt
-CMAKE_MINIMUM_REQUIRED(VERSION 3.14)
-PROJECT(demo_project VERSION 1.0.0)
-
-SET(CMAKE_CXX_STANDARD 17)
-SET(CMAKE_CXX_STANDARD_REQUIRED True)
-
-# FIND_PACKAGE(MyGM 0.6.6 REQUIRED)
-FIND_PACKAGE(MyGM REQUIRED)
-
-ADD_EXECUTABLE(demo main.cpp)
-
-TARGET_LINK_LIBRARIES(demo PUBLIC My::MyGM_core)
-```
+- [Installation and Usage Instructions](setup.md)
+- API (TODO)
 
 ## 4. Design Philosophy
 
