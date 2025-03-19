@@ -5,6 +5,7 @@
 #pragma once
 
 #include "val.h"
+#include "point.h"
 
 namespace My {
 template <typename F, size_t N>
