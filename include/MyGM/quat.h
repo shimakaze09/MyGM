@@ -76,4 +76,4 @@ using quatf = quat<float>;
 static_assert(sizeof(quatf) == 4 * sizeof(float));
 }  // namespace My
 
-#include "detail/quat.inl"
+#include "details/quat.inl"

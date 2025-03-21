@@ -18,7 +18,7 @@ struct IOPlane : Base {
   using Vector = ImplTraits_V<Impl>;
   using F = ImplTraits_F<Impl>;
 
-  static_assert(Vector::template IsContain<ILinear>());
+  static_assert(Vector::template Contains<ILinear>());
 
   ImplTraits_V<Impl> normal;
 

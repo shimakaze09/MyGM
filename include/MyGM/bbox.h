@@ -77,4 +77,4 @@ using bboxu3 = bboxu<3>;
 static_assert(sizeof(bboxf3) == 6 * sizeof(float));
 }  // namespace My
 
-#include "detail/bbox.inl"
+#include "details/bbox.inl"

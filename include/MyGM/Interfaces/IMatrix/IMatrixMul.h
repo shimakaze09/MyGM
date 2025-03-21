@@ -6,7 +6,7 @@
 
 #include "../IMul.h"
 #include "IMatrix.h"
-#include "IMatrixMul_detail.h"
+#include "details/IMatrixMul.inl"
 
 namespace My {
 template <typename Base, typename Impl>
@@ -22,7 +22,7 @@ struct IMatrixMul : Base {
 
   inline const Vector operator*(const Vector& v) const noexcept {
     auto& m = static_cast<const Impl&>(*this);
-    return detail::IMatrixMul::mul<N>::run(m, v);
+    return details::IMatrixMul::mul<N>::run(m, v);
   }
 
  private:
@@ -31,14 +31,14 @@ struct IMatrixMul : Base {
 
   inline const Impl impl_mul(const Impl& y) const noexcept {
     const auto& x = static_cast<const Impl&>(*this);
-    return detail::IMatrixMul::mul<N>::run(x, y);
+    return details::IMatrixMul::mul<N>::run(x, y);
   }
 
   inline const Impl impl_inverse() const noexcept {
     auto& m = static_cast<const Impl&>(*this);
-    return detail::IMatrixMul::inverse<N>::run(m);
+    return details::IMatrixMul::inverse<N>::run(m);
   }
 };
 
-InterfaceTraits_Regist(IMatrixMul, IMul, IMatrix);
+InterfaceTraits_Register(IMatrixMul, IMul, IMatrix);
 }  // namespace My

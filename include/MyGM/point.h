@@ -61,4 +61,4 @@ using pointu4 = pointu<4>;
 static_assert(sizeof(pointf3) == sizeof(float) * 3);
 }  // namespace My
 
-#include "detail/point.inl"
+#include "details/point.inl"

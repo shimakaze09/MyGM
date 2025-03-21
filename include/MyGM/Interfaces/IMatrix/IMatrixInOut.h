@@ -28,5 +28,5 @@ struct IMatrixInOut : Base {
   }
 };
 
-InterfaceTraits_Regist(IMatrixInOut, IMatrix);
+InterfaceTraits_Register(IMatrixInOut, IMatrix);
 }  // namespace My

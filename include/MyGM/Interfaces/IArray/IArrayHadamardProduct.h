@@ -97,5 +97,5 @@ struct IArrayHadamardProduct : Base {
   }
 };
 
-InterfaceTraits_Regist(IArrayHadamardProduct, IMul, IArray);
+InterfaceTraits_Register(IArrayHadamardProduct, IMul, IArray);
 }  // namespace My

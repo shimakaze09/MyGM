@@ -25,5 +25,5 @@ struct ILine : Base {
   const Point at(F t) const noexcept { return this->point + t * this->dir; }
 };
 
-InterfaceTraits_Regist(ILine, IAffineRealSubspace, IOLine);
+InterfaceTraits_Register(ILine, IAffineRealSubspace, IOLine);
 }  // namespace My

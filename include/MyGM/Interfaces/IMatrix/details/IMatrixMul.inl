@@ -7,9 +7,9 @@
 #pragma region Eric_inverse
 #ifdef MY_USE_SIMD
 
-#include "../../val.h"
+#include "../../../val.h"
 
-namespace My::detail::IMatrixMul::Eric {
+namespace My::details::IMatrixMul::Eric {
 // for column major matrix
 // we use __m128 to represent 2x2 matrix as A = | A0  A2 |
 //                                              | A1  A3 |
@@ -114,11 +114,11 @@ inline M GetInverse(const M& inM) {
 
   return r;
 }
-}  // namespace My::detail::IMatrixMul::Eric
+}  // namespace My::details::IMatrixMul::Eric
 #endif  // MY_USE_SIMD
 #pragma endregion
 
-namespace My::detail::IMatrixMul {
+namespace My::details::IMatrixMul {
 template <size_t N>
 struct inverse;
 
@@ -525,4 +525,4 @@ struct mul<4> {
     }
   }
 };
-}  // namespace My::detail::IMatrixMul
+}  // namespace My::details::IMatrixMul

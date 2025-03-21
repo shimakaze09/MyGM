@@ -104,4 +104,4 @@ using transformf = transform<float>;
 static_assert(sizeof(transformf) == 16 * sizeof(float));
 }  // namespace My
 
-#include "detail/transform.inl"
+#include "details/transform.inl"

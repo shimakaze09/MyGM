@@ -71,4 +71,4 @@ using rayf3 = rayf<3>;
 static_assert(sizeof(rayf3) == 8 * sizeof(float));
 }  // namespace My
 
-#include "detail/ray.inl"
+#include "details/ray.inl"

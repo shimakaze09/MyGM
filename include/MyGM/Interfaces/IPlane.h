@@ -22,5 +22,5 @@ struct IPlane : Base {
   }
 };
 
-InterfaceTraits_Regist(IPlane, IAffineRealSubspace, IOPlane);
+InterfaceTraits_Register(IPlane, IAffineRealSubspace, IOPlane);
 }  // namespace My

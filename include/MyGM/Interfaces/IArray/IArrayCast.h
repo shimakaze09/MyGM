@@ -17,8 +17,8 @@ struct IArrayCast : Base {
   template <typename To>
   const To cast_to() const noexcept {
     constexpr size_t M = To::N;
-    static_assert(M <= N && SI_IsContain_v<Impl, IArray1D> ==
-                                SI_IsContain_v<To, IArray1D>);
+    static_assert(M <= N &&
+                  SI_Contains_v<Impl, IArray1D> == SI_Contains_v<To, IArray1D>);
     return cast_to<To>(std::make_index_sequence<M>{});
   }
 
@@ -43,5 +43,5 @@ struct IArrayCast : Base {
   }
 };
 
-InterfaceTraits_Regist(IArrayCast, IArray);
+InterfaceTraits_Register(IArrayCast, IArray);
 }  // namespace My

@@ -79,5 +79,5 @@ struct IInnerProduct : Base {
   inline F impl_norm() const noexcept { return std::sqrt(norm2()); }
 };
 
-InterfaceTraits_Regist(IInnerProduct, INorm);
+InterfaceTraits_Register(IInnerProduct, INorm);
 }  // namespace My

@@ -87,5 +87,5 @@ struct IArrayScalarMul : Base {
   }
 };
 
-InterfaceTraits_Regist(IArrayScalarMul, IScalarMul, IArray);
+InterfaceTraits_Register(IArrayScalarMul, IScalarMul, IArray);
 }  // namespace My

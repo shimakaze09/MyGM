@@ -13,7 +13,7 @@ struct IAffine : Base {
 
   using Vector = ImplTraits_V<Point>;
 
-  static_assert(Vector::template IsContain<ILinear>());
+  static_assert(Vector::template Contains<ILinear>());
 
   using Base::operator-;
 
@@ -22,5 +22,5 @@ struct IAffine : Base {
   }
 };
 
-InterfaceTraits_Regist(IAffine, IAffineSubspace);
+InterfaceTraits_Register(IAffine, IAffineSubspace);
 }  // namespace My

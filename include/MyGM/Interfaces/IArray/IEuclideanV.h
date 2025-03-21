@@ -291,5 +291,5 @@ struct IEuclideanV : Base {
   }
 };
 
-InterfaceTraits_Regist(IEuclideanV, IInnerProduct, IArrayLinear);
+InterfaceTraits_Register(IEuclideanV, IInnerProduct, IArrayLinear);
 }  // namespace My

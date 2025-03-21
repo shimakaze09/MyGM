@@ -32,4 +32,4 @@ using eulerf = euler<float>;
 static_assert(sizeof(eulerf) == 3 * sizeof(float));
 }  // namespace My
 
-#include "detail/euler.inl"
+#include "details/euler.inl"

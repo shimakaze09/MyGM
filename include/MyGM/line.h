@@ -68,4 +68,4 @@ using linef3 = linef<3>;
 static_assert(sizeof(linef3) == 6 * sizeof(float));
 }  // namespace My
 
-#include "detail/line.inl"
+#include "details/line.inl"

@@ -32,4 +32,4 @@ using trianglef3 = trianglef<3>;
 static_assert(sizeof(trianglef3) == 9 * sizeof(float));
 }  // namespace My
 
-#include "detail/triangle.inl"
+#include "details/triangle.inl"

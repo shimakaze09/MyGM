@@ -40,4 +40,4 @@ inline const val<T, 3> cos_weighted_on_hemisphere() noexcept;
 inline const svecf sample_GGX_D(float alpha) noexcept;
 }  // namespace My
 
-#include "detail/sample.inl"
+#include "details/sample.inl"

@@ -67,4 +67,4 @@ template <typename T>
 inline constexpr T pow5(T x) noexcept;
 }  // namespace My
 
-#include "detail/basic.inl"
+#include "details/basic.inl"

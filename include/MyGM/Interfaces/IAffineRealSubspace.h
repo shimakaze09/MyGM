@@ -14,8 +14,8 @@ struct IAffineRealSubspace : Base {
   using Point = ImplTraits_P<Impl>;
   using Vector = ImplTraits_V<Impl>;
 
-  static_assert(Point::template IsContain<IAffine>());
-  static_assert(Vector::template IsContain<ILinear>());
+  static_assert(Point::template Contains<IAffine>());
+  static_assert(Vector::template Contains<ILinear>());
   static_assert(Point::N == Vector::N);
 
   ImplTraits_P<Impl> point;
@@ -61,5 +61,5 @@ struct IAffineRealSubspace : Base {
   }
 };
 
-InterfaceTraits_Regist(IAffineRealSubspace, IAffineSubspace);
+InterfaceTraits_Register(IAffineRealSubspace, IAffineSubspace);
 }  // namespace My

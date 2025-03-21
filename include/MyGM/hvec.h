@@ -60,4 +60,4 @@ using hvecu4 = hvecu<4>;
 static_assert(sizeof(hvecf4) == 4 * sizeof(float));
 }  // namespace My
 
-#include "detail/hvec.inl"
+#include "details/hvec.inl"

@@ -6,10 +6,10 @@
 
 #include <MyTemplate/SI.h>
 
-namespace My::detail::ImplTraits_ {
+namespace My::details::ImplTraits_ {
 template <typename Impl>
 struct ImplTraits_SupportSIMD;
-}  // namespace My::detail::ImplTraits_
+}  // namespace My::details::ImplTraits_
 
 namespace My {
 // element type
@@ -34,10 +34,10 @@ using ImplTraits_P = typename ImplTraits<Impl>::P;
 
 template <typename Impl>
 constexpr bool ImplTraits_SupportSIMD =
-    detail::ImplTraits_::ImplTraits_SupportSIMD<Impl>::value;
+    details::ImplTraits_::ImplTraits_SupportSIMD<Impl>::value;
 }  // namespace My
 
-namespace My::detail::ImplTraits_ {
+namespace My::details::ImplTraits_ {
 #ifdef MY_USE_SIMD
 template <typename Enabler, typename Impl>
 struct ImplTraits_SupportSIMD_Helper : std::true_type {};
@@ -56,4 +56,4 @@ struct ImplTraits_SupportSIMD
 template <typename Impl>
 struct ImplTraits_SupportSIMD : std::false_type {};
 #endif
-}  // namespace My::detail::ImplTraits_
+}  // namespace My::details::ImplTraits_

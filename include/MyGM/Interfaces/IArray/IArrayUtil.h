@@ -99,5 +99,5 @@ struct IArrayUtil : Base {
   }
 };
 
-InterfaceTraits_Regist(IArrayUtil, IArrayCast, IArrayInOut);
+InterfaceTraits_Register(IArrayUtil, IArrayCast, IArrayInOut);
 }  // namespace My

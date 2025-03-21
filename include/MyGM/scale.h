@@ -4,7 +4,7 @@
 
 #pragma once
 
-#include "detail/traits.h"
+#include "details/traits.h"
 
 #include "Interfaces/IArray/IArray1D_Util.h"
 #include "Interfaces/IArray/IArrayHadamardProduct.h"

@@ -129,5 +129,5 @@ struct IArrayAdd : Base {
   }
 };
 
-InterfaceTraits_Regist(IArrayAdd, IAdd, IArray);
+InterfaceTraits_Register(IArrayAdd, IAdd, IArray);
 }  // namespace My

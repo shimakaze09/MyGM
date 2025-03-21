@@ -4,9 +4,9 @@
 
 #pragma once
 
-#include "detail/svd3.h"
+#include "svd3.h"
 
-namespace My::detail::IMatrix_ {
+namespace My::details::IMatrix_ {
 template <typename M, size_t N>
 struct eye;
 

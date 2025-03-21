@@ -32,4 +32,4 @@ using normalf = normal<float>;
 static_assert(sizeof(normalf) == 3 * sizeof(float));
 }  // namespace My
 
-#include "detail/normal.inl"
+#include "details/normal.inl"

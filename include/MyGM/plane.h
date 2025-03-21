@@ -40,4 +40,4 @@ using planef = plane<float>;
 static_assert(sizeof(planef) == 6 * sizeof(float));
 }  // namespace My
 
-#include "detail/plane.inl"
+#include "details/plane.inl"

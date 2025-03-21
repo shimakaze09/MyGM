@@ -86,4 +86,4 @@ using svecf = svec<float>;
 static_assert(sizeof(svecf) == 3 * sizeof(float));
 }  // namespace My
 
-#include "detail/svec.inl"
+#include "details/svec.inl"

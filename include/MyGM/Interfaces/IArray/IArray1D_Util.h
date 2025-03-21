@@ -120,5 +120,5 @@ struct IArray1D_Util : Base {
   }
 };
 
-InterfaceTraits_Regist(IArray1D_Util, IArray1D, IArrayUtil);
+InterfaceTraits_Register(IArray1D_Util, IArray1D, IArrayUtil);
 }  // namespace My

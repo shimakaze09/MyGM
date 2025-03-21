@@ -48,5 +48,5 @@ struct INorm : Base {
   }
 };
 
-InterfaceTraits_Regist(INorm, IMetric, ILinear);
+InterfaceTraits_Register(INorm, IMetric, ILinear);
 }  // namespace My

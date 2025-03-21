@@ -37,5 +37,5 @@ struct IArrayInOut : Base {
   }
 };
 
-InterfaceTraits_Regist(IArrayInOut, IArray, IInOut);
+InterfaceTraits_Register(IArrayInOut, IArray, IInOut);
 }  // namespace My

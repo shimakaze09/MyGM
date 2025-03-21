@@ -144,4 +144,4 @@ inline float GGX_D(float alpha, const svecf& wm) noexcept;
 //inline float microfacet_specular_refraction_dwh_dwi(const svecf& wh, const svecf& wi, const svecf& wo, float etai, float etao) noexcept;
 }  // namespace My
 
-#include "detail/material.inl"
+#include "details/material.inl"

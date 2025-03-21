@@ -38,5 +38,5 @@ struct ICross : Base {
   }
 };
 
-InterfaceTraits_Regist(ICross, IEuclideanV);
+InterfaceTraits_Register(ICross, IEuclideanV);
 }  // namespace My

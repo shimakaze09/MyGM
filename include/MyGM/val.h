@@ -4,7 +4,7 @@
 
 #pragma once
 
-#include "detail/traits.h"
+#include "details/traits.h"
 
 #include "Interfaces/IArray/IArray1D_Util.h"
 #include "Interfaces/IArray/IArrayHadamardProduct.h"
@@ -104,4 +104,4 @@ using valu4 = valu<4>;
 static_assert(sizeof(valf4) == 4 * sizeof(float));
 }  // namespace My
 
-#include "detail/val.inl"
+#include "details/val.inl"
