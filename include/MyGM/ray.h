@@ -20,7 +20,8 @@ struct ray : SI<ray<T, N>> {
   ray(const point<T, N>& p, const vec<T, N>& dir, T tmin = EPSILON<T>,
       T tmax = std::numeric_limits<T>::max()) noexcept
       : tmin{tmin}, tmax{tmax} {
-    this->init_ILine(p, dir);
+    this->point = p;
+    this->dir = dir;
   }
 
   inline const line<T, N> to_line() const noexcept;

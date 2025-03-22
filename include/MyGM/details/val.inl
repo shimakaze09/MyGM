@@ -7,7 +7,7 @@
 namespace My {
 template <typename T, size_t N>
 template <size_t M>
-val<T, N>::operator mat<T, M>() noexcept {
+val<T, N>::operator mat<T, M>() const noexcept {
   static_assert(M * M == N);
   mat<T, M> rst;
   for (size_t j = 0; j < M; j++) {
@@ -19,7 +19,7 @@ val<T, N>::operator mat<T, M>() noexcept {
 }
 
 template <typename T, size_t N>
-val<T, N>::operator transform<T>() noexcept {
+val<T, N>::operator transform<T>() const noexcept {
   static_assert(N == 16);
   transform<T> rst;
   rst[0][0] = (*this)[0];

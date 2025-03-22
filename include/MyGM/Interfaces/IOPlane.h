@@ -15,13 +15,11 @@ template <typename Base, typename Impl>
 struct IOPlane : Base {
   using Base::Base;
 
-  using Vector = ImplTraits_V<Impl>;
+  using Normal = ImplTraits_V<Impl>;
   using F = ImplTraits_F<Impl>;
 
-  static_assert(Vector::template Contains<ILinear>());
+  static_assert(Normal::template Contains<ILinear>());
 
   ImplTraits_V<Impl> normal;
-
-  void init_IOPlane(const Vector& n) noexcept { normal = n; }
 };
 }  // namespace My

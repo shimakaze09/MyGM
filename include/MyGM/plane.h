@@ -22,7 +22,8 @@ struct plane : SI<plane<T>> {
   using SI<plane<T>>::SI;
 
   plane(const point<T, 3>& p, const vec<T, 3>& n) noexcept {
-    this->init_IPlane(p, n);
+    this->point = p;
+    this->normal = n;
   }
 
   inline void print(std::ostream& os = std::cout) const;

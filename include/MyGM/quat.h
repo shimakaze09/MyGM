@@ -13,6 +13,7 @@
 namespace My {
 template <typename T>
 struct ImplTraits<quat<T>> : Array1DTraits<T, 4>,
+                             SIMDTraits<false>,  // float4 not use SIMD
                              IListTraits<IMul, IArrayUtil> {};
 
 // TODO: SIMD

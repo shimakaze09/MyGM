@@ -50,30 +50,30 @@ struct val : SI<val<T, N>> {
 
   val(const vec<T, N>& v) noexcept { *this = v.as<val>(); }
 
-  operator euler<T>() noexcept { return this->cast_to<euler<T>>(); }
+  operator euler<T>() const noexcept { return this->cast_to<euler<T>>(); }
 
-  operator hvec<T, N>() noexcept { return this->cast_to<hvec<T, N>>(); }
+  operator hvec<T, N>() const noexcept { return this->cast_to<hvec<T, N>>(); }
 
   template <size_t M>
-  operator mat<T, M>() noexcept;
+  operator mat<T, M>() const noexcept;
 
-  operator normal<T>() noexcept { return this->cast_to<normal<T>>(); }
+  operator normal<T>() const noexcept { return this->cast_to<normal<T>>(); }
 
-  operator point<T, N>() noexcept { return this->cast_to<point<T, N>>(); }
+  operator point<T, N>() const noexcept { return this->cast_to<point<T, N>>(); }
 
-  operator quat<T>() noexcept { return this->cast_to<quat<T>>(); }
+  operator quat<T>() const noexcept { return this->cast_to<quat<T>>(); }
 
-  operator rgb<T>() noexcept { return this->cast_to<rgb<T>>(); }
+  operator rgb<T>() const noexcept { return this->cast_to<rgb<T>>(); }
 
-  operator rgba<T>() noexcept { return this->cast_to<rgba<T>>(); }
+  operator rgba<T>() const noexcept { return this->cast_to<rgba<T>>(); }
 
-  operator scale<T, N>() noexcept { return this->cast_to<scale<T, N>>(); }
+  operator scale<T, N>() const noexcept { return this->cast_to<scale<T, N>>(); }
 
-  operator svec<T>() noexcept { return this->cast_to<svec<T>>(); }
+  operator svec<T>() const noexcept { return this->cast_to<svec<T>>(); }
 
-  operator transform<T>() noexcept;
+  operator transform<T>() const noexcept;
 
-  operator vec<T, N>() noexcept { return this->cast_to<vec<T, N>>(); }
+  operator vec<T, N>() const noexcept { return this->cast_to<vec<T, N>>(); }
 };
 
 template <size_t N>

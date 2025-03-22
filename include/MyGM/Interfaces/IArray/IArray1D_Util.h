@@ -22,6 +22,7 @@ struct IArray1D_Util : Base {
 #ifdef MY_USE_SIMD
     if constexpr (ImplTraits_SupportSIMD<Impl>)
       return _mm_abs_ps(x);
+    else
 #endif  // MY_USE_SIMD
     {
       Impl rst;
@@ -97,6 +98,7 @@ struct IArray1D_Util : Base {
 #ifdef MY_USE_SIMD
     if constexpr (ImplTraits_SupportSIMD<Impl>)
       return _mm_min_ps(x, y);
+    else
 #endif  // MY_USE_SIMD
     {
       Impl rst;
@@ -110,6 +112,7 @@ struct IArray1D_Util : Base {
 #ifdef MY_USE_SIMD
     if constexpr (ImplTraits_SupportSIMD<Impl>)
       return _mm_max_ps(x, y);
+    else
 #endif  // MY_USE_SIMD
     {
       Impl rst;

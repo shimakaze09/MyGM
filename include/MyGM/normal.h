@@ -6,8 +6,6 @@
 
 #include "point.h"
 
-#include "Interfaces/IArray/ICross.h"
-
 namespace My {
 template <typename T>
 struct ImplTraits<normal<T>> : ImplTraits<vec<T, 3>> {};
@@ -21,7 +19,10 @@ template <typename T>
 struct normal : SI<normal<T>> {
   using SI<normal<T>>::SI;
 
-  inline const point<T, 2> to_sphere_texcoord() const noexcept;
+  // (theta, phi)
+  // theta : 0 - pi
+  // phi   : 0 - 2 pi
+  inline const point<T, 2> to_sphere_coordinate() const noexcept;
 
   inline const vec<T, 3> to_sphere_tangent() const noexcept;
 };
