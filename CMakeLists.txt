@@ -16,4 +16,9 @@ ADD_DEP(MyTemplate 0.4.8)
 ADD_SUB_DIRS_REC(include)
 ADD_SUB_DIRS_REC(src)
 
-EXPORT_TARGETS(DIRECTORIES "include;vs")
+EXPORT_TARGETS(
+        TARGET
+        DIRECTORIES
+        "include"
+        "vs"
+)
