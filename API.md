@@ -83,12 +83,14 @@ Norm, naturally induced metric
 
 This component includes the dependent components: `IMetric`, `ILinear`
 
-| Interface                | Description                             |
-|--------------------------|-----------------------------------------|
-| `F norm()`               | Norm                                    |
-| `Impl normalize()`       | Normalize                               |
-| `bool is_normalized()`   | Check if normalized, tolerance is 0.001 |
-| `Impl& normalize_self()` | Normalize itself                        |
+| Interface                     | Description                                  |
+|-------------------------------|----------------------------------------------|
+| `F norm()`                    | Norm                                         |
+| `Impl normalize()`            | Normalize                                    |
+| `bool is_normalized()`        | Check if normalized, with tolerance of 0.001 |
+| `Impl& normalize_self()`      | Normalize self                               |
+| `Impl safe_normalize()`       | Normalize, result is 0 if norm is 0          |
+| `Impl& safe_normalize_self()` | Normalize self, no change if norm is 0       |
 
 #### IInnerProduct
 
