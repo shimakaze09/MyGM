@@ -39,6 +39,11 @@ struct ray : SI<ray<T, N>> {
   // (isIntersect, t)
   inline const std::tuple<bool, T> intersect_std_sphere() const noexcept;
 
+  // intersect with sphere
+  // (isIntersect, t)
+  inline const std::tuple<bool, T> intersect_sphere(const point<T, 3>& center,
+                                                    T radius) const noexcept;
+
   // intersect with standard square (center: [0, 0, 0], side length: 2, normal: [0, 1, 0])
   // (isIntersect, t, hit point(x,z))
   inline const std::tuple<bool, T, point<T, 2>> intersect_std_square()
