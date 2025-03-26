@@ -139,7 +139,7 @@ struct IMatrix : Base {
 
   // return (U, S, V)
   // not accurate in 3x3 but fast (1~2 ms)
-  const std::tuple<Impl, Impl, Impl> SVD() const noexcept {
+  std::tuple<Impl, Impl, Impl> SVD() const noexcept {
     const auto& m = static_cast<const Impl&>(*this);
     static_assert(
         N == 2 ||
@@ -151,7 +151,7 @@ struct IMatrix : Base {
   // return (U, S, V)
   // det(UV^T) > 0, last sigma may be negative
   // not accurate in 3x3 but fast (1~2 ms)
-  const std::tuple<Impl, Impl, Impl> signed_SVD() const noexcept {
+  std::tuple<Impl, Impl, Impl> signed_SVD() const noexcept {
     auto [U, S, V] = SVD();
     auto U_VT = U * V.transpose();
     if (U_VT.det() < 0) {

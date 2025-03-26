@@ -2,8 +2,8 @@
 
 namespace My {
 template <typename T, size_t N>
-const line<T, N> line<T, N>::impl_move(const line& line,
-                                       const point<T, N>& p) noexcept {
+line<T, N> line<T, N>::impl_move(const line& line,
+                                 const point<T, N>& p) noexcept {
   return {p, line.dir};
 }
 
@@ -26,7 +26,7 @@ std::istream& line<T, N>::impl_in(std::istream& is) {
 }
 
 template <typename T, size_t N>
-const std::tuple<bool, std::array<T, 3>, T> line<T, N>::intersect(
+std::tuple<bool, std::array<T, 3>, T> line<T, N>::intersect(
     const triangle<T, 3>& tri) const noexcept {
   static_assert(N == 3);
 #ifdef MY_USE_SIMD
@@ -115,17 +115,15 @@ const std::tuple<bool, std::array<T, 3>, T> line<T, N>::intersect(
 }
 
 template <typename T, size_t N>
-const std::tuple<bool, T, T> line<T, N>::intersect(const bbox<T, N>& box,
-                                                   T tmin,
-                                                   T tmax) const noexcept {
+std::tuple<bool, T, T> line<T, N>::intersect(const bbox<T, N>& box, T tmin,
+                                             T tmax) const noexcept {
   return intersect(box, this->inv_dir(), tmin, tmax);
 }
 
 template <typename T, size_t N>
-const std::tuple<bool, T, T> line<T, N>::intersect(const bbox<T, N>& box,
-                                                   const vec<T, N>& invdir,
-                                                   T tmin,
-                                                   T tmax) const noexcept {
+std::tuple<bool, T, T> line<T, N>::intersect(const bbox<T, N>& box,
+                                             const vec<T, N>& invdir, T tmin,
+                                             T tmax) const noexcept {
 #ifdef MY_USE_SIMD
   if constexpr (std::is_same_v<T, float> && N == 3) {
     // 26 instructions, no loop

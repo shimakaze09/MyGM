@@ -2,13 +2,12 @@
 
 namespace My {
 template <typename T, size_t N>
-const line<T, N> ray<T, N>::to_line() const noexcept {
+line<T, N> ray<T, N>::to_line() const noexcept {
   return {this->point, this->dir};
 }
 
 template <typename T, size_t N>
-const ray<T, N> ray<T, N>::impl_move(const ray& r,
-                                     const point<T, N>& p) noexcept {
+ray<T, N> ray<T, N>::impl_move(const ray& r, const point<T, N>& p) noexcept {
   return {p, r.dir, r.tmin, r.tmax};
 }
 
@@ -33,7 +32,7 @@ std::istream& ray<T, N>::impl_in(std::istream& is) {
 }
 
 template <typename T, size_t N>
-const std::tuple<bool, std::array<T, 3>, T> ray<T, N>::intersect(
+std::tuple<bool, std::array<T, 3>, T> ray<T, N>::intersect(
     const triangle<T, 3>& tri) const noexcept {
   static_assert(N == 3);
 
@@ -46,13 +45,13 @@ const std::tuple<bool, std::array<T, 3>, T> ray<T, N>::intersect(
 }
 
 template <typename T, size_t N>
-const std::tuple<bool, T, T> ray<T, N>::intersect(
+std::tuple<bool, T, T> ray<T, N>::intersect(
     const bbox<T, N>& box) const noexcept {
   return to_line().intersect(box, tmin, tmax);
 }
 
 template <typename T, size_t N>
-const std::tuple<bool, T> ray<T, N>::intersect_std_sphere() const noexcept {
+std::tuple<bool, T> ray<T, N>::intersect_std_sphere() const noexcept {
   constexpr auto r = static_cast<T>(1);
   constexpr auto r2 = pow2(r);
   const auto& p = this->point;
@@ -83,8 +82,8 @@ const std::tuple<bool, T> ray<T, N>::intersect_std_sphere() const noexcept {
 
     return {true, t};
   } else
-#endif  // MY_USE_SIMD
-  // 51 instructions
+#endif  // MY_USE_SIMD \
+    // 51 instructions
   {
     vec<T, N> oc = p.cast_to<vec<T, N>>();
     T a = d.norm2();
@@ -111,8 +110,8 @@ const std::tuple<bool, T> ray<T, N>::intersect_std_sphere() const noexcept {
 }
 
 template <typename T, size_t N>
-const std::tuple<bool, T> ray<T, N>::intersect_sphere(const point<T, 3>& center,
-                                                      T radius) const noexcept {
+std::tuple<bool, T> ray<T, N>::intersect_sphere(const point<T, 3>& center,
+                                                T radius) const noexcept {
   const T r2 = pow2(radius);
   const auto& p = this->point;
   const auto& d = this->dir;
@@ -168,7 +167,7 @@ const std::tuple<bool, T> ray<T, N>::intersect_sphere(const point<T, 3>& center,
 }
 
 template <typename T, size_t N>
-const std::tuple<bool, T, point<T, 2>> ray<T, N>::intersect_std_square()
+std::tuple<bool, T, point<T, 2>> ray<T, N>::intersect_std_square()
     const noexcept {
   static_assert(N == 3);
 
@@ -193,7 +192,7 @@ const std::tuple<bool, T, point<T, 2>> ray<T, N>::intersect_std_square()
 }
 
 template <typename T, size_t N>
-const std::tuple<bool, T, point<T, 2>> ray<T, N>::intersect_std_disk()
+std::tuple<bool, T, point<T, 2>> ray<T, N>::intersect_std_disk()
     const noexcept {
   static_assert(N == 3);
 

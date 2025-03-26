@@ -160,9 +160,9 @@ transform<F>::transform(const vec<F, 3>& t, const quat<F>& q,
 }
 
 template <typename F>
-const transform<F> transform<F>::look_at(const point<F, 3>& pos,
-                                         const point<F, 3>& target,
-                                         const vec<F, 3>& up) noexcept {
+transform<F> transform<F>::look_at(const point<F, 3>& pos,
+                                   const point<F, 3>& target,
+                                   const vec<F, 3>& up) noexcept {
   // R
   // [ right  ]
   // [ camUp  ]
@@ -177,9 +177,9 @@ const transform<F> transform<F>::look_at(const point<F, 3>& pos,
   // [ R -RF ]
   // [ 0   1 ]
 
-  const vec<F, 3> front = (target - pos).normalize();
+  vec<F, 3> front = (target - pos).normalize();
   vec<F, 3> right = front.cross(up).normalize();
-  const vec<F, 3> camUp = right.cross(front);
+  vec<F, 3> camUp = right.cross(front);
   auto posV = pos.cast_to<vec<F, 3>>();
 
   transform m;
@@ -208,8 +208,8 @@ const transform<F> transform<F>::look_at(const point<F, 3>& pos,
 }
 
 template <typename F>
-const transform<F> transform<F>::orthographic(F width, F height, F zNear,
-                                              F zFar) noexcept {
+transform<F> transform<F>::orthographic(F width, F height, F zNear,
+                                        F zFar) noexcept {
   assert(width > 0 && height > 0 && zNear >= 0 && zFar > zNear);
 
   F m00 = 2 / width;
@@ -223,8 +223,8 @@ const transform<F> transform<F>::orthographic(F width, F height, F zNear,
 }
 
 template <typename F>
-const transform<F> transform<F>::perspective(F fovY, F aspect, F zNear, F zFar,
-                                             F near_clip_vlaue) noexcept {
+transform<F> transform<F>::perspective(F fovY, F aspect, F zNear, F zFar,
+                                       F near_clip_vlaue) noexcept {
   assert(fovY > 0 && aspect > 0 && zNear >= 0 && zFar > zNear);
 
   F tanHalfFovY = std::tan(fovY / static_cast<F>(2));
@@ -239,7 +239,7 @@ const transform<F> transform<F>::perspective(F fovY, F aspect, F zNear, F zFar,
 }
 
 template <typename F>
-const transform<F> transform<F>::inverse_sim() const noexcept {
+transform<F> transform<F>::inverse_sim() const noexcept {
   // ref: https://lxjk.github.io/2017/09/03/Fast-4x4-Matrix-Inverse-with-SSE-SIMD-Explained.html
 #ifdef MY_USE_SIMD
   if constexpr (std::is_same_v<F, float>) {
@@ -292,12 +292,12 @@ const transform<F> transform<F>::inverse_sim() const noexcept {
 }
 
 template <typename F>
-const vec<F, 3> transform<F>::decompose_translation() const noexcept {
+vec<F, 3> transform<F>::decompose_translation() const noexcept {
   return {(*this)(0, 3), (*this)(1, 3), (*this)(2, 3)};
 }
 
 template <typename F>
-const mat<F, 3> transform<F>::decompose_rotation_matrix() const noexcept {
+mat<F, 3> transform<F>::decompose_rotation_matrix() const noexcept {
   const auto& m = static_cast<const transform&>(*this);
 #ifdef MY_USE_SIMD
   if constexpr (std::is_same_v<F, float>) {
@@ -321,7 +321,7 @@ const mat<F, 3> transform<F>::decompose_rotation_matrix() const noexcept {
 }
 
 template <typename F>
-const quat<F> transform<F>::decompose_quatenion() const noexcept {
+quat<F> transform<F>::decompose_quatenion() const noexcept {
   // ref: https://www.euclideanspace.com/maths/geometry/rotations/conversions/matrixToQuaternion/
 
   auto rM = decompose_rotation_matrix();
@@ -361,7 +361,7 @@ const quat<F> transform<F>::decompose_quatenion() const noexcept {
 }
 
 template <typename F>
-const euler<F> transform<F>::decompose_euler() const noexcept {
+euler<F> transform<F>::decompose_euler() const noexcept {
   auto rM = decompose_rotation_matrix();
   /*
 		* rM is
@@ -402,14 +402,14 @@ const euler<F> transform<F>::decompose_euler() const noexcept {
 }
 
 template <typename F>
-const mat<F, 3> transform<F>::decompose_mat3() const noexcept {
+mat<F, 3> transform<F>::decompose_mat3() const noexcept {
   const auto& m = static_cast<const transform&>(*this);
   return {m(0, 0), m(0, 1), m(0, 2), m(1, 0), m(1, 1),
           m(1, 2), m(2, 0), m(2, 1), m(2, 2)};
 }
 
 template <typename F>
-const scale<F, 3> transform<F>::decompose_scale() const noexcept {
+scale<F, 3> transform<F>::decompose_scale() const noexcept {
   const auto& m = static_cast<const transform&>(*this);
 #ifdef MY_USE_SIMD
   if constexpr (std::is_same_v<F, float>)
@@ -464,17 +464,17 @@ struct rotate_with<Axis::Z> {
 
 template <typename F>
 template <Axis axis>
-static const transform<F> transform<F>::rotate_with(F angle) noexcept {
+static transform<F> transform<F>::rotate_with(F angle) noexcept {
   return detail::rotate_with<axis>::run(angle);
 }
 
 template <typename F>
-const hvec<F, 4> transform<F>::operator*(const hvec<F, 4>& hv) const noexcept {
+hvec<F, 4> transform<F>::operator*(const hvec<F, 4>& hv) const noexcept {
   return (*this) * hv.as<vec<F, 4>>();
 }
 
 template <typename F>
-const point<F, 3> transform<F>::operator*(const point<F, 3>& p) const noexcept {
+point<F, 3> transform<F>::operator*(const point<F, 3>& p) const noexcept {
   const auto& m = static_cast<const transform&>(*this);
 
   F x = p[0];
@@ -502,7 +502,7 @@ const point<F, 3> transform<F>::operator*(const point<F, 3>& p) const noexcept {
 }
 
 template <typename F>
-const vec<F, 3> transform<F>::operator*(const vec<F, 3>& v) const noexcept {
+vec<F, 3> transform<F>::operator*(const vec<F, 3>& v) const noexcept {
   const auto& m = static_cast<const transform&>(*this);
 
   F x = v[0];
@@ -524,7 +524,7 @@ const vec<F, 3> transform<F>::operator*(const vec<F, 3>& v) const noexcept {
 }
 
 template <typename F>
-const normal<F> transform<F>::operator*(const normal<F>& n) const noexcept {
+normal<F> transform<F>::operator*(const normal<F>& n) const noexcept {
   // N = (M^{-1})^T * n
 
   mat<F, 3> m3 = decompose_mat3().inverse();
@@ -541,7 +541,7 @@ const normal<F> transform<F>::operator*(const normal<F>& n) const noexcept {
 }
 
 template <typename F>
-const bbox<F, 3> transform<F>::operator*(const bbox<F, 3>& A) const noexcept {
+bbox<F, 3> transform<F>::operator*(const bbox<F, 3>& A) const noexcept {
   const auto& m = static_cast<const transform&>(*this);
 
   // See Christer Ericson's Real-time Collision Detection, p. 87, or
@@ -600,12 +600,12 @@ const bbox<F, 3> transform<F>::operator*(const bbox<F, 3>& A) const noexcept {
 }
 
 template <typename F>
-const line<F, 3> transform<F>::operator*(const line<F, 3>& l) const noexcept {
+line<F, 3> transform<F>::operator*(const line<F, 3>& l) const noexcept {
   return {(*this) * l.point, (*this) * l.dir};
 }
 
 template <typename F>
-const ray<F, 3> transform<F>::operator*(const ray<F, 3>& r) const noexcept {
+ray<F, 3> transform<F>::operator*(const ray<F, 3>& r) const noexcept {
   return {(*this) * r.point, (*this) * r.dir, r.tmin, r.tmax};
 }
 }  // namespace My
