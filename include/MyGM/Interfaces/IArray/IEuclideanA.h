@@ -1,7 +1,3 @@
-//
-// Created by Admin on 25/12/2024.
-//
-
 #pragma once
 
 #include "IEuclideanV.h"
@@ -23,11 +19,11 @@ struct IEuclideanA : Base {
   static_assert(Vector::template Contains<IEuclideanV>());
   static_assert(Vector::N == N);
 
-  inline static F distance2(const Point& x, const Point& y) noexcept {
+  static F distance2(const Point& x, const Point& y) noexcept {
     return (x - y).norm2();
   }
 
-  inline F distance2(const Point& y) const noexcept {
+  F distance2(const Point& y) const noexcept {
     auto& x = static_cast<const Point&>(*this);
     return distance2(x, y);
   }
@@ -36,7 +32,7 @@ struct IEuclideanA : Base {
   template <typename Base, typename Impl>
   friend struct IAffineSubspace;
 
-  inline const Point impl_affine_subspace_add(const Vector& v) const noexcept {
+  Point impl_affine_subspace_add(const Vector& v) const noexcept {
     auto& p = static_cast<const Point&>(*this);
 #ifdef MY_USE_SIMD
     if constexpr (ImplTraits_SupportSIMD<Point>)
@@ -51,7 +47,7 @@ struct IEuclideanA : Base {
     }
   }
 
-  inline Point& impl_affine_subspace_add_to_self(const Vector& v) noexcept {
+  Point& impl_affine_subspace_add_to_self(const Vector& v) noexcept {
     auto& p = static_cast<Point&>(*this);
 #ifdef MY_USE_SIMD
     if constexpr (ImplTraits_SupportSIMD<Point>)
@@ -63,8 +59,7 @@ struct IEuclideanA : Base {
     return p;
   }
 
-  inline const Point impl_affine_subspace_minus(
-      const Vector& v) const noexcept {
+  Point impl_affine_subspace_minus(const Vector& v) const noexcept {
     auto& p = static_cast<const Point&>(*this);
 #ifdef MY_USE_SIMD
     if constexpr (ImplTraits_SupportSIMD<Point>)
@@ -79,7 +74,7 @@ struct IEuclideanA : Base {
     }
   }
 
-  inline Point& impl_affine_subspace_minus_to_self(const Vector& v) noexcept {
+  Point& impl_affine_subspace_minus_to_self(const Vector& v) noexcept {
     auto& p = static_cast<Point&>(*this);
 #ifdef MY_USE_SIMD
     if constexpr (ImplTraits_SupportSIMD<Point>)
@@ -94,19 +89,19 @@ struct IEuclideanA : Base {
   template <typename Base, typename Impl>
   friend struct IAffine;
 
-  inline const Vector impl_affine_minus(const Point& y) const noexcept {
+  const Vector impl_affine_minus(const Point& y) const noexcept {
     auto& x = static_cast<const Point&>(*this);
 #ifdef MY_USE_SIMD
     if constexpr (ImplTraits_SupportSIMD<Point>)
       return _mm_sub_ps(x, y);
-    // no benefits
-    // else if constexpr (std::is_same_v<T, float> && N == 3) {
-    // 	Vector rst;
-    // 	auto sx = _mm_loadu_ps(x.data());
-    // 	auto sy = _mm_loadu_ps(y.data());
-    // 	auto srst = sx - sy;
-    // 	return { srst[0], srst[1],srst[2] };
-    // }
+    /* // no benefits
+			else if constexpr (std::is_same_v<T, float> && N == 3) {
+				Vector rst;
+				auto sx = _mm_loadu_ps(x.data());
+				auto sy = _mm_loadu_ps(y.data());
+				auto srst = sx - sy;
+				return { srst[0], srst[1],srst[2] };
+			}*/
     else
 #endif  // MY_USE_SIMD
     {
@@ -120,7 +115,7 @@ struct IEuclideanA : Base {
   template <typename Base, typename Impl>
   friend struct IMetric;
 
-  inline static F impl_distance(const Point& x, const Point& y) noexcept {
+  static F impl_distance(const Point& x, const Point& y) noexcept {
     return std::sqrt(distance2(x, y));
   }
 };

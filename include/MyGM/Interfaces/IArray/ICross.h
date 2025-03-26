@@ -1,7 +1,3 @@
-//
-// Created by Admin on 30/12/2024.
-//
-
 #pragma once
 
 #include "IEuclideanV.h"
@@ -14,12 +10,12 @@ struct ICross : Base {
   static_assert(ImplTraits_N<Impl> == 3);
   using F = ImplTraits_F<Impl>;
 
-  static const Impl cross(const Impl& x, const Impl& y) noexcept {
+  static Impl cross(const Impl& x, const Impl& y) noexcept {
     return Impl{x[1] * y[2] - x[2] * y[1], x[2] * y[0] - x[0] * y[2],
                 x[0] * y[1] - x[1] * y[0]};
   }
 
-  const Impl cross(const Impl& y) const noexcept {
+  Impl cross(const Impl& y) const noexcept {
     const auto& x = static_cast<const Impl&>(*this);
     return cross(x, y);
   }

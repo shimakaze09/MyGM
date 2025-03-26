@@ -1,7 +1,3 @@
-//
-// Created by Admin on 30/12/2024.
-//
-
 #pragma once
 
 #include "point.h"
@@ -16,10 +12,10 @@ template <typename T, size_t N>
 struct triangle : SI<triangle<T, N>> {
   using SI<triangle<T, N>>::SI;
 
-  inline T area() const noexcept;
+  T area() const noexcept;
 
   template <typename Container>
-  inline const point<T, N> lerp(const Container& wuv) const noexcept;
+  const point<T, N> lerp(const Container& wuv) const noexcept;
 };
 
 template <size_t N>

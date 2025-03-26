@@ -1,7 +1,3 @@
-//
-// Created by Admin on 25/12/2024.
-//
-
 #pragma once
 
 #include "vec.h"
@@ -21,14 +17,13 @@ struct point : SI<point<T, N>> {
   using SI<point<T, N>>::SI;
 
   template <typename Container>
-  inline static const point combine(const Container& points, T weight) noexcept;
+  static const point combine(const Container& points, T weight) noexcept;
 
   template <typename PContainer, typename WContainer>
-  inline static const point combine(PContainer points,
-                                    WContainer weights) noexcept;
+  static const point combine(PContainer points, WContainer weights) noexcept;
 
   template <typename Container>
-  inline static const point center(const Container& points) noexcept {
+  static const point center(const Container& points) noexcept {
     return combine(points, static_cast<T>(1) / static_cast<T>(points.size()));
   }
 };

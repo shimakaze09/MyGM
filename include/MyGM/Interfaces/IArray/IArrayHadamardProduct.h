@@ -1,12 +1,7 @@
-//
-// Created by Admin on 25/12/2024.
-//
-
 #pragma once
 
-#include "../IMul.h"
-
 #include <MyTemplate/SI.h>
+#include "../IMul.h"
 
 namespace My {
 template <typename Base, typename Impl>
@@ -33,7 +28,7 @@ struct IArrayHadamardProduct : Base {
     return x;
   }
 
-  const Impl operator/(const Impl& y) const noexcept {
+  Impl operator/(const Impl& y) const noexcept {
     const auto& x = static_cast<const Impl&>(*this);
 #ifdef MY_USE_SIMD
     if constexpr (ImplTraits_SupportSIMD<Impl>)
@@ -60,7 +55,7 @@ struct IArrayHadamardProduct : Base {
     return x;
   }
 
-  inline const Impl inverse() const noexcept {
+  Impl inverse() const noexcept {
     const auto& x = static_cast<const Impl&>(*this);
 
 #ifdef MY_USE_SIMD
@@ -80,7 +75,7 @@ struct IArrayHadamardProduct : Base {
   template <typename Base, typename Impl>
   friend struct IMul;
 
-  inline const Impl impl_mul(const Impl& y) const noexcept {
+  Impl impl_mul(const Impl& y) const noexcept {
     const auto& x = static_cast<const Impl&>(*this);
 
 #ifdef MY_USE_SIMD

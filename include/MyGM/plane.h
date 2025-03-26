@@ -1,7 +1,3 @@
-//
-// Created by Admin on 29/12/2024.
-//
-
 #pragma once
 
 #include "point.h"
@@ -26,13 +22,13 @@ struct plane : SI<plane<T>> {
     this->normal = n;
   }
 
-  inline void print(std::ostream& os = std::cout) const;
+  void print(std::ostream& os = std::cout) const;
 
  private:
   template <typename Base, typename Impl>
   friend struct IInOut;
-  inline std::ostream& impl_out(std::ostream& os) const;
-  inline std::istream& impl_in(std::istream& is);
+  std::ostream& impl_out(std::ostream& os) const;
+  std::istream& impl_in(std::istream& is);
 };
 
 using planef = plane<float>;

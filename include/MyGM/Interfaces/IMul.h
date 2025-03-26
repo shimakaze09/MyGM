@@ -1,7 +1,3 @@
-//
-// Created by Admin on 25/12/2024.
-//
-
 #pragma once
 
 namespace My {
@@ -11,7 +7,7 @@ struct IMul : Base {
 
   using Base::operator*;
 
-  inline const Impl operator*(const Impl& y) const noexcept {
+  Impl operator*(const Impl& y) const noexcept {
     return static_cast<const Impl*>(this)->impl_mul(y);
   }
 
@@ -21,7 +17,7 @@ struct IMul : Base {
   //   return static_cast<Impl*>(this)->impl_add_to_self(y);
   // }
 
-  inline const Impl inverse() const noexcept {
+  Impl inverse() const noexcept {
     return static_cast<const Impl*>(this)->impl_inverse();
   }
 };

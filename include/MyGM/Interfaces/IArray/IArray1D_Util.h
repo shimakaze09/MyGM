@@ -1,7 +1,3 @@
-//
-// Created by Admin on 26/12/2024.
-//
-
 #pragma once
 
 #include "../../basic.h"
@@ -17,7 +13,7 @@ struct IArray1D_Util : Base {
   using F = ImplTraits_F<Impl>;
   static constexpr size_t N = ImplTraits_N<Impl>;
 
-  inline const Impl abs() const noexcept {
+  Impl abs() const noexcept {
     const auto& x = static_cast<const Impl&>(*this);
 #ifdef MY_USE_SIMD
     if constexpr (ImplTraits_SupportSIMD<Impl>)
@@ -32,9 +28,9 @@ struct IArray1D_Util : Base {
     }
   }
 
-  inline T& min_component() noexcept { return (*this)[min_dim()]; }
+  T& min_component() noexcept { return (*this)[min_dim()]; }
 
-  inline T min_component() const noexcept {
+  T min_component() const noexcept {
 #ifdef MY_USE_SIMD
     if constexpr (ImplTraits_SupportSIMD<Impl>) {
       // 5 instructions
@@ -51,9 +47,9 @@ struct IArray1D_Util : Base {
       return (*this)[min_dim()];
   }
 
-  inline T& max_component() noexcept { return (*this)[max_dim()]; }
+  T& max_component() noexcept { return (*this)[max_dim()]; }
 
-  inline T max_component() const noexcept {
+  T max_component() const noexcept {
 #ifdef MY_USE_SIMD
     if constexpr (ImplTraits_SupportSIMD<Impl>) {
       // 5 instructions
@@ -70,7 +66,7 @@ struct IArray1D_Util : Base {
       return (*this)[max_dim()];
   }
 
-  inline constexpr size_t min_dim() const noexcept {
+  constexpr size_t min_dim() const noexcept {
     T minVal = (*this)[0];
     size_t minDim = 0;
     for (size_t i = 1; i < N; i++) {
@@ -82,7 +78,7 @@ struct IArray1D_Util : Base {
     return minDim;
   }
 
-  inline constexpr size_t max_dim() const noexcept {
+  constexpr size_t max_dim() const noexcept {
     T maxVal = (*this)[0];
     size_t maxDim = 0;
     for (size_t i = 1; i < N; i++) {
@@ -94,7 +90,7 @@ struct IArray1D_Util : Base {
     return maxDim;
   }
 
-  static const Impl min(const Impl& x, const Impl& y) noexcept {
+  static Impl min(const Impl& x, const Impl& y) noexcept {
 #ifdef MY_USE_SIMD
     if constexpr (ImplTraits_SupportSIMD<Impl>)
       return _mm_min_ps(x, y);
@@ -108,7 +104,7 @@ struct IArray1D_Util : Base {
     }
   }
 
-  static const Impl max(const Impl& x, const Impl& y) noexcept {
+  static Impl max(const Impl& x, const Impl& y) noexcept {
 #ifdef MY_USE_SIMD
     if constexpr (ImplTraits_SupportSIMD<Impl>)
       return _mm_max_ps(x, y);

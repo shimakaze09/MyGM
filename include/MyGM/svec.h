@@ -1,7 +1,3 @@
-//
-// Created by Admin on 30/12/2024.
-//
-
 #pragma once
 
 #include "mat.h"
@@ -29,25 +25,25 @@ struct svec : SI<svec<T>> {
   static const svec mid(const svec<T>& x, const svec<T>& y) noexcept;
   const svec mid(const svec<T>& y) const noexcept;
 
-  inline T cos_stheta() const noexcept;  // assert(normalized())
+  T cos_stheta() const noexcept;  // assert(normalized())
 
-  inline T sin_stheta() const noexcept;  // assert(normalized())
+  T sin_stheta() const noexcept;  // assert(normalized())
 
   // if this is normal, return 1
-  inline T cos_sphi() const noexcept;  // assert(normalized())
+  T cos_sphi() const noexcept;  // assert(normalized())
 
   // if this is normal, return 0
-  inline T sin_sphi() const noexcept;  // assert(normalized())
+  T sin_sphi() const noexcept;  // assert(normalized())
 
   // z > 0
-  inline bool is_above() const noexcept;
+  bool is_above() const noexcept;
 
   // [summary]
   // this is inward direction (**outward** from surface), maybe under the surface
   // reflected direction is outward direction (**outward** from surface) on the same side
   // [return]
   // - outward (this->norm() == result.norm())
-  inline const svec reflect() const noexcept;
+  const svec reflect() const noexcept;
 
   // [summary]
   // - `this` is inward direction (**outward** from surface), maybe under surface
@@ -59,7 +55,7 @@ struct svec : SI<svec<T>> {
   // [return]
   // - bool: whether refract is success
   // - svec: normalized outward
-  inline const std::tuple<bool, svec> refract(
+  const std::tuple<bool, svec> refract(
       T etai, T etao) const noexcept;  // assert(normalized())
 
   // [summary]
@@ -70,7 +66,7 @@ struct svec : SI<svec<T>> {
   // [return]
   // - bool: whether refract is success
   // - svec: normalized outward
-  inline const std::tuple<bool, svec> refract(
+  const std::tuple<bool, svec> refract(
       T eta) const noexcept;  // assert(normalized())
 };
 

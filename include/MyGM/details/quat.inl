@@ -1,7 +1,3 @@
-//
-// Created by Admin on 30/12/2024.
-//
-
 #pragma once
 
 namespace My {
@@ -11,7 +7,7 @@ const quat<T> quat<T>::imag_real(const vec<T, 3>& imag, T real) noexcept {
 }
 
 template <typename T>
-inline quat<T>::quat(const vec<T, 3>& from, const vec<T, 3>& to) noexcept {
+quat<T>::quat(const vec<T, 3>& from, const vec<T, 3>& to) noexcept {
   assert(from.is_normalized() && to.is_normalized());
   auto sin_theta_axis = from.cross(to);
   float cos_theta = from.dot(to);
@@ -123,7 +119,7 @@ const euler<T> quat<T>::to_euler() const noexcept {
 template <typename T>
 const vec<T, 3> quat<T>::operator*(const vec<T, 3>& v) const noexcept {
   // slow
-  // return (q * quat(v) * q.inverse()).imag();
+  //return (q * quat(v) * q.inverse()).imag();
 
   // fast
   T r = real();

@@ -1,7 +1,3 @@
-//
-// Created by Admin on 25/12/2024.
-//
-
 #pragma once
 
 #include "IAffineSubspace.h"
@@ -17,7 +13,7 @@ struct IAffine : Base {
 
   using Base::operator-;
 
-  inline const Vector operator-(const Point& y) const noexcept {
+  const Vector operator-(const Point& y) const noexcept {
     return static_cast<const Point*>(this)->impl_affine_minus(y);
   }
 };

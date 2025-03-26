@@ -1,17 +1,14 @@
-//
-// Created by Admin on 25/12/2024.
-//
-
 #pragma once
-
-#include <array>
-#include <cassert>
-#include <cmath>
-#include <iostream>
-#include <vector>
 
 #include "../../basic.h"
 #include "../ImplTraits.h"
+
+#include <array>
+#include <iostream>
+#include <vector>
+
+#include <cassert>
+#include <cmath>
 
 namespace My {
 template <bool SIMD, typename IArray_Base, typename Impl>
@@ -34,18 +31,17 @@ struct alignas(alignof(ImplTraits_T<Impl>))
   using IArray_Base::operator[];
 
   template <size_t... Ns>
-  inline IArray_Impl(const T* arr, std::index_sequence<Ns...>) noexcept {
+  IArray_Impl(const T* arr, std::index_sequence<Ns...>) noexcept {
     (((*this)[Ns] = arr[Ns]), ...);
   }
 
   template <size_t... Ns>
-  inline IArray_Impl(const T& t, std::index_sequence<Ns...>) noexcept {
+  IArray_Impl(const T& t, std::index_sequence<Ns...>) noexcept {
     (((*this)[Ns] = t), ...);
   };
 
   template <size_t... Ns>
-  inline IArray_Impl(const IArray_Impl& arr,
-                     std::index_sequence<Ns...>) noexcept {
+  IArray_Impl(const IArray_Impl& arr, std::index_sequence<Ns...>) noexcept {
     (((*this)[Ns] = arr[Ns]), ...);
   };
 

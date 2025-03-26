@@ -1,7 +1,3 @@
-//
-// Created by Admin on 26/12/2024.
-//
-
 #pragma once
 
 #include "quat.h"
@@ -23,7 +19,7 @@ template <typename T>
 struct euler : SI<euler<T>> {
   using SI<euler<T>>::SI;
 
-  inline const quat<T> to_quat() const noexcept;
+  const quat<T> to_quat() const noexcept;
 };
 
 using eulerf = euler<float>;

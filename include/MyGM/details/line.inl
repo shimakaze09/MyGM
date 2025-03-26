@@ -1,7 +1,3 @@
-//
-// Created by Admin on 29/12/2024.
-//
-
 #pragma once
 
 namespace My {
@@ -151,21 +147,21 @@ const std::tuple<bool, T, T> line<T, N>::intersect(const bbox<T, N>& box,
   } else
 #endif
   {
-    // const auto& origin = this->point;
-    // const auto& boxminP = box.minP();
-    // const auto& boxmaxP = box.maxP();
+    /*const auto& origin = this->point;
+			const auto& boxminP = box.minP();
+			const auto& boxmaxP = box.maxP();
 
-    // for (size_t i = 0; i < N; i++) {
-    //   T t0 = (boxminP[i] - origin[i]) * inv_dir[i];
-    //   T t1 = (boxmaxP[i] - origin[i]) * inv_dir[i];
-    //   if (inv_dir[i] < 0)
-    //     std::swap(t0, t1);
+			for (size_t i = 0; i < N; i++) {
+				T t0 = (boxminP[i] - origin[i]) * inv_dir[i];
+				T t1 = (boxmaxP[i] - origin[i]) * inv_dir[i];
+				if (inv_dir[i] < 0)
+					std::swap(t0, t1);
 
-    //   tmin = std::max(t0, tmin);
-    //   tmax = std::min(t1, tmax);
-    //   if (tmax < tmin)
-    //     return {false, ZERO<T>, ZERO<T>};
-    // }
+				tmin = std::max(t0, tmin);
+				tmax = std::min(t1, tmax);
+				if (tmax < tmin)
+					return { false, ZERO<T>, ZERO<T> };
+			}*/
   }
 
   return {true, tmin, tmax};

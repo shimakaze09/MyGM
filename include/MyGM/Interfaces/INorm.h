@@ -1,7 +1,3 @@
-//
-// Created by Admin on 25/12/2024.
-//
-
 #pragma once
 
 #include "ILinear.h"
@@ -16,18 +12,18 @@ struct INorm : Base {
 
   using Base::Base;
 
-  inline F norm() const noexcept {
+  F norm() const noexcept {
     return static_cast<const Impl*>(this)->impl_norm();
   }
 
-  inline const Impl normalize() const noexcept {
+  Impl normalize() const noexcept {
     const auto& x = static_cast<const Impl&>(*this);
     F n = norm();
     assert(n > static_cast<F>(0));
     return x / n;  // ILinear
   }
 
-  inline const Impl safe_normalize() const noexcept {
+  Impl safe_normalize() const noexcept {
     const auto& x = static_cast<const Impl&>(*this);
     F n = norm();
     if (n == ZERO<F>)
@@ -36,19 +32,19 @@ struct INorm : Base {
       return x / n;  // ILinear
   }
 
-  inline bool is_normalized() const noexcept {
+  bool is_normalized() const noexcept {
     const auto& x = static_cast<const Impl&>(*this);
     return std::abs(x.norm() - 1) < EPSILON<F>;
   }
 
-  inline Impl& normalize_self() noexcept {
+  Impl& normalize_self() noexcept {
     auto& x = static_cast<Impl&>(*this);
     F n = norm();
     assert(n > static_cast<F>(0));
     return x /= n;  // ILinear
   }
 
-  inline Impl& safe_normalize_self() noexcept {
+  Impl& safe_normalize_self() noexcept {
     auto& x = static_cast<Impl&>(*this);
     F n = norm();
     if (n == ZERO<F>)
@@ -61,7 +57,7 @@ struct INorm : Base {
   template <typename Base, typename Impl>
   friend struct IMetric;
 
-  inline static F impl_distance(const Impl& x, const Impl& y) noexcept {
+  static F impl_distance(const Impl& x, const Impl& y) noexcept {
     return (x - y).norm();
   }
 };

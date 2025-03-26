@@ -1,7 +1,3 @@
-//
-// Created by Admin on 24/02/2025.
-//
-
 #pragma once
 
 namespace My {

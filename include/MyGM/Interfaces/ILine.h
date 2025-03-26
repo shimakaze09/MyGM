@@ -1,7 +1,3 @@
-//
-// Created by Admin on 29/12/2024.
-//
-
 #pragma once
 
 #include "IAffineRealSubspace.h"
@@ -17,7 +13,7 @@ struct ILine : Base {
   using Vector = ImplTraits_V<Impl>;
   using F = ImplTraits_F<Impl>;
 
-  const Point at(F t) const noexcept { return this->point + t * this->dir; }
+  Point at(F t) const noexcept { return this->point + t * this->dir; }
 };
 
 InterfaceTraits_Register(ILine, IAffineRealSubspace, IOLine);

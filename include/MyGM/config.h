@@ -1,7 +1,3 @@
-//
-// Created by Admin on 6/03/2025.
-//
-
 #pragma once
 
 #ifndef MY_FORCEINLINE
@@ -12,7 +8,8 @@
 #endif
 #endif  // !MY_FORCEINLINE
 
-#ifdef MY_USE_SIMD
+#ifndef MY_NOT_USE_SIMD
+#define MY_USE_SIMD
 #include <emmintrin.h>
 
 // ref: https://www.cnblogs.com/elvisxu/archive/2011/06/26/2090832.html
@@ -46,7 +43,8 @@ inline __m128 _mm_abs_ps(__m128 a) {
 #define VecShuffle_0101(vec1, vec2) _mm_movelh_ps(vec1, vec2)
 #define VecShuffle_2323(vec1, vec2) _mm_movehl_ps(vec2, vec1)
 
-#ifdef MY_USE_SSE_4_1
+#ifndef MY_NOT_USE_SSE_4_1
+#define MY_USE_SSE_4_1
 /*
 <mmintrin.h>  MMX
 <xmmintrin.h> SSE
@@ -60,9 +58,9 @@ inline __m128 _mm_abs_ps(__m128 a) {
 <immintrin.h> AVX, AVX2, FMA
 */
 #include <smmintrin.h>
-#endif  // MY_USE_SSE_4_1
+#endif  // !MY_NOT_USE_SSE_4_1
 
-#endif  // MY_USE_SIMD
+#endif  // !MY_NOT_USE_SIMD
 
 // opengl : -1
 // dx : 0
