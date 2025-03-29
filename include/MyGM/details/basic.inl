@@ -72,7 +72,7 @@ T rand01() noexcept {
   return distribution(engine);
 }
 
-size_t randi() noexcept {
+inline size_t randi() noexcept {
   static std::uniform_int_distribution<size_t> sMap;
   static std::default_random_engine engine;
   return sMap(engine);

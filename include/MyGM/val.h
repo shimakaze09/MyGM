@@ -4,7 +4,9 @@
 
 #include "Interfaces/IArray/IArray1D_Util.h"
 #include "Interfaces/IArray/IArrayHadamardProduct.h"
-#include "Interfaces/IArray/IArrayLinear.h"
+#include "Interfaces/IArray/ICross.h"
+#include "Interfaces/IArray/IEuclideanA.h"
+#include "Interfaces/IArray/IEuclideanV.h"
 
 #include <MyTemplate/SI.h>
 
@@ -13,7 +15,18 @@ template <typename T, size_t N>
 struct ImplTraits<val<T, N>>
     : Array1DTraits<T, N>,
       SIMDTraits<false>,  // float4 not use SIMD
-      IListTraits<IArrayLinear, IArrayHadamardProduct, IArray1D_Util> {};
+      IListTraits<IEuclideanV, IEuclideanA, IArrayHadamardProduct,
+                  IArray1D_Util> {
+  using V = val<T, N>;
+};
+
+template <typename T>
+struct ImplTraits<val<T, 3>>
+    : Array1DTraits<T, 3>,
+      IListTraits<IEuclideanV, IEuclideanA, ICross, IArrayHadamardProduct,
+                  IArray1D_Util> {
+  using V = val<T, 3>;
+};
 
 template <typename T, size_t N>
 struct val : SI<val<T, N>> {
