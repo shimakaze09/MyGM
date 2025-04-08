@@ -7,7 +7,7 @@ namespace My {
 // [summary]
 // schlick's approximation fresnel for dielectric
 // [reference]
-// Schlick C. An inexpensive BRDF model for physically©\based rendering.
+// Schlick C. An inexpensive BRDF model for physically�\based rendering.
 // [argument]
 // - cos_theta: theta is on one side of the surface with low refractive index
 // - eta: refractive index of material (refractive index of air is 1 as default)

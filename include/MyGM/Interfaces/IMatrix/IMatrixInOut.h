@@ -11,7 +11,7 @@ template <typename Base, typename Impl>
 struct IMatrixInOut : Base {
   using Base::Base;
 
-  static constexpr size_t N = ImplTraits_N<Impl>;
+  static constexpr size_t N = SI_ImplTraits_N<Impl>;
 
   void print(std::ostream& os = std::cout) const noexcept {
     const auto& x = static_cast<const Impl&>(*this);
@@ -24,5 +24,5 @@ struct IMatrixInOut : Base {
   }
 };
 
-InterfaceTraits_Register(IMatrixInOut, IMatrix);
+SI_InterfaceTraits_Register(IMatrixInOut, IMatrix);
 }  // namespace My

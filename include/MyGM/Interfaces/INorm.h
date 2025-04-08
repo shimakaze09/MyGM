@@ -8,7 +8,7 @@
 namespace My {
 template <typename Base, typename Impl>
 struct INorm : Base {
-  using F = ImplTraits_F<Impl>;
+  using F = SI_ImplTraits_F<Impl>;
 
   using Base::Base;
 
@@ -62,5 +62,5 @@ struct INorm : Base {
   }
 };
 
-InterfaceTraits_Register(INorm, IMetric, ILinear);
+SI_InterfaceTraits_Register(INorm, IMetric, ILinear);
 }  // namespace My

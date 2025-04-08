@@ -5,8 +5,8 @@
 
 namespace My {
 template <typename T, size_t N>
-struct ImplTraits<triangle<T, N>> : ArrayTraits<point<T, N>, 3, T>,
-                                    IListTraits<IArrayInOut> {};
+struct SI_ImplTraits<triangle<T, N>> : ArrayTraits<point<T, N>, 3, T>,
+                                       IListTraits<IArrayInOut> {};
 
 template <typename T, size_t N>
 struct triangle : SI<triangle<T, N>> {

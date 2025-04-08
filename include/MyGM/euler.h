@@ -6,13 +6,13 @@
 
 namespace My {
 template <typename T>
-struct ImplTraits<euler<T>> : Array1DTraits<T, 3>,
-                              IListTraits<IArray1D_Util> {};
+struct SI_ImplTraits<euler<T>> : Array1DTraits<T, 3>,
+                                 IListTraits<IArray1D_Util> {};
 
 // same with Unity3D
 // Z -> X -> Y
 // roll -> pitch -> yaw
-// Tait¨CBryan angles, extrinsic rotations (math: x-y-z, game: z-x-y)
+// Tait�CBryan angles, extrinsic rotations (math: x-y-z, game: z-x-y)
 // ref: https://en.wikipedia.org/wiki/Euler_angles
 // degree
 template <typename T>

@@ -142,7 +142,7 @@ transform<F>::transform(const vec<F, 3>& t, const quat<F>& q,
   F zw = z * w;
 
 #ifdef MY_USE_SIMD
-  if constexpr (ImplTraits_SupportSIMD<ImplTraits_T<transform<F>>>) {
+  if constexpr (SI_ImplTraits_SupportSIMD<SI_ImplTraits_T<transform<F>>>) {
     this->init(1 - 2 * (yy + zz), 2 * (xy - zw), 2 * (xz + yw), t[0],
                2 * (xy + zw), 1 - 2 * (zz + xx), 2 * (yz - xw), t[1],
                2 * (xz - yw), 2 * (yz + xw), 1 - 2 * (xx + yy), t[2], 0, 0, 0,

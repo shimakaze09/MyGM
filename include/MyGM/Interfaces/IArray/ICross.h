@@ -7,8 +7,8 @@ template <typename Base, typename Impl>
 struct ICross : Base {
   using Base::Base;
 
-  static_assert(ImplTraits_N<Impl> == 3);
-  using F = ImplTraits_F<Impl>;
+  static_assert(SI_ImplTraits_N<Impl> == 3);
+  using F = SI_ImplTraits_F<Impl>;
 
   static Impl cross(const Impl& x, const Impl& y) noexcept {
     return Impl{x[1] * y[2] - x[2] * y[1], x[2] * y[0] - x[0] * y[2],
@@ -34,5 +34,5 @@ struct ICross : Base {
   }
 };
 
-InterfaceTraits_Register(ICross, IEuclideanV);
+SI_InterfaceTraits_Register(ICross, IEuclideanV);
 }  // namespace My

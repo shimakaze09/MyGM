@@ -9,12 +9,12 @@ namespace My::details::IScalarMul_ {
 template <typename Impl, typename U>
 static constexpr bool need_mul =
     !std::is_integral_v<U> || !SI_Contains_v<Impl, IAdd>;
-}  // namespace My::details::IScalarMul_
+}
 
 namespace My {
 template <typename Base, typename Impl>
 struct IScalarMul : Base {
-  using F = ImplTraits_F<Impl>;
+  using F = SI_ImplTraits_F<Impl>;
 
   //static_assert(std::is_floating_point_v<F>);
   template <typename U>

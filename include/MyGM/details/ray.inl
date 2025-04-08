@@ -82,8 +82,8 @@ std::tuple<bool, T> ray<T, N>::intersect_std_sphere() const noexcept {
 
     return {true, t};
   } else
-#endif  // MY_USE_SIMD \
-    // 51 instructions
+#endif  // MY_USE_SIMD
+  // 51 instructions
   {
     vec<T, N> oc = p.cast_to<vec<T, N>>();
     T a = d.norm2();

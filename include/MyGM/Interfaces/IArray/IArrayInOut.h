@@ -11,7 +11,7 @@ template <typename Base, typename Impl>
 struct IArrayInOut : Base {
   using Base::Base;
 
-  static constexpr size_t N = ImplTraits_N<Impl>;
+  static constexpr size_t N = SI_ImplTraits_N<Impl>;
 
   std::ostream& impl_out(std::ostream& os) const noexcept {
     const auto& x = static_cast<const Impl&>(*this);
@@ -33,5 +33,5 @@ struct IArrayInOut : Base {
   }
 };
 
-InterfaceTraits_Register(IArrayInOut, IArray, IInOut);
+SI_InterfaceTraits_Register(IArrayInOut, IArray, IInOut);
 }  // namespace My

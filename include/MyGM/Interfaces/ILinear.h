@@ -6,5 +6,5 @@
 #include <MyTemplate/SI.h>
 
 namespace My {
-CombineInterface(ILinear, IAdd, IScalarMul);
+SI_CombineInterface(ILinear, IAdd, IScalarMul);
 }  // namespace My

@@ -5,5 +5,5 @@
 #include "IArrayScalarMul.h"
 
 namespace My {
-CombineInterface(IArrayLinear, IArrayAdd, IArrayScalarMul, ILinear);
+SI_CombineInterface(IArrayLinear, IArrayAdd, IArrayScalarMul, ILinear);
 }  // namespace My

@@ -9,7 +9,7 @@ struct IAffine : Base {
 
   using Base::operator-;
 
-  using Vector = ImplTraits_V<Point>;
+  using Vector = SI_ImplTraits_V<Point>;
 
   static_assert(SI_Contains_v<Vector, ILinear>);
 
@@ -18,5 +18,5 @@ struct IAffine : Base {
   }
 };
 
-InterfaceTraits_Register(IAffine, IAffineSubspace);
+SI_InterfaceTraits_Register(IAffine, IAffineSubspace);
 }  // namespace My

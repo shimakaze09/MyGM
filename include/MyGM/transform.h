@@ -17,8 +17,8 @@
 
 namespace My {
 template <typename F>
-struct ImplTraits<transform<F>> : ArrayTraits<vec<F, 4>, 4, F>,
-                                  IListTraits<IMatrixInOut, IMatrixMul> {};
+struct SI_ImplTraits<transform<F>> : ArrayTraits<vec<F, 4>, 4, F>,
+                                     IListTraits<IMatrixInOut, IMatrixMul> {};
 
 // TODO: distinguish different kinds of transformations
 // - basic transformation: translation, reflection, rotation, scaling, shearing, projection (projective transformation)

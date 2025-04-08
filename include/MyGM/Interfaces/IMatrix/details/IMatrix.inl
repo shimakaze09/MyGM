@@ -130,7 +130,7 @@ struct transpose<4> {
   static M run(const M& m) noexcept {
     static_assert(M::N == 4);
 #ifdef MY_USE_SIMD
-    if constexpr (ImplTraits_SupportSIMD<ImplTraits_T<M>>) {
+    if constexpr (SI_ImplTraits_SupportSIMD<SI_ImplTraits_T<M>>::value) {
       M rst{m};
       _MM_TRANSPOSE4_PS(rst[0], rst[1], rst[2], rst[3]);
       return rst;
@@ -154,7 +154,7 @@ struct trace;
 template <>
 struct trace<2> {
   template <typename M>
-  static ImplTraits_F<M> run(const M& m) noexcept {
+  static SI_ImplTraits_F<M> run(const M& m) noexcept {
     static_assert(M::N == 2);
 
     return m[0][0] + m[1][1];
@@ -164,7 +164,7 @@ struct trace<2> {
 template <>
 struct trace<3> {
   template <typename M>
-  static ImplTraits_F<M> run(const M& m) noexcept {
+  static SI_ImplTraits_F<M> run(const M& m) noexcept {
     static_assert(M::N == 3);
 
     return m[0][0] + m[1][1] + m[2][2];
@@ -174,10 +174,10 @@ struct trace<3> {
 template <>
 struct trace<4> {
   template <typename M>
-  static ImplTraits_F<M> run(const M& m) noexcept {
+  static SI_ImplTraits_F<M> run(const M& m) noexcept {
     static_assert(M::N == 4);
 #ifdef MY_USE_SIMD
-    if constexpr (ImplTraits_SupportSIMD<ImplTraits_T<M>>)
+    if constexpr (SI_ImplTraits_SupportSIMD<SI_ImplTraits_T<M>>::value)
       return m[0].get<0>() + m[1].get<1>() + m[2].get<2>() + m[3].get<3>();
     else
 #endif  // MY_USE_SIMD
@@ -194,9 +194,9 @@ template <>
 struct init<2> {
   template <typename M>
   static void run(M& m,
-                  const std::array<ImplTraits_F<M>, 2 * 2>& data) noexcept {
+                  const std::array<SI_ImplTraits_F<M>, 2 * 2>& data) noexcept {
     static_assert(M::N == 2);
-    memcpy(&m, data.data(), 4 * sizeof(ImplTraits_F<M>));
+    memcpy(&m, data.data(), 4 * sizeof(SI_ImplTraits_F<M>));
   }
 };
 
@@ -204,9 +204,9 @@ template <>
 struct init<3> {
   template <typename M>
   static void run(M& m,
-                  const std::array<ImplTraits_F<M>, 3 * 3>& data) noexcept {
+                  const std::array<SI_ImplTraits_F<M>, 3 * 3>& data) noexcept {
     static_assert(M::N == 3);
-    memcpy(&m, data.data(), 9 * sizeof(ImplTraits_F<M>));
+    memcpy(&m, data.data(), 9 * sizeof(SI_ImplTraits_F<M>));
   }
 };
 
@@ -214,10 +214,10 @@ template <>
 struct init<4> {
   template <typename M>
   static void run(M& m,
-                  const std::array<ImplTraits_F<M>, 4 * 4>& data) noexcept {
+                  const std::array<SI_ImplTraits_F<M>, 4 * 4>& data) noexcept {
     static_assert(M::N == 4);
 #ifdef MY_USE_SIMD
-    if constexpr (ImplTraits_SupportSIMD<ImplTraits_T<M>>) {
+    if constexpr (SI_ImplTraits_SupportSIMD<SI_ImplTraits_T<M>>::value) {
       m[0] = _mm_loadu_ps(&(data[0]));
       m[1] = _mm_loadu_ps(&(data[4]));
       m[2] = _mm_loadu_ps(&(data[8]));
@@ -225,7 +225,7 @@ struct init<4> {
     } else
 #endif  // MY_USE_SIMD
     {
-      memcpy(&m, data.data(), 16 * sizeof(ImplTraits_F<M>));
+      memcpy(&m, data.data(), 16 * sizeof(SI_ImplTraits_F<M>));
     }
   }
 };
@@ -264,8 +264,8 @@ struct zero<4> {
   static M run() noexcept {
     static_assert(M::N == 4);
 #ifdef MY_USE_SIMD
-    if constexpr (ImplTraits_SupportSIMD<ImplTraits_T<M>>) {
-      using V = ImplTraits_T<M>;
+    if constexpr (SI_ImplTraits_SupportSIMD<SI_ImplTraits_T<M>>::value) {
+      using V = SI_ImplTraits_T<M>;
       const __m128 z = _mm_set1_ps(0.f);
       return {V{z}, V{z}, V{z}, V{z}};
     } else
@@ -286,7 +286,7 @@ struct SVD<2> {
   template <typename M>
   static std::tuple<M, M, M> run(const M& m) noexcept {
     static_assert(M::N == 2);
-    using F = ImplTraits_F<M>;
+    using F = SI_ImplTraits_F<M>;
     // ref : https://lucidar.me/en/mathematics/singular-value-decomposition-of-a-2x2-matrix/
     F a = m(0, 0);
     F b = m(0, 1);
@@ -352,7 +352,7 @@ template <>
 struct SVD<3> {
   template <typename M>
   static std::tuple<M, M, M> run(const M& m) noexcept {
-    static_assert(M::N == 3 && std::is_same_v<ImplTraits_F<M>, float>);
+    static_assert(M::N == 3 && std::is_same_v<SI_ImplTraits_F<M>, float>);
     // ref : https://github.com/ericjang/svd3
 
     M U, S, V;

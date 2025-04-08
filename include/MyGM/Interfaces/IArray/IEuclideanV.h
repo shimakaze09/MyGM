@@ -10,14 +10,14 @@ template <typename Base, typename Impl>
 struct IEuclideanV : Base {
   using Base::Base;
 
-  using T = ImplTraits_T<Impl>;
-  static constexpr size_t N = ImplTraits_N<Impl>;
-  using F = ImplTraits_F<Impl>;
+  using T = SI_ImplTraits_T<Impl>;
+  static constexpr size_t N = SI_ImplTraits_N<Impl>;
+  using F = SI_ImplTraits_F<Impl>;
 
 #ifdef MY_USE_SIMD
   // w == 0
   static Impl v3_cross(const Impl& x, const Impl& y) noexcept {
-    static_assert(ImplTraits_SupportSIMD<Impl>);
+    static_assert(SI_ImplTraits_SupportSIMD<Impl>);
     /*
 			|a.x|   |b.x|   | a.y * b.z - a.z * b.y |
 			|a.y| X |b.y| = | a.z * b.x - a.x * b.z |
@@ -36,7 +36,7 @@ struct IEuclideanV : Base {
 
   // x = y = z = w
   static Impl v3_dot(const Impl& x, const Impl& y) noexcept {
-    static_assert(ImplTraits_SupportSIMD<Impl>);
+    static_assert(SI_ImplTraits_SupportSIMD<Impl>);
     // 0x7f : 011111111
     return _mm_dp_ps(x, y, 0x7f);
   }
@@ -261,7 +261,7 @@ struct IEuclideanV : Base {
 
   static F impl_dot(const Impl& x, const Impl& y) noexcept {
 #ifdef MY_USE_SIMD
-    if constexpr (ImplTraits_SupportSIMD<Impl>) {
+    if constexpr (SI_ImplTraits_SupportSIMD<Impl>) {
       // ref
       // https://stackoverflow.com/questions/4120681/how-to-calculate-single-vector-dot-product-using-sse-intrinsic-functions-in-c
 #ifdef MY_USE_SSE_4_1
@@ -287,5 +287,5 @@ struct IEuclideanV : Base {
   }
 };
 
-InterfaceTraits_Register(IEuclideanV, IInnerProduct, IArrayLinear);
+SI_InterfaceTraits_Register(IEuclideanV, IInnerProduct, IArrayLinear);
 }  // namespace My

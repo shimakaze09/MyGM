@@ -5,5 +5,5 @@
 
 namespace My {
 // plane in real affine subspace
-CombineInterface(IPlane, IAffineRealSubspace, IOPlane);
+SI_CombineInterface(IPlane, IAffineRealSubspace, IOPlane);
 }  // namespace My

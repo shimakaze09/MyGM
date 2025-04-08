@@ -29,10 +29,10 @@ template <typename T, Axis up = Axis::Z>
 val<T, 3> cos_weighted_on_hemisphere() noexcept;
 
 // [summary]
-// sample micro facet normal from GGX normal distribution function
-// ref: Walter B, et al. Micro facet Models for Refraction through Rough Surfaces.
+// sample microfacet normal from GGX normal distribuion function
+// ref: Walter B, et al. Microfacet Models for Refraction through Rough Surfaces.
 // [return]
-// wm: micro facet normal
+// wm: microfacet normal
 svecf sample_GGX_D(float alpha) noexcept;
 }  // namespace My
 

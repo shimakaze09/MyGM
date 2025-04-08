@@ -7,14 +7,14 @@ template <typename Base, typename Impl>
 struct IAffineRealSubspace : Base {
   using Base::Base;
 
-  using Point = ImplTraits_P<Impl>;
-  using Vector = ImplTraits_V<Impl>;
+  using Point = SI_ImplTraits_P<Impl>;
+  using Vector = SI_ImplTraits_V<Impl>;
 
   static_assert(SI_Contains_v<Point, IAffine>);
   static_assert(SI_Contains_v<Vector, ILinear>);
-  static_assert(ImplTraits_N<Point> == ImplTraits_N<Vector>);
+  static_assert(SI_ImplTraits_N<Point> == SI_ImplTraits_N<Vector>);
 
-  ImplTraits_P<Impl> point;
+  SI_ImplTraits_P<Impl> point;
 
   static Impl move(const Impl& impl, const Point& p) noexcept {
     return Impl::impl_move(impl, p);
@@ -55,5 +55,5 @@ struct IAffineRealSubspace : Base {
   }
 };
 
-InterfaceTraits_Register(IAffineRealSubspace, IAffineSubspace);
+SI_InterfaceTraits_Register(IAffineRealSubspace, IAffineSubspace);
 }  // namespace My

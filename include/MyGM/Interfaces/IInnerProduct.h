@@ -7,7 +7,7 @@ template <typename Base, typename Impl>
 struct IInnerProduct : Base {
   using Base::Base;
 
-  using F = ImplTraits_F<Impl>;
+  using F = SI_ImplTraits_F<Impl>;
 
   static F dot(const Impl& x, const Impl& y) noexcept {
     return Impl::impl_dot(x, y);
@@ -75,5 +75,5 @@ struct IInnerProduct : Base {
   F impl_norm() const noexcept { return std::sqrt(norm2()); }
 };
 
-InterfaceTraits_Register(IInnerProduct, INorm);
+SI_InterfaceTraits_Register(IInnerProduct, INorm);
 }  // namespace My
