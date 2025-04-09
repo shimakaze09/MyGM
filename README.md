@@ -246,6 +246,7 @@ but this is currently the most suitable method I can think of).
 - [x] Provide `config.h` for customizing features
 - [x] Add a series of `v3_*` interfaces for `float4`
 - [ ] CUDA support
+- [x] swizzle
 - [x] Remove dependency on XSIMD
 - [ ] vector op: log, exp, cos, sin, ...
 - [ ] ...

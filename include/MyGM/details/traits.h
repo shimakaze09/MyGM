@@ -19,6 +19,12 @@ struct IListTraits {
   using IList = TemplateList<Interfaces...>;
 };
 
+template <template <typename, std::size_t> class TImpl, typename T>
+struct ArrayImplNTraits {
+  template <std::size_t N>
+  using ImplN = TImpl<T, N>;
+};
+
 template <bool support>
 struct SIMDTraits {
   static constexpr bool support_SIMD = support;

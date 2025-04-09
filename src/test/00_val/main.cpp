@@ -28,4 +28,19 @@ int main() {
        << endl;
   valf4 a{1, 2, 3, 4};
   cout << a << endl;
+  {
+    valf1 v1;
+    v1.x = 1.f;
+  }
+  {
+    valf2 v2{1.f, 2.f};
+    cout << v2.xx << endl;
+    v2 = v2.yx;
+    cout << v2 << endl;
+  }
+  {
+    valf4 v4{1, 2, 3, 4};
+    cout << v4.xyzz << endl;
+    cout << v4.zx.to_impl() << endl;
+  }
 }

@@ -8,6 +8,6 @@
 namespace My {
 template <typename Base, typename Impl>
 struct ILinear;
-}  // namespace My
+}
 
-SI_CombineInterface(ILinear, IAdd, IScalarMul);
+SI_CombineInterface(My::ILinear, My::IAdd, My::IScalarMul);

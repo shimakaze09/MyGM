@@ -15,7 +15,7 @@ int main() {
   vecf3 c2 = {7, 8, 9};
   matf3 m1(c1, c2, c0);
 
-  // cin >> m0;
+  cin >> m0;
   cout << m0 << endl;
   m0.print();
 
@@ -49,4 +49,9 @@ int main() {
   cout << m3.rmv_epsilon() << endl;
 
   cout << m3.data() << endl;
+
+  {
+    matf3 m{1, 2, 3, 4, 5, 6, 7, 8, 9};
+    m.print();
+  }
 }

@@ -7,7 +7,8 @@
 namespace My {
 template <typename T>
 struct SI_ImplTraits<rgba<T>> : Array1DTraits<T, 4>,
-                                IListTraits<IArray1D_Util> {};
+                                IListTraits<IArray1D_Util>,
+                                ArrayImplNTraits<val, T> {};
 
 template <typename T>
 struct rgba : SI<rgba<T>> {
