@@ -9,6 +9,7 @@
 
 #include <cassert>
 #include <cmath>
+#include <compare>
 
 namespace My {
 template <typename Base, typename Impl>
@@ -154,28 +155,28 @@ struct alignas(alignof(SI_ImplTraits_T<Impl>)) IStdArray
   using IStdArrayBasic<Base, Impl>::operator<;
   using IStdArrayBasic<Base, Impl>::operator<=;
 
-  bool operator==(const Impl& rhs) const {
-    return this->to_array() == rhs.to_array();
+  friend bool operator==(const Impl& lhs, const Impl& rhs) {
+    return lhs.to_array() == rhs.to_array();
   }
 
-  bool operator!=(const Impl& rhs) const {
-    return this->to_array() != rhs.to_array();
+  friend bool operator!=(const Impl& lhs, const Impl& rhs) {
+    return lhs.to_array() != rhs.to_array();
   }
 
-  bool operator<(const Impl& rhs) const {
-    return this->to_array() < rhs.to_array();
+  friend bool operator<(const Impl& lhs, const Impl& rhs) {
+    return lhs.to_array() < rhs.to_array();
   }
 
-  bool operator>(const Impl& rhs) const {
-    return this->to_array() > rhs.to_array();
+  friend bool operator>(const Impl& lhs, const Impl& rhs) {
+    return lhs.to_array() > rhs.to_array();
   }
 
-  bool operator<=(const Impl& rhs) const {
-    return this->to_array() <= rhs.to_array();
+  friend bool operator<=(const Impl& lhs, const Impl& rhs) {
+    return lhs.to_array() <= rhs.to_array();
   }
 
-  bool operator>=(const Impl& rhs) const {
-    return this->to_array() >= rhs.to_array();
+  friend bool operator>=(const Impl& lhs, const Impl& rhs) {
+    return lhs.to_array() >= rhs.to_array();
   }
 };
 
@@ -373,7 +374,7 @@ struct SwizzleImpl<false, true, Impl, Ns...>
       return lhs;
     };
     return assign_impl(reinterpret_cast<Impl&>(*this), rhs,
-                       std::make_integer_sequence<sizeof...(Ns)>{});
+                       std::make_index_sequence<sizeof...(Ns)>{});
   }
 };
 
