@@ -29,7 +29,7 @@ struct IEuclideanA : Base {
   }
 
  private:
-  template <typename Base, typename Impl>
+  template <typename, typename>
   friend struct IAffineSubspace;
 
   Point impl_affine_subspace_add(const Vector& v) const noexcept {
@@ -86,7 +86,7 @@ struct IEuclideanA : Base {
     return p;
   }
 
-  template <typename Base, typename Impl>
+  template <typename, typename>
   friend struct IAffine;
 
   const Vector impl_affine_minus(const Point& y) const noexcept {
@@ -112,13 +112,14 @@ struct IEuclideanA : Base {
     }
   }
 
-  template <typename Base, typename Impl>
+  template <typename, typename>
   friend struct IMetric;
 
   static F impl_distance(const Point& x, const Point& y) noexcept {
     return std::sqrt(distance2(x, y));
   }
 };
-
-SI_InterfaceTraits_Register(IEuclideanA, IMetric, IAffine, IArray);
 }  // namespace My
+
+SI_InterfaceTraits_Register(My::IEuclideanA, My::IMetric, My::IAffine,
+                            My::IArray);

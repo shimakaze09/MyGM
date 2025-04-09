@@ -31,7 +31,7 @@ struct IAffineRealSubspace : Base {
   }
 
  private:
-  template <typename Base, typename Impl>
+  template <typename, typename>
   friend struct IAffineSubspace;
 
   Impl impl_affine_subspace_add(const Vector& v) const noexcept {
@@ -54,6 +54,6 @@ struct IAffineRealSubspace : Base {
     return static_cast<Impl&>(*this);
   }
 };
-
-SI_InterfaceTraits_Register(IAffineRealSubspace, IAffineSubspace);
 }  // namespace My
+
+SI_InterfaceTraits_Register(My::IAffineRealSubspace, My::IAffineSubspace);

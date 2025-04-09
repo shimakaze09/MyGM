@@ -422,11 +422,11 @@ struct alignas(16) IArray_Impl<true, IArray_Base, Impl> : IArray_Base {
   }
 
   template <size_t i>
-  void set(float v) const noexcept {
+  void set(float v) noexcept {
     static_assert(i < 4);
-    if constexpr (i == 0) {
+    if constexpr (i == 0)
       m = _mm_move_ss(m, _mm_set_ss(v));
-    } else {
+    else {
       __m128 t = _mm_move_ss(m, _mm_set_ss(v));
 
       if constexpr (i == 1)

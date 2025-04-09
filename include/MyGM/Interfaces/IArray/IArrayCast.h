@@ -39,6 +39,6 @@ struct IArrayCast : Base {
     return {static_cast<typename To::T>((*this)[Ns])...};
   }
 };
-
-SI_InterfaceTraits_Register(IArrayCast, IArray);
 }  // namespace My
+
+SI_InterfaceTraits_Register(My::IArrayCast, My::IArray);

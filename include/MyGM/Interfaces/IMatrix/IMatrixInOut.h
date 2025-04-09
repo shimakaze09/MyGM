@@ -23,6 +23,6 @@ struct IMatrixInOut : Base {
     }
   }
 };
-
-SI_InterfaceTraits_Register(IMatrixInOut, IMatrix);
 }  // namespace My
+
+SI_InterfaceTraits_Register(My::IMatrixInOut, My::IMatrix);

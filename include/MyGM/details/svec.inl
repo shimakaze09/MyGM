@@ -88,6 +88,6 @@ std::tuple<bool, svec<T>> svec<T>::refract(T eta) const noexcept {
 template <typename T>
 vec<T, 3> operator*(const mat<T, 3>& m, const svec<T>& sv) noexcept {
   assert(sv.is_normalized());
-  return m * sv.cast_to<vec<T, 3>>();
+  return m * sv.template cast_to<vec<T, 3>>();
 }
 }  // namespace My

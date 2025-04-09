@@ -17,6 +17,6 @@ struct IAffine : Base {
     return static_cast<const Point*>(this)->impl_affine_minus(y);
   }
 };
-
-SI_InterfaceTraits_Register(IAffine, IAffineSubspace);
 }  // namespace My
+
+SI_InterfaceTraits_Register(My::IAffine, My::IAffineSubspace);

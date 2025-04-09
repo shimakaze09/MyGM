@@ -12,7 +12,7 @@ struct IArrayAdd : Base {
   static constexpr size_t N = SI_ImplTraits_N<Impl>;
 
  private:
-  template <typename Base, typename Impl>
+  template <typename, typename>
   friend struct IAdd;
 
   Impl impl_add(const Impl& y) const noexcept {
@@ -124,6 +124,6 @@ struct IArrayAdd : Base {
     }
   }
 };
-
-SI_InterfaceTraits_Register(IArrayAdd, IAdd, IArray);
 }  // namespace My
+
+SI_InterfaceTraits_Register(My::IArrayAdd, My::IAdd, My::IArray);

@@ -69,11 +69,11 @@ struct IInnerProduct : Base {
   }
 
  private:
-  template <typename Base, typename Impl>
+  template <typename, typename>
   friend struct INorm;
 
   F impl_norm() const noexcept { return std::sqrt(norm2()); }
 };
-
-SI_InterfaceTraits_Register(IInnerProduct, INorm);
 }  // namespace My
+
+SI_InterfaceTraits_Register(My::IInnerProduct, My::INorm);

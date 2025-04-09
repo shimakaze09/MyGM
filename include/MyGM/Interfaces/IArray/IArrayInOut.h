@@ -32,6 +32,6 @@ struct IArrayInOut : Base {
     return is;
   }
 };
-
-SI_InterfaceTraits_Register(IArrayInOut, IArray, IInOut);
 }  // namespace My
+
+SI_InterfaceTraits_Register(My::IArrayInOut, My::IArray, My::IInOut);

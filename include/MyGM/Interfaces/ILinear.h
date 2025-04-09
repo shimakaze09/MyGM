@@ -6,5 +6,8 @@
 #include <MyTemplate/SI.h>
 
 namespace My {
-SI_CombineInterface(ILinear, IAdd, IScalarMul);
+template <typename Base, typename Impl>
+struct ILinear;
 }  // namespace My
+
+SI_CombineInterface(ILinear, IAdd, IScalarMul);

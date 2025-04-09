@@ -4,6 +4,9 @@
 #include "IOPlane.h"
 
 namespace My {
-// plane in real affine subspace
-SI_CombineInterface(IPlane, IAffineRealSubspace, IOPlane);
+template <typename Base, typename Impl>
+struct IPlane;
 }  // namespace My
+
+// plane in real affine subspace
+SI_CombineInterface(My::IPlane, My::IAffineRealSubspace, My::IOPlane);

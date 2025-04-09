@@ -5,5 +5,9 @@
 #include "IArrayScalarMul.h"
 
 namespace My {
-SI_CombineInterface(IArrayLinear, IArrayAdd, IArrayScalarMul, ILinear);
+template <typename Base, typename Impl>
+struct IArrayLinear;
 }  // namespace My
+
+SI_CombineInterface(My::IArrayLinear, My::IArrayAdd, My::IArrayScalarMul,
+                    My::ILinear);

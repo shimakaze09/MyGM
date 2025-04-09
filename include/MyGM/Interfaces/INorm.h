@@ -54,13 +54,13 @@ struct INorm : Base {
   }
 
  private:
-  template <typename Base, typename Impl>
+  template <typename, typename>
   friend struct IMetric;
 
   static F impl_distance(const Impl& x, const Impl& y) noexcept {
     return (x - y).norm();
   }
 };
-
-SI_InterfaceTraits_Register(INorm, IMetric, ILinear);
 }  // namespace My
+
+SI_InterfaceTraits_Register(My::INorm, My::IMetric, My::ILinear);

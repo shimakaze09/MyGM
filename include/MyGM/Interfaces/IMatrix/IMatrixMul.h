@@ -22,7 +22,7 @@ struct IMatrixMul : Base {
   }
 
  private:
-  template <typename Base, typename Impl>
+  template <typename, typename>
   friend struct IMul;
 
   Impl impl_mul(const Impl& y) const noexcept {
@@ -35,6 +35,6 @@ struct IMatrixMul : Base {
     return details::IMatrixMul::inverse<N>::run(m);
   }
 };
-
-SI_InterfaceTraits_Register(IMatrixMul, IMul, IMatrix);
 }  // namespace My
+
+SI_InterfaceTraits_Register(My::IMatrixMul, My::IMul, My::IMatrix);

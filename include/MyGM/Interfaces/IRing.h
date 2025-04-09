@@ -6,5 +6,8 @@
 #include <MyTemplate/SI.h>
 
 namespace My {
-SI_CombineInterface(IRing, IAdd, IMul);
-}
+template <typename Base, typename Impl>
+struct IRing;
+}  // namespace My
+
+SI_CombineInterface(My::IRing, My::IAdd, My::IMul);

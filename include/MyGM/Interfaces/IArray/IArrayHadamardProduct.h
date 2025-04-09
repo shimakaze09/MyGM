@@ -72,7 +72,7 @@ struct IArrayHadamardProduct : Base {
   }
 
  private:
-  template <typename Base, typename Impl>
+  template <typename, typename>
   friend struct IMul;
 
   Impl impl_mul(const Impl& y) const noexcept {
@@ -91,6 +91,6 @@ struct IArrayHadamardProduct : Base {
     }
   }
 };
-
-SI_InterfaceTraits_Register(IArrayHadamardProduct, IMul, IArray);
 }  // namespace My
+
+SI_InterfaceTraits_Register(My::IArrayHadamardProduct, My::IMul, My::IArray);

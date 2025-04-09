@@ -33,6 +33,6 @@ struct ICross : Base {
     return sin_theta(x, y);
   }
 };
-
-SI_InterfaceTraits_Register(ICross, IEuclideanV);
 }  // namespace My
+
+SI_InterfaceTraits_Register(My::ICross, My::IEuclideanV);

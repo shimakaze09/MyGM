@@ -94,6 +94,6 @@ struct IArrayUtil : Base {
     }
   }
 };
-
-SI_InterfaceTraits_Register(IArrayUtil, IArrayCast, IArrayInOut);
 }  // namespace My
+
+SI_InterfaceTraits_Register(My::IArrayUtil, My::IArrayCast, My::IArrayInOut);

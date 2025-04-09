@@ -118,6 +118,6 @@ struct IArray1D_Util : Base {
     }
   }
 };
-
-SI_InterfaceTraits_Register(IArray1D_Util, IArray1D, IArrayUtil);
 }  // namespace My
+
+SI_InterfaceTraits_Register(My::IArray1D_Util, My::IArray1D, My::IArrayUtil);
