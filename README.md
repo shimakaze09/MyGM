@@ -12,11 +12,8 @@
 - High-performance: SIMD acceleration, optimized algorithms
 - Uses [single inheritance transformation technique](https://zhuanlan.zhihu.com/p/106672814) to optimize code
   structure (without relying on messy macros)
--
-
-Provides [natvis](https://docs.microsoft.com/en-us/visualstudio/debugger/create-custom-views-of-native-objects?view=vs-2019)
+- Provides [natvis](https://docs.microsoft.com/en-us/visualstudio/debugger/create-custom-views-of-native-objects?view=vs-2019)
 support for improved debugging experience
-
 - ...
 
 ## 1. Introduction
