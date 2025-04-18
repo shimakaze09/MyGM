@@ -4,7 +4,7 @@
 #include <iostream>
 
 using namespace std;
-using namespace My;
+using namespace Smkz;
 
 int main() {
   bboxf3 b;

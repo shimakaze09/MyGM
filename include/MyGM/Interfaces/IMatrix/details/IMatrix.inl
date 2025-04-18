@@ -4,7 +4,7 @@
 
 #include "svd3.hpp"
 
-namespace My::details::IMatrix_ {
+namespace Smkz::details::IMatrix_ {
 template <typename M, size_t N>
 struct eye;
 
@@ -129,13 +129,13 @@ struct transpose<4> {
   template <typename M>
   static M run(const M& m) noexcept {
     static_assert(M::N == 4);
-#ifdef MY_USE_SIMD
+#ifdef SMKZ_USE_SIMD
     if constexpr (SI_ImplTraits_SupportSIMD<SI_ImplTraits_T<M>>::value) {
       M rst{m};
       _MM_TRANSPOSE4_PS(rst[0], rst[1], rst[2], rst[3]);
       return rst;
     } else
-#endif  // MY_USE_SIMD
+#endif  // SMKZ_USE_SIMD
     {
       return {
           m(0, 0), m(1, 0), m(2, 0), m(3, 0), m(0, 1), m(1, 1),
@@ -176,12 +176,12 @@ struct trace<4> {
   template <typename M>
   static SI_ImplTraits_F<M> run(const M& m) noexcept {
     static_assert(M::N == 4);
-#ifdef MY_USE_SIMD
+#ifdef SMKZ_USE_SIMD
     if constexpr (SI_ImplTraits_SupportSIMD<SI_ImplTraits_T<M>>::value)
       return m[0].template get<0>() + m[1].template get<1>() +
              m[2].template get<2>() + m[3].template get<3>();
     else
-#endif  // MY_USE_SIMD
+#endif  // SMKZ_USE_SIMD
       return m[0][0] + m[1][1] + m[2][2] + m[3][3];
   }
 };
@@ -217,14 +217,14 @@ struct init<4> {
   static void run(M& m,
                   const std::array<SI_ImplTraits_F<M>, 4 * 4>& data) noexcept {
     static_assert(M::N == 4);
-#ifdef MY_USE_SIMD
+#ifdef SMKZ_USE_SIMD
     if constexpr (SI_ImplTraits_SupportSIMD<SI_ImplTraits_T<M>>::value) {
       m[0] = _mm_loadu_ps(&(data[0]));
       m[1] = _mm_loadu_ps(&(data[4]));
       m[2] = _mm_loadu_ps(&(data[8]));
       m[3] = _mm_loadu_ps(&(data[12]));
     } else
-#endif  // MY_USE_SIMD
+#endif  // SMKZ_USE_SIMD
     {
       memcpy(&m, data.data(), 16 * sizeof(SI_ImplTraits_F<M>));
     }
@@ -264,13 +264,13 @@ struct zero<4> {
   template <typename M>
   static M run() noexcept {
     static_assert(M::N == 4);
-#ifdef MY_USE_SIMD
+#ifdef SMKZ_USE_SIMD
     if constexpr (SI_ImplTraits_SupportSIMD<SI_ImplTraits_T<M>>::value) {
       using V = SI_ImplTraits_T<M>;
       const __m128 z = _mm_set1_ps(0.f);
       return {V{z}, V{z}, V{z}, V{z}};
     } else
-#endif  // MY_USE_SIMD
+#endif  // SMKZ_USE_SIMD
     {
       return {0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0};
     }
@@ -375,4 +375,4 @@ struct SVD<3> {
     return {U, S, V};
   }
 };
-}  // namespace My::details::IMatrix_
+}  // namespace  Smkz::details::IMatrix_

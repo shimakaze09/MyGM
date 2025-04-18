@@ -3,7 +3,7 @@
 #include <iostream>
 
 using namespace std;
-using namespace My;
+using namespace Smkz;
 
 int main() {
   rayf3 r(pointf3{0.f}, vecf3{0.f, 1.f, 0.f});

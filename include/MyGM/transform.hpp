@@ -14,14 +14,14 @@
 #include "scale.hpp"
 #include "vec.hpp"
 
-namespace My {
+namespace Smkz {
 template <typename F>
 struct SI_ImplTraits<transform<F>> : ArrayTraits<vec<F, 4>, 4, F>,
                                      IListTraits<IMatrixInOut, IMatrixMul> {};
 
 // TODO: distinguish different kinds of transformations
-// - basic transformation: translation, reflection, rotation, scaling, shearing,
-// projection (projective transformation)
+// - basic transformation: translation, reflection, rotation, scaling,
+// shearing, projection (projective transformation)
 // - rigid transformation: translation + rotation + reflection
 // - similarity transformation: translation + rotation + reflection + scaling
 // - linear transformation: rotation + reflection + scaling + shearing
@@ -61,7 +61,7 @@ struct transform : SI<transform<F>> {
   // aspect : width / height
   static transform perspective(
       F fovy, F aspect, F zNear, F zFar,
-      F near_clip_vlaue = MY_DEFAULT_NEAR_CLIP_VALUE) noexcept;
+      F near_clip_vlaue = SMKZ_DEFAULT_NEAR_CLIP_VALUE) noexcept;
 
   // sample: rotate_with<Axis::X>(to_radian(theta))
   template <Axis axis>
@@ -95,6 +95,6 @@ using transformf = transform<float>;
 
 // maybe error in editor, but no compile error
 static_assert(sizeof(transformf) == 16 * sizeof(float));
-}  // namespace My
+}  // namespace  Smkz
 
 #include "details/transform.inl"

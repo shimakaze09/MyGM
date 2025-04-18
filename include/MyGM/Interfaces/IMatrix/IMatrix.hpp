@@ -3,7 +3,7 @@
 #include "../IArray/IArrayUtil.hpp"
 #include "details/IMatrix.inl"
 
-namespace My {
+namespace Smkz {
 // simple [square] 2D array
 // column first
 template <typename Base, typename Impl>
@@ -142,8 +142,8 @@ struct IMatrix : Base {
     const auto& m = static_cast<const Impl&>(*this);
     static_assert(
         N == 2 ||
-        (N == 3 &&
-         std::is_same_v<F, float>));  // only support 2x2 and 3x3 matrix by now
+        (N == 3 && std::is_same_v<F, float>));  // only support 2x2 and 3x3
+                                                // matrix by now
     return details::IMatrix_::SVD<N>::run(m);
   }
 
@@ -169,6 +169,6 @@ struct IMatrix : Base {
 
   const F* data() const noexcept { return const_cast<IMatrix*>(this)->data(); }
 };
-}  // namespace My
+}  // namespace  Smkz
 
-SI_InterfaceTraits_Register(My::IMatrix, My::IArrayUtil);
+SI_InterfaceTraits_Register(Smkz::IMatrix, Smkz::IArrayUtil);

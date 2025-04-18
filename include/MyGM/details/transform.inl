@@ -1,6 +1,6 @@
 #pragma once
 
-namespace My {
+namespace Smkz {
 template <typename F>
 transform<F>::transform(const mat<F, 4>& m) noexcept
     : transform(m[0], m[1], m[2], m[3]) {}
@@ -141,7 +141,7 @@ transform<F>::transform(const vec<F, 3>& t, const quat<F>& q,
   F zz = z * z;
   F zw = z * w;
 
-#ifdef MY_USE_SIMD
+#ifdef SMKZ_USE_SIMD
   if constexpr (SI_ImplTraits_SupportSIMD<SI_ImplTraits_T<transform<F>>>) {
     this->init(1 - 2 * (yy + zz), 2 * (xy - zw), 2 * (xz + yw), t[0],
                2 * (xy + zw), 1 - 2 * (zz + xx), 2 * (yz - xw), t[1],
@@ -151,7 +151,7 @@ transform<F>::transform(const vec<F, 3>& t, const quat<F>& q,
     (*this)[1] *= s[1];
     (*this)[2] *= s[2];
   } else
-#endif  // MY_USE_SIMD
+#endif  // SMKZ_USE_SIMD
     this->init(s[0] * (1 - 2 * (yy + zz)), s[1] * (2 * (xy - zw)),
                s[2] * (2 * (xz + yw)), t[0], s[0] * (2 * (xy + zw)),
                s[1] * (1 - 2 * (zz + xx)), s[2] * (2 * (yz - xw)), t[1],
@@ -242,7 +242,7 @@ template <typename F>
 transform<F> transform<F>::inverse_sim() const noexcept {
   // ref:
   // https://lxjk.github.io/2017/09/03/Fast-4x4-Matrix-Inverse-with-SSE-SIMD-Explained.html
-#ifdef MY_USE_SIMD
+#ifdef SMKZ_USE_SIMD
   if constexpr (std::is_same_v<F, float>) {
     transform<F> r;
     const auto& inM = *this;
@@ -300,7 +300,7 @@ vec<F, 3> transform<F>::decompose_translation() const noexcept {
 template <typename F>
 mat<F, 3> transform<F>::decompose_rotation_matrix() const noexcept {
   const auto& m = static_cast<const transform&>(*this);
-#ifdef MY_USE_SIMD
+#ifdef SMKZ_USE_SIMD
   if constexpr (std::is_same_v<F, float>) {
     return {
         m[0].normalize().template cast_to<vecf3>(),
@@ -413,11 +413,11 @@ mat<F, 3> transform<F>::decompose_mat3() const noexcept {
 template <typename F>
 scale<F, 3> transform<F>::decompose_scale() const noexcept {
   const auto& m = static_cast<const transform&>(*this);
-#ifdef MY_USE_SIMD
+#ifdef SMKZ_USE_SIMD
   if constexpr (std::is_same_v<F, float>)
     return {m[0].norm(), m[1].norm(), m[2].norm()};
   else
-#endif  // MY_USE_SIMD
+#endif  // SMKZ_USE_SIMD
   {
     vec<F, 3> col0(m(0, 0), m(1, 0), m(2, 0));
     vec<F, 3> col1(m(0, 1), m(1, 1), m(2, 1));
@@ -483,12 +483,12 @@ point<F, 3> transform<F>::operator*(const point<F, 3>& p) const noexcept {
   F y = p[1];
   F z = p[2];
 
-#ifdef MY_USE_SIMD
+#ifdef SMKZ_USE_SIMD
   if constexpr (std::is_same_v<F, float>) {
     auto mp = m[0] * x + m[1] * y + m[2] * z + m[3];
     return (mp / mp[3]).template cast_to<pointf3>();
   } else
-#endif  // MY_USE_SIMD
+#endif  // SMKZ_USE_SIMD
   {
     F xp = m(0, 0) * x + m(0, 1) * y + m(0, 2) * z + m(0, 3);
     F yp = m(1, 0) * x + m(1, 1) * y + m(1, 2) * z + m(1, 3);
@@ -511,11 +511,11 @@ vec<F, 3> transform<F>::operator*(const vec<F, 3>& v) const noexcept {
   F y = v[1];
   F z = v[2];
 
-#ifdef MY_USE_SIMD
+#ifdef SMKZ_USE_SIMD
   if constexpr (std::is_same_v<F, float>)
     return (m[0] * x + m[1] * y + m[2] * z).template cast_to<vecf3>();
   else
-#endif  // MY_USE_SIMD
+#endif  // SMKZ_USE_SIMD
   {
     F xp = m(0, 0) * x + m(0, 1) * y + m(0, 2) * z;
     F yp = m(1, 0) * x + m(1, 1) * y + m(1, 2) * z;
@@ -547,9 +547,9 @@ bbox<F, 3> transform<F>::operator*(const bbox<F, 3>& A) const noexcept {
   const auto& m = static_cast<const transform&>(*this);
 
   // See Christer Ericson's Real-time Collision Detection, p. 87, or
-  // James Arvo's "Transforming Axis-aligned Bounding Boxes" in Graphics Gems 1,
-  // pp. 548-550. http://www.graphicsgems.org/
-#ifdef MY_USE_SIMD
+  // James Arvo's "Transforming Axis-aligned Bounding Boxes" in Graphics Gems
+  // 1, pp. 548-550. http://www.graphicsgems.org/
+#ifdef SMKZ_USE_SIMD
   if constexpr (std::is_same_v<F, float>) {
     vecf<4> Bmin = m[3];
     vecf<4> Bmax = m[3];
@@ -571,7 +571,7 @@ bbox<F, 3> transform<F>::operator*(const bbox<F, 3>& A) const noexcept {
     return {pointf3{Bmin[0], Bmin[1], Bmin[2]},
             pointf3{Bmax[0], Bmax[1], Bmax[2]}};
   } else
-#endif  // MY_USE_SIMD
+#endif  // SMKZ_USE_SIMD
   {
     point<F, 3> Amin = A.minP();
     point<F, 3> Amax = A.maxP();
@@ -610,4 +610,4 @@ template <typename F>
 ray<F, 3> transform<F>::operator*(const ray<F, 3>& r) const noexcept {
   return {(*this) * r.point, (*this) * r.dir, r.tmin, r.tmax};
 }
-}  // namespace My
+}  // namespace  Smkz

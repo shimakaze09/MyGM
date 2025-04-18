@@ -3,16 +3,15 @@
 #include "rgb.hpp"
 #include "svec.hpp"
 
-namespace My {
+namespace Smkz {
 // [summary]
 // schlick's approximation fresnel for dielectric
 // [reference]
 // Schlick C. An inexpensive BRDF model for physically�\based rendering.
 // [argument]
 // - cos_theta: theta is on one side of the surface with low refractive index
-// - eta: refractive index of material (refractive index of air is 1 as default)
-// [return]
-// specular reflection coefficient
+// - eta: refractive index of material (refractive index of air is 1 as
+// default) [return] specular reflection coefficient
 float fresnel_schlick(float cos_theta, float eta) noexcept;
 
 // [summary]
@@ -114,6 +113,6 @@ float GGX_G(float alpha, const svecf& wi, const svecf& wo,
 // - wo: outgoing direction
 // - wm: microfacet normal
 float GGX_D(float alpha, const svecf& wm) noexcept;
-}  // namespace My
+}  // namespace  Smkz
 
 #include "details/material.inl"

@@ -1,6 +1,6 @@
 #pragma once
 
-namespace My {
+namespace Smkz {
 template <typename T, size_t N>
 line<T, N> ray<T, N>::to_line() const noexcept {
   return {this->point, this->dir};
@@ -56,7 +56,7 @@ std::tuple<bool, T> ray<T, N>::intersect_std_sphere() const noexcept {
   constexpr auto r2 = pow2(r);
   const auto& p = this->point;
   const auto& d = this->dir;
-#ifdef MY_USE_SIMD
+#ifdef SMKZ_USE_SIMD
   // 36 instructions
   if constexpr (std::is_same_v<T, float> && N == 3) {
     vecf4 oc = _mm_loadu_ps(p.data());
@@ -80,7 +80,7 @@ std::tuple<bool, T> ray<T, N>::intersect_std_sphere() const noexcept {
 
     return {true, t};
   } else
-#endif  // MY_USE_SIMD
+#endif  // SMKZ_USE_SIMD
         // 51 instructions
   {
     vec<T, N> oc = p.template cast_to<vec<T, N>>();
@@ -111,7 +111,7 @@ std::tuple<bool, T> ray<T, N>::intersect_sphere(const point<T, 3>& center,
   const T r2 = pow2(radius);
   const auto& p = this->point;
   const auto& d = this->dir;
-#ifdef MY_USE_SIMD
+#ifdef SMKZ_USE_SIMD
   if constexpr (std::is_same_v<T, float> && N == 3) {
     vecf4 oc = _mm_loadu_ps((p - center).data());
     vecf4 dir = _mm_loadu_ps(d.data());
@@ -134,7 +134,7 @@ std::tuple<bool, T> ray<T, N>::intersect_sphere(const point<T, 3>& center,
 
     return {true, t};
   } else
-#endif  // MY_USE_SIMD
+#endif  // SMKZ_USE_SIMD
   {
     vec<T, N> oc = p - center;
     T a = d.norm2();
@@ -198,4 +198,4 @@ std::tuple<bool, T, point<T, 2>> ray<T, N>::intersect_std_disk()
 
   return {true, t, point<T, 2>{x, z}};
 }
-}  // namespace My
+}  // namespace  Smkz

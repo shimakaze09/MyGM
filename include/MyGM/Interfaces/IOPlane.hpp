@@ -4,7 +4,7 @@
 
 #include "ILinear.hpp"
 
-namespace My {
+namespace Smkz {
 // plane in linear subspace
 // 'O' : original point
 template <typename Base, typename Impl>
@@ -18,4 +18,4 @@ struct IOPlane : Base {
 
   SI_ImplTraits_V<Impl> normal;
 };
-}  // namespace My
+}  // namespace  Smkz

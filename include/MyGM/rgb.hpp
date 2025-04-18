@@ -6,7 +6,7 @@
 #include "Interfaces/ILinear.hpp"
 #include "details/traits.hpp"
 
-namespace My {
+namespace Smkz {
 template <typename T>
 struct SI_ImplTraits<rgb<T>>
     : Array1DTraits<T, 3>,
@@ -34,4 +34,4 @@ using rgbf = rgb<float>;
 
 // maybe error in editor, but no compile error
 static_assert(sizeof(rgbf) == 3 * sizeof(float));
-}  // namespace My
+}  // namespace  Smkz

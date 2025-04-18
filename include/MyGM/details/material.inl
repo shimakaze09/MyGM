@@ -1,7 +1,7 @@
 #include "..\material.hpp"
 #pragma once
 
-namespace My {
+namespace Smkz {
 inline float fresnel_schlick(float cos_theta, float eta) noexcept {
   float x = (eta - 1) / (eta + 1);
   float R0 = x * x;  // reflectance at normal incidence, 'R' means specular
@@ -81,4 +81,4 @@ inline float GGX_D(float alpha, const svecf& wm) noexcept {
   float denominator = PI<float> * pow2(1 + (alpha2 - 1) * pow2(cos_stheta));
   return alpha2 / denominator;
 }
-}  // namespace My
+}  // namespace  Smkz

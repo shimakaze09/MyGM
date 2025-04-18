@@ -3,7 +3,7 @@
 #include "IAffineRealSubspace.hpp"
 #include "IOLine.hpp"
 
-namespace My {
+namespace Smkz {
 // line in real affine subspace
 template <typename Base, typename Impl>
 struct ILine : Base {
@@ -15,6 +15,7 @@ struct ILine : Base {
 
   Point at(F t) const noexcept { return this->point + t * this->dir; }
 };
-}  // namespace My
+}  // namespace  Smkz
 
-SI_InterfaceTraits_Register(My::ILine, My::IAffineRealSubspace, My::IOLine);
+SI_InterfaceTraits_Register(Smkz::ILine, Smkz::IAffineRealSubspace,
+                            Smkz::IOLine);

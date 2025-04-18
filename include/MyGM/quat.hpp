@@ -5,7 +5,7 @@
 #include "euler.hpp"
 #include "point.hpp"
 
-namespace My {
+namespace Smkz {
 template <typename T>
 struct SI_ImplTraits<quat<T>> : Array1DTraits<T, 4>,
                                 SIMDTraits<false>,  // float4 not use SIMD
@@ -69,6 +69,6 @@ using quatf = quat<float>;
 
 // maybe error in editor, but no compile error
 static_assert(sizeof(quatf) == 4 * sizeof(float));
-}  // namespace My
+}  // namespace  Smkz
 
 #include "details/quat.inl"

@@ -1,6 +1,6 @@
 #pragma once
 
-namespace My {
+namespace Smkz {
 template <typename T>
 quat<T> euler<T>::to_quat() const noexcept {
   // slow
@@ -32,4 +32,4 @@ quat<T> euler<T>::to_quat() const noexcept {
 
   return {imagX, imagY, imagZ, real};
 }
-}  // namespace My
+}  // namespace  Smkz

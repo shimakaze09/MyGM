@@ -1,6 +1,6 @@
 #pragma once
 
-namespace My {
+namespace Smkz {
 template <typename T>
 mat<T, 3> svec<T>::TBN(const vec<T, 3>& n, const vec<T, 3>& t) noexcept {
   auto nN = n.normalize();
@@ -90,4 +90,4 @@ vec<T, 3> operator*(const mat<T, 3>& m, const svec<T>& sv) noexcept {
   assert(sv.is_normalized());
   return m * sv.template cast_to<vec<T, 3>>();
 }
-}  // namespace My
+}  // namespace  Smkz

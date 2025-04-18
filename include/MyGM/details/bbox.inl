@@ -1,6 +1,6 @@
 #pragma once
 
-namespace My {
+namespace Smkz {
 template <typename F, size_t N>
 bbox<F, N>::bbox() noexcept
     : Base{point<F, N>{std::numeric_limits<F>::max()},
@@ -93,7 +93,8 @@ size_t bbox<F, N>::max_extent() const noexcept {
 template <typename F, size_t N>
 point<F, N> bbox<F, N>::lerp(const val<F, N>& t) const noexcept {
   point<F, N> rst{};
-  for (size_t i = 0; i < N; i++) rst[i] = My::lerp(minP()[i], maxP()[i], t[i]);
+  for (size_t i = 0; i < N; i++)
+    rst[i] = Smkz::lerp(minP()[i], maxP()[i], t[i]);
   return rst;
 }
 
@@ -142,4 +143,4 @@ bbox<F, N>& bbox<F, N>::intersect_to_self(const bbox& rhs) noexcept {
   maxP() = point<F, N>::min(maxP(), rhs.maxP());
   return *this;
 }
-}  // namespace My
+}  // namespace  Smkz

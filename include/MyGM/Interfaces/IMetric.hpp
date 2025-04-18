@@ -2,7 +2,7 @@
 
 #include "ImplTraits.hpp"
 
-namespace My {
+namespace Smkz {
 template <typename Base, typename Impl>
 struct IMetric : Base {
   using F = SI_ImplTraits_F<Impl>;
@@ -18,4 +18,4 @@ struct IMetric : Base {
     return distance(x, y);
   }
 };
-}  // namespace My
+}  // namespace  Smkz

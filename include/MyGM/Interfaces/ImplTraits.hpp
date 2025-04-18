@@ -2,14 +2,14 @@
 
 #include <MyTemplate/SI.hpp>
 
-namespace My::details {
+namespace Smkz::details {
 template <typename Impl>
 struct SI_ImplTraits_SupportSIMD;
 template <typename Impl, std::size_t N>
 struct SI_ImplTraits_SupportImplN;
-}  // namespace My::details
+}  // namespace  Smkz::details
 
-namespace My {
+namespace Smkz {
 // element type
 template <typename Impl>
 using SI_ImplTraits_T = typename SI_ImplTraits<Impl>::T;
@@ -40,10 +40,10 @@ constexpr bool SI_ImplTraits_SupportSIMD =
 template <typename Impl, std::size_t N>
 constexpr bool SI_ImplTraits_SupportImplN =
     details::SI_ImplTraits_SupportImplN<Impl, N>::value;
-}  // namespace My
+}  // namespace  Smkz
 
-namespace My::details {
-#ifdef MY_USE_SIMD
+namespace Smkz::details {
+#ifdef SMKZ_USE_SIMD
 template <typename Enabler, typename Impl>
 struct SI_ImplTraits_SupportSIMD_Helper : std::true_type {};
 template <typename Impl>
@@ -71,4 +71,4 @@ struct SI_ImplTraits_SupportImplN_Helper<
 template <typename Impl, std::size_t N>
 struct SI_ImplTraits_SupportImplN
     : SI_ImplTraits_SupportImplN_Helper<void, Impl, N> {};
-}  // namespace My::details
+}  // namespace  Smkz::details

@@ -1,6 +1,6 @@
 #pragma once
 
-namespace My {
+namespace Smkz {
 template <typename T>
 quat<T> quat<T>::imag_real(const vec<T, 3>& imag, T real) noexcept {
   return {imag[0], imag[1], imag[2], real};
@@ -156,4 +156,4 @@ std::istream& quat<T>::impl_in(std::istream& is) noexcept {
 
   return is;
 }
-}  // namespace My
+}  // namespace  Smkz

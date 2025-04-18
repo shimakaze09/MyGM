@@ -5,7 +5,7 @@
 
 #include "config.hpp"
 
-namespace My {
+namespace Smkz {
 template <typename T, typename = std::enable_if_t<std::is_arithmetic_v<T>>>
 constexpr auto EPSILON = static_cast<T>(0.001);
 
@@ -61,6 +61,6 @@ template <typename T>
 constexpr T pow2(T x) noexcept;
 template <typename T>
 constexpr T pow5(T x) noexcept;
-}  // namespace My
+}  // namespace  Smkz
 
 #include "details/basic.inl"

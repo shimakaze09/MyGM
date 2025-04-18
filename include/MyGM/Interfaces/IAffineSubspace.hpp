@@ -2,7 +2,7 @@
 
 #include "ILinear.hpp"
 
-namespace My {
+namespace Smkz {
 template <typename Base, typename Impl>
 struct IAffineSubspace : Base {
   using Base::Base;
@@ -32,4 +32,4 @@ struct IAffineSubspace : Base {
     return static_cast<Impl*>(this)->impl_affine_subspace_minus_to_self(v);
   }
 };
-}  // namespace My
+}  // namespace  Smkz

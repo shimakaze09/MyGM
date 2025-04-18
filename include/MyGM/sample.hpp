@@ -3,7 +3,7 @@
 #include "svec.hpp"
 #include "val.hpp"
 
-namespace My {
+namespace Smkz {
 // [0, 1) x [0, 1)
 template <typename T>
 val<T, 2> uniform_in_square() noexcept;
@@ -33,6 +33,6 @@ val<T, 3> cos_weighted_on_hemisphere() noexcept;
 // ref: Walter B, et al. Microfacet Models for Refraction through Rough
 // Surfaces. [return] wm: microfacet normal
 svecf sample_GGX_D(float alpha) noexcept;
-}  // namespace My
+}  // namespace  Smkz
 
 #include "details/sample.inl"

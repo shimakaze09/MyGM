@@ -1,6 +1,6 @@
 #pragma once
 
-namespace My {
+namespace Smkz {
 template <typename T, size_t N>
 struct bbox;
 template <typename T>
@@ -37,4 +37,4 @@ template <typename T, size_t N>
 struct val;
 template <typename T, size_t N>
 struct vec;
-}  // namespace My
+}  // namespace  Smkz

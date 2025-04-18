@@ -1,7 +1,7 @@
 #include <MyGM/vec.hpp>
 #include <iostream>
 
-using namespace My;
+using namespace Smkz;
 using namespace std;
 
 int main(int argc, char* argv[]) {

@@ -2,7 +2,7 @@
 #include <iostream>
 
 using namespace std;
-using namespace My;
+using namespace Smkz;
 
 int main() {
   transformf tsfm;  // default constructor

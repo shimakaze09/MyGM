@@ -9,7 +9,7 @@
 #include "Interfaces/IArray/IEuclideanV.hpp"
 #include "details/traits.hpp"
 
-namespace My {
+namespace Smkz {
 template <typename T, size_t N>
 struct SI_ImplTraits<val<T, N>>
     : Array1DTraits<T, N>,
@@ -108,6 +108,6 @@ using valu4 = valu<4>;
 
 // maybe error in editor, but no compile error
 static_assert(sizeof(valf4) == 4 * sizeof(float));
-}  // namespace My
+}  // namespace  Smkz
 
 #include "details/val.inl"

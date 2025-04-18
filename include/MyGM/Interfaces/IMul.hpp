@@ -1,6 +1,6 @@
 #pragma once
 
-namespace My {
+namespace Smkz {
 template <typename Base, typename Impl>
 struct IMul : Base {
   using Base::Base;
@@ -23,4 +23,4 @@ struct IMul : Base {
     return static_cast<const Impl*>(this)->impl_inverse();
   }
 };
-}  // namespace My
+}  // namespace  Smkz

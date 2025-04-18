@@ -2,13 +2,13 @@
 
 #include "point.hpp"
 
-namespace My {
+namespace Smkz {
 template <typename T>
 struct SI_ImplTraits<normal<T>> : Array1DTraits<T, 3>,
                                   IListTraits<IArray1D_Util, ICross> {};
 
-// it's necessary to distinguish vector and normal(bivector) when transformings
-// ref
+// it's necessary to distinguish vector and normal(bivector) when
+// transformings ref
 // - PBRT p. 86-87
 // - wikipedia-bivector: https://en.wikipedia.org/wiki/Bivector
 // -
@@ -29,6 +29,6 @@ using normalf = normal<float>;
 
 // maybe error in editor, but no compile error
 static_assert(sizeof(normalf) == 3 * sizeof(float));
-}  // namespace My
+}  // namespace  Smkz
 
 #include "details/normal.inl"

@@ -2,7 +2,7 @@
 
 #include "IAffineSubspace.hpp"
 
-namespace My {
+namespace Smkz {
 template <typename Base, typename Point>
 struct IAffine : Base {
   using Base::Base;
@@ -17,6 +17,6 @@ struct IAffine : Base {
     return static_cast<const Point*>(this)->impl_affine_minus(y);
   }
 };
-}  // namespace My
+}  // namespace  Smkz
 
-SI_InterfaceTraits_Register(My::IAffine, My::IAffineSubspace);
+SI_InterfaceTraits_Register(Smkz::IAffine, Smkz::IAffineSubspace);

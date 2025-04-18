@@ -4,7 +4,7 @@
 
 #include "forward_decl.hpp"
 
-namespace My {
+namespace Smkz {
 template <typename T_, size_t N_, typename F_>
 struct ArrayTraits {
   using T = T_;
@@ -30,4 +30,4 @@ template <bool support>
 struct SIMDTraits {
   static constexpr bool support_SIMD = support;
 };
-}  // namespace My
+}  // namespace  Smkz

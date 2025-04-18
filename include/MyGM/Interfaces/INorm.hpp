@@ -4,7 +4,7 @@
 #include "ILinear.hpp"
 #include "IMetric.hpp"
 
-namespace My {
+namespace Smkz {
 template <typename Base, typename Impl>
 struct INorm : Base {
   using F = SI_ImplTraits_F<Impl>;
@@ -60,6 +60,6 @@ struct INorm : Base {
     return (x - y).norm();
   }
 };
-}  // namespace My
+}  // namespace  Smkz
 
-SI_InterfaceTraits_Register(My::INorm, My::IMetric, My::ILinear);
+SI_InterfaceTraits_Register(Smkz::INorm, Smkz::IMetric, Smkz::ILinear);

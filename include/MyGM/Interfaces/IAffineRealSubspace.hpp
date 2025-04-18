@@ -2,7 +2,7 @@
 
 #include "IAffine.hpp"
 
-namespace My {
+namespace Smkz {
 template <typename Base, typename Impl>
 struct IAffineRealSubspace : Base {
   using Base::Base;
@@ -54,6 +54,6 @@ struct IAffineRealSubspace : Base {
     return static_cast<Impl&>(*this);
   }
 };
-}  // namespace My
+}  // namespace  Smkz
 
-SI_InterfaceTraits_Register(My::IAffineRealSubspace, My::IAffineSubspace);
+SI_InterfaceTraits_Register(Smkz::IAffineRealSubspace, Smkz::IAffineSubspace);

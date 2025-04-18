@@ -4,7 +4,7 @@
 #include "IMatrix.hpp"
 #include "details/IMatrixMul.inl"
 
-namespace My {
+namespace Smkz {
 template <typename Base, typename Impl>
 struct IMatrixMul : Base {
   using Base::Base;
@@ -35,6 +35,6 @@ struct IMatrixMul : Base {
     return details::IMatrixMul::inverse<N>::run(m);
   }
 };
-}  // namespace My
+}  // namespace  Smkz
 
-SI_InterfaceTraits_Register(My::IMatrixMul, My::IMul, My::IMatrix);
+SI_InterfaceTraits_Register(Smkz::IMatrixMul, Smkz::IMul, Smkz::IMatrix);

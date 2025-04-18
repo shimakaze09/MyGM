@@ -1,6 +1,6 @@
 #pragma once
 
-namespace My {
+namespace Smkz {
 template <typename T>
 val<T, 2> uniform_in_square() noexcept {
   return {rand01<T>(), rand01<T>()};
@@ -61,4 +61,4 @@ inline svecf sample_GGX_D(float alpha) noexcept {
   return {sin_sthetam * std::cos(phi), sin_sthetam * std::sin(phi),
           cos_sthetam};
 }
-}  // namespace My
+}  // namespace  Smkz

@@ -4,7 +4,7 @@
 #include "Interfaces/IArray/ICross.hpp"
 #include "details/traits.hpp"
 
-namespace My {
+namespace Smkz {
 template <typename T, size_t N>
 struct SI_ImplTraits<vec<T, N>> : Array1DTraits<T, N>,
                                   IListTraits<IArray1D_Util, IEuclideanV>,
@@ -46,4 +46,4 @@ using vecu4 = vecu<4>;
 
 // maybe error in editor, but no compile error
 static_assert(sizeof(vecf4) == 4 * sizeof(float));
-}  // namespace My
+}  // namespace  Smkz

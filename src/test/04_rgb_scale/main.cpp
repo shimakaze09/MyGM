@@ -3,7 +3,7 @@
 #include <iostream>
 
 using namespace std;
-using namespace My;
+using namespace Smkz;
 
 int main() {
   rgbf white = {1.f, 1.f, 1.f};

@@ -4,7 +4,7 @@
 #include "../INorm.hpp"
 #include "IArrayLinear.hpp"
 
-namespace My {
+namespace Smkz {
 // euclidean vector space
 template <typename Base, typename Impl>
 struct IEuclideanV : Base {
@@ -14,7 +14,7 @@ struct IEuclideanV : Base {
   static constexpr size_t N = SI_ImplTraits_N<Impl>;
   using F = SI_ImplTraits_F<Impl>;
 
-#ifdef MY_USE_SIMD
+#ifdef SMKZ_USE_SIMD
   // w == 0
   static Impl v3_cross(const Impl& x, const Impl& y) noexcept {
     static_assert(SI_ImplTraits_SupportSIMD<Impl>);
@@ -39,14 +39,14 @@ struct IEuclideanV : Base {
     static_assert(SI_ImplTraits_SupportSIMD<Impl>);
     // ref
     // https://stackoverflow.com/questions/4120681/how-to-calculate-single-vector-dot-product-using-sse-intrinsic-functions-in-c
-#ifdef MY_USE_SSE_4_1
+#ifdef SMKZ_USE_SSE_4_1
     return _mm_dp_ps(x, y, 0x7f);  // 0x7f : 011111111
 #else
     auto a2 = x.template get<0>() + y.template get<0>();
     auto b2 = x.template get<1>() + y.template get<1>();
     auto c2 = x.template get<2>() + y.template get<2>();
     return Impl{a2 + b2 + c2};
-#endif  // MY_USE_SSE_4_1
+#endif  // SMKZ_USE_SSE_4_1
   }
 
   // x = y = z = w
@@ -246,11 +246,11 @@ struct IEuclideanV : Base {
   friend struct IInnerProduct;
 
   static F impl_dot(const Impl& x, const Impl& y) noexcept {
-#ifdef MY_USE_SIMD
+#ifdef SMKZ_USE_SIMD
     if constexpr (SI_ImplTraits_SupportSIMD<Impl>) {
       // ref
       // https://stackoverflow.com/questions/4120681/how-to-calculate-single-vector-dot-product-using-sse-intrinsic-functions-in-c
-#ifdef MY_USE_SSE_4_1
+#ifdef SMKZ_USE_SSE_4_1
       auto srst = _mm_dp_ps(x, y, 0xf1);  // 0xf1 : 11110001
       return _mm_cvtss_f32(srst);
 #else
@@ -262,7 +262,7 @@ struct IEuclideanV : Base {
       return _mm_cvtss_f32(sums);
 #endif  // USE_SSE_4_1
     } else
-#endif  // MY_USE_SIMD
+#endif  // SMKZ_USE_SIMD
     {
       F rst;
       rst = x[0] * y[0];
@@ -271,7 +271,7 @@ struct IEuclideanV : Base {
     }
   }
 };
-}  // namespace My
+}  // namespace  Smkz
 
-SI_InterfaceTraits_Register(My::IEuclideanV, My::IInnerProduct,
-                            My::IArrayLinear);
+SI_InterfaceTraits_Register(Smkz::IEuclideanV, Smkz::IInnerProduct,
+                            Smkz::IArrayLinear);

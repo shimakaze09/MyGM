@@ -5,9 +5,9 @@
 #include "IAdd.hpp"
 #include "IScalarMul.hpp"
 
-namespace My {
+namespace Smkz {
 template <typename Base, typename Impl>
 struct ILinear;
 }
 
-SI_CombineInterface(My::ILinear, My::IAdd, My::IScalarMul);
+SI_CombineInterface(Smkz::ILinear, Smkz::IAdd, Smkz::IScalarMul);

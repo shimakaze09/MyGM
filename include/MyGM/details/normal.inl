@@ -1,6 +1,6 @@
 #pragma once
 
-namespace My {
+namespace Smkz {
 template <typename T>
 point<T, 2> normal<T>::to_sphere_coordinate() const noexcept {
   assert(this->is_normalized());
@@ -18,4 +18,4 @@ vec<T, 3> normal<T>::to_sphere_tangent() const noexcept {
   else
     return {(*this)[2], 0, -(*this)[0]};
 }
-}  // namespace My
+}  // namespace  Smkz

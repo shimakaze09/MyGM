@@ -6,7 +6,7 @@
 #include "Interfaces/IRing.hpp"
 #include "vec.hpp"
 
-namespace My {
+namespace Smkz {
 template <typename F, size_t N>
 struct SI_ImplTraits<mat<F, N>>
     : ArrayTraits<vec<F, N>, N, F>,
@@ -26,4 +26,4 @@ using matf4 = matf<4>;
 
 // maybe error in editor, but no compile error
 static_assert(sizeof(matf4) == 16 * sizeof(float));
-}  // namespace My
+}  // namespace  Smkz

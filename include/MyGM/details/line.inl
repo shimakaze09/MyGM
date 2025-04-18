@@ -1,6 +1,6 @@
 #pragma once
 
-namespace My {
+namespace Smkz {
 template <typename T, size_t N>
 line<T, N> line<T, N>::impl_move(const line& line,
                                  const point<T, N>& p) noexcept {
@@ -29,7 +29,7 @@ template <typename T, size_t N>
 std::tuple<bool, std::array<T, 3>, T> line<T, N>::intersect(
     const triangle<T, 3>& tri) const noexcept {
   static_assert(N == 3);
-#ifdef MY_USE_SIMD
+#ifdef SMKZ_USE_SIMD
   // about 58 instructions
   if constexpr (std::is_same_v<T, float>) {
     vecf4 d{this->dir.data()};
@@ -68,7 +68,7 @@ std::tuple<bool, std::array<T, 3>, T> line<T, N>::intersect(
 
     return {true, std::array<T, 3>{ONE<T> - u_plus_v, u, v}, t};
   } else
-#endif  // MY_USE_SIMD
+#endif  // SMKZ_USE_SIMD
   {     // about 103 instructions
     const auto& p = this->point;
     const auto& d = this->dir;
@@ -118,7 +118,7 @@ template <typename T, size_t N>
 std::tuple<bool, T, T> line<T, N>::intersect(const bbox<T, N>& box,
                                              const vec<T, N>& invdir, T tmin,
                                              T tmax) const noexcept {
-#ifdef MY_USE_SIMD
+#ifdef SMKZ_USE_SIMD
   if constexpr (std::is_same_v<T, float> && N == 3) {
     // 26 instructions, no loop
     auto sorigin = _mm_loadu_ps(this->point.data());
@@ -158,4 +158,4 @@ std::tuple<bool, T, T> line<T, N>::intersect(const bbox<T, N>& box,
 
   return {true, tmin, tmax};
 }
-}  // namespace My
+}  // namespace  Smkz

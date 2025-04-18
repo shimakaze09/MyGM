@@ -4,7 +4,7 @@
 #include "point.hpp"
 #include "vec.hpp"
 
-namespace My {
+namespace Smkz {
 template <typename T>
 struct SI_ImplTraits<plane<T>> : IListTraits<IInOut, IPlane> {
   using V = vec<T, 3>;
@@ -34,6 +34,6 @@ using planef = plane<float>;
 
 // maybe error in editor, but no compile error
 static_assert(sizeof(planef) == 6 * sizeof(float));
-}  // namespace My
+}  // namespace  Smkz
 
 #include "details/plane.inl"

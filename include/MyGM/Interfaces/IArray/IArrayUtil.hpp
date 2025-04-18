@@ -3,7 +3,7 @@
 #include "IArrayCast.hpp"
 #include "IArrayInOut.hpp"
 
-namespace My {
+namespace Smkz {
 template <typename Base, typename Impl>
 struct IArrayUtil : Base {
   using Base::Base;
@@ -14,7 +14,7 @@ struct IArrayUtil : Base {
 
   Impl rmv_epsilon() const noexcept {
     Impl rst;
-    for (size_t i = 0; i < N; i++) rst[i] = My::rmv_epsilon((*this)[i]);
+    for (size_t i = 0; i < N; i++) rst[i] = Smkz::rmv_epsilon((*this)[i]);
     return rst;
   }
 
@@ -34,15 +34,15 @@ struct IArrayUtil : Base {
 
   static Impl lerp(const Impl& x, const Impl& y, F t) noexcept {
     F one_minus_t = static_cast<F>(1) - t;
-#ifdef MY_USE_SIMD
+#ifdef SMKZ_USE_SIMD
     if constexpr (SI_ImplTraits_SupportSIMD<Impl>)
       return _mm_add_ps(_mm_mul_ps(x, _mm_set1_ps(one_minus_t)),
                         _mm_mul_ps(y, _mm_set1_ps(t)));
     else
-#endif  // MY_USE_SIMD
+#endif  // SMKZ_USE_SIMD
     {
       Impl rst;
-      for (size_t i = 0; i < N; i++) rst[i] = My::lerp(x[i], y[i], t);
+      for (size_t i = 0; i < N; i++) rst[i] = Smkz::lerp(x[i], y[i], t);
       return rst;
     }
   }
@@ -63,7 +63,7 @@ struct IArrayUtil : Base {
     auto val_iter = vals.begin();
     auto weight_iter = weights.begin();
 
-#ifdef MY_USE_SIMD
+#ifdef SMKZ_USE_SIMD
     if constexpr (SI_ImplTraits_SupportSIMD<Impl>) {
       __m128 rst = _mm_mul_ps(*val_iter, *weight_iter);
       ++val_iter;
@@ -75,7 +75,7 @@ struct IArrayUtil : Base {
       }
       return rst;
     } else
-#endif  // MY_USE_SIMD
+#endif  // SMKZ_USE_SIMD
     {
       Impl rst;
       for (size_t j = 0; j < N; j++) rst[j] = (*val_iter)[j] * (*weight_iter);
@@ -89,6 +89,7 @@ struct IArrayUtil : Base {
     }
   }
 };
-}  // namespace My
+}  // namespace  Smkz
 
-SI_InterfaceTraits_Register(My::IArrayUtil, My::IArrayCast, My::IArrayInOut);
+SI_InterfaceTraits_Register(Smkz::IArrayUtil, Smkz::IArrayCast,
+                            Smkz::IArrayInOut);

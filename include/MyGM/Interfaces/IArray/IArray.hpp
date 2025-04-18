@@ -10,18 +10,18 @@
 #include "../../basic.hpp"
 #include "../ImplTraits.hpp"
 
-namespace My {
+namespace Smkz {
 template <typename Base, typename Impl>
 struct IArray1D;
 }
 
-namespace My::details {
+namespace Smkz::details {
 enum class ArrayMode {
   One,
   Two,
   Three,
   Four,
-#ifdef MY_USE_SIMD
+#ifdef SMKZ_USE_SIMD
   Four_SIMD,  // float4
 #endif
   Basic
@@ -333,410 +333,410 @@ struct SwizzleImpl<false, true, Impl, Ns...>
 template <typename Impl, std::size_t... Ns>
 struct Swizzle
     : SwizzleImpl<is_duplicate(std::index_sequence<Ns...>{}),
-                  My::SI_ImplTraits_SupportImplN<Impl, sizeof...(Ns)>, Impl,
+                  Smkz::SI_ImplTraits_SupportImplN<Impl, sizeof...(Ns)>, Impl,
                   Ns...> {};
-}  // namespace My::details
+}  // namespace  Smkz::details
 
-#define MY_ARRAY_SWIZZLE2_2(EI0, EI1, E0, E1)  \
-  My::details::Swizzle<Impl, EI0, EI0> E0##E0; \
-  My::details::Swizzle<Impl, EI0, EI1> E0##E1; \
-  My::details::Swizzle<Impl, EI1, EI0> E1##E0; \
-  My::details::Swizzle<Impl, EI1, EI1> E1##E1
+#define SMKZ_ARRAY_SWIZZLE2_2(EI0, EI1, E0, E1)  \
+  Smkz::details::Swizzle<Impl, EI0, EI0> E0##E0; \
+  Smkz::details::Swizzle<Impl, EI0, EI1> E0##E1; \
+  Smkz::details::Swizzle<Impl, EI1, EI0> E1##E0; \
+  Smkz::details::Swizzle<Impl, EI1, EI1> E1##E1
 
-#define MY_ARRAY_SWIZZLE3_3(EI0, EI1, EI2, E0, E1, E2)  \
-  My::details::Swizzle<Impl, EI0, EI0, EI0> E0##E0##E0; \
-  My::details::Swizzle<Impl, EI0, EI0, EI1> E0##E0##E1; \
-  My::details::Swizzle<Impl, EI0, EI0, EI2> E0##E0##E2; \
-  My::details::Swizzle<Impl, EI0, EI1, EI0> E0##E1##E0; \
-  My::details::Swizzle<Impl, EI0, EI1, EI1> E0##E1##E1; \
-  My::details::Swizzle<Impl, EI0, EI1, EI2> E0##E1##E2; \
-  My::details::Swizzle<Impl, EI0, EI2, EI0> E0##E2##E0; \
-  My::details::Swizzle<Impl, EI0, EI2, EI1> E0##E2##E1; \
-  My::details::Swizzle<Impl, EI0, EI2, EI2> E0##E2##E2; \
-  My::details::Swizzle<Impl, EI1, EI0, EI0> E1##E0##E0; \
-  My::details::Swizzle<Impl, EI1, EI0, EI1> E1##E0##E1; \
-  My::details::Swizzle<Impl, EI1, EI0, EI2> E1##E0##E2; \
-  My::details::Swizzle<Impl, EI1, EI1, EI0> E1##E1##E0; \
-  My::details::Swizzle<Impl, EI1, EI1, EI1> E1##E1##E1; \
-  My::details::Swizzle<Impl, EI1, EI1, EI2> E1##E1##E2; \
-  My::details::Swizzle<Impl, EI1, EI2, EI0> E1##E2##E0; \
-  My::details::Swizzle<Impl, EI1, EI2, EI1> E1##E2##E1; \
-  My::details::Swizzle<Impl, EI1, EI2, EI2> E1##E2##E2; \
-  My::details::Swizzle<Impl, EI2, EI0, EI0> E2##E0##E0; \
-  My::details::Swizzle<Impl, EI2, EI0, EI1> E2##E0##E1; \
-  My::details::Swizzle<Impl, EI2, EI0, EI2> E2##E0##E2; \
-  My::details::Swizzle<Impl, EI2, EI1, EI0> E2##E1##E0; \
-  My::details::Swizzle<Impl, EI2, EI1, EI1> E2##E1##E1; \
-  My::details::Swizzle<Impl, EI2, EI1, EI2> E2##E1##E2; \
-  My::details::Swizzle<Impl, EI2, EI2, EI0> E2##E2##E0; \
-  My::details::Swizzle<Impl, EI2, EI2, EI1> E2##E2##E1; \
-  My::details::Swizzle<Impl, EI2, EI2, EI2> E2##E2##E2
+#define SMKZ_ARRAY_SWIZZLE3_3(EI0, EI1, EI2, E0, E1, E2)  \
+  Smkz::details::Swizzle<Impl, EI0, EI0, EI0> E0##E0##E0; \
+  Smkz::details::Swizzle<Impl, EI0, EI0, EI1> E0##E0##E1; \
+  Smkz::details::Swizzle<Impl, EI0, EI0, EI2> E0##E0##E2; \
+  Smkz::details::Swizzle<Impl, EI0, EI1, EI0> E0##E1##E0; \
+  Smkz::details::Swizzle<Impl, EI0, EI1, EI1> E0##E1##E1; \
+  Smkz::details::Swizzle<Impl, EI0, EI1, EI2> E0##E1##E2; \
+  Smkz::details::Swizzle<Impl, EI0, EI2, EI0> E0##E2##E0; \
+  Smkz::details::Swizzle<Impl, EI0, EI2, EI1> E0##E2##E1; \
+  Smkz::details::Swizzle<Impl, EI0, EI2, EI2> E0##E2##E2; \
+  Smkz::details::Swizzle<Impl, EI1, EI0, EI0> E1##E0##E0; \
+  Smkz::details::Swizzle<Impl, EI1, EI0, EI1> E1##E0##E1; \
+  Smkz::details::Swizzle<Impl, EI1, EI0, EI2> E1##E0##E2; \
+  Smkz::details::Swizzle<Impl, EI1, EI1, EI0> E1##E1##E0; \
+  Smkz::details::Swizzle<Impl, EI1, EI1, EI1> E1##E1##E1; \
+  Smkz::details::Swizzle<Impl, EI1, EI1, EI2> E1##E1##E2; \
+  Smkz::details::Swizzle<Impl, EI1, EI2, EI0> E1##E2##E0; \
+  Smkz::details::Swizzle<Impl, EI1, EI2, EI1> E1##E2##E1; \
+  Smkz::details::Swizzle<Impl, EI1, EI2, EI2> E1##E2##E2; \
+  Smkz::details::Swizzle<Impl, EI2, EI0, EI0> E2##E0##E0; \
+  Smkz::details::Swizzle<Impl, EI2, EI0, EI1> E2##E0##E1; \
+  Smkz::details::Swizzle<Impl, EI2, EI0, EI2> E2##E0##E2; \
+  Smkz::details::Swizzle<Impl, EI2, EI1, EI0> E2##E1##E0; \
+  Smkz::details::Swizzle<Impl, EI2, EI1, EI1> E2##E1##E1; \
+  Smkz::details::Swizzle<Impl, EI2, EI1, EI2> E2##E1##E2; \
+  Smkz::details::Swizzle<Impl, EI2, EI2, EI0> E2##E2##E0; \
+  Smkz::details::Swizzle<Impl, EI2, EI2, EI1> E2##E2##E1; \
+  Smkz::details::Swizzle<Impl, EI2, EI2, EI2> E2##E2##E2
 
-#define MY_ARRAY_SWIZZLE4_4(EI0, EI1, EI2, EI3, E0, E1, E2, E3)  \
-  My::details::Swizzle<Impl, EI0, EI0, EI0, EI0> E0##E0##E0##E0; \
-  My::details::Swizzle<Impl, EI0, EI0, EI0, EI1> E0##E0##E0##E1; \
-  My::details::Swizzle<Impl, EI0, EI0, EI0, EI2> E0##E0##E0##E2; \
-  My::details::Swizzle<Impl, EI0, EI0, EI0, EI3> E0##E0##E0##E3; \
-  My::details::Swizzle<Impl, EI0, EI0, EI1, EI0> E0##E0##E1##E0; \
-  My::details::Swizzle<Impl, EI0, EI0, EI1, EI1> E0##E0##E1##E1; \
-  My::details::Swizzle<Impl, EI0, EI0, EI1, EI2> E0##E0##E1##E2; \
-  My::details::Swizzle<Impl, EI0, EI0, EI1, EI3> E0##E0##E1##E3; \
-  My::details::Swizzle<Impl, EI0, EI0, EI2, EI0> E0##E0##E2##E0; \
-  My::details::Swizzle<Impl, EI0, EI0, EI2, EI1> E0##E0##E2##E1; \
-  My::details::Swizzle<Impl, EI0, EI0, EI2, EI2> E0##E0##E2##E2; \
-  My::details::Swizzle<Impl, EI0, EI0, EI2, EI3> E0##E0##E2##E3; \
-  My::details::Swizzle<Impl, EI0, EI0, EI3, EI0> E0##E0##E3##E0; \
-  My::details::Swizzle<Impl, EI0, EI0, EI3, EI1> E0##E0##E3##E1; \
-  My::details::Swizzle<Impl, EI0, EI0, EI3, EI2> E0##E0##E3##E2; \
-  My::details::Swizzle<Impl, EI0, EI0, EI3, EI3> E0##E0##E3##E3; \
-  My::details::Swizzle<Impl, EI0, EI1, EI0, EI0> E0##E1##E0##E0; \
-  My::details::Swizzle<Impl, EI0, EI1, EI0, EI1> E0##E1##E0##E1; \
-  My::details::Swizzle<Impl, EI0, EI1, EI0, EI2> E0##E1##E0##E2; \
-  My::details::Swizzle<Impl, EI0, EI1, EI0, EI3> E0##E1##E0##E3; \
-  My::details::Swizzle<Impl, EI0, EI1, EI1, EI0> E0##E1##E1##E0; \
-  My::details::Swizzle<Impl, EI0, EI1, EI1, EI1> E0##E1##E1##E1; \
-  My::details::Swizzle<Impl, EI0, EI1, EI1, EI2> E0##E1##E1##E2; \
-  My::details::Swizzle<Impl, EI0, EI1, EI1, EI3> E0##E1##E1##E3; \
-  My::details::Swizzle<Impl, EI0, EI1, EI2, EI0> E0##E1##E2##E0; \
-  My::details::Swizzle<Impl, EI0, EI1, EI2, EI1> E0##E1##E2##E1; \
-  My::details::Swizzle<Impl, EI0, EI1, EI2, EI2> E0##E1##E2##E2; \
-  My::details::Swizzle<Impl, EI0, EI1, EI2, EI3> E0##E1##E2##E3; \
-  My::details::Swizzle<Impl, EI0, EI1, EI3, EI0> E0##E1##E3##E0; \
-  My::details::Swizzle<Impl, EI0, EI1, EI3, EI1> E0##E1##E3##E1; \
-  My::details::Swizzle<Impl, EI0, EI1, EI3, EI2> E0##E1##E3##E2; \
-  My::details::Swizzle<Impl, EI0, EI1, EI3, EI3> E0##E1##E3##E3; \
-  My::details::Swizzle<Impl, EI0, EI2, EI0, EI0> E0##E2##E0##E0; \
-  My::details::Swizzle<Impl, EI0, EI2, EI0, EI1> E0##E2##E0##E1; \
-  My::details::Swizzle<Impl, EI0, EI2, EI0, EI2> E0##E2##E0##E2; \
-  My::details::Swizzle<Impl, EI0, EI2, EI0, EI3> E0##E2##E0##E3; \
-  My::details::Swizzle<Impl, EI0, EI2, EI1, EI0> E0##E2##E1##E0; \
-  My::details::Swizzle<Impl, EI0, EI2, EI1, EI1> E0##E2##E1##E1; \
-  My::details::Swizzle<Impl, EI0, EI2, EI1, EI2> E0##E2##E1##E2; \
-  My::details::Swizzle<Impl, EI0, EI2, EI1, EI3> E0##E2##E1##E3; \
-  My::details::Swizzle<Impl, EI0, EI2, EI2, EI0> E0##E2##E2##E0; \
-  My::details::Swizzle<Impl, EI0, EI2, EI2, EI1> E0##E2##E2##E1; \
-  My::details::Swizzle<Impl, EI0, EI2, EI2, EI2> E0##E2##E2##E2; \
-  My::details::Swizzle<Impl, EI0, EI2, EI2, EI3> E0##E2##E2##E3; \
-  My::details::Swizzle<Impl, EI0, EI2, EI3, EI0> E0##E2##E3##E0; \
-  My::details::Swizzle<Impl, EI0, EI2, EI3, EI1> E0##E2##E3##E1; \
-  My::details::Swizzle<Impl, EI0, EI2, EI3, EI2> E0##E2##E3##E2; \
-  My::details::Swizzle<Impl, EI0, EI2, EI3, EI3> E0##E2##E3##E3; \
-  My::details::Swizzle<Impl, EI0, EI3, EI0, EI0> E0##E3##E0##E0; \
-  My::details::Swizzle<Impl, EI0, EI3, EI0, EI1> E0##E3##E0##E1; \
-  My::details::Swizzle<Impl, EI0, EI3, EI0, EI2> E0##E3##E0##E2; \
-  My::details::Swizzle<Impl, EI0, EI3, EI0, EI3> E0##E3##E0##E3; \
-  My::details::Swizzle<Impl, EI0, EI3, EI1, EI0> E0##E3##E1##E0; \
-  My::details::Swizzle<Impl, EI0, EI3, EI1, EI1> E0##E3##E1##E1; \
-  My::details::Swizzle<Impl, EI0, EI3, EI1, EI2> E0##E3##E1##E2; \
-  My::details::Swizzle<Impl, EI0, EI3, EI1, EI3> E0##E3##E1##E3; \
-  My::details::Swizzle<Impl, EI0, EI3, EI2, EI0> E0##E3##E2##E0; \
-  My::details::Swizzle<Impl, EI0, EI3, EI2, EI1> E0##E3##E2##E1; \
-  My::details::Swizzle<Impl, EI0, EI3, EI2, EI2> E0##E3##E2##E2; \
-  My::details::Swizzle<Impl, EI0, EI3, EI2, EI3> E0##E3##E2##E3; \
-  My::details::Swizzle<Impl, EI0, EI3, EI3, EI0> E0##E3##E3##E0; \
-  My::details::Swizzle<Impl, EI0, EI3, EI3, EI1> E0##E3##E3##E1; \
-  My::details::Swizzle<Impl, EI0, EI3, EI3, EI2> E0##E3##E3##E2; \
-  My::details::Swizzle<Impl, EI0, EI3, EI3, EI3> E0##E3##E3##E3; \
-  My::details::Swizzle<Impl, EI1, EI0, EI0, EI0> E1##E0##E0##E0; \
-  My::details::Swizzle<Impl, EI1, EI0, EI0, EI1> E1##E0##E0##E1; \
-  My::details::Swizzle<Impl, EI1, EI0, EI0, EI2> E1##E0##E0##E2; \
-  My::details::Swizzle<Impl, EI1, EI0, EI0, EI3> E1##E0##E0##E3; \
-  My::details::Swizzle<Impl, EI1, EI0, EI1, EI0> E1##E0##E1##E0; \
-  My::details::Swizzle<Impl, EI1, EI0, EI1, EI1> E1##E0##E1##E1; \
-  My::details::Swizzle<Impl, EI1, EI0, EI1, EI2> E1##E0##E1##E2; \
-  My::details::Swizzle<Impl, EI1, EI0, EI1, EI3> E1##E0##E1##E3; \
-  My::details::Swizzle<Impl, EI1, EI0, EI2, EI0> E1##E0##E2##E0; \
-  My::details::Swizzle<Impl, EI1, EI0, EI2, EI1> E1##E0##E2##E1; \
-  My::details::Swizzle<Impl, EI1, EI0, EI2, EI2> E1##E0##E2##E2; \
-  My::details::Swizzle<Impl, EI1, EI0, EI2, EI3> E1##E0##E2##E3; \
-  My::details::Swizzle<Impl, EI1, EI0, EI3, EI0> E1##E0##E3##E0; \
-  My::details::Swizzle<Impl, EI1, EI0, EI3, EI1> E1##E0##E3##E1; \
-  My::details::Swizzle<Impl, EI1, EI0, EI3, EI2> E1##E0##E3##E2; \
-  My::details::Swizzle<Impl, EI1, EI0, EI3, EI3> E1##E0##E3##E3; \
-  My::details::Swizzle<Impl, EI1, EI1, EI0, EI0> E1##E1##E0##E0; \
-  My::details::Swizzle<Impl, EI1, EI1, EI0, EI1> E1##E1##E0##E1; \
-  My::details::Swizzle<Impl, EI1, EI1, EI0, EI2> E1##E1##E0##E2; \
-  My::details::Swizzle<Impl, EI1, EI1, EI0, EI3> E1##E1##E0##E3; \
-  My::details::Swizzle<Impl, EI1, EI1, EI1, EI0> E1##E1##E1##E0; \
-  My::details::Swizzle<Impl, EI1, EI1, EI1, EI1> E1##E1##E1##E1; \
-  My::details::Swizzle<Impl, EI1, EI1, EI1, EI2> E1##E1##E1##E2; \
-  My::details::Swizzle<Impl, EI1, EI1, EI1, EI3> E1##E1##E1##E3; \
-  My::details::Swizzle<Impl, EI1, EI1, EI2, EI0> E1##E1##E2##E0; \
-  My::details::Swizzle<Impl, EI1, EI1, EI2, EI1> E1##E1##E2##E1; \
-  My::details::Swizzle<Impl, EI1, EI1, EI2, EI2> E1##E1##E2##E2; \
-  My::details::Swizzle<Impl, EI1, EI1, EI2, EI3> E1##E1##E2##E3; \
-  My::details::Swizzle<Impl, EI1, EI1, EI3, EI0> E1##E1##E3##E0; \
-  My::details::Swizzle<Impl, EI1, EI1, EI3, EI1> E1##E1##E3##E1; \
-  My::details::Swizzle<Impl, EI1, EI1, EI3, EI2> E1##E1##E3##E2; \
-  My::details::Swizzle<Impl, EI1, EI1, EI3, EI3> E1##E1##E3##E3; \
-  My::details::Swizzle<Impl, EI1, EI2, EI0, EI0> E1##E2##E0##E0; \
-  My::details::Swizzle<Impl, EI1, EI2, EI0, EI1> E1##E2##E0##E1; \
-  My::details::Swizzle<Impl, EI1, EI2, EI0, EI2> E1##E2##E0##E2; \
-  My::details::Swizzle<Impl, EI1, EI2, EI0, EI3> E1##E2##E0##E3; \
-  My::details::Swizzle<Impl, EI1, EI2, EI1, EI0> E1##E2##E1##E0; \
-  My::details::Swizzle<Impl, EI1, EI2, EI1, EI1> E1##E2##E1##E1; \
-  My::details::Swizzle<Impl, EI1, EI2, EI1, EI2> E1##E2##E1##E2; \
-  My::details::Swizzle<Impl, EI1, EI2, EI1, EI3> E1##E2##E1##E3; \
-  My::details::Swizzle<Impl, EI1, EI2, EI2, EI0> E1##E2##E2##E0; \
-  My::details::Swizzle<Impl, EI1, EI2, EI2, EI1> E1##E2##E2##E1; \
-  My::details::Swizzle<Impl, EI1, EI2, EI2, EI2> E1##E2##E2##E2; \
-  My::details::Swizzle<Impl, EI1, EI2, EI2, EI3> E1##E2##E2##E3; \
-  My::details::Swizzle<Impl, EI1, EI2, EI3, EI0> E1##E2##E3##E0; \
-  My::details::Swizzle<Impl, EI1, EI2, EI3, EI1> E1##E2##E3##E1; \
-  My::details::Swizzle<Impl, EI1, EI2, EI3, EI2> E1##E2##E3##E2; \
-  My::details::Swizzle<Impl, EI1, EI2, EI3, EI3> E1##E2##E3##E3; \
-  My::details::Swizzle<Impl, EI1, EI3, EI0, EI0> E1##E3##E0##E0; \
-  My::details::Swizzle<Impl, EI1, EI3, EI0, EI1> E1##E3##E0##E1; \
-  My::details::Swizzle<Impl, EI1, EI3, EI0, EI2> E1##E3##E0##E2; \
-  My::details::Swizzle<Impl, EI1, EI3, EI0, EI3> E1##E3##E0##E3; \
-  My::details::Swizzle<Impl, EI1, EI3, EI1, EI0> E1##E3##E1##E0; \
-  My::details::Swizzle<Impl, EI1, EI3, EI1, EI1> E1##E3##E1##E1; \
-  My::details::Swizzle<Impl, EI1, EI3, EI1, EI2> E1##E3##E1##E2; \
-  My::details::Swizzle<Impl, EI1, EI3, EI1, EI3> E1##E3##E1##E3; \
-  My::details::Swizzle<Impl, EI1, EI3, EI2, EI0> E1##E3##E2##E0; \
-  My::details::Swizzle<Impl, EI1, EI3, EI2, EI1> E1##E3##E2##E1; \
-  My::details::Swizzle<Impl, EI1, EI3, EI2, EI2> E1##E3##E2##E2; \
-  My::details::Swizzle<Impl, EI1, EI3, EI2, EI3> E1##E3##E2##E3; \
-  My::details::Swizzle<Impl, EI1, EI3, EI3, EI0> E1##E3##E3##E0; \
-  My::details::Swizzle<Impl, EI1, EI3, EI3, EI1> E1##E3##E3##E1; \
-  My::details::Swizzle<Impl, EI1, EI3, EI3, EI2> E1##E3##E3##E2; \
-  My::details::Swizzle<Impl, EI1, EI3, EI3, EI3> E1##E3##E3##E3; \
-  My::details::Swizzle<Impl, EI2, EI0, EI0, EI0> E2##E0##E0##E0; \
-  My::details::Swizzle<Impl, EI2, EI0, EI0, EI1> E2##E0##E0##E1; \
-  My::details::Swizzle<Impl, EI2, EI0, EI0, EI2> E2##E0##E0##E2; \
-  My::details::Swizzle<Impl, EI2, EI0, EI0, EI3> E2##E0##E0##E3; \
-  My::details::Swizzle<Impl, EI2, EI0, EI1, EI0> E2##E0##E1##E0; \
-  My::details::Swizzle<Impl, EI2, EI0, EI1, EI1> E2##E0##E1##E1; \
-  My::details::Swizzle<Impl, EI2, EI0, EI1, EI2> E2##E0##E1##E2; \
-  My::details::Swizzle<Impl, EI2, EI0, EI1, EI3> E2##E0##E1##E3; \
-  My::details::Swizzle<Impl, EI2, EI0, EI2, EI0> E2##E0##E2##E0; \
-  My::details::Swizzle<Impl, EI2, EI0, EI2, EI1> E2##E0##E2##E1; \
-  My::details::Swizzle<Impl, EI2, EI0, EI2, EI2> E2##E0##E2##E2; \
-  My::details::Swizzle<Impl, EI2, EI0, EI2, EI3> E2##E0##E2##E3; \
-  My::details::Swizzle<Impl, EI2, EI0, EI3, EI0> E2##E0##E3##E0; \
-  My::details::Swizzle<Impl, EI2, EI0, EI3, EI1> E2##E0##E3##E1; \
-  My::details::Swizzle<Impl, EI2, EI0, EI3, EI2> E2##E0##E3##E2; \
-  My::details::Swizzle<Impl, EI2, EI0, EI3, EI3> E2##E0##E3##E3; \
-  My::details::Swizzle<Impl, EI2, EI1, EI0, EI0> E2##E1##E0##E0; \
-  My::details::Swizzle<Impl, EI2, EI1, EI0, EI1> E2##E1##E0##E1; \
-  My::details::Swizzle<Impl, EI2, EI1, EI0, EI2> E2##E1##E0##E2; \
-  My::details::Swizzle<Impl, EI2, EI1, EI0, EI3> E2##E1##E0##E3; \
-  My::details::Swizzle<Impl, EI2, EI1, EI1, EI0> E2##E1##E1##E0; \
-  My::details::Swizzle<Impl, EI2, EI1, EI1, EI1> E2##E1##E1##E1; \
-  My::details::Swizzle<Impl, EI2, EI1, EI1, EI2> E2##E1##E1##E2; \
-  My::details::Swizzle<Impl, EI2, EI1, EI1, EI3> E2##E1##E1##E3; \
-  My::details::Swizzle<Impl, EI2, EI1, EI2, EI0> E2##E1##E2##E0; \
-  My::details::Swizzle<Impl, EI2, EI1, EI2, EI1> E2##E1##E2##E1; \
-  My::details::Swizzle<Impl, EI2, EI1, EI2, EI2> E2##E1##E2##E2; \
-  My::details::Swizzle<Impl, EI2, EI1, EI2, EI3> E2##E1##E2##E3; \
-  My::details::Swizzle<Impl, EI2, EI1, EI3, EI0> E2##E1##E3##E0; \
-  My::details::Swizzle<Impl, EI2, EI1, EI3, EI1> E2##E1##E3##E1; \
-  My::details::Swizzle<Impl, EI2, EI1, EI3, EI2> E2##E1##E3##E2; \
-  My::details::Swizzle<Impl, EI2, EI1, EI3, EI3> E2##E1##E3##E3; \
-  My::details::Swizzle<Impl, EI2, EI2, EI0, EI0> E2##E2##E0##E0; \
-  My::details::Swizzle<Impl, EI2, EI2, EI0, EI1> E2##E2##E0##E1; \
-  My::details::Swizzle<Impl, EI2, EI2, EI0, EI2> E2##E2##E0##E2; \
-  My::details::Swizzle<Impl, EI2, EI2, EI0, EI3> E2##E2##E0##E3; \
-  My::details::Swizzle<Impl, EI2, EI2, EI1, EI0> E2##E2##E1##E0; \
-  My::details::Swizzle<Impl, EI2, EI2, EI1, EI1> E2##E2##E1##E1; \
-  My::details::Swizzle<Impl, EI2, EI2, EI1, EI2> E2##E2##E1##E2; \
-  My::details::Swizzle<Impl, EI2, EI2, EI1, EI3> E2##E2##E1##E3; \
-  My::details::Swizzle<Impl, EI2, EI2, EI2, EI0> E2##E2##E2##E0; \
-  My::details::Swizzle<Impl, EI2, EI2, EI2, EI1> E2##E2##E2##E1; \
-  My::details::Swizzle<Impl, EI2, EI2, EI2, EI2> E2##E2##E2##E2; \
-  My::details::Swizzle<Impl, EI2, EI2, EI2, EI3> E2##E2##E2##E3; \
-  My::details::Swizzle<Impl, EI2, EI2, EI3, EI0> E2##E2##E3##E0; \
-  My::details::Swizzle<Impl, EI2, EI2, EI3, EI1> E2##E2##E3##E1; \
-  My::details::Swizzle<Impl, EI2, EI2, EI3, EI2> E2##E2##E3##E2; \
-  My::details::Swizzle<Impl, EI2, EI2, EI3, EI3> E2##E2##E3##E3; \
-  My::details::Swizzle<Impl, EI2, EI3, EI0, EI0> E2##E3##E0##E0; \
-  My::details::Swizzle<Impl, EI2, EI3, EI0, EI1> E2##E3##E0##E1; \
-  My::details::Swizzle<Impl, EI2, EI3, EI0, EI2> E2##E3##E0##E2; \
-  My::details::Swizzle<Impl, EI2, EI3, EI0, EI3> E2##E3##E0##E3; \
-  My::details::Swizzle<Impl, EI2, EI3, EI1, EI0> E2##E3##E1##E0; \
-  My::details::Swizzle<Impl, EI2, EI3, EI1, EI1> E2##E3##E1##E1; \
-  My::details::Swizzle<Impl, EI2, EI3, EI1, EI2> E2##E3##E1##E2; \
-  My::details::Swizzle<Impl, EI2, EI3, EI1, EI3> E2##E3##E1##E3; \
-  My::details::Swizzle<Impl, EI2, EI3, EI2, EI0> E2##E3##E2##E0; \
-  My::details::Swizzle<Impl, EI2, EI3, EI2, EI1> E2##E3##E2##E1; \
-  My::details::Swizzle<Impl, EI2, EI3, EI2, EI2> E2##E3##E2##E2; \
-  My::details::Swizzle<Impl, EI2, EI3, EI2, EI3> E2##E3##E2##E3; \
-  My::details::Swizzle<Impl, EI2, EI3, EI3, EI0> E2##E3##E3##E0; \
-  My::details::Swizzle<Impl, EI2, EI3, EI3, EI1> E2##E3##E3##E1; \
-  My::details::Swizzle<Impl, EI2, EI3, EI3, EI2> E2##E3##E3##E2; \
-  My::details::Swizzle<Impl, EI2, EI3, EI3, EI3> E2##E3##E3##E3; \
-  My::details::Swizzle<Impl, EI3, EI0, EI0, EI0> E3##E0##E0##E0; \
-  My::details::Swizzle<Impl, EI3, EI0, EI0, EI1> E3##E0##E0##E1; \
-  My::details::Swizzle<Impl, EI3, EI0, EI0, EI2> E3##E0##E0##E2; \
-  My::details::Swizzle<Impl, EI3, EI0, EI0, EI3> E3##E0##E0##E3; \
-  My::details::Swizzle<Impl, EI3, EI0, EI1, EI0> E3##E0##E1##E0; \
-  My::details::Swizzle<Impl, EI3, EI0, EI1, EI1> E3##E0##E1##E1; \
-  My::details::Swizzle<Impl, EI3, EI0, EI1, EI2> E3##E0##E1##E2; \
-  My::details::Swizzle<Impl, EI3, EI0, EI1, EI3> E3##E0##E1##E3; \
-  My::details::Swizzle<Impl, EI3, EI0, EI2, EI0> E3##E0##E2##E0; \
-  My::details::Swizzle<Impl, EI3, EI0, EI2, EI1> E3##E0##E2##E1; \
-  My::details::Swizzle<Impl, EI3, EI0, EI2, EI2> E3##E0##E2##E2; \
-  My::details::Swizzle<Impl, EI3, EI0, EI2, EI3> E3##E0##E2##E3; \
-  My::details::Swizzle<Impl, EI3, EI0, EI3, EI0> E3##E0##E3##E0; \
-  My::details::Swizzle<Impl, EI3, EI0, EI3, EI1> E3##E0##E3##E1; \
-  My::details::Swizzle<Impl, EI3, EI0, EI3, EI2> E3##E0##E3##E2; \
-  My::details::Swizzle<Impl, EI3, EI0, EI3, EI3> E3##E0##E3##E3; \
-  My::details::Swizzle<Impl, EI3, EI1, EI0, EI0> E3##E1##E0##E0; \
-  My::details::Swizzle<Impl, EI3, EI1, EI0, EI1> E3##E1##E0##E1; \
-  My::details::Swizzle<Impl, EI3, EI1, EI0, EI2> E3##E1##E0##E2; \
-  My::details::Swizzle<Impl, EI3, EI1, EI0, EI3> E3##E1##E0##E3; \
-  My::details::Swizzle<Impl, EI3, EI1, EI1, EI0> E3##E1##E1##E0; \
-  My::details::Swizzle<Impl, EI3, EI1, EI1, EI1> E3##E1##E1##E1; \
-  My::details::Swizzle<Impl, EI3, EI1, EI1, EI2> E3##E1##E1##E2; \
-  My::details::Swizzle<Impl, EI3, EI1, EI1, EI3> E3##E1##E1##E3; \
-  My::details::Swizzle<Impl, EI3, EI1, EI2, EI0> E3##E1##E2##E0; \
-  My::details::Swizzle<Impl, EI3, EI1, EI2, EI1> E3##E1##E2##E1; \
-  My::details::Swizzle<Impl, EI3, EI1, EI2, EI2> E3##E1##E2##E2; \
-  My::details::Swizzle<Impl, EI3, EI1, EI2, EI3> E3##E1##E2##E3; \
-  My::details::Swizzle<Impl, EI3, EI1, EI3, EI0> E3##E1##E3##E0; \
-  My::details::Swizzle<Impl, EI3, EI1, EI3, EI1> E3##E1##E3##E1; \
-  My::details::Swizzle<Impl, EI3, EI1, EI3, EI2> E3##E1##E3##E2; \
-  My::details::Swizzle<Impl, EI3, EI1, EI3, EI3> E3##E1##E3##E3; \
-  My::details::Swizzle<Impl, EI3, EI2, EI0, EI0> E3##E2##E0##E0; \
-  My::details::Swizzle<Impl, EI3, EI2, EI0, EI1> E3##E2##E0##E1; \
-  My::details::Swizzle<Impl, EI3, EI2, EI0, EI2> E3##E2##E0##E2; \
-  My::details::Swizzle<Impl, EI3, EI2, EI0, EI3> E3##E2##E0##E3; \
-  My::details::Swizzle<Impl, EI3, EI2, EI1, EI0> E3##E2##E1##E0; \
-  My::details::Swizzle<Impl, EI3, EI2, EI1, EI1> E3##E2##E1##E1; \
-  My::details::Swizzle<Impl, EI3, EI2, EI1, EI2> E3##E2##E1##E2; \
-  My::details::Swizzle<Impl, EI3, EI2, EI1, EI3> E3##E2##E1##E3; \
-  My::details::Swizzle<Impl, EI3, EI2, EI2, EI0> E3##E2##E2##E0; \
-  My::details::Swizzle<Impl, EI3, EI2, EI2, EI1> E3##E2##E2##E1; \
-  My::details::Swizzle<Impl, EI3, EI2, EI2, EI2> E3##E2##E2##E2; \
-  My::details::Swizzle<Impl, EI3, EI2, EI2, EI3> E3##E2##E2##E3; \
-  My::details::Swizzle<Impl, EI3, EI2, EI3, EI0> E3##E2##E3##E0; \
-  My::details::Swizzle<Impl, EI3, EI2, EI3, EI1> E3##E2##E3##E1; \
-  My::details::Swizzle<Impl, EI3, EI2, EI3, EI2> E3##E2##E3##E2; \
-  My::details::Swizzle<Impl, EI3, EI2, EI3, EI3> E3##E2##E3##E3; \
-  My::details::Swizzle<Impl, EI3, EI3, EI0, EI0> E3##E3##E0##E0; \
-  My::details::Swizzle<Impl, EI3, EI3, EI0, EI1> E3##E3##E0##E1; \
-  My::details::Swizzle<Impl, EI3, EI3, EI0, EI2> E3##E3##E0##E2; \
-  My::details::Swizzle<Impl, EI3, EI3, EI0, EI3> E3##E3##E0##E3; \
-  My::details::Swizzle<Impl, EI3, EI3, EI1, EI0> E3##E3##E1##E0; \
-  My::details::Swizzle<Impl, EI3, EI3, EI1, EI1> E3##E3##E1##E1; \
-  My::details::Swizzle<Impl, EI3, EI3, EI1, EI2> E3##E3##E1##E2; \
-  My::details::Swizzle<Impl, EI3, EI3, EI1, EI3> E3##E3##E1##E3; \
-  My::details::Swizzle<Impl, EI3, EI3, EI2, EI0> E3##E3##E2##E0; \
-  My::details::Swizzle<Impl, EI3, EI3, EI2, EI1> E3##E3##E2##E1; \
-  My::details::Swizzle<Impl, EI3, EI3, EI2, EI2> E3##E3##E2##E2; \
-  My::details::Swizzle<Impl, EI3, EI3, EI2, EI3> E3##E3##E2##E3; \
-  My::details::Swizzle<Impl, EI3, EI3, EI3, EI0> E3##E3##E3##E0; \
-  My::details::Swizzle<Impl, EI3, EI3, EI3, EI1> E3##E3##E3##E1; \
-  My::details::Swizzle<Impl, EI3, EI3, EI3, EI2> E3##E3##E3##E2; \
-  My::details::Swizzle<Impl, EI3, EI3, EI3, EI3> E3##E3##E3##E3
+#define SMKZ_ARRAY_SWIZZLE4_4(EI0, EI1, EI2, EI3, E0, E1, E2, E3)  \
+  Smkz::details::Swizzle<Impl, EI0, EI0, EI0, EI0> E0##E0##E0##E0; \
+  Smkz::details::Swizzle<Impl, EI0, EI0, EI0, EI1> E0##E0##E0##E1; \
+  Smkz::details::Swizzle<Impl, EI0, EI0, EI0, EI2> E0##E0##E0##E2; \
+  Smkz::details::Swizzle<Impl, EI0, EI0, EI0, EI3> E0##E0##E0##E3; \
+  Smkz::details::Swizzle<Impl, EI0, EI0, EI1, EI0> E0##E0##E1##E0; \
+  Smkz::details::Swizzle<Impl, EI0, EI0, EI1, EI1> E0##E0##E1##E1; \
+  Smkz::details::Swizzle<Impl, EI0, EI0, EI1, EI2> E0##E0##E1##E2; \
+  Smkz::details::Swizzle<Impl, EI0, EI0, EI1, EI3> E0##E0##E1##E3; \
+  Smkz::details::Swizzle<Impl, EI0, EI0, EI2, EI0> E0##E0##E2##E0; \
+  Smkz::details::Swizzle<Impl, EI0, EI0, EI2, EI1> E0##E0##E2##E1; \
+  Smkz::details::Swizzle<Impl, EI0, EI0, EI2, EI2> E0##E0##E2##E2; \
+  Smkz::details::Swizzle<Impl, EI0, EI0, EI2, EI3> E0##E0##E2##E3; \
+  Smkz::details::Swizzle<Impl, EI0, EI0, EI3, EI0> E0##E0##E3##E0; \
+  Smkz::details::Swizzle<Impl, EI0, EI0, EI3, EI1> E0##E0##E3##E1; \
+  Smkz::details::Swizzle<Impl, EI0, EI0, EI3, EI2> E0##E0##E3##E2; \
+  Smkz::details::Swizzle<Impl, EI0, EI0, EI3, EI3> E0##E0##E3##E3; \
+  Smkz::details::Swizzle<Impl, EI0, EI1, EI0, EI0> E0##E1##E0##E0; \
+  Smkz::details::Swizzle<Impl, EI0, EI1, EI0, EI1> E0##E1##E0##E1; \
+  Smkz::details::Swizzle<Impl, EI0, EI1, EI0, EI2> E0##E1##E0##E2; \
+  Smkz::details::Swizzle<Impl, EI0, EI1, EI0, EI3> E0##E1##E0##E3; \
+  Smkz::details::Swizzle<Impl, EI0, EI1, EI1, EI0> E0##E1##E1##E0; \
+  Smkz::details::Swizzle<Impl, EI0, EI1, EI1, EI1> E0##E1##E1##E1; \
+  Smkz::details::Swizzle<Impl, EI0, EI1, EI1, EI2> E0##E1##E1##E2; \
+  Smkz::details::Swizzle<Impl, EI0, EI1, EI1, EI3> E0##E1##E1##E3; \
+  Smkz::details::Swizzle<Impl, EI0, EI1, EI2, EI0> E0##E1##E2##E0; \
+  Smkz::details::Swizzle<Impl, EI0, EI1, EI2, EI1> E0##E1##E2##E1; \
+  Smkz::details::Swizzle<Impl, EI0, EI1, EI2, EI2> E0##E1##E2##E2; \
+  Smkz::details::Swizzle<Impl, EI0, EI1, EI2, EI3> E0##E1##E2##E3; \
+  Smkz::details::Swizzle<Impl, EI0, EI1, EI3, EI0> E0##E1##E3##E0; \
+  Smkz::details::Swizzle<Impl, EI0, EI1, EI3, EI1> E0##E1##E3##E1; \
+  Smkz::details::Swizzle<Impl, EI0, EI1, EI3, EI2> E0##E1##E3##E2; \
+  Smkz::details::Swizzle<Impl, EI0, EI1, EI3, EI3> E0##E1##E3##E3; \
+  Smkz::details::Swizzle<Impl, EI0, EI2, EI0, EI0> E0##E2##E0##E0; \
+  Smkz::details::Swizzle<Impl, EI0, EI2, EI0, EI1> E0##E2##E0##E1; \
+  Smkz::details::Swizzle<Impl, EI0, EI2, EI0, EI2> E0##E2##E0##E2; \
+  Smkz::details::Swizzle<Impl, EI0, EI2, EI0, EI3> E0##E2##E0##E3; \
+  Smkz::details::Swizzle<Impl, EI0, EI2, EI1, EI0> E0##E2##E1##E0; \
+  Smkz::details::Swizzle<Impl, EI0, EI2, EI1, EI1> E0##E2##E1##E1; \
+  Smkz::details::Swizzle<Impl, EI0, EI2, EI1, EI2> E0##E2##E1##E2; \
+  Smkz::details::Swizzle<Impl, EI0, EI2, EI1, EI3> E0##E2##E1##E3; \
+  Smkz::details::Swizzle<Impl, EI0, EI2, EI2, EI0> E0##E2##E2##E0; \
+  Smkz::details::Swizzle<Impl, EI0, EI2, EI2, EI1> E0##E2##E2##E1; \
+  Smkz::details::Swizzle<Impl, EI0, EI2, EI2, EI2> E0##E2##E2##E2; \
+  Smkz::details::Swizzle<Impl, EI0, EI2, EI2, EI3> E0##E2##E2##E3; \
+  Smkz::details::Swizzle<Impl, EI0, EI2, EI3, EI0> E0##E2##E3##E0; \
+  Smkz::details::Swizzle<Impl, EI0, EI2, EI3, EI1> E0##E2##E3##E1; \
+  Smkz::details::Swizzle<Impl, EI0, EI2, EI3, EI2> E0##E2##E3##E2; \
+  Smkz::details::Swizzle<Impl, EI0, EI2, EI3, EI3> E0##E2##E3##E3; \
+  Smkz::details::Swizzle<Impl, EI0, EI3, EI0, EI0> E0##E3##E0##E0; \
+  Smkz::details::Swizzle<Impl, EI0, EI3, EI0, EI1> E0##E3##E0##E1; \
+  Smkz::details::Swizzle<Impl, EI0, EI3, EI0, EI2> E0##E3##E0##E2; \
+  Smkz::details::Swizzle<Impl, EI0, EI3, EI0, EI3> E0##E3##E0##E3; \
+  Smkz::details::Swizzle<Impl, EI0, EI3, EI1, EI0> E0##E3##E1##E0; \
+  Smkz::details::Swizzle<Impl, EI0, EI3, EI1, EI1> E0##E3##E1##E1; \
+  Smkz::details::Swizzle<Impl, EI0, EI3, EI1, EI2> E0##E3##E1##E2; \
+  Smkz::details::Swizzle<Impl, EI0, EI3, EI1, EI3> E0##E3##E1##E3; \
+  Smkz::details::Swizzle<Impl, EI0, EI3, EI2, EI0> E0##E3##E2##E0; \
+  Smkz::details::Swizzle<Impl, EI0, EI3, EI2, EI1> E0##E3##E2##E1; \
+  Smkz::details::Swizzle<Impl, EI0, EI3, EI2, EI2> E0##E3##E2##E2; \
+  Smkz::details::Swizzle<Impl, EI0, EI3, EI2, EI3> E0##E3##E2##E3; \
+  Smkz::details::Swizzle<Impl, EI0, EI3, EI3, EI0> E0##E3##E3##E0; \
+  Smkz::details::Swizzle<Impl, EI0, EI3, EI3, EI1> E0##E3##E3##E1; \
+  Smkz::details::Swizzle<Impl, EI0, EI3, EI3, EI2> E0##E3##E3##E2; \
+  Smkz::details::Swizzle<Impl, EI0, EI3, EI3, EI3> E0##E3##E3##E3; \
+  Smkz::details::Swizzle<Impl, EI1, EI0, EI0, EI0> E1##E0##E0##E0; \
+  Smkz::details::Swizzle<Impl, EI1, EI0, EI0, EI1> E1##E0##E0##E1; \
+  Smkz::details::Swizzle<Impl, EI1, EI0, EI0, EI2> E1##E0##E0##E2; \
+  Smkz::details::Swizzle<Impl, EI1, EI0, EI0, EI3> E1##E0##E0##E3; \
+  Smkz::details::Swizzle<Impl, EI1, EI0, EI1, EI0> E1##E0##E1##E0; \
+  Smkz::details::Swizzle<Impl, EI1, EI0, EI1, EI1> E1##E0##E1##E1; \
+  Smkz::details::Swizzle<Impl, EI1, EI0, EI1, EI2> E1##E0##E1##E2; \
+  Smkz::details::Swizzle<Impl, EI1, EI0, EI1, EI3> E1##E0##E1##E3; \
+  Smkz::details::Swizzle<Impl, EI1, EI0, EI2, EI0> E1##E0##E2##E0; \
+  Smkz::details::Swizzle<Impl, EI1, EI0, EI2, EI1> E1##E0##E2##E1; \
+  Smkz::details::Swizzle<Impl, EI1, EI0, EI2, EI2> E1##E0##E2##E2; \
+  Smkz::details::Swizzle<Impl, EI1, EI0, EI2, EI3> E1##E0##E2##E3; \
+  Smkz::details::Swizzle<Impl, EI1, EI0, EI3, EI0> E1##E0##E3##E0; \
+  Smkz::details::Swizzle<Impl, EI1, EI0, EI3, EI1> E1##E0##E3##E1; \
+  Smkz::details::Swizzle<Impl, EI1, EI0, EI3, EI2> E1##E0##E3##E2; \
+  Smkz::details::Swizzle<Impl, EI1, EI0, EI3, EI3> E1##E0##E3##E3; \
+  Smkz::details::Swizzle<Impl, EI1, EI1, EI0, EI0> E1##E1##E0##E0; \
+  Smkz::details::Swizzle<Impl, EI1, EI1, EI0, EI1> E1##E1##E0##E1; \
+  Smkz::details::Swizzle<Impl, EI1, EI1, EI0, EI2> E1##E1##E0##E2; \
+  Smkz::details::Swizzle<Impl, EI1, EI1, EI0, EI3> E1##E1##E0##E3; \
+  Smkz::details::Swizzle<Impl, EI1, EI1, EI1, EI0> E1##E1##E1##E0; \
+  Smkz::details::Swizzle<Impl, EI1, EI1, EI1, EI1> E1##E1##E1##E1; \
+  Smkz::details::Swizzle<Impl, EI1, EI1, EI1, EI2> E1##E1##E1##E2; \
+  Smkz::details::Swizzle<Impl, EI1, EI1, EI1, EI3> E1##E1##E1##E3; \
+  Smkz::details::Swizzle<Impl, EI1, EI1, EI2, EI0> E1##E1##E2##E0; \
+  Smkz::details::Swizzle<Impl, EI1, EI1, EI2, EI1> E1##E1##E2##E1; \
+  Smkz::details::Swizzle<Impl, EI1, EI1, EI2, EI2> E1##E1##E2##E2; \
+  Smkz::details::Swizzle<Impl, EI1, EI1, EI2, EI3> E1##E1##E2##E3; \
+  Smkz::details::Swizzle<Impl, EI1, EI1, EI3, EI0> E1##E1##E3##E0; \
+  Smkz::details::Swizzle<Impl, EI1, EI1, EI3, EI1> E1##E1##E3##E1; \
+  Smkz::details::Swizzle<Impl, EI1, EI1, EI3, EI2> E1##E1##E3##E2; \
+  Smkz::details::Swizzle<Impl, EI1, EI1, EI3, EI3> E1##E1##E3##E3; \
+  Smkz::details::Swizzle<Impl, EI1, EI2, EI0, EI0> E1##E2##E0##E0; \
+  Smkz::details::Swizzle<Impl, EI1, EI2, EI0, EI1> E1##E2##E0##E1; \
+  Smkz::details::Swizzle<Impl, EI1, EI2, EI0, EI2> E1##E2##E0##E2; \
+  Smkz::details::Swizzle<Impl, EI1, EI2, EI0, EI3> E1##E2##E0##E3; \
+  Smkz::details::Swizzle<Impl, EI1, EI2, EI1, EI0> E1##E2##E1##E0; \
+  Smkz::details::Swizzle<Impl, EI1, EI2, EI1, EI1> E1##E2##E1##E1; \
+  Smkz::details::Swizzle<Impl, EI1, EI2, EI1, EI2> E1##E2##E1##E2; \
+  Smkz::details::Swizzle<Impl, EI1, EI2, EI1, EI3> E1##E2##E1##E3; \
+  Smkz::details::Swizzle<Impl, EI1, EI2, EI2, EI0> E1##E2##E2##E0; \
+  Smkz::details::Swizzle<Impl, EI1, EI2, EI2, EI1> E1##E2##E2##E1; \
+  Smkz::details::Swizzle<Impl, EI1, EI2, EI2, EI2> E1##E2##E2##E2; \
+  Smkz::details::Swizzle<Impl, EI1, EI2, EI2, EI3> E1##E2##E2##E3; \
+  Smkz::details::Swizzle<Impl, EI1, EI2, EI3, EI0> E1##E2##E3##E0; \
+  Smkz::details::Swizzle<Impl, EI1, EI2, EI3, EI1> E1##E2##E3##E1; \
+  Smkz::details::Swizzle<Impl, EI1, EI2, EI3, EI2> E1##E2##E3##E2; \
+  Smkz::details::Swizzle<Impl, EI1, EI2, EI3, EI3> E1##E2##E3##E3; \
+  Smkz::details::Swizzle<Impl, EI1, EI3, EI0, EI0> E1##E3##E0##E0; \
+  Smkz::details::Swizzle<Impl, EI1, EI3, EI0, EI1> E1##E3##E0##E1; \
+  Smkz::details::Swizzle<Impl, EI1, EI3, EI0, EI2> E1##E3##E0##E2; \
+  Smkz::details::Swizzle<Impl, EI1, EI3, EI0, EI3> E1##E3##E0##E3; \
+  Smkz::details::Swizzle<Impl, EI1, EI3, EI1, EI0> E1##E3##E1##E0; \
+  Smkz::details::Swizzle<Impl, EI1, EI3, EI1, EI1> E1##E3##E1##E1; \
+  Smkz::details::Swizzle<Impl, EI1, EI3, EI1, EI2> E1##E3##E1##E2; \
+  Smkz::details::Swizzle<Impl, EI1, EI3, EI1, EI3> E1##E3##E1##E3; \
+  Smkz::details::Swizzle<Impl, EI1, EI3, EI2, EI0> E1##E3##E2##E0; \
+  Smkz::details::Swizzle<Impl, EI1, EI3, EI2, EI1> E1##E3##E2##E1; \
+  Smkz::details::Swizzle<Impl, EI1, EI3, EI2, EI2> E1##E3##E2##E2; \
+  Smkz::details::Swizzle<Impl, EI1, EI3, EI2, EI3> E1##E3##E2##E3; \
+  Smkz::details::Swizzle<Impl, EI1, EI3, EI3, EI0> E1##E3##E3##E0; \
+  Smkz::details::Swizzle<Impl, EI1, EI3, EI3, EI1> E1##E3##E3##E1; \
+  Smkz::details::Swizzle<Impl, EI1, EI3, EI3, EI2> E1##E3##E3##E2; \
+  Smkz::details::Swizzle<Impl, EI1, EI3, EI3, EI3> E1##E3##E3##E3; \
+  Smkz::details::Swizzle<Impl, EI2, EI0, EI0, EI0> E2##E0##E0##E0; \
+  Smkz::details::Swizzle<Impl, EI2, EI0, EI0, EI1> E2##E0##E0##E1; \
+  Smkz::details::Swizzle<Impl, EI2, EI0, EI0, EI2> E2##E0##E0##E2; \
+  Smkz::details::Swizzle<Impl, EI2, EI0, EI0, EI3> E2##E0##E0##E3; \
+  Smkz::details::Swizzle<Impl, EI2, EI0, EI1, EI0> E2##E0##E1##E0; \
+  Smkz::details::Swizzle<Impl, EI2, EI0, EI1, EI1> E2##E0##E1##E1; \
+  Smkz::details::Swizzle<Impl, EI2, EI0, EI1, EI2> E2##E0##E1##E2; \
+  Smkz::details::Swizzle<Impl, EI2, EI0, EI1, EI3> E2##E0##E1##E3; \
+  Smkz::details::Swizzle<Impl, EI2, EI0, EI2, EI0> E2##E0##E2##E0; \
+  Smkz::details::Swizzle<Impl, EI2, EI0, EI2, EI1> E2##E0##E2##E1; \
+  Smkz::details::Swizzle<Impl, EI2, EI0, EI2, EI2> E2##E0##E2##E2; \
+  Smkz::details::Swizzle<Impl, EI2, EI0, EI2, EI3> E2##E0##E2##E3; \
+  Smkz::details::Swizzle<Impl, EI2, EI0, EI3, EI0> E2##E0##E3##E0; \
+  Smkz::details::Swizzle<Impl, EI2, EI0, EI3, EI1> E2##E0##E3##E1; \
+  Smkz::details::Swizzle<Impl, EI2, EI0, EI3, EI2> E2##E0##E3##E2; \
+  Smkz::details::Swizzle<Impl, EI2, EI0, EI3, EI3> E2##E0##E3##E3; \
+  Smkz::details::Swizzle<Impl, EI2, EI1, EI0, EI0> E2##E1##E0##E0; \
+  Smkz::details::Swizzle<Impl, EI2, EI1, EI0, EI1> E2##E1##E0##E1; \
+  Smkz::details::Swizzle<Impl, EI2, EI1, EI0, EI2> E2##E1##E0##E2; \
+  Smkz::details::Swizzle<Impl, EI2, EI1, EI0, EI3> E2##E1##E0##E3; \
+  Smkz::details::Swizzle<Impl, EI2, EI1, EI1, EI0> E2##E1##E1##E0; \
+  Smkz::details::Swizzle<Impl, EI2, EI1, EI1, EI1> E2##E1##E1##E1; \
+  Smkz::details::Swizzle<Impl, EI2, EI1, EI1, EI2> E2##E1##E1##E2; \
+  Smkz::details::Swizzle<Impl, EI2, EI1, EI1, EI3> E2##E1##E1##E3; \
+  Smkz::details::Swizzle<Impl, EI2, EI1, EI2, EI0> E2##E1##E2##E0; \
+  Smkz::details::Swizzle<Impl, EI2, EI1, EI2, EI1> E2##E1##E2##E1; \
+  Smkz::details::Swizzle<Impl, EI2, EI1, EI2, EI2> E2##E1##E2##E2; \
+  Smkz::details::Swizzle<Impl, EI2, EI1, EI2, EI3> E2##E1##E2##E3; \
+  Smkz::details::Swizzle<Impl, EI2, EI1, EI3, EI0> E2##E1##E3##E0; \
+  Smkz::details::Swizzle<Impl, EI2, EI1, EI3, EI1> E2##E1##E3##E1; \
+  Smkz::details::Swizzle<Impl, EI2, EI1, EI3, EI2> E2##E1##E3##E2; \
+  Smkz::details::Swizzle<Impl, EI2, EI1, EI3, EI3> E2##E1##E3##E3; \
+  Smkz::details::Swizzle<Impl, EI2, EI2, EI0, EI0> E2##E2##E0##E0; \
+  Smkz::details::Swizzle<Impl, EI2, EI2, EI0, EI1> E2##E2##E0##E1; \
+  Smkz::details::Swizzle<Impl, EI2, EI2, EI0, EI2> E2##E2##E0##E2; \
+  Smkz::details::Swizzle<Impl, EI2, EI2, EI0, EI3> E2##E2##E0##E3; \
+  Smkz::details::Swizzle<Impl, EI2, EI2, EI1, EI0> E2##E2##E1##E0; \
+  Smkz::details::Swizzle<Impl, EI2, EI2, EI1, EI1> E2##E2##E1##E1; \
+  Smkz::details::Swizzle<Impl, EI2, EI2, EI1, EI2> E2##E2##E1##E2; \
+  Smkz::details::Swizzle<Impl, EI2, EI2, EI1, EI3> E2##E2##E1##E3; \
+  Smkz::details::Swizzle<Impl, EI2, EI2, EI2, EI0> E2##E2##E2##E0; \
+  Smkz::details::Swizzle<Impl, EI2, EI2, EI2, EI1> E2##E2##E2##E1; \
+  Smkz::details::Swizzle<Impl, EI2, EI2, EI2, EI2> E2##E2##E2##E2; \
+  Smkz::details::Swizzle<Impl, EI2, EI2, EI2, EI3> E2##E2##E2##E3; \
+  Smkz::details::Swizzle<Impl, EI2, EI2, EI3, EI0> E2##E2##E3##E0; \
+  Smkz::details::Swizzle<Impl, EI2, EI2, EI3, EI1> E2##E2##E3##E1; \
+  Smkz::details::Swizzle<Impl, EI2, EI2, EI3, EI2> E2##E2##E3##E2; \
+  Smkz::details::Swizzle<Impl, EI2, EI2, EI3, EI3> E2##E2##E3##E3; \
+  Smkz::details::Swizzle<Impl, EI2, EI3, EI0, EI0> E2##E3##E0##E0; \
+  Smkz::details::Swizzle<Impl, EI2, EI3, EI0, EI1> E2##E3##E0##E1; \
+  Smkz::details::Swizzle<Impl, EI2, EI3, EI0, EI2> E2##E3##E0##E2; \
+  Smkz::details::Swizzle<Impl, EI2, EI3, EI0, EI3> E2##E3##E0##E3; \
+  Smkz::details::Swizzle<Impl, EI2, EI3, EI1, EI0> E2##E3##E1##E0; \
+  Smkz::details::Swizzle<Impl, EI2, EI3, EI1, EI1> E2##E3##E1##E1; \
+  Smkz::details::Swizzle<Impl, EI2, EI3, EI1, EI2> E2##E3##E1##E2; \
+  Smkz::details::Swizzle<Impl, EI2, EI3, EI1, EI3> E2##E3##E1##E3; \
+  Smkz::details::Swizzle<Impl, EI2, EI3, EI2, EI0> E2##E3##E2##E0; \
+  Smkz::details::Swizzle<Impl, EI2, EI3, EI2, EI1> E2##E3##E2##E1; \
+  Smkz::details::Swizzle<Impl, EI2, EI3, EI2, EI2> E2##E3##E2##E2; \
+  Smkz::details::Swizzle<Impl, EI2, EI3, EI2, EI3> E2##E3##E2##E3; \
+  Smkz::details::Swizzle<Impl, EI2, EI3, EI3, EI0> E2##E3##E3##E0; \
+  Smkz::details::Swizzle<Impl, EI2, EI3, EI3, EI1> E2##E3##E3##E1; \
+  Smkz::details::Swizzle<Impl, EI2, EI3, EI3, EI2> E2##E3##E3##E2; \
+  Smkz::details::Swizzle<Impl, EI2, EI3, EI3, EI3> E2##E3##E3##E3; \
+  Smkz::details::Swizzle<Impl, EI3, EI0, EI0, EI0> E3##E0##E0##E0; \
+  Smkz::details::Swizzle<Impl, EI3, EI0, EI0, EI1> E3##E0##E0##E1; \
+  Smkz::details::Swizzle<Impl, EI3, EI0, EI0, EI2> E3##E0##E0##E2; \
+  Smkz::details::Swizzle<Impl, EI3, EI0, EI0, EI3> E3##E0##E0##E3; \
+  Smkz::details::Swizzle<Impl, EI3, EI0, EI1, EI0> E3##E0##E1##E0; \
+  Smkz::details::Swizzle<Impl, EI3, EI0, EI1, EI1> E3##E0##E1##E1; \
+  Smkz::details::Swizzle<Impl, EI3, EI0, EI1, EI2> E3##E0##E1##E2; \
+  Smkz::details::Swizzle<Impl, EI3, EI0, EI1, EI3> E3##E0##E1##E3; \
+  Smkz::details::Swizzle<Impl, EI3, EI0, EI2, EI0> E3##E0##E2##E0; \
+  Smkz::details::Swizzle<Impl, EI3, EI0, EI2, EI1> E3##E0##E2##E1; \
+  Smkz::details::Swizzle<Impl, EI3, EI0, EI2, EI2> E3##E0##E2##E2; \
+  Smkz::details::Swizzle<Impl, EI3, EI0, EI2, EI3> E3##E0##E2##E3; \
+  Smkz::details::Swizzle<Impl, EI3, EI0, EI3, EI0> E3##E0##E3##E0; \
+  Smkz::details::Swizzle<Impl, EI3, EI0, EI3, EI1> E3##E0##E3##E1; \
+  Smkz::details::Swizzle<Impl, EI3, EI0, EI3, EI2> E3##E0##E3##E2; \
+  Smkz::details::Swizzle<Impl, EI3, EI0, EI3, EI3> E3##E0##E3##E3; \
+  Smkz::details::Swizzle<Impl, EI3, EI1, EI0, EI0> E3##E1##E0##E0; \
+  Smkz::details::Swizzle<Impl, EI3, EI1, EI0, EI1> E3##E1##E0##E1; \
+  Smkz::details::Swizzle<Impl, EI3, EI1, EI0, EI2> E3##E1##E0##E2; \
+  Smkz::details::Swizzle<Impl, EI3, EI1, EI0, EI3> E3##E1##E0##E3; \
+  Smkz::details::Swizzle<Impl, EI3, EI1, EI1, EI0> E3##E1##E1##E0; \
+  Smkz::details::Swizzle<Impl, EI3, EI1, EI1, EI1> E3##E1##E1##E1; \
+  Smkz::details::Swizzle<Impl, EI3, EI1, EI1, EI2> E3##E1##E1##E2; \
+  Smkz::details::Swizzle<Impl, EI3, EI1, EI1, EI3> E3##E1##E1##E3; \
+  Smkz::details::Swizzle<Impl, EI3, EI1, EI2, EI0> E3##E1##E2##E0; \
+  Smkz::details::Swizzle<Impl, EI3, EI1, EI2, EI1> E3##E1##E2##E1; \
+  Smkz::details::Swizzle<Impl, EI3, EI1, EI2, EI2> E3##E1##E2##E2; \
+  Smkz::details::Swizzle<Impl, EI3, EI1, EI2, EI3> E3##E1##E2##E3; \
+  Smkz::details::Swizzle<Impl, EI3, EI1, EI3, EI0> E3##E1##E3##E0; \
+  Smkz::details::Swizzle<Impl, EI3, EI1, EI3, EI1> E3##E1##E3##E1; \
+  Smkz::details::Swizzle<Impl, EI3, EI1, EI3, EI2> E3##E1##E3##E2; \
+  Smkz::details::Swizzle<Impl, EI3, EI1, EI3, EI3> E3##E1##E3##E3; \
+  Smkz::details::Swizzle<Impl, EI3, EI2, EI0, EI0> E3##E2##E0##E0; \
+  Smkz::details::Swizzle<Impl, EI3, EI2, EI0, EI1> E3##E2##E0##E1; \
+  Smkz::details::Swizzle<Impl, EI3, EI2, EI0, EI2> E3##E2##E0##E2; \
+  Smkz::details::Swizzle<Impl, EI3, EI2, EI0, EI3> E3##E2##E0##E3; \
+  Smkz::details::Swizzle<Impl, EI3, EI2, EI1, EI0> E3##E2##E1##E0; \
+  Smkz::details::Swizzle<Impl, EI3, EI2, EI1, EI1> E3##E2##E1##E1; \
+  Smkz::details::Swizzle<Impl, EI3, EI2, EI1, EI2> E3##E2##E1##E2; \
+  Smkz::details::Swizzle<Impl, EI3, EI2, EI1, EI3> E3##E2##E1##E3; \
+  Smkz::details::Swizzle<Impl, EI3, EI2, EI2, EI0> E3##E2##E2##E0; \
+  Smkz::details::Swizzle<Impl, EI3, EI2, EI2, EI1> E3##E2##E2##E1; \
+  Smkz::details::Swizzle<Impl, EI3, EI2, EI2, EI2> E3##E2##E2##E2; \
+  Smkz::details::Swizzle<Impl, EI3, EI2, EI2, EI3> E3##E2##E2##E3; \
+  Smkz::details::Swizzle<Impl, EI3, EI2, EI3, EI0> E3##E2##E3##E0; \
+  Smkz::details::Swizzle<Impl, EI3, EI2, EI3, EI1> E3##E2##E3##E1; \
+  Smkz::details::Swizzle<Impl, EI3, EI2, EI3, EI2> E3##E2##E3##E2; \
+  Smkz::details::Swizzle<Impl, EI3, EI2, EI3, EI3> E3##E2##E3##E3; \
+  Smkz::details::Swizzle<Impl, EI3, EI3, EI0, EI0> E3##E3##E0##E0; \
+  Smkz::details::Swizzle<Impl, EI3, EI3, EI0, EI1> E3##E3##E0##E1; \
+  Smkz::details::Swizzle<Impl, EI3, EI3, EI0, EI2> E3##E3##E0##E2; \
+  Smkz::details::Swizzle<Impl, EI3, EI3, EI0, EI3> E3##E3##E0##E3; \
+  Smkz::details::Swizzle<Impl, EI3, EI3, EI1, EI0> E3##E3##E1##E0; \
+  Smkz::details::Swizzle<Impl, EI3, EI3, EI1, EI1> E3##E3##E1##E1; \
+  Smkz::details::Swizzle<Impl, EI3, EI3, EI1, EI2> E3##E3##E1##E2; \
+  Smkz::details::Swizzle<Impl, EI3, EI3, EI1, EI3> E3##E3##E1##E3; \
+  Smkz::details::Swizzle<Impl, EI3, EI3, EI2, EI0> E3##E3##E2##E0; \
+  Smkz::details::Swizzle<Impl, EI3, EI3, EI2, EI1> E3##E3##E2##E1; \
+  Smkz::details::Swizzle<Impl, EI3, EI3, EI2, EI2> E3##E3##E2##E2; \
+  Smkz::details::Swizzle<Impl, EI3, EI3, EI2, EI3> E3##E3##E2##E3; \
+  Smkz::details::Swizzle<Impl, EI3, EI3, EI3, EI0> E3##E3##E3##E0; \
+  Smkz::details::Swizzle<Impl, EI3, EI3, EI3, EI1> E3##E3##E3##E1; \
+  Smkz::details::Swizzle<Impl, EI3, EI3, EI3, EI2> E3##E3##E3##E2; \
+  Smkz::details::Swizzle<Impl, EI3, EI3, EI3, EI3> E3##E3##E3##E3
 
-#define MY_ARRAY_SWIZZLE3_2(EI0, EI1, EI2, E0, E1, E2) \
-  My::details::Swizzle<Impl, EI0, EI0> E0##E0;         \
-  My::details::Swizzle<Impl, EI0, EI1> E0##E1;         \
-  My::details::Swizzle<Impl, EI0, EI2> E0##E2;         \
-  My::details::Swizzle<Impl, EI1, EI0> E1##E0;         \
-  My::details::Swizzle<Impl, EI1, EI1> E1##E1;         \
-  My::details::Swizzle<Impl, EI1, EI2> E1##E2;         \
-  My::details::Swizzle<Impl, EI2, EI0> E2##E0;         \
-  My::details::Swizzle<Impl, EI2, EI1> E2##E1;         \
-  My::details::Swizzle<Impl, EI2, EI2> E2##E2
+#define SMKZ_ARRAY_SWIZZLE3_2(EI0, EI1, EI2, E0, E1, E2) \
+  Smkz::details::Swizzle<Impl, EI0, EI0> E0##E0;         \
+  Smkz::details::Swizzle<Impl, EI0, EI1> E0##E1;         \
+  Smkz::details::Swizzle<Impl, EI0, EI2> E0##E2;         \
+  Smkz::details::Swizzle<Impl, EI1, EI0> E1##E0;         \
+  Smkz::details::Swizzle<Impl, EI1, EI1> E1##E1;         \
+  Smkz::details::Swizzle<Impl, EI1, EI2> E1##E2;         \
+  Smkz::details::Swizzle<Impl, EI2, EI0> E2##E0;         \
+  Smkz::details::Swizzle<Impl, EI2, EI1> E2##E1;         \
+  Smkz::details::Swizzle<Impl, EI2, EI2> E2##E2
 
-#define MY_ARRAY_SWIZZLE4_2(EI0, EI1, EI2, EI3, E0, E1, E2, E3) \
-  My::details::Swizzle<Impl, EI0, EI0> E0##E0;                  \
-  My::details::Swizzle<Impl, EI0, EI1> E0##E1;                  \
-  My::details::Swizzle<Impl, EI0, EI2> E0##E2;                  \
-  My::details::Swizzle<Impl, EI0, EI3> E0##E3;                  \
-  My::details::Swizzle<Impl, EI1, EI0> E1##E0;                  \
-  My::details::Swizzle<Impl, EI1, EI1> E1##E1;                  \
-  My::details::Swizzle<Impl, EI1, EI2> E1##E2;                  \
-  My::details::Swizzle<Impl, EI1, EI3> E1##E3;                  \
-  My::details::Swizzle<Impl, EI2, EI0> E2##E0;                  \
-  My::details::Swizzle<Impl, EI2, EI1> E2##E1;                  \
-  My::details::Swizzle<Impl, EI2, EI2> E2##E2;                  \
-  My::details::Swizzle<Impl, EI2, EI3> E2##E3;                  \
-  My::details::Swizzle<Impl, EI3, EI0> E3##E0;                  \
-  My::details::Swizzle<Impl, EI3, EI1> E3##E1;                  \
-  My::details::Swizzle<Impl, EI3, EI2> E3##E2;                  \
-  My::details::Swizzle<Impl, EI3, EI3> E3##E3
+#define SMKZ_ARRAY_SWIZZLE4_2(EI0, EI1, EI2, EI3, E0, E1, E2, E3) \
+  Smkz::details::Swizzle<Impl, EI0, EI0> E0##E0;                  \
+  Smkz::details::Swizzle<Impl, EI0, EI1> E0##E1;                  \
+  Smkz::details::Swizzle<Impl, EI0, EI2> E0##E2;                  \
+  Smkz::details::Swizzle<Impl, EI0, EI3> E0##E3;                  \
+  Smkz::details::Swizzle<Impl, EI1, EI0> E1##E0;                  \
+  Smkz::details::Swizzle<Impl, EI1, EI1> E1##E1;                  \
+  Smkz::details::Swizzle<Impl, EI1, EI2> E1##E2;                  \
+  Smkz::details::Swizzle<Impl, EI1, EI3> E1##E3;                  \
+  Smkz::details::Swizzle<Impl, EI2, EI0> E2##E0;                  \
+  Smkz::details::Swizzle<Impl, EI2, EI1> E2##E1;                  \
+  Smkz::details::Swizzle<Impl, EI2, EI2> E2##E2;                  \
+  Smkz::details::Swizzle<Impl, EI2, EI3> E2##E3;                  \
+  Smkz::details::Swizzle<Impl, EI3, EI0> E3##E0;                  \
+  Smkz::details::Swizzle<Impl, EI3, EI1> E3##E1;                  \
+  Smkz::details::Swizzle<Impl, EI3, EI2> E3##E2;                  \
+  Smkz::details::Swizzle<Impl, EI3, EI3> E3##E3
 
-#define MY_ARRAY_SWIZZLE4_3(EI0, EI1, EI2, EI3, E0, E1, E2, E3) \
-  My::details::Swizzle<Impl, EI0, EI0, EI0> E0##E0##E0;         \
-  My::details::Swizzle<Impl, EI0, EI0, EI1> E0##E0##E1;         \
-  My::details::Swizzle<Impl, EI0, EI0, EI2> E0##E0##E2;         \
-  My::details::Swizzle<Impl, EI0, EI0, EI3> E0##E0##E3;         \
-  My::details::Swizzle<Impl, EI0, EI1, EI0> E0##E1##E0;         \
-  My::details::Swizzle<Impl, EI0, EI1, EI1> E0##E1##E1;         \
-  My::details::Swizzle<Impl, EI0, EI1, EI2> E0##E1##E2;         \
-  My::details::Swizzle<Impl, EI0, EI1, EI3> E0##E1##E3;         \
-  My::details::Swizzle<Impl, EI0, EI2, EI0> E0##E2##E0;         \
-  My::details::Swizzle<Impl, EI0, EI2, EI1> E0##E2##E1;         \
-  My::details::Swizzle<Impl, EI0, EI2, EI2> E0##E2##E2;         \
-  My::details::Swizzle<Impl, EI0, EI2, EI3> E0##E2##E3;         \
-  My::details::Swizzle<Impl, EI0, EI3, EI0> E0##E3##E0;         \
-  My::details::Swizzle<Impl, EI0, EI3, EI1> E0##E3##E1;         \
-  My::details::Swizzle<Impl, EI0, EI3, EI2> E0##E3##E2;         \
-  My::details::Swizzle<Impl, EI0, EI3, EI3> E0##E3##E3;         \
-  My::details::Swizzle<Impl, EI1, EI0, EI0> E1##E0##E0;         \
-  My::details::Swizzle<Impl, EI1, EI0, EI1> E1##E0##E1;         \
-  My::details::Swizzle<Impl, EI1, EI0, EI2> E1##E0##E2;         \
-  My::details::Swizzle<Impl, EI1, EI0, EI3> E1##E0##E3;         \
-  My::details::Swizzle<Impl, EI1, EI1, EI0> E1##E1##E0;         \
-  My::details::Swizzle<Impl, EI1, EI1, EI1> E1##E1##E1;         \
-  My::details::Swizzle<Impl, EI1, EI1, EI2> E1##E1##E2;         \
-  My::details::Swizzle<Impl, EI1, EI1, EI3> E1##E1##E3;         \
-  My::details::Swizzle<Impl, EI1, EI2, EI0> E1##E2##E0;         \
-  My::details::Swizzle<Impl, EI1, EI2, EI1> E1##E2##E1;         \
-  My::details::Swizzle<Impl, EI1, EI2, EI2> E1##E2##E2;         \
-  My::details::Swizzle<Impl, EI1, EI2, EI3> E1##E2##E3;         \
-  My::details::Swizzle<Impl, EI1, EI3, EI0> E1##E3##E0;         \
-  My::details::Swizzle<Impl, EI1, EI3, EI1> E1##E3##E1;         \
-  My::details::Swizzle<Impl, EI1, EI3, EI2> E1##E3##E2;         \
-  My::details::Swizzle<Impl, EI1, EI3, EI3> E1##E3##E3;         \
-  My::details::Swizzle<Impl, EI2, EI0, EI0> E2##E0##E0;         \
-  My::details::Swizzle<Impl, EI2, EI0, EI1> E2##E0##E1;         \
-  My::details::Swizzle<Impl, EI2, EI0, EI2> E2##E0##E2;         \
-  My::details::Swizzle<Impl, EI2, EI0, EI3> E2##E0##E3;         \
-  My::details::Swizzle<Impl, EI2, EI1, EI0> E2##E1##E0;         \
-  My::details::Swizzle<Impl, EI2, EI1, EI1> E2##E1##E1;         \
-  My::details::Swizzle<Impl, EI2, EI1, EI2> E2##E1##E2;         \
-  My::details::Swizzle<Impl, EI2, EI1, EI3> E2##E1##E3;         \
-  My::details::Swizzle<Impl, EI2, EI2, EI0> E2##E2##E0;         \
-  My::details::Swizzle<Impl, EI2, EI2, EI1> E2##E2##E1;         \
-  My::details::Swizzle<Impl, EI2, EI2, EI2> E2##E2##E2;         \
-  My::details::Swizzle<Impl, EI2, EI2, EI3> E2##E2##E3;         \
-  My::details::Swizzle<Impl, EI2, EI3, EI0> E2##E3##E0;         \
-  My::details::Swizzle<Impl, EI2, EI3, EI1> E2##E3##E1;         \
-  My::details::Swizzle<Impl, EI2, EI3, EI2> E2##E3##E2;         \
-  My::details::Swizzle<Impl, EI2, EI3, EI3> E2##E3##E3;         \
-  My::details::Swizzle<Impl, EI3, EI0, EI0> E3##E0##E0;         \
-  My::details::Swizzle<Impl, EI3, EI0, EI1> E3##E0##E1;         \
-  My::details::Swizzle<Impl, EI3, EI0, EI2> E3##E0##E2;         \
-  My::details::Swizzle<Impl, EI3, EI0, EI3> E3##E0##E3;         \
-  My::details::Swizzle<Impl, EI3, EI1, EI0> E3##E1##E0;         \
-  My::details::Swizzle<Impl, EI3, EI1, EI1> E3##E1##E1;         \
-  My::details::Swizzle<Impl, EI3, EI1, EI2> E3##E1##E2;         \
-  My::details::Swizzle<Impl, EI3, EI1, EI3> E3##E1##E3;         \
-  My::details::Swizzle<Impl, EI3, EI2, EI0> E3##E2##E0;         \
-  My::details::Swizzle<Impl, EI3, EI2, EI1> E3##E2##E1;         \
-  My::details::Swizzle<Impl, EI3, EI2, EI2> E3##E2##E2;         \
-  My::details::Swizzle<Impl, EI3, EI2, EI3> E3##E2##E3;         \
-  My::details::Swizzle<Impl, EI3, EI3, EI0> E3##E3##E0;         \
-  My::details::Swizzle<Impl, EI3, EI3, EI1> E3##E3##E1;         \
-  My::details::Swizzle<Impl, EI3, EI3, EI2> E3##E3##E2;         \
-  My::details::Swizzle<Impl, EI3, EI3, EI3> E3##E3##E3
+#define SMKZ_ARRAY_SWIZZLE4_3(EI0, EI1, EI2, EI3, E0, E1, E2, E3) \
+  Smkz::details::Swizzle<Impl, EI0, EI0, EI0> E0##E0##E0;         \
+  Smkz::details::Swizzle<Impl, EI0, EI0, EI1> E0##E0##E1;         \
+  Smkz::details::Swizzle<Impl, EI0, EI0, EI2> E0##E0##E2;         \
+  Smkz::details::Swizzle<Impl, EI0, EI0, EI3> E0##E0##E3;         \
+  Smkz::details::Swizzle<Impl, EI0, EI1, EI0> E0##E1##E0;         \
+  Smkz::details::Swizzle<Impl, EI0, EI1, EI1> E0##E1##E1;         \
+  Smkz::details::Swizzle<Impl, EI0, EI1, EI2> E0##E1##E2;         \
+  Smkz::details::Swizzle<Impl, EI0, EI1, EI3> E0##E1##E3;         \
+  Smkz::details::Swizzle<Impl, EI0, EI2, EI0> E0##E2##E0;         \
+  Smkz::details::Swizzle<Impl, EI0, EI2, EI1> E0##E2##E1;         \
+  Smkz::details::Swizzle<Impl, EI0, EI2, EI2> E0##E2##E2;         \
+  Smkz::details::Swizzle<Impl, EI0, EI2, EI3> E0##E2##E3;         \
+  Smkz::details::Swizzle<Impl, EI0, EI3, EI0> E0##E3##E0;         \
+  Smkz::details::Swizzle<Impl, EI0, EI3, EI1> E0##E3##E1;         \
+  Smkz::details::Swizzle<Impl, EI0, EI3, EI2> E0##E3##E2;         \
+  Smkz::details::Swizzle<Impl, EI0, EI3, EI3> E0##E3##E3;         \
+  Smkz::details::Swizzle<Impl, EI1, EI0, EI0> E1##E0##E0;         \
+  Smkz::details::Swizzle<Impl, EI1, EI0, EI1> E1##E0##E1;         \
+  Smkz::details::Swizzle<Impl, EI1, EI0, EI2> E1##E0##E2;         \
+  Smkz::details::Swizzle<Impl, EI1, EI0, EI3> E1##E0##E3;         \
+  Smkz::details::Swizzle<Impl, EI1, EI1, EI0> E1##E1##E0;         \
+  Smkz::details::Swizzle<Impl, EI1, EI1, EI1> E1##E1##E1;         \
+  Smkz::details::Swizzle<Impl, EI1, EI1, EI2> E1##E1##E2;         \
+  Smkz::details::Swizzle<Impl, EI1, EI1, EI3> E1##E1##E3;         \
+  Smkz::details::Swizzle<Impl, EI1, EI2, EI0> E1##E2##E0;         \
+  Smkz::details::Swizzle<Impl, EI1, EI2, EI1> E1##E2##E1;         \
+  Smkz::details::Swizzle<Impl, EI1, EI2, EI2> E1##E2##E2;         \
+  Smkz::details::Swizzle<Impl, EI1, EI2, EI3> E1##E2##E3;         \
+  Smkz::details::Swizzle<Impl, EI1, EI3, EI0> E1##E3##E0;         \
+  Smkz::details::Swizzle<Impl, EI1, EI3, EI1> E1##E3##E1;         \
+  Smkz::details::Swizzle<Impl, EI1, EI3, EI2> E1##E3##E2;         \
+  Smkz::details::Swizzle<Impl, EI1, EI3, EI3> E1##E3##E3;         \
+  Smkz::details::Swizzle<Impl, EI2, EI0, EI0> E2##E0##E0;         \
+  Smkz::details::Swizzle<Impl, EI2, EI0, EI1> E2##E0##E1;         \
+  Smkz::details::Swizzle<Impl, EI2, EI0, EI2> E2##E0##E2;         \
+  Smkz::details::Swizzle<Impl, EI2, EI0, EI3> E2##E0##E3;         \
+  Smkz::details::Swizzle<Impl, EI2, EI1, EI0> E2##E1##E0;         \
+  Smkz::details::Swizzle<Impl, EI2, EI1, EI1> E2##E1##E1;         \
+  Smkz::details::Swizzle<Impl, EI2, EI1, EI2> E2##E1##E2;         \
+  Smkz::details::Swizzle<Impl, EI2, EI1, EI3> E2##E1##E3;         \
+  Smkz::details::Swizzle<Impl, EI2, EI2, EI0> E2##E2##E0;         \
+  Smkz::details::Swizzle<Impl, EI2, EI2, EI1> E2##E2##E1;         \
+  Smkz::details::Swizzle<Impl, EI2, EI2, EI2> E2##E2##E2;         \
+  Smkz::details::Swizzle<Impl, EI2, EI2, EI3> E2##E2##E3;         \
+  Smkz::details::Swizzle<Impl, EI2, EI3, EI0> E2##E3##E0;         \
+  Smkz::details::Swizzle<Impl, EI2, EI3, EI1> E2##E3##E1;         \
+  Smkz::details::Swizzle<Impl, EI2, EI3, EI2> E2##E3##E2;         \
+  Smkz::details::Swizzle<Impl, EI2, EI3, EI3> E2##E3##E3;         \
+  Smkz::details::Swizzle<Impl, EI3, EI0, EI0> E3##E0##E0;         \
+  Smkz::details::Swizzle<Impl, EI3, EI0, EI1> E3##E0##E1;         \
+  Smkz::details::Swizzle<Impl, EI3, EI0, EI2> E3##E0##E2;         \
+  Smkz::details::Swizzle<Impl, EI3, EI0, EI3> E3##E0##E3;         \
+  Smkz::details::Swizzle<Impl, EI3, EI1, EI0> E3##E1##E0;         \
+  Smkz::details::Swizzle<Impl, EI3, EI1, EI1> E3##E1##E1;         \
+  Smkz::details::Swizzle<Impl, EI3, EI1, EI2> E3##E1##E2;         \
+  Smkz::details::Swizzle<Impl, EI3, EI1, EI3> E3##E1##E3;         \
+  Smkz::details::Swizzle<Impl, EI3, EI2, EI0> E3##E2##E0;         \
+  Smkz::details::Swizzle<Impl, EI3, EI2, EI1> E3##E2##E1;         \
+  Smkz::details::Swizzle<Impl, EI3, EI2, EI2> E3##E2##E2;         \
+  Smkz::details::Swizzle<Impl, EI3, EI2, EI3> E3##E2##E3;         \
+  Smkz::details::Swizzle<Impl, EI3, EI3, EI0> E3##E3##E0;         \
+  Smkz::details::Swizzle<Impl, EI3, EI3, EI1> E3##E3##E1;         \
+  Smkz::details::Swizzle<Impl, EI3, EI3, EI2> E3##E3##E2;         \
+  Smkz::details::Swizzle<Impl, EI3, EI3, EI3> E3##E3##E3
 
-#define MY_ARRAY_SWIZZLE2(E0, E1) MY_ARRAY_SWIZZLE2_2(0, 1, E0, E1)
+#define SMKZ_ARRAY_SWIZZLE2(E0, E1) SMKZ_ARRAY_SWIZZLE2_2(0, 1, E0, E1)
 
-#define MY_ARRAY_SWIZZLE3(E0, E1, E2)       \
-  MY_ARRAY_SWIZZLE3_2(0, 1, 2, E0, E1, E2); \
-  MY_ARRAY_SWIZZLE3_3(0, 1, 2, E0, E1, E2)
+#define SMKZ_ARRAY_SWIZZLE3(E0, E1, E2)       \
+  SMKZ_ARRAY_SWIZZLE3_2(0, 1, 2, E0, E1, E2); \
+  SMKZ_ARRAY_SWIZZLE3_3(0, 1, 2, E0, E1, E2)
 
-#define MY_ARRAY_SWIZZLE4(E0, E1, E2, E3)          \
-  MY_ARRAY_SWIZZLE4_2(0, 1, 2, 3, E0, E1, E2, E3); \
-  MY_ARRAY_SWIZZLE4_3(0, 1, 2, 3, E0, E1, E2, E3); \
-  MY_ARRAY_SWIZZLE4_4(0, 1, 2, 3, E0, E1, E2, E3)
+#define SMKZ_ARRAY_SWIZZLE4(E0, E1, E2, E3)          \
+  SMKZ_ARRAY_SWIZZLE4_2(0, 1, 2, 3, E0, E1, E2, E3); \
+  SMKZ_ARRAY_SWIZZLE4_3(0, 1, 2, 3, E0, E1, E2, E3); \
+  SMKZ_ARRAY_SWIZZLE4_4(0, 1, 2, 3, E0, E1, E2, E3)
 
-namespace My {
+namespace Smkz {
 template <details::ArrayMode mode, typename IArray_Base, typename Impl>
 struct IArray_Impl;
 
@@ -785,9 +785,9 @@ struct IArray_Impl<details::ArrayMode::Two, IArray_Base, Impl>
       T s, t;
     };
 
-    MY_ARRAY_SWIZZLE2(x, y);
-    MY_ARRAY_SWIZZLE2(r, g);
-    MY_ARRAY_SWIZZLE2(s, t);
+    SMKZ_ARRAY_SWIZZLE2(x, y);
+    SMKZ_ARRAY_SWIZZLE2(r, g);
+    SMKZ_ARRAY_SWIZZLE2(s, t);
   };
 
   using details::IArrayCommon<IArray_Base, Impl>::IArrayCommon;
@@ -815,9 +815,9 @@ struct IArray_Impl<details::ArrayMode::Three, IArray_Base, Impl>
       T s, t, p;
     };
 
-    MY_ARRAY_SWIZZLE3(x, y, z);
-    MY_ARRAY_SWIZZLE3(r, g, b);
-    MY_ARRAY_SWIZZLE3(s, t, p);
+    SMKZ_ARRAY_SWIZZLE3(x, y, z);
+    SMKZ_ARRAY_SWIZZLE3(r, g, b);
+    SMKZ_ARRAY_SWIZZLE3(s, t, p);
   };
 
   using details::IArrayCommon<IArray_Base, Impl>::IArrayCommon;
@@ -845,9 +845,9 @@ struct IArray_Impl<details::ArrayMode::Four, IArray_Base, Impl>
       T s, t, p, q;
     };
 
-    MY_ARRAY_SWIZZLE4(x, y, z, w);
-    MY_ARRAY_SWIZZLE4(r, g, b, a);
-    MY_ARRAY_SWIZZLE4(s, t, p, q);
+    SMKZ_ARRAY_SWIZZLE4(x, y, z, w);
+    SMKZ_ARRAY_SWIZZLE4(r, g, b, a);
+    SMKZ_ARRAY_SWIZZLE4(s, t, p, q);
   };
 
   using details::IArrayCommon<IArray_Base, Impl>::IArrayCommon;
@@ -872,7 +872,7 @@ struct IArray_Impl<details::ArrayMode::Basic, IArray_Base, Impl>
       : _Elems{static_cast<T>(vals)...} {}
 };
 
-#ifdef MY_USE_SIMD
+#ifdef SMKZ_USE_SIMD
 template <typename IArray_Base, typename Impl>
 struct alignas(16) IArray_Impl<details::ArrayMode::Four_SIMD, IArray_Base, Impl>
     : details::IStdArrayBasic<IArray_Base, Impl> {
@@ -894,9 +894,9 @@ struct alignas(16) IArray_Impl<details::ArrayMode::Four_SIMD, IArray_Base, Impl>
       T s, t, p, q;
     };
 
-    MY_ARRAY_SWIZZLE4(x, y, z, w);
-    MY_ARRAY_SWIZZLE4(r, g, b, a);
-    MY_ARRAY_SWIZZLE4(s, t, p, q);
+    SMKZ_ARRAY_SWIZZLE4(x, y, z, w);
+    SMKZ_ARRAY_SWIZZLE4(r, g, b, a);
+    SMKZ_ARRAY_SWIZZLE4(s, t, p, q);
   };
 
   friend bool operator==(const Impl& x, const Impl& y) noexcept {
@@ -1064,4 +1064,4 @@ struct alignas(16) IArray_Impl<details::ArrayMode::Four_SIMD, IArray_Base, Impl>
   }
 };
 #endif
-}  // namespace My
+}  // namespace  Smkz

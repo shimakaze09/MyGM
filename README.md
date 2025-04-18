@@ -49,7 +49,7 @@ advantages:
 ```c++
 #include <MyGM/MyGM.h>
 
-using namespace My;
+using namespace  Smkz;
 using namespace std;
 
 int main() {

@@ -2,7 +2,7 @@
 
 #include "mat.hpp"
 
-namespace My {
+namespace Smkz {
 template <typename T>
 struct SI_ImplTraits<svec<T>> : Array1DTraits<T, 3>,
                                 IListTraits<IArray1D_Util, ICross> {};
@@ -40,8 +40,8 @@ struct svec : SI<svec<T>> {
 
   // [summary]
   // this is inward direction (**outward** from surface), maybe under the
-  // surface reflected direction is outward direction (**outward** from surface)
-  // on the same side [return]
+  // surface reflected direction is outward direction (**outward** from
+  // surface) on the same side [return]
   // - outward (this->norm() == result.norm())
   svec reflect() const noexcept;
 
@@ -81,6 +81,6 @@ using svecf = svec<float>;
 
 // maybe error in editor, but no compile error
 static_assert(sizeof(svecf) == 3 * sizeof(float));
-}  // namespace My
+}  // namespace  Smkz
 
 #include "details/svec.inl"

@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <AutoVisualizer xmlns="http://schemas.microsoft.com/vstudio/debugger/natvis/2010">
-    <Type Name="My::vec&lt;*,1&gt;>">
+    <Type Name="Smkz::vec&lt;*,1&gt;>">
         <DisplayString>{{{_Elems[0]}}}</DisplayString>
         <Expand>
             <ArrayItems>
@@ -9,7 +9,7 @@
             </ArrayItems>
         </Expand>
     </Type>
-    <Type Name="My::vec&lt;*,2&gt;>">
+    <Type Name="Smkz::vec&lt;*,2&gt;>">
         <DisplayString>{{{_Elems[0]}, {_Elems[1]}}}</DisplayString>
         <Expand>
             <ArrayItems>
@@ -18,7 +18,7 @@
             </ArrayItems>
         </Expand>
     </Type>
-    <Type Name="My::vec&lt;*,3&gt;>">
+    <Type Name="Smkz::vec&lt;*,3&gt;>">
         <DisplayString>{{{_Elems[0]}, {_Elems[1]}, {_Elems[2]}}}</DisplayString>
         <Expand>
             <ArrayItems>
@@ -27,7 +27,7 @@
             </ArrayItems>
         </Expand>
     </Type>
-    <Type Name="My::vec&lt;*,4&gt;>">
+    <Type Name="Smkz::vec&lt;*,4&gt;>">
         <DisplayString>{{{_Elems[0]}, {_Elems[1]}, {_Elems[2]}, {_Elems[3]}}}</DisplayString>
         <Expand>
             <ArrayItems>
@@ -37,7 +37,7 @@
         </Expand>
     </Type>
 
-    <Type Name="My::point&lt;*,1&gt;>">
+    <Type Name="Smkz::point&lt;*,1&gt;>">
         <DisplayString>{{{_Elems[0]}}}</DisplayString>
         <Expand>
             <ArrayItems>
@@ -46,7 +46,7 @@
             </ArrayItems>
         </Expand>
     </Type>
-    <Type Name="My::point&lt;*,2&gt;>">
+    <Type Name="Smkz::point&lt;*,2&gt;>">
         <DisplayString>{{{_Elems[0]}, {_Elems[1]}}}</DisplayString>
         <Expand>
             <ArrayItems>
@@ -55,7 +55,7 @@
             </ArrayItems>
         </Expand>
     </Type>
-    <Type Name="My::point&lt;*,3&gt;>">
+    <Type Name="Smkz::point&lt;*,3&gt;>">
         <DisplayString>{{{_Elems[0]}, {_Elems[1]}, {_Elems[2]}}}</DisplayString>
         <Expand>
             <ArrayItems>
@@ -64,7 +64,7 @@
             </ArrayItems>
         </Expand>
     </Type>
-    <Type Name="My::point&lt;*,4&gt;>">
+    <Type Name="Smkz::point&lt;*,4&gt;>">
         <DisplayString>{{{_Elems[0]}, {_Elems[1]}, {_Elems[2]}, {_Elems[3]}}}</DisplayString>
         <Expand>
             <ArrayItems>
@@ -75,7 +75,7 @@
     </Type>
 
     <!-- SIMD -->
-    <Type Name="My::point&lt;*,4&gt;>">
+    <Type Name="Smkz::point&lt;*,4&gt;>">
         <DisplayString>{{{m.m128_f32[0]}, {m.m128_f32[1]}, {m.m128_f32[2]}, {m.m128_f32[3]}}}</DisplayString>
         <Expand>
             <ArrayItems>
@@ -85,7 +85,7 @@
         </Expand>
     </Type>
 
-    <Type Name="My::val&lt;*,1&gt;>">
+    <Type Name="Smkz::val&lt;*,1&gt;>">
         <DisplayString>{{{_Elems[0]}}}</DisplayString>
         <Expand>
             <ArrayItems>
@@ -94,7 +94,7 @@
             </ArrayItems>
         </Expand>
     </Type>
-    <Type Name="My::val&lt;*,2&gt;>">
+    <Type Name="Smkz::val&lt;*,2&gt;>">
         <DisplayString>{{{_Elems[0]}, {_Elems[1]}}}</DisplayString>
         <Expand>
             <ArrayItems>
@@ -103,7 +103,7 @@
             </ArrayItems>
         </Expand>
     </Type>
-    <Type Name="My::val&lt;*,3&gt;>">
+    <Type Name="Smkz::val&lt;*,3&gt;>">
         <DisplayString>{{{_Elems[0]}, {_Elems[1]}, {_Elems[2]}}}</DisplayString>
         <Expand>
             <ArrayItems>
@@ -112,7 +112,7 @@
             </ArrayItems>
         </Expand>
     </Type>
-    <Type Name="My::val&lt;*,4&gt;>">
+    <Type Name="Smkz::val&lt;*,4&gt;>">
         <DisplayString>{{{_Elems[0]}, {_Elems[1]}, {_Elems[2]}, {_Elems[3]}}}</DisplayString>
         <Expand>
             <ArrayItems>
@@ -122,7 +122,7 @@
         </Expand>
     </Type>
     <!-- SIMD -->
-    <Type Name="My::val&lt;*,4&gt;>">
+    <Type Name="Smkz::val&lt;*,4&gt;>">
         <DisplayString>{{{m.m128_f32[0]}, {m.m128_f32[1]}, {m.m128_f32[2]}, {m.m128_f32[3]}}}</DisplayString>
         <Expand>
             <ArrayItems>
@@ -132,7 +132,7 @@
         </Expand>
     </Type>
 
-    <Type Name="My::scale&lt;*,1&gt;>">
+    <Type Name="Smkz::scale&lt;*,1&gt;>">
         <DisplayString>{{{_Elems[0]}}}</DisplayString>
         <Expand>
             <ArrayItems>
@@ -141,7 +141,7 @@
             </ArrayItems>
         </Expand>
     </Type>
-    <Type Name="My::scale&lt;*,2&gt;>">
+    <Type Name="Smkz::scale&lt;*,2&gt;>">
         <DisplayString>{{{_Elems[0]},{_Elems[1]}}}</DisplayString>
         <Expand>
             <ArrayItems>
@@ -150,7 +150,7 @@
             </ArrayItems>
         </Expand>
     </Type>
-    <Type Name="My::scale&lt;*,3&gt;>">
+    <Type Name="Smkz::scale&lt;*,3&gt;>">
         <DisplayString>{{{_Elems[0]},{_Elems[1]},{_Elems[2]}}}</DisplayString>
         <Expand>
             <ArrayItems>
@@ -160,7 +160,7 @@
         </Expand>
     </Type>
     <!-- SIMD -->
-    <Type Name="My::scale&lt;*,4&gt;>">
+    <Type Name="Smkz::scale&lt;*,4&gt;>">
         <DisplayString>{{{m.m128_f32[0]}, {m.m128_f32[1]}, {m.m128_f32[2]}, {m.m128_f32[3]}}}</DisplayString>
         <Expand>
             <ArrayItems>
@@ -170,7 +170,7 @@
         </Expand>
     </Type>
 
-    <Type Name="My::normal&lt;*&gt;>">
+    <Type Name="Smkz::normal&lt;*&gt;>">
         <DisplayString>{{{_Elems[0]}, {_Elems[1]}, {_Elems[2]}}}</DisplayString>
         <Expand>
             <ArrayItems>
@@ -180,7 +180,7 @@
         </Expand>
     </Type>
 
-    <Type Name="My::svec&lt;*&gt;>">
+    <Type Name="Smkz::svec&lt;*&gt;>">
         <DisplayString>{{{_Elems[0]}, {_Elems[1]}, {_Elems[2]}}}</DisplayString>
         <Expand>
             <ArrayItems>
@@ -190,7 +190,7 @@
         </Expand>
     </Type>
 
-    <Type Name="My::euler&lt;*&gt;>">
+    <Type Name="Smkz::euler&lt;*&gt;>">
         <DisplayString>{{{_Elems[0]}, {_Elems[1]}, {_Elems[2]}}}</DisplayString>
         <Expand>
             <ArrayItems>
@@ -201,7 +201,7 @@
     </Type>
 
     <!-- SIMD -->
-    <Type Name="My::quat&lt;*&gt;>">
+    <Type Name="Smkz::quat&lt;*&gt;>">
         <DisplayString>{{[{m.m128_f32[0]}, {m.m128_f32[1]}, {m.m128_f32[2]}], {m.m128_f32[3]}}}</DisplayString>
         <Expand>
             <ArrayItems>
@@ -211,7 +211,7 @@
         </Expand>
     </Type>
 
-    <Type Name="My::rgb&lt;*&gt;>">
+    <Type Name="Smkz::rgb&lt;*&gt;>">
         <DisplayString>{{{_Elems[0]}, {_Elems[1]}, {_Elems[2]}}}</DisplayString>
         <Expand>
             <ArrayItems>
@@ -222,7 +222,7 @@
     </Type>
 
     <!-- SIMD -->
-    <Type Name="My::rgba&lt;*&gt;>">
+    <Type Name="Smkz::rgba&lt;*&gt;>">
         <DisplayString>{{{m.m128_f32[0]}, {m.m128_f32[1]}, {m.m128_f32[2]}, {m.m128_f32[3]}}}</DisplayString>
         <Expand>
             <ArrayItems>
@@ -233,7 +233,7 @@
     </Type>
 
     <!-- SIMD -->
-    <Type Name="My::hvec&lt;*&gt;>">
+    <Type Name="Smkz::hvec&lt;*&gt;>">
         <DisplayString>{{{m.m128_f32[0]}, {m.m128_f32[1]}, {m.m128_f32[2]}, {m.m128_f32[3]}}}</DisplayString>
         <Expand>
             <ArrayItems>
@@ -254,7 +254,7 @@
         </Expand>
     </Type>
 
-    <Type Name="My::bbox&lt;*,*&gt;>">
+    <Type Name="Smkz::bbox&lt;*,*&gt;>">
         <DisplayString>{{{_Elems[0]}, {_Elems[1]}}}</DisplayString>
         <Expand>
             <Item Name="min P">_Elems[0]</Item>
@@ -262,7 +262,7 @@
         </Expand>
     </Type>
 
-    <Type Name="My::line&lt;*,*&gt;>">
+    <Type Name="Smkz::line&lt;*,*&gt;>">
         <DisplayString>{{{point}, {dir}}}</DisplayString>
         <Expand>
             <Item Name="point">point</Item>
@@ -270,7 +270,7 @@
         </Expand>
     </Type>
 
-    <Type Name="My::plane&lt;*&gt;>">
+    <Type Name="Smkz::plane&lt;*&gt;>">
         <DisplayString>{{{point}, {normal}}}</DisplayString>
         <Expand>
             <Item Name="point">point</Item>
@@ -278,7 +278,7 @@
         </Expand>
     </Type>
 
-    <Type Name="My::ray&lt;*,*&gt;>">
+    <Type Name="Smkz::ray&lt;*,*&gt;>">
         <DisplayString>{{{point}, {dir}, {tmin}, {tmax}}}</DisplayString>
         <Expand>
             <Item Name="point">point</Item>
@@ -288,7 +288,7 @@
         </Expand>
     </Type>
 
-    <Type Name="My::mat&lt;*,3&gt;>">
+    <Type Name="Smkz::mat&lt;*,3&gt;>">
         <DisplayString>{{{_Elems[0]}, {_Elems[1]}, {_Elems[2]}}}</DisplayString>
         <Expand>
             <Item Name="colume 0">_Elems[0]</Item>
@@ -297,7 +297,7 @@
         </Expand>
     </Type>
 
-    <Type Name="My::mat&lt;*,4&gt;>">
+    <Type Name="Smkz::mat&lt;*,4&gt;>">
         <DisplayString>{{{_Elems[0]}, {_Elems[1]}, {_Elems[2]}, {_Elems[3]}}}</DisplayString>
         <Expand>
             <Item Name="colume 0">_Elems[0]</Item>
@@ -307,7 +307,7 @@
         </Expand>
     </Type>
 
-    <Type Name="My::transform&lt;*&gt;>">
+    <Type Name="Smkz::transform&lt;*&gt;>">
         <DisplayString>{{{_Elems[0]}, {_Elems[1]}, {_Elems[2]}, {_Elems[3]}}}</DisplayString>
         <Expand>
             <Item Name="colume 0">_Elems[0]</Item>
@@ -317,7 +317,7 @@
         </Expand>
     </Type>
 
-    <Type Name="My::triangle&lt;*,*&gt;>">
+    <Type Name="Smkz::triangle&lt;*,*&gt;>">
         <DisplayString>{{{_Elems[0]}, {_Elems[1]}, {_Elems[2]}}}</DisplayString>
         <Expand>
             <Item Name="p0">_Elems[0]</Item>

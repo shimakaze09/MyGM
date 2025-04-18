@@ -5,7 +5,7 @@
 #include "../basic.hpp"
 #include "ILinear.hpp"
 
-namespace My {
+namespace Smkz {
 // line in linear subspace
 // 'O' : original point
 template <typename Base, typename Impl>
@@ -27,4 +27,4 @@ struct IOLine : Base {
     return rst;
   }
 };
-}  // namespace My
+}  // namespace  Smkz

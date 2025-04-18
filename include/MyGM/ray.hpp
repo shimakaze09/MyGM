@@ -2,7 +2,7 @@
 
 #include "line.hpp"
 
-namespace My {
+namespace Smkz {
 template <typename T, size_t N>
 struct SI_ImplTraits<ray<T, N>> : SI_ImplTraits<line<T, N>> {};
 
@@ -39,12 +39,12 @@ struct ray : SI<ray<T, N>> {
   std::tuple<bool, T> intersect_sphere(const point<T, 3>& center,
                                        T radius) const noexcept;
 
-  // intersect with standard square (center: [0, 0, 0], side length: 2, normal:
-  // [0, 1, 0]) (isIntersect, t, hit point(x,z))
+  // intersect with standard square (center: [0, 0, 0], side length: 2,
+  // normal: [0, 1, 0]) (isIntersect, t, hit point(x,z))
   std::tuple<bool, T, point<T, 2>> intersect_std_square() const noexcept;
 
-  // intersect with standard disk (center: [0, 0, 0], radius: 1, normal: [0, 1,
-  // 0]) (isIntersect, t, hit point(x,z))
+  // intersect with standard disk (center: [0, 0, 0], radius: 1, normal: [0,
+  // 1, 0]) (isIntersect, t, hit point(x,z))
   std::tuple<bool, T, point<T, 2>> intersect_std_disk() const noexcept;
 
  private:
@@ -68,6 +68,6 @@ using rayf3 = rayf<3>;
 
 // maybe error in editor, but no compile error
 static_assert(sizeof(rayf3) == 8 * sizeof(float));
-}  // namespace My
+}  // namespace  Smkz
 
 #include "details/ray.inl"
