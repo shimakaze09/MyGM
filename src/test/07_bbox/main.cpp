@@ -1,12 +1,7 @@
-//
-// Created by Admin on 27/12/2024.
-//
-
+#include <MyGM/bbox.hpp>
+#include <MyGM/transform.hpp>
+#include <MyGM/val.hpp>
 #include <iostream>
-
-#include <MyGM/bbox.h>
-#include <MyGM/transform.h>
-#include <MyGM/val.h>
 
 using namespace std;
 using namespace My;
@@ -18,8 +13,7 @@ int main() {
 
   cout << "b" << b << endl;
   cout << "is_valid: " << b.is_valid() << endl;
-  for (size_t i = 0; i < 8; i++)
-    cout << "corner[i]: " << b.corner(i) << endl;
+  for (size_t i = 0; i < 8; i++) cout << "corner[i]: " << b.corner(i) << endl;
   cout << "center: " << b.center() << endl;
   cout << "diagonal: " << b.diagonal() << endl;
   cout << "area: " << b.area() << endl;

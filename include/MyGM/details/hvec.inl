@@ -5,7 +5,6 @@ template <typename T, size_t N>
 template <typename Container, size_t... Ns>
 hvec<T, N>::hvec(const Container& c, T h, std::index_sequence<Ns...>) noexcept
     : Base{c[Ns]..., h} {}
-
 template <typename T, size_t N>
 template <typename Container, size_t... Ns>
 hvec<T, N>::hvec(const Container& c, std::index_sequence<Ns...>) noexcept
@@ -38,15 +37,13 @@ point<T, N - 1> hvec<T, N>::to_point() const noexcept {
       else {
         point<T, N - 1> rst;
         T inv = ONE<T> / (*this)[N - 1];
-        for (size_t i = 0; i < N - 1; i++)
-          rst[i] = inv * (*this)[i];
+        for (size_t i = 0; i < N - 1; i++) rst[i] = inv * (*this)[i];
         return rst;
       }
     } else {
       point<T, N - 1> rst;
       T inv = ONE<T> / (*this)[N - 1];
-      for (size_t i = 0; i < N - 1; i++)
-        rst[i] = inv * (*this)[i];
+      for (size_t i = 0; i < N - 1; i++) rst[i] = inv * (*this)[i];
       return rst;
     }
   }

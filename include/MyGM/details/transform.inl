@@ -240,7 +240,8 @@ transform<F> transform<F>::perspective(F fovY, F aspect, F zNear, F zFar,
 
 template <typename F>
 transform<F> transform<F>::inverse_sim() const noexcept {
-  // ref: https://lxjk.github.io/2017/09/03/Fast-4x4-Matrix-Inverse-with-SSE-SIMD-Explained.html
+  // ref:
+  // https://lxjk.github.io/2017/09/03/Fast-4x4-Matrix-Inverse-with-SSE-SIMD-Explained.html
 #ifdef MY_USE_SIMD
   if constexpr (std::is_same_v<F, float>) {
     transform<F> r;
@@ -322,7 +323,8 @@ mat<F, 3> transform<F>::decompose_rotation_matrix() const noexcept {
 
 template <typename F>
 quat<F> transform<F>::decompose_quatenion() const noexcept {
-  // ref: https://www.euclideanspace.com/maths/geometry/rotations/conversions/matrixToQuaternion/
+  // ref:
+  // https://www.euclideanspace.com/maths/geometry/rotations/conversions/matrixToQuaternion/
 
   auto rM = decompose_rotation_matrix();
 
@@ -364,33 +366,33 @@ template <typename F>
 euler<F> transform<F>::decompose_euler() const noexcept {
   auto rM = decompose_rotation_matrix();
   /*
-		* rM is
-		* 
-		*  cYcZ + sXsYsZ  -cYsZ + sXsYsZ  cXsY
-		*           cXsZ            cXcZ   -sX
-		* -sYcZ + sXcYsZ   sYsZ + sXcYcZ  cXcY
-		*/
+   * rM is
+   *
+   *  cYcZ + sXsYsZ  -cYsZ + sXsYsZ  cXsY
+   *           cXsZ            cXcZ   -sX
+   * -sYcZ + sXcYsZ   sYsZ + sXcYcZ  cXcY
+   */
 
   if (std::abs(rM(1, 2)) == 1) {  // |sin X| = 1
     /*
-			* if sinX ==  1, rM is
-			*
-			*  cos(Y-Z)  sin(Y-Z)        0
-			*         0         0       -1
-			* -sin(Y-Z)  cos(Y-Z)        0
-			*
-			* if sinX == -1, rM is
-			*
-			*  cos(Y+Z)  sin(Y+Z)        0
-			*         0         0       -1
-			* -sin(Y+Z)  cos(Y+Z)        0
-			*
-			* degenerated, so set Z = 0, then in both cases, rM is
-			*
-			*  cos Y  sin Y      0
-			*      0      0     -1
-			* -sin Y  cos Y      0
-			*/
+     * if sinX ==  1, rM is
+     *
+     *  cos(Y-Z)  sin(Y-Z)        0
+     *         0         0       -1
+     * -sin(Y-Z)  cos(Y-Z)        0
+     *
+     * if sinX == -1, rM is
+     *
+     *  cos(Y+Z)  sin(Y+Z)        0
+     *         0         0       -1
+     * -sin(Y+Z)  cos(Y+Z)        0
+     *
+     * degenerated, so set Z = 0, then in both cases, rM is
+     *
+     *  cos Y  sin Y      0
+     *      0      0     -1
+     * -sin Y  cos Y      0
+     */
     return {sgn(rM(1, 2)) * static_cast<F>(90),
             to_degree(std::atan2(rM(0, 1), rM(2, 1))), 0};
   } else {
@@ -545,8 +547,8 @@ bbox<F, 3> transform<F>::operator*(const bbox<F, 3>& A) const noexcept {
   const auto& m = static_cast<const transform&>(*this);
 
   // See Christer Ericson's Real-time Collision Detection, p. 87, or
-  // James Arvo's "Transforming Axis-aligned Bounding Boxes" in Graphics Gems 1, pp. 548-550.
-  // http://www.graphicsgems.org/
+  // James Arvo's "Transforming Axis-aligned Bounding Boxes" in Graphics Gems 1,
+  // pp. 548-550. http://www.graphicsgems.org/
 #ifdef MY_USE_SIMD
   if constexpr (std::is_same_v<F, float>) {
     vecf<4> Bmin = m[3];

@@ -1,12 +1,11 @@
-#include "..\material.h"
+#include "..\material.hpp"
 #pragma once
 
 namespace My {
 inline float fresnel_schlick(float cos_theta, float eta) noexcept {
   float x = (eta - 1) / (eta + 1);
-  float R0 =
-      x *
-      x;  // reflectance at normal incidence, 'R' means specular [r]eflection coefficient
+  float R0 = x * x;  // reflectance at normal incidence, 'R' means specular
+                     // [r]eflection coefficient
   float one_cos_theta = 1 - cos_theta;
   return R0 + (1 - R0) * pow5(one_cos_theta);
 }
@@ -52,8 +51,7 @@ inline float specular_refraction(float Fr, float eta,
 
 inline float GGX_Lambda(float alpha, const svecf& w, const svecf& wm) noexcept {
   float cos_stheta = w.cos_stheta();
-  if (cos_stheta * w.dot(wm) <= 0)
-    return 0.f;
+  if (cos_stheta * w.dot(wm) <= 0) return 0.f;
   float tan2_stheta = 1 / pow2(cos_stheta) - 1;
   return 0.5f * (-1 + std::sqrt(1 + pow2(alpha) * tan2_stheta));
 }
@@ -78,8 +76,7 @@ inline float GGX_G(float alpha, const svecf& wi, const svecf& wo,
 
 inline float GGX_D(float alpha, const svecf& wm) noexcept {
   float cos_stheta = wm.cos_stheta();
-  if (cos_stheta <= 0)
-    return 0.f;
+  if (cos_stheta <= 0) return 0.f;
   float alpha2 = alpha * alpha;
   float denominator = PI<float> * pow2(1 + (alpha2 - 1) * pow2(cos_stheta));
   return alpha2 / denominator;

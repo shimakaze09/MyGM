@@ -1,11 +1,6 @@
-//
-// Created by Admin on 25/12/2024.
-//
-
+#include <MyGM/rgba.hpp>
+#include <MyGM/scale.hpp>
 #include <iostream>
-
-#include <MyGM/rgba.h>
-#include <MyGM/scale.h>
 
 using namespace std;
 using namespace My;

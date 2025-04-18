@@ -1,10 +1,5 @@
-//
-// Created by Admin on 26/12/2024.
-//
-
+#include <MyGM/transform.hpp>
 #include <iostream>
-
-#include <MyGM/transform.h>
 
 using namespace std;
 using namespace My;

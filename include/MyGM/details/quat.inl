@@ -39,7 +39,6 @@ template <typename T>
 T& quat<T>::real() noexcept {
   return (*this)[3];
 }
-
 template <typename T>
 T quat<T>::real() const noexcept {
   return (*this)[3];
@@ -82,11 +81,9 @@ quat<T> quat<T>::rotate_with(T theta) noexcept {
 
   vec<T, 3> imag;
   constexpr size_t idx = static_cast<size_t>(axisIdx);
-  for (size_t i = 0; i < idx; i++)
-    imag[i] = ZERO<T>;
+  for (size_t i = 0; i < idx; i++) imag[i] = ZERO<T>;
   imag[idx] = std::sin(halfTheta);
-  for (size_t i = idx + 1; i < 3; i++)
-    imag[i] = 0;
+  for (size_t i = idx + 1; i < 3; i++) imag[i] = 0;
 
   T real = std::cos(halfTheta);
 
@@ -119,7 +116,7 @@ euler<T> quat<T>::to_euler() const noexcept {
 template <typename T>
 vec<T, 3> quat<T>::operator*(const vec<T, 3>& v) const noexcept {
   // slow
-  //return (q * quat(v) * q.inverse()).imag();
+  // return (q * quat(v) * q.inverse()).imag();
 
   // fast
   T r = real();
@@ -151,8 +148,7 @@ std::ostream& quat<T>::impl_out(std::ostream& os) const noexcept {
 
 template <typename T>
 std::istream& quat<T>::impl_in(std::istream& is) noexcept {
-  for (size_t i = 0; i < 3; i++)
-    is >> imag()[i];
+  for (size_t i = 0; i < 3; i++) is >> imag()[i];
 
   is >> real();
 

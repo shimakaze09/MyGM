@@ -6,8 +6,7 @@ template <typename Container>
 point<T, N> point<T, N>::combine(const Container& points, T weight) noexcept {
   point rst{ZERO<T>};
   for (const auto& p : points) {
-    for (size_t i = 0; i < N; i++)
-      rst[i] += weight * p[i];
+    for (size_t i = 0; i < N; i++) rst[i] += weight * p[i];
   }
   return rst;
 }
@@ -21,8 +20,7 @@ point<T, N> point<T, N>::combine(PContainer points,
   auto witer = weights.begin();
   for (const auto& p : points) {
     T weight = *witer;
-    for (size_t i = 0; i < N; i++)
-      rst[i] += weight * p[i];
+    for (size_t i = 0; i < N; i++) rst[i] += weight * p[i];
     ++witer;
   }
   return rst;

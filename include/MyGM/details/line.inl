@@ -54,17 +54,14 @@ std::tuple<bool, std::array<T, 3>, T> line<T, N>::intersect(
     const vecf4 e2_x_s = e2.v3_cross(s);
     const float r1 = e2_x_s.v3_dot(d).get<0>();
     const float u = r1 * inv_denominator;
-    if (u < 0 || u > 1)
-      return {false, std::array<T, 3>{ZERO<T>}, ZERO<T>};
+    if (u < 0 || u > 1) return {false, std::array<T, 3>{ZERO<T>}, ZERO<T>};
 
     const float r2 = e1_x_d.v3_dot(s).get<0>();
     const float v = r2 * inv_denominator;
-    if (v < 0 || v > 1)
-      return {false, std::array<T, 3>{ZERO<T>}, ZERO<T>};
+    if (v < 0 || v > 1) return {false, std::array<T, 3>{ZERO<T>}, ZERO<T>};
 
     const float u_plus_v = u + v;
-    if (u_plus_v > 1)
-      return {false, std::array<T, 3>{ZERO<T>}, ZERO<T>};
+    if (u_plus_v > 1) return {false, std::array<T, 3>{ZERO<T>}, ZERO<T>};
 
     const float r3 = e2_x_s.v3_dot(e1).get<0>();
     const float t = r3 * inv_denominator;
@@ -95,17 +92,14 @@ std::tuple<bool, std::array<T, 3>, T> line<T, N>::intersect(
     const auto e2_x_s = e2.cross(s);
     const auto r1 = e2_x_s.dot(d);
     const auto u = r1 * inv_denominator;
-    if (u < 0 || u > 1)
-      return {false, std::array<T, 3>{ZERO<T>}, ZERO<T>};
+    if (u < 0 || u > 1) return {false, std::array<T, 3>{ZERO<T>}, ZERO<T>};
 
     const auto r2 = e1_x_d.dot(s);
     const auto v = r2 * inv_denominator;
-    if (v < 0 || v > 1)
-      return {false, std::array<T, 3>{ZERO<T>}, ZERO<T>};
+    if (v < 0 || v > 1) return {false, std::array<T, 3>{ZERO<T>}, ZERO<T>};
 
     const auto u_plus_v = u + v;
-    if (u_plus_v > 1)
-      return {false, std::array<T, 3>{ZERO<T>}, ZERO<T>};
+    if (u_plus_v > 1) return {false, std::array<T, 3>{ZERO<T>}, ZERO<T>};
 
     const auto r3 = e2_x_s.dot(e1);
     const auto t = r3 * inv_denominator;
@@ -146,20 +140,20 @@ std::tuple<bool, T, T> line<T, N>::intersect(const bbox<T, N>& box,
 #endif
   {
     /*const auto& origin = this->point;
-			const auto& boxminP = box.minP();
-			const auto& boxmaxP = box.maxP();
+    const auto& boxminP = box.minP();
+    const auto& boxmaxP = box.maxP();
 
-			for (size_t i = 0; i < N; i++) {
-				T t0 = (boxminP[i] - origin[i]) * inv_dir[i];
-				T t1 = (boxmaxP[i] - origin[i]) * inv_dir[i];
-				if (inv_dir[i] < 0)
-					std::swap(t0, t1);
+    for (size_t i = 0; i < N; i++) {
+            T t0 = (boxminP[i] - origin[i]) * inv_dir[i];
+            T t1 = (boxmaxP[i] - origin[i]) * inv_dir[i];
+            if (inv_dir[i] < 0)
+                    std::swap(t0, t1);
 
-				tmin = std::max(t0, tmin);
-				tmax = std::min(t1, tmax);
-				if (tmax < tmin)
-					return { false, ZERO<T>, ZERO<T> };
-			}*/
+            tmin = std::max(t0, tmin);
+            tmax = std::min(t1, tmax);
+            if (tmax < tmin)
+                    return { false, ZERO<T>, ZERO<T> };
+    }*/
   }
 
   return {true, tmin, tmax};

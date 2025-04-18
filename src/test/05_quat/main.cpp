@@ -1,11 +1,6 @@
-//
-// Created by Admin on 25/12/2024.
-//
-
+#include <MyGM/euler.hpp>
+#include <MyGM/quat.hpp>
 #include <iostream>
-
-#include <MyGM/euler.h>
-#include <MyGM/quat.h>
 
 using namespace std;
 using namespace My;

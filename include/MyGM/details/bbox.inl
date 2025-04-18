@@ -39,8 +39,7 @@ const point<F, N>& bbox<F, N>::maxP() const noexcept {
 template <typename F, size_t N>
 bool bbox<F, N>::is_valid() const noexcept {
   for (size_t i = 0; i < N; i++) {
-    if (maxP()[i] < minP()[i])
-      return false;
+    if (maxP()[i] < minP()[i]) return false;
   }
   return true;
 }
@@ -69,8 +68,7 @@ vec<F, N> bbox<F, N>::diagonal() const noexcept {
 template <typename F, size_t N>
 F bbox<F, N>::area() const noexcept {
   static_assert(N == 2 || N == 3);
-  if (!is_valid())
-    return ZERO<F>;
+  if (!is_valid()) return ZERO<F>;
   const auto d = diagonal();
   if constexpr (N == 2)
     return d[0] * d[1];
@@ -81,8 +79,7 @@ F bbox<F, N>::area() const noexcept {
 template <typename F, size_t N>
 F bbox<F, N>::volume() const noexcept {
   static_assert(N == 3);
-  if (!is_valid())
-    return ZERO<F>;
+  if (!is_valid()) return ZERO<F>;
   const auto d = diagonal();
   return d[0] * d[1] * d[2];
 }
@@ -96,8 +93,7 @@ size_t bbox<F, N>::max_extent() const noexcept {
 template <typename F, size_t N>
 point<F, N> bbox<F, N>::lerp(const val<F, N>& t) const noexcept {
   point<F, N> rst{};
-  for (size_t i = 0; i < N; i++)
-    rst[i] = My::lerp(minP()[i], maxP()[i], t[i]);
+  for (size_t i = 0; i < N; i++) rst[i] = My::lerp(minP()[i], maxP()[i], t[i]);
   return rst;
 }
 
@@ -105,8 +101,7 @@ template <typename F, size_t N>
 vec<F, N> bbox<F, N>::offset(const point<F, N>& p) const noexcept {
   vec<F, N> o = p - minP();
   const auto d = diagonal();
-  for (size_t i = 0; i < N; i++)
-    o[i] /= d[i];
+  for (size_t i = 0; i < N; i++) o[i] /= d[i];
   return o;
 }
 

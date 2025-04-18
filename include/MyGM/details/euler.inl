@@ -5,11 +5,11 @@ template <typename T>
 quat<T> euler<T>::to_quat() const noexcept {
   // slow
   /*
-		auto qX = quat<T>::rotate_with<Axis::X>((*this)[0]);
-		auto qY = quat<T>::rotate_with<Axis::Y>((*this)[1]);
-		auto qZ = quat<T>::rotate_with<Axis::Z>((*this)[2]);
-		return qY * qX * qZ;
-		*/
+  auto qX = quat<T>::rotate_with<Axis::X>((*this)[0]);
+  auto qY = quat<T>::rotate_with<Axis::Y>((*this)[1]);
+  auto qZ = quat<T>::rotate_with<Axis::Z>((*this)[2]);
+  return qY * qX * qZ;
+  */
 
   // fast
   T x = to_radian((*this)[0]) / 2;

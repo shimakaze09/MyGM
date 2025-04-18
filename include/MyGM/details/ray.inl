@@ -66,8 +66,7 @@ std::tuple<bool, T> ray<T, N>::intersect_std_sphere() const noexcept {
     T c = oc.v3_dot(oc) - r2;
     T discriminant = b * b - a * c;
 
-    if (discriminant < 0)
-      return {false, ZERO<T>};
+    if (discriminant < 0) return {false, ZERO<T>};
 
     T sqrt_discriminant = std::sqrt(discriminant);
     T inv_a = 1 / a;
@@ -76,14 +75,13 @@ std::tuple<bool, T> ray<T, N>::intersect_std_sphere() const noexcept {
     T t = (neg_b - sqrt_discriminant) * inv_a;
     if (t > tmax || t < tmin) {
       t = (neg_b + sqrt_discriminant) * inv_a;
-      if (t > tmax || t < tmin)
-        return {false, ZERO<T>};
+      if (t > tmax || t < tmin) return {false, ZERO<T>};
     }
 
     return {true, t};
   } else
 #endif  // MY_USE_SIMD
-  // 51 instructions
+        // 51 instructions
   {
     vec<T, N> oc = p.template cast_to<vec<T, N>>();
     T a = d.norm2();
@@ -91,8 +89,7 @@ std::tuple<bool, T> ray<T, N>::intersect_std_sphere() const noexcept {
     T c = oc.dot(oc) - r2;
     T discriminant = b * b - a * c;
 
-    if (discriminant < 0)
-      return {false, ZERO<T>};
+    if (discriminant < 0) return {false, ZERO<T>};
 
     T sqrt_discriminant = std::sqrt(discriminant);
     T inv_a = 1 / a;
@@ -101,8 +98,7 @@ std::tuple<bool, T> ray<T, N>::intersect_std_sphere() const noexcept {
     T t = (neg_b - sqrt_discriminant) * inv_a;
     if (t > tmax || t < tmin) {
       t = (neg_b + sqrt_discriminant) * inv_a;
-      if (t > tmax || t < tmin)
-        return {false, ZERO<T>};
+      if (t > tmax || t < tmin) return {false, ZERO<T>};
     }
 
     return {true, t};
@@ -124,8 +120,7 @@ std::tuple<bool, T> ray<T, N>::intersect_sphere(const point<T, 3>& center,
     T c = oc.v3_dot(oc) - r2;
     T discriminant = b * b - a * c;
 
-    if (discriminant < 0)
-      return {false, ZERO<T>};
+    if (discriminant < 0) return {false, ZERO<T>};
 
     T sqrt_discriminant = std::sqrt(discriminant);
     T inv_a = 1 / a;
@@ -134,8 +129,7 @@ std::tuple<bool, T> ray<T, N>::intersect_sphere(const point<T, 3>& center,
     T t = (neg_b - sqrt_discriminant) * inv_a;
     if (t > tmax || t < tmin) {
       t = (neg_b + sqrt_discriminant) * inv_a;
-      if (t > tmax || t < tmin)
-        return {false, ZERO<T>};
+      if (t > tmax || t < tmin) return {false, ZERO<T>};
     }
 
     return {true, t};
@@ -148,8 +142,7 @@ std::tuple<bool, T> ray<T, N>::intersect_sphere(const point<T, 3>& center,
     T c = oc.dot(oc) - r2;
     T discriminant = b * b - a * c;
 
-    if (discriminant < 0)
-      return {false, ZERO<T>};
+    if (discriminant < 0) return {false, ZERO<T>};
 
     T sqrt_discriminant = std::sqrt(discriminant);
     T inv_a = 1 / a;
@@ -158,8 +151,7 @@ std::tuple<bool, T> ray<T, N>::intersect_sphere(const point<T, 3>& center,
     T t = (neg_b - sqrt_discriminant) * inv_a;
     if (t > tmax || t < tmin) {
       t = (neg_b + sqrt_discriminant) * inv_a;
-      if (t > tmax || t < tmin)
-        return {false, ZERO<T>};
+      if (t > tmax || t < tmin) return {false, ZERO<T>};
     }
 
     return {true, t};
@@ -172,21 +164,17 @@ std::tuple<bool, T, point<T, 2>> ray<T, N>::intersect_std_square()
   static_assert(N == 3);
 
   const auto& d = this->dir;
-  if (d[1] == 0)
-    return {false, ZERO<T>, point<T, 2>{0, 0}};
+  if (d[1] == 0) return {false, ZERO<T>, point<T, 2>{0, 0}};
 
   const auto& p = this->point;
   T t = -p[1] / d[1];
-  if (t < tmin || t > tmax)
-    return {false, ZERO<T>, point<T, 2>{0, 0}};
+  if (t < tmin || t > tmax) return {false, ZERO<T>, point<T, 2>{0, 0}};
 
   auto x = p[0] + t * d[0];
-  if (x < -1 || x > 1)
-    return {false, ZERO<T>, point<T, 2>{0, 0}};
+  if (x < -1 || x > 1) return {false, ZERO<T>, point<T, 2>{0, 0}};
 
   auto z = p[2] + t * d[2];
-  if (z < -1 || z > 1)
-    return {false, ZERO<T>, point<T, 2>{0, 0}};
+  if (z < -1 || z > 1) return {false, ZERO<T>, point<T, 2>{0, 0}};
 
   return {true, t, point<T, 2>{x, z}};
 }
@@ -197,19 +185,16 @@ std::tuple<bool, T, point<T, 2>> ray<T, N>::intersect_std_disk()
   static_assert(N == 3);
 
   const auto& d = this->dir;
-  if (d[1] == 0)
-    return {false, ZERO<T>, point<T, 2>{0, 0}};
+  if (d[1] == 0) return {false, ZERO<T>, point<T, 2>{0, 0}};
 
   const auto& p = this->point;
   T t = -p[1] / d[1];
-  if (t < tmin || t > tmax)
-    return {false, ZERO<T>, point<T, 2>{0, 0}};
+  if (t < tmin || t > tmax) return {false, ZERO<T>, point<T, 2>{0, 0}};
 
   auto x = p[0] + t * d[0];
   auto z = p[2] + t * d[2];
 
-  if (x * x + z * z > 1)
-    return {false, ZERO<T>, point<T, 2>{0, 0}};
+  if (x * x + z * z > 1) return {false, ZERO<T>, point<T, 2>{0, 0}};
 
   return {true, t, point<T, 2>{x, z}};
 }

@@ -1,45 +1,41 @@
-//
-// Created by Admin on 23/02/2025.
-//
-
-#include <MyGM/mat.h>
-#include <MyGM/point.h>
-#include <MyGM/vec.h>
+#include <MyGM/mat.hpp>
+#include <MyGM/point.hpp>
+#include <MyGM/vec.hpp>
 #include <iostream>
 
 using namespace My;
 using namespace std;
 
 int main(int argc, char* argv[]) {
-  // {// vecf4
+  //{// vecf4
   //    vecf4 a;
   //    vecf4 b;
   //    cin >> a >> b;
   //    cout << a + b << endl;
   //    cout << a.dot(b) << endl;
-  // }
+  //}
 
-  // {// pointf4
+  //{// pointf4
   //    pointf4 p0, p1;
   //    cin >> p0 >> p1;
   //    p0 -= vecf4{ 1,1,1,1 };
   //    cout << p0 - p1 << endl;
-  // }
+  //}
 
-  // { // matrix mul
+  //{ // matrix mul
   //    matf4 m1, m2;
   //    cin >> m1 >> m2;
   //    auto m1m2 = m1 * m2;
   //    cout << m1m2 << endl;
-  // }
+  //}
 
-  // {// matrix inverse
+  //{// matrix inverse
   //    matf4 m;
   //    cin >> m;
   //    (m * m.inverse()).print();
-  // }
+  //}
 
-  // { // cast and []
+  //{ // cast and []
   //    {
   //        vecf4 v;
   //        cin >> v;
@@ -53,17 +49,17 @@ int main(int argc, char* argv[]) {
   //        pointf3 q{ v[0], v[1], v[2] };
   //        cout << q << endl;
   //    }
-  // }
+  //}
 
-  // { // min
+  //{ // min
   //    vecf4 s;
   //    cin >> s;
   //    const vecf4 ss = s;
   //    auto rst = ss.min_component();
   //    cout << rst << endl;
-  // }
+  //}
 
-  // {
+  //{
   //    linef3 l;
   //    cin >> l;
   //    bboxf3 b0, b1;
@@ -80,44 +76,44 @@ int main(int argc, char* argv[]) {
   //    // 26
   //    auto [success1, t10, t11] = l.intersect(b1, invdir);
   //    cout << success1 << t10 << t11 << endl;
-  // }
+  //}
 
-  // {
-  //   vecf4 u, v;
-  //   cin >> u >> v;
-  //   cout << vecf4::v3_dot(u, v) << endl;
-  //   cout << vecf4::v3_cross(u, v) << endl;
-  // }
+  /*{
+      vecf4 u, v;
+      cin >> u >> v;
+      cout << vecf4::v3_dot(u, v) << endl;
+      cout << vecf4::v3_cross(u, v) << endl;
+  }*/
 
-  // {
-  //   linef3 l;
-  //   trianglef3 tri;
-  //   cin >> l >> tri;
+  //{
+  //    linef3 l;
+  //    trianglef3 tri;
+  //    cin >> l >> tri;
 
-  //   l.print();
-  //   cout << tri << endl;
+  //    l.print();
+  //    cout << tri << endl;
 
-  //   // 103 -> 58
-  //   auto [s, uwv, t] = l.intersect(tri);
-  //   cout << s << endl;
-  //   cout << uwv[0] << ", " << uwv[1] << ", " << uwv[2] << endl;
-  //   cout << t << endl;
-  // }
+  //    // 103 -> 58
+  //    auto [s, uwv, t] = l.intersect(tri);
+  //    cout << s << endl;
+  //    cout << uwv[0] << ", " << uwv[1] << ", " << uwv[2] << endl;
+  //    cout << t << endl;
+  //}
 
-  // {
-  //   pointf3 p;
-  //   vecf3 d;
-  //   cin >> p >> d;
-  //   rayf3 r{p, d};
+  //{
+  //    pointf3 p;
+  //    vecf3 d;
+  //    cin >> p >> d;
+  //    rayf3 r{ p,d };
 
-  //   auto [isIntersect0, t0, uv] = r.intersect_std_disk();
-  //   cout << isIntersect0 << ", " << t0 << ", " << uv[0] << ", " << uv[1] << ", "
-  //        << endl;
+  //    auto [isIntersect0, t0, uv] = r.intersect_std_disk();
+  //    cout << isIntersect0 << ", " << t0 << ", " << uv[0] << ", " << uv[1] <<
+  //    ", " << endl;
 
-  //   // 51 -> 36
-  //   auto [isIntersect, t] = r.intersect_std_sphere();
-  //   cout << isIntersect << endl << t << endl;
-  // }
+  //    // 51 -> 36
+  //    auto [isIntersect, t] = r.intersect_std_sphere();
+  //    cout << isIntersect << endl << t << endl;
+  //}
 
   {
     matf4 m;

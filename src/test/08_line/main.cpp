@@ -1,11 +1,6 @@
-//
-// Created by Admin on 29/12/2024.
-//
-
+#include <MyGM/line.hpp>
+#include <MyGM/transform.hpp>
 #include <iostream>
-
-#include <MyGM/line.h>
-#include <MyGM/transform.h>
 
 using namespace std;
 using namespace My;

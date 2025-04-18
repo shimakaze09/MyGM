@@ -1,8 +1,4 @@
-//
-// Created by Admin on 6/03/2025.
-//
-
-#include <MyGM/vec.h>
+#include <MyGM/vec.hpp>
 #include <iostream>
 
 using namespace My;

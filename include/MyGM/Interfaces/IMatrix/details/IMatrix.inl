@@ -1,8 +1,8 @@
 #pragma once
 
-#include "svd3.h"
-
 #include <cstring>
+
+#include "svd3.hpp"
 
 namespace My::details::IMatrix_ {
 template <typename M, size_t N>
@@ -11,7 +11,6 @@ struct eye;
 template <typename M>
 struct eye<M, 2> {
   using F = typename M::F;
-
   static M run() noexcept {
     return {
         1,
@@ -25,7 +24,6 @@ struct eye<M, 2> {
 template <typename M>
 struct eye<M, 3> {
   using F = typename M::F;
-
   static M run() noexcept {
     return {
         1, 0, 0, 0, 1, 0, 0, 0, 1,
@@ -290,7 +288,8 @@ struct SVD<2> {
   static std::tuple<M, M, M> run(const M& m) noexcept {
     static_assert(M::N == 2);
     using F = SI_ImplTraits_F<M>;
-    // ref : https://lucidar.me/en/mathematics/singular-value-decomposition-of-a-2x2-matrix/
+    // ref :
+    // https://lucidar.me/en/mathematics/singular-value-decomposition-of-a-2x2-matrix/
     F a = m(0, 0);
     F b = m(0, 1);
     F c = m(1, 0);

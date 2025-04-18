@@ -3,7 +3,7 @@
 #pragma region Eric_inverse
 #ifdef MY_USE_SIMD
 
-#include "../../../val.h"
+#include "../../../val.hpp"
 
 namespace My::details::IMatrixMul::Eric {
 // for column major matrix
@@ -15,14 +15,12 @@ inline __m128 Mat2Mul(__m128 vec1, __m128 vec2) {
       _mm_mul_ps(vec1, VecSwizzle(vec2, 0, 0, 3, 3)),
       _mm_mul_ps(VecSwizzle(vec1, 2, 3, 0, 1), VecSwizzle(vec2, 1, 1, 2, 2)));
 }
-
 // 2x2 column major Matrix adjugate multiply (A#)*B
 inline __m128 Mat2AdjMul(__m128 vec1, __m128 vec2) {
   return _mm_sub_ps(
       _mm_mul_ps(VecSwizzle(vec1, 3, 0, 3, 0), vec2),
       _mm_mul_ps(VecSwizzle(vec1, 2, 1, 2, 1), VecSwizzle(vec2, 1, 0, 3, 2)));
 }
-
 // 2x2 column major Matrix multiply adjugate A*(B#)
 inline __m128 Mat2MulAdj(__m128 vec1, __m128 vec2) {
   return _mm_sub_ps(
@@ -35,7 +33,8 @@ inline __m128 Mat2MulAdj(__m128 vec1, __m128 vec2) {
 template <typename M>
 M GetInverse(const M& inM) {
   // use block matrix method
-  // A is a matrix, then i(A) or iA means inverse of A, A# (or A_ in code) means adjugate of A, |A| (or detA in code) is determinant, tr(A) is trace
+  // A is a matrix, then i(A) or iA means inverse of A, A# (or A_ in code) means
+  // adjugate of A, |A| (or detA in code) is determinant, tr(A) is trace
 
   // sub matrices
   __m128 A = VecShuffle_0101(inM[0], inM[1]);
@@ -111,7 +110,8 @@ M GetInverse(const M& inM) {
 
   M r;
 
-  // apply adjugate and store, here we combine adjugate shuffle and store shuffle
+  // apply adjugate and store, here we combine adjugate shuffle and store
+  // shuffle
   r[0] = VecShuffle(X_, Z_, 3, 1, 3, 1);
   r[1] = VecShuffle(X_, Z_, 2, 0, 2, 0);
   r[2] = VecShuffle(Y_, W_, 3, 1, 3, 1);
@@ -183,9 +183,11 @@ struct inverse<4> {
 
 #ifdef MY_USE_SIMD
     if constexpr (SI_ImplTraits_SupportSIMD<SI_ImplTraits_T<M>>::value) {
-#if 1  // Eric: https://lxjk.github.io/2017/09/03/Fast-4x4-Matrix-Inverse-with-SSE-SIMD-Explained.html
+#if 1  // Eric:
+       // https://lxjk.github.io/2017/09/03/Fast-4x4-Matrix-Inverse-with-SSE-SIMD-Explained.html
       return Eric::GetInverse(m);
-#else  // intel: https://software.intel.com/en-us/articles/optimized-matrix-library-for-use-with-the-intel-pentiumr-4-processors-sse2-instructions/
+#else  // intel:
+       // https://software.intel.com/en-us/articles/optimized-matrix-library-for-use-with-the-intel-pentiumr-4-processors-sse2-instructions/
       using V = val<float, 4>;
       // The inverse is calculated using "Divide and Conquer" technique. The
       // original matrix is divide into four 2x2 sub-matrices. Since each

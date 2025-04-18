@@ -1,11 +1,6 @@
-//
-// Created by Admin on 27/12/2024.
-//
-
+#include <MyGM/ray.hpp>
+#include <MyGM/transform.hpp>
 #include <iostream>
-
-#include <MyGM/ray.h>
-#include <MyGM/transform.h>
 
 using namespace std;
 using namespace My;

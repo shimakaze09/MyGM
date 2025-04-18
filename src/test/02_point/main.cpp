@@ -1,12 +1,6 @@
-//
-// Created by Admin on 25/12/2024.
-//
-
-#include <iostream>
-
-#include <MyGM/point.h>
-
+#include <MyGM/point.hpp>
 #include <array>
+#include <iostream>
 #include <vector>
 
 using namespace std;

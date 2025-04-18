@@ -1,8 +1,4 @@
-//
-// Created by Admin on 25/12/2024.
-//
-
-#include <MyGM/mat.h>
+#include <MyGM/mat.hpp>
 #include <iostream>
 
 using namespace std;
@@ -30,8 +26,7 @@ int main() {
   m4.inverse().print();
 
   std::array<float, 9> arr;
-  for (auto& e : arr)
-    cin >> e;
+  for (auto& e : arr) cin >> e;
 
   cout << matf3(arr) << endl;
   auto m3 = matf3::eye();
