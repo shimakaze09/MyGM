@@ -32,7 +32,7 @@ struct IArrayScalarMul : Base {
   }
 
   Impl& operator*=(const __m128& k) noexcept {
-    const auto& x = static_cast<const Impl&>(*this);
+    auto& x = static_cast<Impl&>(*this);
     return x = x * k;
   }
 
@@ -44,7 +44,7 @@ struct IArrayScalarMul : Base {
   }
 
   Impl& operator/=(const __m128& k) noexcept {
-    const auto& x = static_cast<const Impl&>(*this);
+    auto& x = static_cast<Impl&>(*this);
     return x = x / k;
   }
 #endif  // SMKZ_USE_SIMD

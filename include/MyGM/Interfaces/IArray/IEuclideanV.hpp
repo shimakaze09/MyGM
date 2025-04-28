@@ -271,7 +271,7 @@ struct IEuclideanV : Base {
     }
   }
 };
-}  // namespace  Smkz
+}  // namespace Smkz
 
 SI_InterfaceTraits_Register(Smkz::IEuclideanV, Smkz::IInnerProduct,
                             Smkz::IArrayLinear);

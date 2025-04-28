@@ -5,6 +5,7 @@
 #include "Interfaces/IArray/IArrayLinear.hpp"
 #include "Interfaces/ILinear.hpp"
 #include "details/traits.hpp"
+#include "val.hpp"
 
 namespace Smkz {
 template <typename T>
