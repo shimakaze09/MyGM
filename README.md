@@ -1,6 +1,6 @@
 # MyGM
 
-> **My** **G**raphics **M**athematics, My Graphics Mathematics Library
+> **My** **G**raphics **M**athematics
 
 [![repo-size](https://img.shields.io/github/languages/code-size/shimakaze09/MyGM?style=flat)](https://github.com/shimakaze09/MyGM/archive/main.zip) [![tag](https://img.shields.io/github/v/tag/shimakaze09/MyGM)](https://github.com/shimakaze09/MyGM/tags) [![license](https://img.shields.io/github/license/shimakaze09/MyGM)](LICENSE)
 
