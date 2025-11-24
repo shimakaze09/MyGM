@@ -3,7 +3,7 @@
 #include "../IAdd.hpp"
 #include "IArray.hpp"
 
-namespace Smkz {
+namespace My {
 template <typename Base, typename Impl>
 struct IArrayAdd : Base {
   using Base::Base;
@@ -17,11 +17,11 @@ struct IArrayAdd : Base {
 
   Impl impl_add(const Impl& y) const noexcept {
     const auto& x = static_cast<const Impl&>(*this);
-#ifdef SMKZ_USE_SIMD
+#ifdef MYGM_USE_SIMD
     if constexpr (SI_ImplTraits_SupportSIMD<Impl>)
       return _mm_add_ps(x, y);
     else
-#endif  // SMKZ_USE_SIMD
+#endif  // MYGM_USE_SIMD
     {
       Impl rst;
       for (size_t i = 0; i < N; i++) rst[i] = x[i] + y[i];
@@ -31,11 +31,11 @@ struct IArrayAdd : Base {
 
   Impl& impl_add_to_self(const Impl& y) noexcept {
     auto& x = static_cast<Impl&>(*this);
-#ifdef SMKZ_USE_SIMD
+#ifdef MYGM_USE_SIMD
     if constexpr (SI_ImplTraits_SupportSIMD<Impl>)
       return x = x + y;
     else
-#endif  // SMKZ_USE_SIMD
+#endif  // MYGM_USE_SIMD
     {
       for (size_t i = 0; i < N; i++) x[i] += y[i];
       return x;
@@ -44,13 +44,13 @@ struct IArrayAdd : Base {
 
   Impl impl_add_inverse() const noexcept {
     const auto& x = static_cast<const Impl&>(*this);
-#ifdef SMKZ_USE_SIMD
+#ifdef MYGM_USE_SIMD
     if constexpr (SI_ImplTraits_SupportSIMD<Impl>)
       // ref:
       // https://stackoverflow.com/questions/20083997/how-to-negate-change-sign-of-the-floating-point-elements-in-a-m128-type-vari
       return _mm_sub_ps(Impl{0.f}, x);
     else
-#endif  // SMKZ_USE_SIMD
+#endif  // MYGM_USE_SIMD
     {
       if constexpr (std::is_same_v<T, bool>) {
         Impl rst;
@@ -71,11 +71,11 @@ struct IArrayAdd : Base {
 
   Impl impl_minus(const Impl& y) const noexcept {
     const auto& x = static_cast<const Impl&>(*this);
-#ifdef SMKZ_USE_SIMD
+#ifdef MYGM_USE_SIMD
     if constexpr (SI_ImplTraits_SupportSIMD<Impl>) {
       return _mm_sub_ps(x, y);
     } else
-#endif  // SMKZ_USE_SIMD
+#endif  // MYGM_USE_SIMD
     {
       Impl rst;
       for (size_t i = 0; i < N; i++) rst[i] = x[i] - y[i];
@@ -85,11 +85,11 @@ struct IArrayAdd : Base {
 
   Impl& impl_minus_to_self(const Impl& y) noexcept {
     auto& x = static_cast<Impl&>(*this);
-#ifdef SMKZ_USE_SIMD
+#ifdef MYGM_USE_SIMD
     if constexpr (SI_ImplTraits_SupportSIMD<Impl>) {
       return x = x - y;
     } else
-#endif  // SMKZ_USE_SIMD
+#endif  // MYGM_USE_SIMD
     {
       for (size_t i = 0; i < N; i++) x[i] -= y[i];
       return x;
@@ -99,11 +99,11 @@ struct IArrayAdd : Base {
   template <typename U, std::enable_if_t<std::is_integral_v<U>>* = nullptr>
   Impl impl_add_mul(U v) const noexcept {
     const auto& x = static_cast<const Impl&>(*this);
-#ifdef SMKZ_USE_SIMD
+#ifdef MYGM_USE_SIMD
     if constexpr (SI_ImplTraits_SupportSIMD<Impl>)
       return _mm_mul_ps(x, Impl{v});
     else
-#endif  // SMKZ_USE_SIMD
+#endif  // MYGM_USE_SIMD
     {
       Impl rst;
       for (size_t i = 0; i < N; i++) rst[i] = x[i] * v;
@@ -114,17 +114,17 @@ struct IArrayAdd : Base {
   template <typename U, std::enable_if_t<std::is_integral_v<U>>* = nullptr>
   Impl& impl_add_mul_to_self(U v) noexcept {
     auto& x = static_cast<Impl&>(*this);
-#ifdef SMKZ_USE_SIMD
+#ifdef MYGM_USE_SIMD
     if constexpr (SI_ImplTraits_SupportSIMD<Impl>)
       return x = x * v;
     else
-#endif  // SMKZ_USE_SIMD
+#endif  // MYGM_USE_SIMD
     {
       for (size_t i = 0; i < N; i++) x[i] *= v;
       return x;
     }
   }
 };
-}  // namespace Smkz
+}  // namespace My
 
-SI_InterfaceTraits_Register(Smkz::IArrayAdd, Smkz::IAdd, Smkz::IArray);
+SI_InterfaceTraits_Register(My::IArrayAdd, My::IAdd, My::IArray);

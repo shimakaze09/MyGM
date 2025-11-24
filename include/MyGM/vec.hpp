@@ -4,17 +4,42 @@
 #include "Interfaces/IArray/ICross.hpp"
 #include "details/traits.hpp"
 
-namespace Smkz {
+namespace My {
+/**
+ * @brief Traits for the vec class.
+ *
+ * Defines the properties of the vec class, including its element type,
+ * dimension, and the interfaces it implements.
+ *
+ * @tparam T The element type (e.g., float, int).
+ * @tparam N The dimension of the vector.
+ */
 template <typename T, size_t N>
 struct SI_ImplTraits<vec<T, N>> : Array1DTraits<T, N>,
                                   IListTraits<IArray1D_Util, IEuclideanV>,
-                                  ArrayImplNTraits<vec, T> {};
+                                  ArrayImplNTraits<vec, T>,
+                                  SIMDTraits<true> {};
 
+/**
+ * @brief Specialization of traits for 3D vectors.
+ *
+ * Adds the ICross interface for 3D vectors to support cross product operations.
+ */
 template <typename T>
 struct SI_ImplTraits<vec<T, 3>> : Array1DTraits<T, 3>,
                                   IListTraits<IArray1D_Util, ICross>,
                                   ArrayImplNTraits<vec, T> {};
 
+/**
+ * @brief A generic vector class.
+ *
+ * Represents a mathematical vector with N components of type T.
+ * It inherits functionality from various interfaces via the SI (Static Interface)
+ * base class.
+ *
+ * @tparam T The element type.
+ * @tparam N The dimension.
+ */
 template <typename T, size_t N>
 struct vec : SI<vec<T, N>> {
   using SI<vec<T, N>>::SI;
@@ -46,4 +71,4 @@ using vecu4 = vecu<4>;
 
 // maybe error in editor, but no compile error
 static_assert(sizeof(vecf4) == 4 * sizeof(float));
-}  // namespace  Smkz
+}  // namespace My

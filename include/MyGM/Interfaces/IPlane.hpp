@@ -3,10 +3,10 @@
 #include "IAffineRealSubspace.hpp"
 #include "IOPlane.hpp"
 
-namespace Smkz {
+namespace My {
 template <typename Base, typename Impl>
 struct IPlane;
 }
 
 // plane in real affine subspace
-SI_CombineInterface(Smkz::IPlane, Smkz::IAffineRealSubspace, Smkz::IOPlane);
+SI_CombineInterface(My::IPlane, My::IAffineRealSubspace, My::IOPlane);

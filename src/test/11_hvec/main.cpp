@@ -1,7 +1,7 @@
 #include <MyGM/transform.hpp>
 #include <iostream>
 
-using namespace Smkz;
+using namespace My;
 using namespace std;
 
 int main(int argc, char* argv[]) {

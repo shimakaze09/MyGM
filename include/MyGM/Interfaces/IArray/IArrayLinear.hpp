@@ -4,10 +4,10 @@
 #include "IArrayAdd.hpp"
 #include "IArrayScalarMul.hpp"
 
-namespace Smkz {
+namespace My {
 template <typename Base, typename Impl>
 struct IArrayLinear;
 }
 
-SI_CombineInterface(Smkz::IArrayLinear, Smkz::IArrayAdd, Smkz::IArrayScalarMul,
-                    Smkz::ILinear);
+SI_CombineInterface(My::IArrayLinear, My::IArrayAdd, My::IArrayScalarMul,
+                    My::ILinear);

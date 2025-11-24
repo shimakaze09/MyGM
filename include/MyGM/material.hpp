@@ -3,7 +3,7 @@
 #include "rgb.hpp"
 #include "svec.hpp"
 
-namespace Smkz {
+namespace My {
 // [summary]
 // schlick's approximation fresnel for dielectric
 // [reference]
@@ -113,6 +113,6 @@ float GGX_G(float alpha, const svecf& wi, const svecf& wo,
 // - wo: outgoing direction
 // - wm: microfacet normal
 float GGX_D(float alpha, const svecf& wm) noexcept;
-}  // namespace  Smkz
+}  // namespace  My
 
 #include "details/material.inl"

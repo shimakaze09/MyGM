@@ -3,7 +3,7 @@
 #include <iostream>
 
 using namespace std;
-using namespace Smkz;
+using namespace My;
 
 int main() {
   vecf3 axis(0, 1, 0);

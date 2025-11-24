@@ -2,7 +2,7 @@
 
 #include "point.hpp"
 
-namespace Smkz {
+namespace My {
 template <typename T, size_t N>
 struct SI_ImplTraits<hvec<T, N>> : SI_ImplTraits<vec<T, N>> {};
 
@@ -54,6 +54,6 @@ using hvecu4 = hvecu<4>;
 
 // maybe error in editor, but no compile error
 static_assert(sizeof(hvecf4) == 4 * sizeof(float));
-}  // namespace  Smkz
+}  // namespace  My
 
 #include "details/hvec.inl"

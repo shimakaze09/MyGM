@@ -1,7 +1,7 @@
 #pragma once
 
-#ifndef SMKZ_NOT_USE_SIMD
-#define SMKZ_USE_SIMD
+#ifndef MYGM_NOT_USE_SIMD
+#define MYGM_USE_SIMD
 #include <pmmintrin.h>
 
 // ref: https://www.cnblogs.com/elvisxu/archive/2011/06/26/2090832.html
@@ -35,8 +35,8 @@ inline __m128 _mm_abs_ps(__m128 a) {
 #define VecShuffle_0101(vec1, vec2) _mm_movelh_ps(vec1, vec2)
 #define VecShuffle_2323(vec1, vec2) _mm_movehl_ps(vec2, vec1)
 
-#ifndef SMKZ_NOT_USE_SSE_4_1
-#define SMKZ_USE_SSE_4_1
+#ifndef MYGM_NOT_USE_SSE_4_1
+#define MYGM_USE_SSE_4_1
 /*
 <mmintrin.h>  MMX
 <xmmintrin.h> SSE
@@ -50,10 +50,10 @@ inline __m128 _mm_abs_ps(__m128 a) {
 <immintrin.h> AVX, AVX2, FMA
 */
 #include <smmintrin.h>
-#endif  // !SMKZ_NOT_USE_SSE_4_1
+#endif  // !MYGM_NOT_USE_SSE_4_1
 
-#endif  // !SMKZ_NOT_USE_SIMD
+#endif  // !MYGM_NOT_USE_SIMD
 
 // opengl : -1
 // dx : 0
-#define SMKZ_DEFAULT_NEAR_CLIP_VALUE -1
+#define MYGM_DEFAULT_NEAR_CLIP_VALUE -1

@@ -2,7 +2,7 @@
 
 #include "line.hpp"
 
-namespace Smkz {
+namespace My {
 template <typename T, size_t N>
 struct SI_ImplTraits<ray<T, N>> : SI_ImplTraits<line<T, N>> {};
 
@@ -68,6 +68,6 @@ using rayf3 = rayf<3>;
 
 // maybe error in editor, but no compile error
 static_assert(sizeof(rayf3) == 8 * sizeof(float));
-}  // namespace  Smkz
+}  // namespace  My
 
 #include "details/ray.inl"

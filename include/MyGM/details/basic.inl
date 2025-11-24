@@ -3,7 +3,7 @@
 #include <limits>
 #include <type_traits>
 
-namespace Smkz::detail::Basic {
+namespace My::detail::Basic {
 template <typename T>
 struct rmv_epsilon;
 template <typename T>
@@ -12,9 +12,9 @@ template <typename T>
 struct is_nan;
 template <typename T, typename F>
 struct lerp;
-}  // namespace  Smkz::detail::Basic
+}  // namespace  My::detail::Basic
 
-namespace Smkz {
+namespace My {
 template <typename T>
 T rmv_epsilon(T val) noexcept {
   return detail::Basic::rmv_epsilon<T>::run(val);
@@ -88,9 +88,9 @@ constexpr T pow5(T x) noexcept {
   T x2 = pow2(x);
   return x2 * x2 * x;
 }
-}  // namespace  Smkz
+}  // namespace  My
 
-namespace Smkz::detail::Basic {
+namespace My::detail::Basic {
 template <typename T>
 struct rmv_epsilon {
   static T run(T val) noexcept {
@@ -164,4 +164,4 @@ struct lerp<V<T, N>, F> {
     return V<T, N>::lerp(x, y, static_cast<T>(t));
   }
 };
-}  // namespace  Smkz::detail::Basic
+}  // namespace  My::detail::Basic

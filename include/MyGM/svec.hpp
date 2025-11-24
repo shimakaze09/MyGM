@@ -2,7 +2,7 @@
 
 #include "mat.hpp"
 
-namespace Smkz {
+namespace My {
 template <typename T>
 struct SI_ImplTraits<svec<T>> : Array1DTraits<T, 3>,
                                 IListTraits<IArray1D_Util, ICross> {};
@@ -81,6 +81,6 @@ using svecf = svec<float>;
 
 // maybe error in editor, but no compile error
 static_assert(sizeof(svecf) == 3 * sizeof(float));
-}  // namespace  Smkz
+}  // namespace  My
 
 #include "details/svec.inl"

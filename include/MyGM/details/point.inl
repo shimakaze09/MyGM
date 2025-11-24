@@ -1,6 +1,6 @@
 #pragma once
 
-namespace Smkz {
+namespace My {
 template <typename T, size_t N>
 template <typename Container>
 point<T, N> point<T, N>::combine(const Container& points, T weight) noexcept {
@@ -25,4 +25,4 @@ point<T, N> point<T, N>::combine(PContainer points,
   }
   return rst;
 }
-}  // namespace  Smkz
+}  // namespace  My

@@ -1,6 +1,6 @@
 #pragma once
 
-namespace Smkz {
+namespace My {
 template <typename T>
 void plane<T>::print(std::ostream& os) const {
   os << "[ point  : " << this->point << " ]" << std::endl
@@ -18,4 +18,4 @@ std::istream& plane<T>::impl_in(std::istream& is) {
   is >> this->point >> this->normal;
   return is;
 }
-}  // namespace  Smkz
+}  // namespace  My

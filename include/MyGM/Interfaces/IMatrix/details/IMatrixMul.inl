@@ -1,11 +1,11 @@
 #pragma once
 
 #pragma region Eric_inverse
-#ifdef SMKZ_USE_SIMD
+#ifdef MYGM_USE_SIMD
 
 #include "../../../val.hpp"
 
-namespace Smkz::details::IMatrixMul::Eric {
+namespace My::details::IMatrixMul::Eric {
 // for column major matrix
 // we use __m128 to represent 2x2 matrix as A = | A0  A2 |
 //                                              | A1  A3 |
@@ -86,7 +86,7 @@ M GetInverse(const M& inM) {
   // tr((A#B)(D#C))
   __m128 tr = _mm_mul_ps(A_B, VecSwizzle(D_C, 0, 2, 1, 3));
 
-#ifdef SMKZ_USE_SSE_4_1
+#ifdef MYGM_USE_SSE_4_1
   tr = _mm_hadd_ps(tr, tr);
   tr = _mm_hadd_ps(tr, tr);
 #else
@@ -94,7 +94,7 @@ M GetInverse(const M& inM) {
   __m128 tmp_tr =
       _mm_add_ps(tr, _mm_shuffle_ps(tr, tr, 177));          // 177 : 0b10110001
   tr = _mm_add_ps(tr, _mm_shuffle_ps(tmp_tr, tmp_tr, 78));  // 78 : 0b01001110
-#endif  // SMKZ_USE_SSE_4_1
+#endif  // MYGM_USE_SSE_4_1
 
   // |M| = |A|*|D| + |B|*|C| - tr((A#B)(D#C))
   detM = _mm_sub_ps(detM, tr);
@@ -119,11 +119,11 @@ M GetInverse(const M& inM) {
 
   return r;
 }
-}  // namespace  Smkz::details::IMatrixMul::Eric
-#endif  // SMKZ_USE_SIMD
+}  // namespace  My::details::IMatrixMul::Eric
+#endif  // MYGM_USE_SIMD
 #pragma endregion
 
-namespace Smkz::details::IMatrixMul {
+namespace My::details::IMatrixMul {
 template <size_t N>
 struct inverse;
 
@@ -181,7 +181,7 @@ struct inverse<4> {
     static_assert(M::N == 4);
     using F = typename M::F;
 
-#ifdef SMKZ_USE_SIMD
+#ifdef MYGM_USE_SIMD
     if constexpr (SI_ImplTraits_SupportSIMD<SI_ImplTraits_T<M>>::value) {
 #if 1  // Eric:
        // https://lxjk.github.io/2017/09/03/Fast-4x4-Matrix-Inverse-with-SSE-SIMD-Explained.html
@@ -289,7 +289,7 @@ struct inverse<4> {
       return {rst0, rst1, rst2, rst3};
 #endif
     } else
-#endif  // SMKZ_USE_SIMD
+#endif  // MYGM_USE_SIMD
     {
       M rst{};
 
@@ -462,10 +462,10 @@ struct mul<4> {
   static M run(const M& x, const M& y) noexcept {
     static_assert(M::N == 4);
     using F = typename M::F;
-#ifdef SMKZ_USE_SIMD
+#ifdef MYGM_USE_SIMD
     if constexpr (std::is_same_v<F, float>)
       return {x * y[0], x * y[1], x * y[2], x * y[3]};
-#endif  // SMKZ_USE_SIMD
+#endif  // MYGM_USE_SIMD
     {
       // must unloop by hand, complier may not auto unloop
       F f00 = x(0, 0) * y(0, 0) + x(0, 1) * y(1, 0) + x(0, 2) * y(2, 0) +
@@ -512,11 +512,11 @@ struct mul<4> {
     static_assert(M::N == 4);
     using F = typename M::F;
 
-#ifdef SMKZ_USE_SIMD
+#ifdef MYGM_USE_SIMD
     if constexpr (SI_ImplTraits_SupportSIMD<SI_ImplTraits_T<M>>::value)
       return m[0] * v[0] + m[1] * v[1] + m[2] * v[2] + m[3] * v[3];
     else
-#endif  // SMKZ_USE_SIMD
+#endif  // MYGM_USE_SIMD
     {
       F x = v[0];
       F y = v[1];
@@ -532,4 +532,4 @@ struct mul<4> {
     }
   }
 };
-}  // namespace  Smkz::details::IMatrixMul
+}  // namespace  My::details::IMatrixMul

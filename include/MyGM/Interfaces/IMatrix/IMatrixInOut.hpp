@@ -6,7 +6,7 @@
 #include "../IInOut.hpp"
 #include "IMatrix.hpp"
 
-namespace Smkz {
+namespace My {
 template <typename Base, typename Impl>
 struct IMatrixInOut : Base {
   using Base::Base;
@@ -23,6 +23,6 @@ struct IMatrixInOut : Base {
     }
   }
 };
-}  // namespace  Smkz
+}  // namespace  My
 
-SI_InterfaceTraits_Register(Smkz::IMatrixInOut, Smkz::IMatrix);
+SI_InterfaceTraits_Register(My::IMatrixInOut, My::IMatrix);

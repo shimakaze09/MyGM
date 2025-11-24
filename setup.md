@@ -26,8 +26,8 @@
             - `BUILD_TEST_MyCMake` (enabled by default): Example of the dependent library CMake, can be skipped
             - `BUILD_TEST_MyGM` (enabled by default): Example of MyGM, recommended to build
             - `BUILD_TEST_MyTemplate` (enabled by default): Example of MyTemplate, can be skipped
-            - `SMKZ_USE_SIMD` (enabled by default): Ensure your CPU supports SSE 2
-            - `SMKZ_USE_SSE_4_1` (enabled by default): Ensure your CPU supports SSE 4.1
+            - `MYGM_USE_SIMD` (enabled by default): Ensure your CPU supports SSE 2
+            - `MYGM_USE_SSE_4_1` (enabled by default): Ensure your CPU supports SSE 4.1
     - Click Generate
     - Click Open Project, this will **open VS2019**
 - After opening VS2019
@@ -54,7 +54,7 @@
   // main.cpp
   #include <MyGM/MyGM.h>
   #include <iostream>
-  using namespace Smkz;
+  using namespace My;
   int main(){
       pointf3 p{0, 1, 2};
       pointf3 q{2, 1, 0};

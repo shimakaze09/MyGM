@@ -1,15 +1,16 @@
 #pragma once
 
 #include <MyTemplate/SI.hpp>
+#include "../config.hpp"
 
-namespace Smkz::details {
+namespace My::details {
 template <typename Impl>
 struct SI_ImplTraits_SupportSIMD;
 template <typename Impl, std::size_t N>
 struct SI_ImplTraits_SupportImplN;
-}  // namespace  Smkz::details
+}  // namespace  My::details
 
-namespace Smkz {
+namespace My {
 // element type
 template <typename Impl>
 using SI_ImplTraits_T = typename SI_ImplTraits<Impl>::T;
@@ -40,20 +41,21 @@ constexpr bool SI_ImplTraits_SupportSIMD =
 template <typename Impl, std::size_t N>
 constexpr bool SI_ImplTraits_SupportImplN =
     details::SI_ImplTraits_SupportImplN<Impl, N>::value;
-}  // namespace  Smkz
+}  // namespace  My
 
-namespace Smkz::details {
-#ifdef SMKZ_USE_SIMD
-template <typename Enabler, typename Impl>
+namespace My::details {
+#ifdef MYGM_USE_SIMD
+template <typename Impl, typename = void>
 struct SI_ImplTraits_SupportSIMD_Helper : std::true_type {};
+
 template <typename Impl>
 struct SI_ImplTraits_SupportSIMD_Helper<
-    std::enable_if_t<!SI_ImplTraits<Impl>::support_SIMD>, Impl>
-    : std::false_type {};
+    Impl, std::void_t<decltype(SI_ImplTraits<Impl>::support_SIMD)>>
+    : std::bool_constant<SI_ImplTraits<Impl>::support_SIMD> {};
 
 template <typename Impl>
 struct SI_ImplTraits_SupportSIMD
-    : IValue<bool, SI_ImplTraits_SupportSIMD_Helper<void, Impl>::value &&
+    : IValue<bool, SI_ImplTraits_SupportSIMD_Helper<Impl>::value &&
                        std::is_same_v<SI_ImplTraits_T<Impl>, float> &&
                        SI_ImplTraits_N<Impl> == 4> {};
 #else
@@ -63,6 +65,7 @@ struct SI_ImplTraits_SupportSIMD : std::false_type {};
 
 template <typename Enabler, typename Impl, std::size_t N>
 struct SI_ImplTraits_SupportImplN_Helper : std::false_type {};
+
 template <typename Impl, std::size_t N>
 struct SI_ImplTraits_SupportImplN_Helper<
     std::void_t<typename SI_ImplTraits<Impl>::template ImplN<N>>, Impl, N>
@@ -71,4 +74,4 @@ struct SI_ImplTraits_SupportImplN_Helper<
 template <typename Impl, std::size_t N>
 struct SI_ImplTraits_SupportImplN
     : SI_ImplTraits_SupportImplN_Helper<void, Impl, N> {};
-}  // namespace  Smkz::details
+}  // namespace  My::details

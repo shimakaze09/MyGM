@@ -5,7 +5,7 @@
 #include <iostream>
 
 using namespace std;
-using namespace Smkz;
+using namespace My;
 
 int main() {
   vecf3 v(1, 2, 3);

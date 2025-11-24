@@ -4,7 +4,7 @@
 #include <vector>
 
 using namespace std;
-using namespace Smkz;
+using namespace My;
 
 int main() {
   pointf3 o(1, 1, 1);

@@ -5,9 +5,9 @@
 #include "IAdd.hpp"
 #include "IMul.hpp"
 
-namespace Smkz {
+namespace My {
 template <typename Base, typename Impl>
 struct IRing;
 }
 
-SI_CombineInterface(Smkz::IRing, Smkz::IAdd, Smkz::IMul);
+SI_CombineInterface(My::IRing, My::IAdd, My::IMul);

@@ -1,6 +1,6 @@
 #pragma once
 
-namespace Smkz {
+namespace My {
 template <typename T, size_t N>
 template <typename Container, size_t... Ns>
 hvec<T, N>::hvec(const Container& c, T h, std::index_sequence<Ns...>) noexcept
@@ -25,11 +25,11 @@ hvec<T, N>::hvec(const vec<T, N>& v) noexcept
 template <typename T, size_t N>
 point<T, N - 1> hvec<T, N>::to_point() const noexcept {
   assert((*this)[N - 1] != ZERO<T>);
-#ifdef SMKZ_USE_SIMD
+#ifdef MYGM_USE_SIMD
   if constexpr (SI_ImplTraits_SupportSIMD<hvec>)
     return ((*this) / this->template get<3>()).template cast_to<pointf3>();
   else
-#endif  // SMKZ_USE_SIMD
+#endif  // MYGM_USE_SIMD
   {
     if constexpr (N >= 4) {
       if ((*this)[N - 1] == ONE<T>)
@@ -54,4 +54,4 @@ vec<T, N - 1> hvec<T, N>::to_vec() const noexcept {
   assert(std::abs((*this)[N - 1]) < EPSILON<T>);
   return this->template cast_to<vec<T, N - 1>>();
 }
-}  // namespace  Smkz
+}  // namespace  My

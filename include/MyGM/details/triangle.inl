@@ -1,6 +1,6 @@
 #pragma once
 
-namespace Smkz {
+namespace My {
 template <typename T, size_t N>
 T triangle<T, N>::area() const noexcept {
   static_assert(N == 2 || N == 3);
@@ -20,4 +20,4 @@ point<T, N> triangle<T, N>::lerp(const Container& wuv) const noexcept {
   assert(wuv.size() == 3);
   return point<T, N>::combine(*this, wuv);
 }
-}  // namespace  Smkz
+}  // namespace  My

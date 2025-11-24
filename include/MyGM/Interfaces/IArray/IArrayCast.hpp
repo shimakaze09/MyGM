@@ -3,7 +3,7 @@
 #include "IArray.hpp"
 #include "IArray1D.hpp"
 
-namespace Smkz {
+namespace My {
 template <typename Base, typename Impl>
 struct IArrayCast : Base {
   using Base::Base;
@@ -39,6 +39,6 @@ struct IArrayCast : Base {
     return {static_cast<typename To::T>((*this)[Ns])...};
   }
 };
-}  // namespace  Smkz
+}  // namespace  My
 
-SI_InterfaceTraits_Register(Smkz::IArrayCast, Smkz::IArray);
+SI_InterfaceTraits_Register(My::IArrayCast, My::IArray);

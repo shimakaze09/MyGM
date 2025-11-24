@@ -1,6 +1,6 @@
 #pragma once
 
-namespace Smkz {
+namespace My {
 template <typename Base, typename Impl>
 struct IAdd : Base {
   using Base::Base;
@@ -42,4 +42,4 @@ struct IAdd : Base {
 
   friend Impl operator*(int k, const Impl& x) noexcept { return x * k; }
 };
-}  // namespace  Smkz
+}  // namespace  My

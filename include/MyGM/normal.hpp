@@ -1,8 +1,8 @@
-﻿#pragma once
+#pragma once
 
 #include "point.hpp"
 
-namespace Smkz {
+namespace My {
 template <typename T>
 struct SI_ImplTraits<normal<T>> : Array1DTraits<T, 3>,
                                   IListTraits<IArray1D_Util, ICross> {};
@@ -29,6 +29,6 @@ using normalf = normal<float>;
 
 // maybe error in editor, but no compile error
 static_assert(sizeof(normalf) == 3 * sizeof(float));
-}  // namespace  Smkz
+}  // namespace  My
 
 #include "details/normal.inl"

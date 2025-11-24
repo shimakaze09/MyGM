@@ -3,7 +3,7 @@
 #include "point.hpp"
 #include "val.hpp"
 
-namespace Smkz {
+namespace My {
 template <typename T, size_t N>
 struct SI_ImplTraits<triangle<T, N>> : ArrayTraits<point<T, N>, 3, T>,
                                        IListTraits<IArrayInOut> {};
@@ -26,6 +26,6 @@ using trianglef3 = trianglef<3>;
 
 // maybe error in editor, but no compile error
 static_assert(sizeof(trianglef3) == 9 * sizeof(float));
-}  // namespace  Smkz
+}  // namespace  My
 
 #include "details/triangle.inl"

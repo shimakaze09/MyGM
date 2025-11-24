@@ -7,7 +7,7 @@
 #include "details/traits.hpp"
 #include "val.hpp"
 
-namespace Smkz {
+namespace My {
 template <typename T>
 struct SI_ImplTraits<rgb<T>>
     : Array1DTraits<T, 3>,
@@ -35,4 +35,4 @@ using rgbf = rgb<float>;
 
 // maybe error in editor, but no compile error
 static_assert(sizeof(rgbf) == 3 * sizeof(float));
-}  // namespace  Smkz
+}  // namespace  My

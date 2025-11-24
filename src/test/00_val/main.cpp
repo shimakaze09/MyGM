@@ -2,7 +2,7 @@
 #include <iostream>
 
 using namespace std;
-using namespace Smkz;
+using namespace My;
 
 int main() {
   valf3 v(1, 2, 3);

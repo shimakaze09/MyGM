@@ -4,7 +4,7 @@
 #include "Interfaces/IArray/IEuclideanA.hpp"
 #include "vec.hpp"
 
-namespace Smkz {
+namespace My {
 template <typename T, size_t N>
 struct SI_ImplTraits<point<T, N>> : Array1DTraits<T, N>,
                                     IListTraits<IArray1D_Util, IEuclideanA>,
@@ -54,6 +54,6 @@ using pointu4 = pointu<4>;
 
 // maybe error in editor, but no compile error
 static_assert(sizeof(pointf3) == sizeof(float) * 3);
-}  // namespace  Smkz
+}  // namespace  My
 
 #include "details/point.inl"

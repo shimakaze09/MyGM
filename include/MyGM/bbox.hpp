@@ -3,7 +3,7 @@
 #include "point.hpp"
 #include "val.hpp"
 
-namespace Smkz {
+namespace My {
 template <typename F, size_t N>
 struct SI_ImplTraits<bbox<F, N>> : ArrayTraits<point<F, N>, 2, F>,
                                    IListTraits<IArrayUtil> {};
@@ -70,6 +70,6 @@ using bboxu3 = bboxu<3>;
 
 // maybe error in editor, but no compile error
 static_assert(sizeof(bboxf3) == 6 * sizeof(float));
-}  // namespace  Smkz
+}  // namespace  My
 
 #include "details/bbox.inl"

@@ -4,7 +4,7 @@
 #include "../IMetric.hpp"
 #include "IEuclideanV.hpp"
 
-namespace Smkz {
+namespace My {
 // euclidean affine space
 template <typename Base, typename Point>
 struct IEuclideanA : Base {
@@ -33,11 +33,11 @@ struct IEuclideanA : Base {
 
   Point impl_affine_subspace_add(const Vector& v) const noexcept {
     auto& p = static_cast<const Point&>(*this);
-#ifdef SMKZ_USE_SIMD
+#ifdef MYGM_USE_SIMD
     if constexpr (SI_ImplTraits_SupportSIMD<Point>)
       return _mm_add_ps(p, v);
     else
-#endif  // SMKZ_USE_SIMD
+#endif  // MYGM_USE_SIMD
     {
       Point rst;
       for (size_t i = 0; i < N; i++) rst[i] = p[i] + v[i];
@@ -47,22 +47,22 @@ struct IEuclideanA : Base {
 
   Point& impl_affine_subspace_add_to_self(const Vector& v) noexcept {
     auto& p = static_cast<Point&>(*this);
-#ifdef SMKZ_USE_SIMD
+#ifdef MYGM_USE_SIMD
     if constexpr (SI_ImplTraits_SupportSIMD<Point>)
       return p = p + v;
     else
-#endif  // SMKZ_USE_SIMD
+#endif  // MYGM_USE_SIMD
       for (size_t i = 0; i < N; i++) p[i] += v[i];
     return p;
   }
 
   Point impl_affine_subspace_minus(const Vector& v) const noexcept {
     auto& p = static_cast<const Point&>(*this);
-#ifdef SMKZ_USE_SIMD
+#ifdef MYGM_USE_SIMD
     if constexpr (SI_ImplTraits_SupportSIMD<Point>)
       return _mm_sub_ps(p, v);
     else
-#endif  // SMKZ_USE_SIMD
+#endif  // MYGM_USE_SIMD
     {
       Point rst;
       for (size_t i = 0; i < N; i++) rst[i] = p[i] - v[i];
@@ -72,11 +72,11 @@ struct IEuclideanA : Base {
 
   Point& impl_affine_subspace_minus_to_self(const Vector& v) noexcept {
     auto& p = static_cast<Point&>(*this);
-#ifdef SMKZ_USE_SIMD
+#ifdef MYGM_USE_SIMD
     if constexpr (SI_ImplTraits_SupportSIMD<Point>)
       return p = p - v;
     else
-#endif  // SMKZ_USE_SIMD
+#endif  // MYGM_USE_SIMD
       for (size_t i = 0; i < N; i++) p[i] -= v[i];
     return p;
   }
@@ -86,7 +86,7 @@ struct IEuclideanA : Base {
 
   const Vector impl_affine_minus(const Point& y) const noexcept {
     auto& x = static_cast<const Point&>(*this);
-#ifdef SMKZ_USE_SIMD
+#ifdef MYGM_USE_SIMD
     if constexpr (SI_ImplTraits_SupportSIMD<Point>) return _mm_sub_ps(x, y);
     /* // no benefits
     else if constexpr (std::is_same_v<T, float> && N == 3) {
@@ -97,7 +97,7 @@ struct IEuclideanA : Base {
             return { srst[0], srst[1],srst[2] };
     }*/
     else
-#endif  // SMKZ_USE_SIMD
+#endif  // MYGM_USE_SIMD
     {
       Vector rst;
       for (size_t i = 0; i < N; i++) rst[i] = x[i] - y[i];
@@ -112,7 +112,7 @@ struct IEuclideanA : Base {
     return std::sqrt(distance2(x, y));
   }
 };
-}  // namespace  Smkz
+}  // namespace  My
 
-SI_InterfaceTraits_Register(Smkz::IEuclideanA, Smkz::IMetric, Smkz::IAffine,
-                            Smkz::IArray);
+SI_InterfaceTraits_Register(My::IEuclideanA, My::IMetric, My::IAffine,
+                            My::IArray);

@@ -13,7 +13,7 @@
 - Uses [single inheritance transformation technique](https://zhuanlan.zhihu.com/p/106672814) to optimize code
   structure (without relying on messy macros)
 - Provides [natvis](https://docs.microsoft.com/en-us/visualstudio/debugger/create-custom-views-of-native-objects?view=vs-2019)
-support for improved debugging experience
+  support for improved debugging experience
 - ...
 
 ## 1. Introduction
@@ -49,7 +49,7 @@ advantages:
 ```c++
 #include <MyGM/MyGM.h>
 
-using namespace  Smkz;
+using namespace  My;
 using namespace std;
 
 int main() {
@@ -230,7 +230,7 @@ IDE.
 >
 > > If the image fails to load, please use this
 > >
-link [TextBox default visualization](https://docs.microsoft.com/en-us/visualstudio/debugger/media/dbg_natvis_textbox_default.png?view=vs-2019)
+> > link [TextBox default visualization](https://docs.microsoft.com/en-us/visualstudio/debugger/media/dbg_natvis_textbox_default.png?view=vs-2019)
 
 When using `find_package(MyGM REQUIRED)`, a project containing `MyGM_<VERSION>.natvis` is automatically added to your
 solution, enabling natvis support for other

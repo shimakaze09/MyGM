@@ -2,7 +2,7 @@
 
 #include "INorm.hpp"
 
-namespace Smkz {
+namespace My {
 template <typename Base, typename Impl>
 struct IInnerProduct : Base {
   using Base::Base;
@@ -74,6 +74,6 @@ struct IInnerProduct : Base {
 
   F impl_norm() const noexcept { return std::sqrt(norm2()); }
 };
-}  // namespace  Smkz
+}  // namespace  My
 
-SI_InterfaceTraits_Register(Smkz::IInnerProduct, Smkz::INorm);
+SI_InterfaceTraits_Register(My::IInnerProduct, My::INorm);

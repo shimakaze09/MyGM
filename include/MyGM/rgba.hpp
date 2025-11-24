@@ -3,7 +3,7 @@
 #include "Interfaces/IArray/IArray1D_Util.hpp"
 #include "rgb.hpp"
 
-namespace Smkz {
+namespace My {
 template <typename T>
 struct SI_ImplTraits<rgba<T>> : Array1DTraits<T, 4>,
                                 SIMDTraits<false>,  // float4 not use SIMD
@@ -42,4 +42,4 @@ using rgbaf = rgba<float>;
 
 // maybe error in editor, but no compile error
 static_assert(sizeof(rgbaf) == 4 * sizeof(float));
-}  // namespace  Smkz
+}  // namespace  My

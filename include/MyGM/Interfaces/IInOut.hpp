@@ -2,7 +2,7 @@
 
 #include <iostream>
 
-namespace Smkz {
+namespace My {
 // virtual : in, out
 template <typename Base, typename Impl>
 struct IInOut : Base {
@@ -27,4 +27,4 @@ struct IInOut : Base {
     return x.impl_in(is);
   }
 };
-}  // namespace  Smkz
+}  // namespace  My

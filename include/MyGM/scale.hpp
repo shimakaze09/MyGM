@@ -5,7 +5,7 @@
 #include "Interfaces/IArray/IArrayScalarMul.hpp"
 #include "details/traits.hpp"
 
-namespace Smkz {
+namespace My {
 template <typename T, size_t N>
 struct SI_ImplTraits<scale<T, N>>
     : Array1DTraits<T, N>,
@@ -27,4 +27,4 @@ using scalef4 = scalef<4>;
 
 // maybe error in editor, but no compile error
 static_assert(sizeof(scalef4) == 4 * sizeof(float));
-}  // namespace  Smkz
+}  // namespace  My

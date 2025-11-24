@@ -14,7 +14,7 @@
 #include "scale.hpp"
 #include "vec.hpp"
 
-namespace Smkz {
+namespace My {
 template <typename F>
 struct SI_ImplTraits<transform<F>> : ArrayTraits<vec<F, 4>, 4, F>,
                                      IListTraits<IMatrixInOut, IMatrixMul> {};
@@ -61,7 +61,7 @@ struct transform : SI<transform<F>> {
   // aspect : width / height
   static transform perspective(
       F fovy, F aspect, F zNear, F zFar,
-      F near_clip_vlaue = SMKZ_DEFAULT_NEAR_CLIP_VALUE) noexcept;
+      F near_clip_vlaue = MYGM_DEFAULT_NEAR_CLIP_VALUE) noexcept;
 
   // sample: rotate_with<Axis::X>(to_radian(theta))
   template <Axis axis>
@@ -95,6 +95,6 @@ using transformf = transform<float>;
 
 // maybe error in editor, but no compile error
 static_assert(sizeof(transformf) == 16 * sizeof(float));
-}  // namespace  Smkz
+}  // namespace  My
 
 #include "details/transform.inl"

@@ -3,7 +3,7 @@
 #include "../IArray/IArrayUtil.hpp"
 #include "details/IMatrix.inl"
 
-namespace Smkz {
+namespace My {
 // simple [square] 2D array
 // column first
 template <typename Base, typename Impl>
@@ -169,6 +169,6 @@ struct IMatrix : Base {
 
   const F* data() const noexcept { return const_cast<IMatrix*>(this)->data(); }
 };
-}  // namespace  Smkz
+}  // namespace  My
 
-SI_InterfaceTraits_Register(Smkz::IMatrix, Smkz::IArrayUtil);
+SI_InterfaceTraits_Register(My::IMatrix, My::IArrayUtil);

@@ -3,7 +3,7 @@
 #include "../IScalarMul.hpp"
 #include "IArray.hpp"
 
-namespace Smkz {
+namespace My {
 template <typename Base, typename Impl>
 struct IArrayScalarMul : Base {
   using Base::Base;
@@ -12,7 +12,7 @@ struct IArrayScalarMul : Base {
   static constexpr size_t N = SI_ImplTraits_N<Impl>;
   using F = SI_ImplTraits_F<Impl>;
 
-#ifdef SMKZ_USE_SIMD
+#ifdef MYGM_USE_SIMD
   using Base::operator*;
   using Base::operator*=;
   using Base::operator/;
@@ -47,7 +47,7 @@ struct IArrayScalarMul : Base {
     auto& x = static_cast<Impl&>(*this);
     return x = x / k;
   }
-#endif  // SMKZ_USE_SIMD
+#endif  // MYGM_USE_SIMD
 
  private:
   template <typename, typename>
@@ -55,11 +55,11 @@ struct IArrayScalarMul : Base {
 
   Impl impl_scalar_mul(F k) const noexcept {
     const auto& x = static_cast<const Impl&>(*this);
-#ifdef SMKZ_USE_SIMD
+#ifdef MYGM_USE_SIMD
     if constexpr (SI_ImplTraits_SupportSIMD<Impl>)
       return _mm_mul_ps(x, Impl{k});
     else
-#endif  // SMKZ_USE_SIMD
+#endif  // MYGM_USE_SIMD
     {
       Impl rst;
       for (size_t i = 0; i < N; i++) rst[i] = x[i] * k;
@@ -69,18 +69,18 @@ struct IArrayScalarMul : Base {
 
   Impl& impl_scalar_mul_to_self(F k) noexcept {
     auto& x = static_cast<Impl&>(*this);
-#ifdef SMKZ_USE_SIMD
+#ifdef MYGM_USE_SIMD
     if constexpr (SI_ImplTraits_SupportSIMD<Impl>)
       return x = x * k;
     else
-#endif  // SMKZ_USE_SIMD
+#endif  // MYGM_USE_SIMD
     {
       for (size_t i = 0; i < N; i++) x[i] *= k;
       return x;
     }
   }
 };
-}  // namespace  Smkz
+}  // namespace  My
 
-SI_InterfaceTraits_Register(Smkz::IArrayScalarMul, Smkz::IScalarMul,
-                            Smkz::IArray);
+SI_InterfaceTraits_Register(My::IArrayScalarMul, My::IScalarMul,
+                            My::IArray);

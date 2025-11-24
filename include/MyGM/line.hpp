@@ -4,7 +4,7 @@
 #include "bbox.hpp"
 #include "triangle.hpp"
 
-namespace Smkz {
+namespace My {
 template <typename T, size_t N>
 struct line;
 
@@ -60,6 +60,6 @@ using linef3 = linef<3>;
 
 // maybe error in editor, but no compile error
 static_assert(sizeof(linef3) == 6 * sizeof(float));
-}  // namespace  Smkz
+}  // namespace  My
 
 #include "details/line.inl"

@@ -2,7 +2,7 @@
 
 #include "IEuclideanV.hpp"
 
-namespace Smkz {
+namespace My {
 template <typename Base, typename Impl>
 struct ICross : Base {
   using Base::Base;
@@ -33,6 +33,6 @@ struct ICross : Base {
     return sin_theta(x, y);
   }
 };
-}  // namespace  Smkz
+}  // namespace  My
 
-SI_InterfaceTraits_Register(Smkz::ICross, Smkz::IEuclideanV);
+SI_InterfaceTraits_Register(My::ICross, My::IEuclideanV);

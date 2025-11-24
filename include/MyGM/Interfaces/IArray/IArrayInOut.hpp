@@ -6,7 +6,7 @@
 #include "../IInOut.hpp"
 #include "IArray.hpp"
 
-namespace Smkz {
+namespace My {
 template <typename Base, typename Impl>
 struct IArrayInOut : Base {
   using Base::Base;
@@ -30,6 +30,6 @@ struct IArrayInOut : Base {
     return is;
   }
 };
-}  // namespace  Smkz
+}  // namespace  My
 
-SI_InterfaceTraits_Register(Smkz::IArrayInOut, Smkz::IArray, Smkz::IInOut);
+SI_InterfaceTraits_Register(My::IArrayInOut, My::IArray, My::IInOut);

@@ -1,6 +1,6 @@
 #pragma once
 
-namespace Smkz {
+namespace My {
 template <typename T, size_t N>
 template <size_t M>
 val<T, N>::operator mat<T, M>() const noexcept {
@@ -36,4 +36,4 @@ val<T, N>::operator transform<T>() const noexcept {
   rst[3][3] = (*this)[15];
   return rst;
 }
-}  // namespace  Smkz
+}  // namespace  My

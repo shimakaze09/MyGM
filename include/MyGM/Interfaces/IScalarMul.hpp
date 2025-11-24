@@ -5,13 +5,13 @@
 #include "IAdd.hpp"
 #include "ImplTraits.hpp"
 
-namespace Smkz::details::IScalarMul_ {
+namespace My::details::IScalarMul_ {
 template <typename Impl, typename U>
 static constexpr bool need_mul =
     !std::is_integral_v<U> || !SI_Contains_v<Impl, IAdd>;
 }
 
-namespace Smkz {
+namespace My {
 template <typename Base, typename Impl>
 struct IScalarMul : Base {
   using F = SI_ImplTraits_F<Impl>;
@@ -57,4 +57,4 @@ struct IScalarMul : Base {
     return x *= inverseK;
   }
 };
-}  // namespace  Smkz
+}  // namespace  My
